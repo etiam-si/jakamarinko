@@ -17,10 +17,10 @@ Write for two readers: a coach who joins later, and an AI that drafts plans. Be 
 7. **Taper and race week** per race length.
 8. **Red flags:** symptoms and patterns that stop the plan and go to a human (pain, illness, chest symptoms, overtraining signs, under-fuelling signs), with the exact action.
 9. **Retest rhythm:** when a new lab test is due, and how zones are updated.
-10. **Rules for the AI**, in a short numbered list it can follow literally (e.g. "never more than +10 % weekly volume", "never two threshold sessions on consecutive days for levels below advanced").
+10. **Hard rules**, in a short numbered list. The engine follows them, and **code checks every plan against them before it is sent** (there is no human approval step, so these rules are the safety net). Each rule must be checkable from plan data alone, e.g. "weekly volume ≤ 110 % of the average of the last 3 weeks", "no two threshold sessions on consecutive days below level advanced". Include the pre-approved responses (e.g. "illness reported → rest day, then easy days until the athlete reports feeling well").
 
 ## Acceptance criteria
-- [ ] Every rule in section 10 is concrete enough to write a unit test for (the reviewer picks 3 and writes the test as pseudo-code in the PR).
+- [ ] Every rule in section 10 is concrete enough to write a unit test for: the PR includes the rules as a machine-readable list (`docs/coaching-method/rules.yaml`) that the rule check (T22) will load.
 - [ ] Every sport in the product has its own section.
 - [ ] Red flags each have an action, not just a description.
 - [ ] Sources are listed; nothing presented as fact without a basis.

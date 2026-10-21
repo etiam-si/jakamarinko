@@ -34,8 +34,9 @@ pnpm db:generate         # after schema changes (see migration rule in docs/plan
 - Match the surrounding code: its comment density, naming and idioms. Small files, no speculative abstractions.
 
 ## Never
-- Mention AI, artificial intelligence, models, "automated" or similar in anything a customer can see: site, app, emails, ads, package names, SEO, error messages. AI is an internal tool for coaches. The only exception is the processor list in the privacy policy (T17). Never claim the opposite either ("handwritten", "no software").
-- Send anything generated to a customer without a coach approving it. Every draft goes to the coach's review queue.
+- Mention AI, artificial intelligence, models or similar in anything a customer can see: site, app, emails, ads, package names, SEO, error messages. Say "your plan", "your analysis". The only exception is the privacy policy (T17). Never claim the opposite either ("handwritten", "no software"), and never promise personal work from Jaka that the package doesn't include.
+- Send generated output to a customer without the automatic rule check (`docs/product.md`, "Coaching engine"). Red flags stop the engine and alert the coach.
+- Let generated text answer an athlete's message by itself. Messages are answered by a person.
 - Mention or use anything about Jaka Torkar (old site's partner). He is not part of this project.
 - Copy anything from the old Lovable site's design. Its texts are in `docs/content/` and that is all we take.
 - Use the Strava API (its terms ban AI use; see docs/product.md).
