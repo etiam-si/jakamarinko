@@ -13,6 +13,12 @@ services:
       - traefik.enable=true
       - traefik.http.routers.jakamarinko-web.rule=Host(`jakamarinko.com`)
       - traefik.http.services.jakamarinko-web.loadbalancer.server.port=3000
+      # Internal plan page for Jaka (apps/web/public/nacrt.html), behind basic auth.
+      - traefik.http.routers.jakamarinko-plan.rule=Host(`jakamarinko.com`) && Path(`/nacrt.html`)
+      - traefik.http.routers.jakamarinko-plan.priority=200
+      - traefik.http.routers.jakamarinko-plan.service=jakamarinko-web
+      - traefik.http.routers.jakamarinko-plan.middlewares=jakamarinko-plan-auth
+      - traefik.http.middlewares.jakamarinko-plan-auth.basicauth.users=jaka:$$apr1$$GYdaquQA$$CdK9U.f5wmLCed5YrESs71
 
   api:
     image: ghcr.io/etiam-si/jakamarinko-api:${IMAGE_TAG:-latest}

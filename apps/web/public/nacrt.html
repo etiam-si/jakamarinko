@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="sl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>Načrt platforme · Jaka Marinko</title>
+<style>
+  :root {
+    --bg: #f6f5f1; --surface: #ffffff; --ink: #16181d; --muted: #5d6270; --line: #e3e1da;
+    --accent: #0f6e5a; --accent-soft: #e2f1ec; --warn: #9a5b00; --warn-soft: #fbefdc;
+    --stop: #a3261b; --stop-soft: #fbe6e3;
+    --z1: #8fb9d6; --z2: #5aa58c; --z3: #e3b23c; --z4: #e07b39; --z5: #c2412f;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #111316; --surface: #1a1d22; --ink: #eceae4; --muted: #a3a7b1; --line: #2c3038;
+      --accent: #4fc2a3; --accent-soft: #15302a; --warn: #e8b25c; --warn-soft: #33270f;
+      --stop: #f08a7e; --stop-soft: #3a1915;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font: 16px/1.6 ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 0 16px; }
+  header.hero { padding: 56px 0 32px; border-bottom: 1px solid var(--line); }
+  .eyebrow { font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); font-weight: 600; }
+  h1 { font-size: clamp(30px, 6vw, 46px); line-height: 1.1; margin: 10px 0 14px; letter-spacing: -.02em; }
+  h2 { font-size: 24px; margin: 0 0 12px; letter-spacing: -.01em; }
+  h3 { font-size: 17px; margin: 22px 0 8px; }
+  p { margin: 0 0 12px; }
+  .lead { font-size: 18px; color: var(--muted); max-width: 640px; }
+  .meta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+  .pill { font-size: 13px; padding: 4px 10px; border-radius: 999px; background: var(--surface); border: 1px solid var(--line); color: var(--muted); }
+  .pill.draft { background: var(--warn-soft); border-color: transparent; color: var(--warn); font-weight: 600; }
+  nav.toc { padding: 18px 0; border-bottom: 1px solid var(--line); font-size: 14px; }
+  nav.toc ol { margin: 0; padding-left: 20px; columns: 2; column-gap: 32px; }
+  nav.toc a { color: var(--ink); text-decoration: none; }
+  nav.toc a:hover { color: var(--accent); }
+  section { padding: 40px 0; border-bottom: 1px solid var(--line); }
+  .num { color: var(--accent); font-variant-numeric: tabular-nums; margin-right: 8px; }
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 18px 20px; }
+  .grid { display: grid; gap: 14px; }
+  @media (min-width: 680px) { .grid.c3 { grid-template-columns: repeat(3, 1fr); } .grid.c2 { grid-template-columns: repeat(2, 1fr); } }
+  .pkg h3 { margin-top: 0; }
+  .price { font-size: 30px; font-weight: 700; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
+  .price small { font-size: 14px; font-weight: 500; color: var(--muted); }
+  .pkg.star { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent) inset; }
+  .tag { display: inline-block; font-size: 12px; font-weight: 600; color: var(--accent); background: var(--accent-soft); padding: 2px 8px; border-radius: 6px; margin-bottom: 8px; }
+  ul.clean { list-style: none; padding: 0; margin: 10px 0 0; }
+  ul.clean li { padding: 5px 0 5px 22px; position: relative; border-top: 1px dashed var(--line); font-size: 15px; }
+  ul.clean li:first-child { border-top: 0; }
+  ul.clean li::before { content: ""; position: absolute; left: 4px; top: 13px; width: 8px; height: 8px; border-radius: 2px; background: var(--accent); }
+  .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
+  table { border-collapse: collapse; width: 100%; font-size: 15px; }
+  th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  tr:last-child td { border-bottom: 0; }
+  th { font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); font-weight: 600; }
+  td.r, th.r { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .flow { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 8px 0 4px; }
+  .step { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 8px 12px; font-size: 14px; font-weight: 600; }
+  .step span { display: block; font-size: 12px; font-weight: 400; color: var(--muted); }
+  .arrow { color: var(--muted); }
+  .zones { display: flex; height: 10px; border-radius: 6px; overflow: hidden; margin: 14px 0 4px; }
+  .zones i { flex: 1; } .zones i:nth-child(1){background:var(--z1)} .zones i:nth-child(2){background:var(--z2)} .zones i:nth-child(3){background:var(--z3)} .zones i:nth-child(4){background:var(--z4)} .zones i:nth-child(5){background:var(--z5)}
+  .note { border-left: 3px solid var(--accent); background: var(--accent-soft); padding: 12px 16px; border-radius: 0 10px 10px 0; font-size: 15px; }
+  .note.warn { border-color: var(--warn); background: var(--warn-soft); }
+  .note.stop { border-color: var(--stop); background: var(--stop-soft); }
+  .phases { counter-reset: ph; list-style: none; padding: 0; margin: 0; }
+  .phases li { position: relative; padding: 0 0 18px 44px; }
+  .phases li::before { counter-increment: ph; content: counter(ph, decimal); position: absolute; left: 0; top: 0; width: 30px; height: 30px; border-radius: 50%; background: var(--surface); border: 1px solid var(--line); display: grid; place-items: center; font-size: 13px; font-weight: 700; color: var(--accent); }
+  .phases li.p0::before { content: "0"; }
+  .phases li::after { content: ""; position: absolute; left: 15px; top: 32px; bottom: 2px; width: 1px; background: var(--line); }
+  .phases li:last-child::after { display: none; }
+  .phases b { display: block; }
+  .ask li { padding: 10px 0; border-top: 1px solid var(--line); list-style: none; display: grid; grid-template-columns: 22px 1fr; gap: 10px; }
+  .ask { padding: 0; margin: 0; }
+  .box { width: 18px; height: 18px; border: 2px solid var(--muted); border-radius: 4px; margin-top: 3px; }
+  .ask small { color: var(--muted); display: block; }
+  footer { padding: 32px 0 56px; color: var(--muted); font-size: 14px; }
+  @media print { nav.toc { display: none; } section { break-inside: avoid; } body { background: #fff; } }
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Jaka Marinko — Endurance Performance</div>
+    <h1>Načrt platforme</h1>
+    <p class="lead">Kaj gradimo, kako bo delovalo in kaj potrebujemo od tebe. Preberi, označi, kar ni prav, in pošlji Gregi pripombe.</p>
+    <div class="meta">
+      <span class="pill draft">Osnutek za pregled</span>
+      <span class="pill">21. 10. 2026</span>
+      <span class="pill">Interni dokument — ne deli naprej</span>
+    </div>
+  </div>
+</header>
+
+<nav class="toc"><div class="wrap"><ol>
+  <li><a href="#povzetek">Na kratko</a></li>
+  <li><a href="#ponudba">Ponudba in cene</a></li>
+  <li><a href="#delovanje">Kako deluje</a></li>
+  <li><a href="#varnost">Varnost športnikov</a></li>
+  <li><a href="#pregled">Pregled za stranko</a></li>
+  <li><a href="#rezervacije">Rezervacije</a></li>
+  <li><a href="#podatki">Podatki o treningih</a></li>
+  <li><a href="#trzenje">Jezika, znamka, trženje</a></li>
+  <li><a href="#faze">Faze gradnje</a></li>
+  <li><a href="#od-tebe">Kaj potrebujemo od tebe</a></li>
+</ol></div></nav>
+
+<main class="wrap">
+
+<section id="povzetek">
+  <h2><span class="num">01</span>Na kratko</h2>
+  <p>Tvoje trenerstvo in laboratorijske meritve postanejo ena spletna platforma (najprej splet, kasneje mobilna aplikacija). Česar nihče ne more kopirati, si <b>ti</b> (reprezentanca, VO₂max 80, Red Bull 400) in <b>prave laboratorijske meritve</b> (laktat, VO₂max).</p>
+  <p>Platforma v ozadju sama pripravlja načrte, analize treningov in poročila meritev, <b>po tvoji metodi in v nekaj minutah</b>. Ti tako lahko vodiš veliko več športnikov kot ročno, svoj čas pa porabiš za meritve, klice in športnike, ki te res potrebujejo.</p>
+  <div class="note">Platforma interno uporablja umetno inteligenco, strankam pa tega ne omenjamo. Stranka vidi »tvoj načrt«, »tvojo analizo«, »tvoje poročilo«. Tako ne tekmujemo z aplikacijami, kot sta Runna in TrainerRoad. Prodajamo tebe, meritve in podatke.</div>
+</section>
+
+<section id="ponudba">
+  <h2><span class="num">02</span>Ponudba in cene</h2>
+  <h3>Mesečni paketi</h3>
+  <div class="grid c3">
+    <div class="card pkg">
+      <h3>Plan</h3>
+      <div class="price">25 € <small>/ mesec</small></div>
+      <ul class="clean">
+        <li>Načrt po tvoji metodi, ki se vsak teden prilagodi</li>
+        <li>Analiza vsakega treninga v nekaj minutah</li>
+        <li>Tedenski povzetek</li>
+        <li>−20 % na meritve</li>
+        <li>Sporočila, odgovor v 72 h</li>
+      </ul>
+    </div>
+    <div class="card pkg star">
+      <span class="tag">Glavni paket</span>
+      <h3>Coaching</h3>
+      <div class="price">119 € <small>/ mesec</small></div>
+      <ul class="clean">
+        <li>Vse iz paketa Plan</li>
+        <li>Tvoji osebni komentarji na tedne</li>
+        <li>Laktatna meritev vsake 3 mesece</li>
+        <li>Odgovor v 48 h + klic enkrat na mesec</li>
+        <li>Priprava na tekme in taktika</li>
+      </ul>
+    </div>
+    <div class="card pkg">
+      <h3>Elite</h3>
+      <div class="price">229 € <small>/ mesec</small></div>
+      <ul class="clean">
+        <li>Vse iz paketa Coaching</li>
+        <li>Prilagoditve iz dneva v dan</li>
+        <li>Laktat vsaka 2 meseca + Performance paket 2× letno</li>
+        <li>Odgovor v 24 h + klic na 2 tedna</li>
+        <li>2 osebna treninga na mesec</li>
+      </ul>
+    </div>
+  </div>
+  <p style="margin-top:14px">Pri Coaching in Elite najmanj 3 mesece. Pri plačilu za leto vnaprej sta 2 meseca brezplačna.</p>
+
+  <h3>Laboratorijske meritve (posamično)</h3>
+  <div class="table-wrap"><table>
+    <tr><th>Meritev</th><th class="r">Cena</th></tr>
+    <tr><td>VO₂max</td><td class="r">90 €</td></tr>
+    <tr><td>Laktatni profil</td><td class="r">90 €</td></tr>
+    <tr><td>VO₂max + laktat</td><td class="r">150 €</td></tr>
+    <tr><td>Analiza porabe maščob in OH</td><td class="r">130 €</td></tr>
+    <tr><td>Ekonomičnost teka</td><td class="r">80 €</td></tr>
+    <tr><td>Antropometrija</td><td class="r">50 €</td></tr>
+    <tr><td><b>Performance paket</b> (VO₂max, laktat, maščobe, antropometrija, razlaga, cone)</td><td class="r"><b>250 €</b></td></tr>
+  </table></div>
+  <p style="margin-top:12px">Vsaka meritev se konča s ponudbo: 30 dni paketa Plan brezplačno ali prvi mesec Coaching za −50 %. Meritev je najcenejša pot do novega naročnika.</p>
+
+  <h3>Ostalo</h3>
+  <ul class="clean">
+    <li><b>Osebni trening</b>: posamezno ali paket 10 ur s popustom</li>
+    <li><b>Priprava na tekmo</b>: 12–16 tednov za eno tekmo, z meritvijo na začetku in koncu, enkratno plačilo</li>
+    <li><b>Krediti</b>: paketi dajejo kredite za meritve in treninge. Stranka jih porabi ob rezervaciji, brez dodatnega plačila.</li>
+  </ul>
+
+  <h3>Koliko tvojega časa to vzame (ocena)</h3>
+  <div class="table-wrap"><table>
+    <tr><th>Paket</th><th class="r">Tvoje ure / športnik / mesec</th></tr>
+    <tr><td>Plan</td><td class="r">~0,1</td></tr>
+    <tr><td>Coaching</td><td class="r">~1,5</td></tr>
+    <tr><td>Elite</td><td class="r">~6</td></tr>
+  </table></div>
+  <p style="margin-top:12px">Primer: 30 × Coaching + 6 × Elite ≈ <b>4.900 €/mesec</b> za približno 100 ur, plus meritve in paket Plan, ki skoraj ne vzame časa (200 × 25 € = 5.000 € za ~20 ur).</p>
+</section>
+
+<section id="delovanje">
+  <h2><span class="num">03</span>Kako deluje</h2>
+  <div class="flow">
+    <div class="step">Meritev<span>laktat, VO₂max</span></div><span class="arrow">→</span>
+    <div class="step">Cone<span>iz meritve</span></div><span class="arrow">→</span>
+    <div class="step">Načrt<span>po tvoji metodi</span></div><span class="arrow">→</span>
+    <div class="step">Trening<span>datoteka z ure</span></div><span class="arrow">→</span>
+    <div class="step">Analiza<span>v nekaj minutah</span></div><span class="arrow">→</span>
+    <div class="step">Nova meritev<span>ko je čas</span></div>
+  </div>
+  <div class="zones" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+  <h3>Hitrost</h3>
+  <div class="table-wrap"><table>
+    <tr><th>Kaj se zgodi</th><th>Kaj dobi stranka</th><th class="r">V kolikšnem času</th></tr>
+    <tr><td>Naloži trening</td><td>Analiza + posodobljen teden</td><td class="r">&lt; 2 min</td></tr>
+    <tr><td>Ti vneseš rezultate meritve</td><td>Poročilo + cone v aplikaciji in po e-pošti</td><td class="r">&lt; 5 min</td></tr>
+    <tr><td>Nov naročnik</td><td>Prvi blok treningov + ta teden</td><td class="r">&lt; 10 min</td></tr>
+    <tr><td>Dnevni vprašalnik (spanje, utrujenost, bolečine)</td><td>Današnji trening prilagojen</td><td class="r">&lt; 1 min</td></tr>
+    <tr><td>Nedelja zvečer</td><td>Tedenski povzetek + naslednji teden</td><td class="r">do pon. 06:00</td></tr>
+  </table></div>
+  <p style="margin-top:12px">Nič ne čaka na tvojo odobritev. Vse, kar platforma pošlje, vidiš v svojem pregledu in lahko z enim klikom popraviš ali razveljaviš.</p>
+  <div class="note warn"><b>Sporočila strank vedno odgovori človek</b> (ti ali trener). Platforma lahko predlaga odgovor, pošlje pa ga oseba. Če bi stranki samodejno odgovarjal program, bi ji po EU zakonodaji morali povedati, da se pogovarja z umetno inteligenco.</div>
+</section>
+
+<section id="varnost">
+  <h2><span class="num">04</span>Varnost športnikov</h2>
+  <p>Ker ni ročne odobritve, varnost zagotavljajo pravila:</p>
+  <div class="grid c2">
+    <div class="card"><h3 style="margin-top:0">✅ Preverjanje pravil</h3><p>Vsak načrt koda pred pošiljanjem preveri po tvojih trdih pravilih (npr. največ +10 % tedenskega obsega, ne dva praga zapored pri začetnikih). Če načrt dvakrat ne ustreza, gre k tebi, stranka pa vidi »trener pripravlja tvoj načrt«.</p></div>
+    <div class="card"><h3 style="margin-top:0">🚨 Rdeče zastavice</h3><p>Bolečina, poškodba, bolezen, bolečina v prsih ali znaki pretreniranosti: platforma za tega športnika ustavi načrt, mu pošlje vnaprej napisano sporočilo (počitek, po potrebi zdravnik), tebe pa takoj obvesti.</p></div>
+    <div class="card"><h3 style="margin-top:0">👀 Vse vidiš</h3><p>Seznam vsega, kar je bilo poslano, s popravkom ali razveljavitvijo v enem kliku. Vsak dan dobiš tudi nekaj naključnih primerov za branje, da se kakovost ne poslabša.</p></div>
+    <div class="card"><h3 style="margin-top:0">📘 Tvoja metoda</h3><p>Dokument z <b>tvojo trenersko metodo</b> (cone, periodizacija, pravila, rdeče zastavice). Iz njega izhajajo vsi načrti in vsa pravila. Prvo verzijo napišemo mi, ti jo pregledaš in popraviš.</p></div>
+  </div>
+</section>
+
+<section id="pregled">
+  <h2><span class="num">05</span>Pregled za stranko</h2>
+  <p>Vsaka stranka ima eno stran, kjer vidi vse o sebi. Ko se nekaj pripravlja, sproti vidi stanje: »analiziram tvoj trening…« → »pripravljam naslednji teden…« → »pripravljeno«.</p>
+  <div class="table-wrap"><table>
+    <tr><th>Faza</th><th>Kaj vidi stranka</th></tr>
+    <tr><td>1</td><td>Naslednji termin (odštevanje, priprava, lokacija), pretekli termini</td></tr>
+    <tr><td>2</td><td>Rezultati meritev, cone, poročilo, napredek med meritvami, kdaj je naslednja</td></tr>
+    <tr><td>3</td><td>Načrt tega tedna, današnji trening, analize, paket in preostali krediti</td></tr>
+    <tr><td>4</td><td>Tedenski povzetek, dnevni vprašalnik, sporočila s trenerjem</td></tr>
+  </table></div>
+  <p style="margin-top:12px">Ti imaš enak pregled za vsakega športnika, plus seznam vsega, kar je platforma poslala, in jutranji seznam športnikov, ki te potrebujejo.</p>
+</section>
+
+<section id="rezervacije">
+  <h2><span class="num">06</span>Rezervacije</h2>
+  <ul class="clean">
+    <li>Ti nastaviš tedenski urnik in izjeme (dopust, tekme). Stranka izbere meritev in prost termin.</li>
+    <li>Plačilo ob rezervaciji (kartica) ali s kreditom iz paketa.</li>
+    <li>Samodejna e-pošta: potrditev, navodila za pripravo (brez trdega treninga 24 h prej, na tešče za test maščob, kaj prinesti), opomnik dan prej.</li>
+    <li>Brezplačna odpoved do 24 h pred terminom.</li>
+    <li>Privzeta lokacija je tvoj dom, vsak termin ima lahko drugo. Termini se prenesejo v tvoj Google koledar.</li>
+    <li>Pred meritvijo kratek zdravstveni vprašalnik. Če je kakšen odgovor »da«, stranko opozorimo, naj se posvetuje z zdravnikom.</li>
+  </ul>
+</section>
+
+<section id="podatki">
+  <h2><span class="num">07</span>Podatki o treningih</h2>
+  <p>Stranka naloži datoteko treninga (<b>.FIT</b>, .TCX ali .GPX). To zna vsaka ura: Garmin, COROS, Polar, Suunto, Wahoo. Kasneje dodamo samodejne povezave z urami in Apple Health / Health Connect v mobilni aplikaciji.</p>
+  <div class="note stop"><b>Strave ne uporabljamo.</b> Njeni pogoji od 1. 6. 2026 prepovedujejo kakršnokoli uporabo njenih podatkov z umetno inteligenco in ne dovolijo, da bi trener videl podatke športnika. Tvoj Strava profil ostane le kot povezava na strani.</div>
+</section>
+
+<section id="trzenje">
+  <h2><span class="num">08</span>Jezika, znamka, trženje</h2>
+  <div class="grid c3">
+    <div class="card"><h3 style="margin-top:0">🌍 Slovenščina + angleščina</h3><p>Celotna stran, aplikacija, e-pošta in poročila. Jezik se izbere glede na brskalnik.</p></div>
+    <div class="card"><h3 style="margin-top:0">🎨 Nova znamka</h3><p>Nov logotip, barve in pisava. Nič iz stare Lovable strani. Najprej pokažemo 2–3 predloge.</p></div>
+    <div class="card"><h3 style="margin-top:0">📣 Oglasi</h3><p>Tvoj Instagram in Strava profil ter plačani oglasi (najprej Meta/Instagram). Posebne strani za oglase in merjenje, kateri oglas prinese plačljive stranke.</p></div>
+  </div>
+  <p style="margin-top:12px">Zasebnost: zdravstveni podatki (srčni utrip, meritve, počutje) so po GDPR posebej varovani. Stranka da izrecno privolitev, lahko izvozi ali izbriše svoje podatke, vsi podatki ostanejo v EU.</p>
+</section>
+
+<section id="faze">
+  <h2><span class="num">09</span>Faze gradnje</h2>
+  <ol class="phases">
+    <li class="p0"><b>Temelji</b>Tehnična osnova, dva jezika, nova znamka, piškotki.</li>
+    <li><b>Nova spletna stran + rezervacije meritev</b>Zamenja Lovable stran. Prvi denar: stranka rezervira in plača meritev, ti jo vidiš v koledarju.</li>
+    <li><b>Rezultati meritev + poročilo + cone</b>Ti vneseš rezultate, stranka v nekaj minutah dobi poročilo in cone. Ponudba za naročnino.</li>
+    <li><b>Naročnine, nalaganje treningov, načrti</b>Paketi Plan, Coaching in Elite, krediti, samodejni načrti in analize.</li>
+    <li><b>Tedenski povzetki, dnevni vprašalnik, sporočila</b></li>
+    <li><b>Mobilna aplikacija</b>Načrt, vprašalnik, nalaganje treningov s telefona, obvestila.</li>
+    <li><b>Samodejne povezave z urami</b>Polar, Suunto, COROS, Garmin.</li>
+  </ol>
+</section>
+
+<section id="od-tebe">
+  <h2><span class="num">10</span>Kaj potrebujemo od tebe</h2>
+  <ul class="ask">
+    <li><span class="box"></span><div><b>Preglej ta načrt</b><small>Kaj ni prav? Cene, paketi, kaj vključujejo, koliko časa imaš.</small></div></li>
+    <li><span class="box"></span><div><b>Tvoje kvalifikacije</b><small>Katere imaš, da jih objavimo na strani. Ali imaš zavarovanje odgovornosti za meritve pri maksimalnem naporu?</small></div></li>
+    <li><span class="box"></span><div><b>Laboratorij</b><small>Katero opremo imaš, koliko meritev na teden zmoreš, koliko stane potrošni material na meritev (lističi za laktat ipd.).</small></div></li>
+    <li><span class="box"></span><div><b>Tvoj tedenski urnik za meritve</b><small>Dnevi in ure. Potrdi tudi pravila: odpoved do 24 h prej, 15 min med termini, rezervacija najmanj 24 h vnaprej.</small></div></li>
+    <li><span class="box"></span><div><b>Fotografije v polni ločljivosti</b><small>Sedanje s stare strani so premajhne za velike prikaze.</small></div></li>
+    <li><span class="box"></span><div><b>Pregled tvoje metode</b><small>Ko napišemo prvo verzijo, označi, kje delaš drugače. To je najpomembnejši dokument, ker določa vse načrte in varnostna pravila.</small></div></li>
+    <li><span class="box"></span><div><b>Pregled zdravstvenega vprašalnika</b><small>Vprašanja pred meritvijo (osnutek pripravimo mi).</small></div></li>
+    <li><span class="box"></span><div><b>Pregled slovenskih besedil</b><small>Ton in strokovni izrazi na strani.</small></div></li>
+  </ul>
+</section>
+
+</main>
+<footer><div class="wrap">Interni osnutek · Jaka Marinko — Endurance Performance · Pripombe pošlji Gregi.</div></footer>
+</body>
+</html>
