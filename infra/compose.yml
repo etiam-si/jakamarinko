@@ -1,0 +1,31 @@
+# Lives in /srv/jakamarinko on t4a; the deploy job copies it there (infra/README.md).
+# The edge Traefik (infra/edge) routes jakamarinko.com/api/* to api and everything else to web.
+name: jakamarinko
+
+services:
+  web:
+    image: ghcr.io/etiam-si/jakamarinko-web:${IMAGE_TAG:-latest}
+    restart: unless-stopped
+    env_file: .env
+    networks:
+      - edge
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.jakamarinko-web.rule=Host(`jakamarinko.com`)
+      - traefik.http.services.jakamarinko-web.loadbalancer.server.port=3000
+
+  api:
+    image: ghcr.io/etiam-si/jakamarinko-api:${IMAGE_TAG:-latest}
+    restart: unless-stopped
+    env_file: .env
+    networks:
+      - edge
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.jakamarinko-api.rule=Host(`jakamarinko.com`) && PathPrefix(`/api`)
+      - traefik.http.routers.jakamarinko-api.priority=100
+      - traefik.http.services.jakamarinko-api.loadbalancer.server.port=3000
+
+networks:
+  edge:
+    external: true
