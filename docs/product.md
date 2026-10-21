@@ -58,7 +58,7 @@ Package names, descriptions and every text customers read describe what the coac
 Minimum 3 months on Coaching and Elite. Paying a year up front: 2 months free.
 
 ### One-off
-- **Lab tests** at the existing prices (VO₂max 90 €, lactate 90 €, both 150 €, fat/carb use 130 €, running economy 80 €, anthropometry 50 €, Performance package 250 €). Every test ends with an offer: 30 days of AI plan free, or the first month of Coaching at −50 %.
+- **Lab tests** at the existing prices (VO₂max 90 €, lactate 90 €, both 150 €, fat/carb use 130 €, running economy 80 €, anthropometry 50 €, Performance package 250 €). Every test ends with an offer: 30 days of Plan free, or the first month of Coaching at −50 %.
 - **Personal training**: one session (e.g. 45 €), or a pack of 10 at a discount.
 - **Race preparation**: a 12–16-week block for one race, with a test at the start and end, paid once.
 
