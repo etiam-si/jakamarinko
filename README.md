@@ -14,3 +14,5 @@ npm run typecheck && npm test && npm run build
 ```
 
 Deploys to t4a on every push to `main`. See [infra/README.md](infra/README.md).
+
+What the app should become: [docs/product.md](docs/product.md) (draft). Content and prices: [docs/content/jaka-marinko.md](docs/content/jaka-marinko.md).
