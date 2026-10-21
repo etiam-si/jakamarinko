@@ -39,7 +39,7 @@ Size: S ≈ hours, M ≈ a day, L ≈ several days for one agent.
 | [T09](tasks/T09-contact.md) | Contact form + requests inbox | 3 | T03, T06, T08, T10 | S |
 | [T11](tasks/T11-booking-ui.md) | Booking flow for customers | 3 | T05, T07, T08 | M |
 | [T12](tasks/T12-booking-admin.md) | Coach: availability, bookings, cancel/reschedule | 3 | T07, T10 | M |
-| [T15](tasks/T15-account.md) | Customer account: bookings, language, consents, export/delete | 3 | T07, T10 | M |
+| [T15](tasks/T15-account.md) | Customer overview + account: bookings, language, consents, export/delete | 3 | T07, T10 | M |
 | [T13](tasks/T13-payments.md) | Stripe payments for bookings | 4 | T11 | M |
 | [T14](tasks/T14-landing-ads.md) | Ad landing pages + conversion events (Meta CAPI) | 4 | T05, T08, T13 | M |
 | [T16](tasks/T16-calendar-sync.md) | Google Calendar sync for coaches | 4 | T12 | S |
@@ -88,6 +88,7 @@ Allowed: **adding your own lines**. Never reorder or reformat. On conflict, keep
 | `packages/api/src/index.ts` | one export line |
 | `apps/web/src/i18n/namespaces.ts` | one namespace name |
 | `apps/web/src/lib/nav.ts` | one nav entry for your page (from T10 on) |
+| `apps/web/src/lib/overview-blocks.ts` | one block for the customer overview (from T15 on) |
 | `package.json` files, `pnpm-lock.yaml` | dependencies you need (on a lockfile conflict: take `development`'s lockfile, run `pnpm install`) |
 | `.env.example` | your new variables, with a comment |
 
@@ -115,6 +116,6 @@ Prompt for the keeper session:
 |---|---|---|
 | T20 | Lab results: schema per test type, coach entry form, history | T10, T07 |
 | T21 | Zones library: zones from lactate/VO₂max per sport (pure functions, heavily tested, follows `coaching-method.md`) | T04 |
-| T22 | Assistant runner + review queue: `worker` container with claude-pool, job table, `drafts` table, coach review queue UI (approve / edit / reject). Nothing reaches a customer without approval | T00, T10 |
-| T23 | Lab report drafts: from the coaching method, into the review queue; the coach sends the approved report (EN/SL) | T20, T21, T22 |
+| T22 | Engine runner: `worker` container with claude-pool, `jobs` table with live status (SSE) for the overview, `engine_outputs` log, rule check, red-flag stop + coach alert, coach activity feed with edit/undo | T00, T10, T15 |
+| T23 | Lab report: generated as soon as results are entered, rule-checked, shown in the overview and emailed (EN/SL) in < 5 min | T20, T21, T22 |
 | T24 | Customer results view: tests, zones, report, subscription offer | T23, T15 |
