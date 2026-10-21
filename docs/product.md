@@ -5,18 +5,18 @@
 ## Decisions (2026-10-21)
 | Topic | Decision |
 |---|---|
-| Business | Owned by Grega (the product owner) through his existing company, which is also the legal entity for Garmin, Stripe and the other APIs. |
-| Jaka | Full time on coaching and lab tests. Has coaching qualifications (**❓** which ones; confirm they cover paid coaching in Slovenia). |
+| Business | Owned by Grega (the product owner) through his existing company, which is also the legal entity for Stripe and any device APIs. |
+| Jaka | Full time on coaching and lab tests. His qualifications are added to the site later. |
 | Coaches | Jaka may employ more coaches: one business, several coaches, Jaka as head coach. Not a marketplace for outside coaches. |
 | Lab location | At Jaka's home by default; can be a different place per booking. |
-| Garmin | Grega checks the application route. |
+| Garmin | Not planned for now. Training data comes from file upload; device connections stay on the later list. |
 | AI provider | claude-pool, also in production. Code calls one internal interface, so the provider can be swapped. |
 | Languages | English and Slovenian from day one (see "Languages"). |
 | Brand | Logo, colours and type designed as part of phase 1 (no existing logo). |
 | Marketing | Jaka's Instagram and Strava profile, plus paid ads (Meta/Instagram first, Google later). |
-| Coaching method | To be written with Jaka. |
+| Coaching method | Claude writes it (`docs/coaching-method.md`); Jaka reviews. |
 | Email sender | **❓** Grega decides. |
-| Prices | Set with the pricing guide below. |
+| Prices | The prices in this doc are the launch prices. They live in the database and can change without code. |
 
 ## In one paragraph
 Jaka Marinko's endurance coaching and lab testing, run as one app. The thing that can't be copied is Jaka himself (national-team background, VO₂max 80) plus real lab data (lactate, VO₂max). AI is the lever that lets one coach serve many athletes: it drafts plans, analyses training and writes reports, and Jaka approves. We do **not** compete as a generic AI training app (Runna, TrainerRoad, Humango and Garmin Coach already own that); we sell Jaka + lab + data, with AI underneath.
@@ -40,7 +40,7 @@ Lab test ──> zones ──> AI drafts plan ──> Jaka approves ──> athl
 One business, several coaches. Every athlete belongs to one coach. Every booking belongs to one coach and one location. Jaka is the only coach at launch.
 
 ## Offer
-Prices below are starting points. Set the final ones with the pricing guide.
+Prices below are the launch prices (decided 2026-10-21). The pricing guide stays for later changes.
 
 ### Monthly packages
 | | **AI plan** | **Coaching** ⭐ | **Elite** |
@@ -96,7 +96,7 @@ How to proceed: Jaka lists the consumables cost per test and his realistic hours
 ### Later: automatic connections (in this order)
 | Source | Status | Notes |
 |---|---|---|
-| **Garmin Connect** (Activity + Training API) | Apply as soon as there is a registered business | AI allowed with explicit consent and an AI statement in the privacy policy (§15.10). Coach view allowed with attribution. Can push workouts to the watch. Developers report the application form may be down; check first. |
+| **Garmin Connect** (Activity + Training API) | Not planned for now (decided 2026-10-21) | AI allowed with explicit consent and an AI statement in the privacy policy (§15.10). Coach view allowed with attribution. Can push workouts to the watch. Developers report the application form may be down; check first. |
 | **Polar AccessLink** | Self-serve, free | No AI clause. Sharing with Jaka needs the athlete's explicit permission (§3.1.1). **❓** §2.2 bans "a service similar to or competing with Polar Ecosystem": ask Polar before building. |
 | **Suunto** | Partner programme + review | AI terms are behind the partner login; Suunto already lists AI coaching apps (Humango, AI Endurance) as partners. |
 | **COROS** Partner API | Needs an established user base | Webhooks, FIT, push plans to the watch. Until then: COROS MCP (self-serve; read its terms first). |
@@ -159,8 +159,9 @@ Heart rate, lab results and how someone feels are health data (GDPR art. 9).
 1. **Public site + landing pages + booking + test-only accounts.** Replaces the Lovable site and is what ads point to; earns money from day one. Done when a stranger, in either language, can book and pay for a lab test, gets confirmation and preparation emails, Jaka sees it in his calendar, and the booking shows up as a conversion with its ad source.
 2. **Lab results + AI lab report + zones.** Jaka enters results, AI drafts the report, Jaka sends it, and the customer sees results and zones in their account. Ends with the subscription offer.
 3. **Subscriptions + credits + file upload + plans.** Stripe billing, credits, FIT/TCX/GPX upload, AI plan drafts with Jaka's approval, athlete week view, coach dashboard.
-4. **Weekly analysis, daily check-in, chat, coach briefing.** Garmin connection once approved, then Polar.
-5. **Expo mobile app** (plan, check-in, upload from phone, Apple Health / Health Connect, push notifications), then Suunto and COROS.
+4. **Weekly analysis, daily check-in, chat, coach briefing.**
+5. **Expo mobile app** (plan, check-in, upload from phone, Apple Health / Health Connect, push notifications).
+6. **Device connections** once file upload limits growth: Polar, Suunto, COROS, Garmin.
 
 ## Data model sketch
 ```
@@ -190,10 +191,11 @@ Better Auth keeps its own tables. Original workout files and streams go to objec
 Web: Next.js 16, Tailwind, shadcn/ui, TanStack Query, Zod, Recharts. API: Hono + Drizzle + Postgres (live on t4a), Better Auth (Google + email). Payments: Stripe (Checkout, Billing, Customer Portal); RevenueCat only with in-app subscriptions. Files: FIT SDK, TCX/GPX parsers. Monorepo: move to pnpm + Turborepo with `db`, `auth`, `api`, `types` packages **before** phase 1 code. Tests: Vitest + Playwright. Deploy as today (`infra/README.md`).
 
 ## Open questions
-1. Garmin: is the application route open? (Grega)
-2. Jaka's qualifications: which ones, and do they cover paid coaching in Slovenia? Liability insurance for max-effort lab tests?
-3. Lab: whose equipment, how many tests a week, consumables cost per test?
-4. Final prices (pricing guide) and whether they include VAT.
-5. Email sender: Gmail or an address on jakamarinko.com? (Grega)
-6. Jaka's coaching method (to write together).
-7. Full-resolution photos.
+1. Email sender: Gmail or an address on jakamarinko.com? (Grega)
+2. Jaka's qualifications and liability insurance for max-effort lab tests (to add to the site).
+3. Lab: equipment, tests per week, consumables cost per test.
+4. Are prices shown with VAT included?
+5. Full-resolution photos (to add).
+
+## Building it
+How the work is split into tasks for parallel agents: [plan/README.md](plan/README.md).
