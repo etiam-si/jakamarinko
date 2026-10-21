@@ -18,14 +18,19 @@ services:
     image: ghcr.io/etiam-si/jakamarinko-api:${IMAGE_TAG:-latest}
     restart: unless-stopped
     env_file: .env
+    # db: the server-wide Postgres (/srv/postgres), reached as postgres:5432.
     networks:
       - edge
+      - db
     labels:
       - traefik.enable=true
+      - traefik.docker.network=edge
       - traefik.http.routers.jakamarinko-api.rule=Host(`jakamarinko.com`) && PathPrefix(`/api`)
       - traefik.http.routers.jakamarinko-api.priority=100
       - traefik.http.services.jakamarinko-api.loadbalancer.server.port=3000
 
 networks:
   edge:
+    external: true
+  db:
     external: true
