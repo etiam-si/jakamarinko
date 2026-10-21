@@ -28,6 +28,7 @@ FROM node:24-bookworm-slim AS api
 WORKDIR /app
 ENV NODE_ENV=production PORT=3000
 COPY --from=build --chown=node:node /app/apps/api/dist/index.mjs ./
+COPY --from=build --chown=node:node /app/apps/api/drizzle ./drizzle
 USER node
 EXPOSE 3000
 CMD ["node", "index.mjs"]

@@ -1,5 +1,7 @@
-import { expect, test } from "vitest";
+import { expect, test, vi } from "vitest";
 import { app } from "./app";
+
+vi.mock("./db", () => ({ db: () => ({ execute: async () => ({ rows: [] }) }) }));
 
 test("GET /api/health", async () => {
   const res = await app.request("/api/health");
