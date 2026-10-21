@@ -13,7 +13,7 @@
 2. **Tables:**
    - `users` extra fields: `locale`, `role` (`customer | athlete | coach | head_coach | owner`).
    - `coaches` (`user_id`, `active`), `locations` (`name`, `address`, `is_default`).
-   - `consents` (`user_id`, `kind`: `health_data | ai_processing | marketing`, `granted_at`, `withdrawn_at`, `version`).
+   - `consents` (`user_id`, `kind`: `health_data | marketing`, `granted_at`, `withdrawn_at`, `version`).
    - Seed: one owner (email from env `OWNER_EMAIL`), Jaka as `head_coach` (env `HEAD_COACH_EMAIL`), the default location "Jaka's home" (address from env, never committed).
 3. **Role helpers:**
    - API middleware `requireRole(...)`.

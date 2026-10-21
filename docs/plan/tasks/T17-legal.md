@@ -11,10 +11,10 @@
    - Controller: Grega's company. Leave placeholders for name, address and registration number.
    - What data and why: account, bookings, payments, and health data under GDPR art. 9 (HR, lab results, check-ins).
    - Legal bases, consents, how to withdraw them.
-   - **The AI statement:** what AI does with the data and that a coach reviews it.
+   - **Processing for coaching:** coaches use software tools, including an AI service provider, to prepare analyses and plans; a coach reviews everything before the customer receives it; no decisions are made solely by automated means (GDPR art. 22). Neutral, factual, only here.
    - Retention, rights (access, export, deletion), processors, data location (EU, Germany), and contact.
-2. **Processors list** (`docs/legal/processors.md`): hosting (Hetzner), backups (Hetzner Storage Box), email provider (TBD), Stripe, AI provider, analytics (Umami, self-hosted), Meta/Google (only with consent).
-3. **Terms:** booking and cancellation rules (free up to 24 h before; later no-show policy), subscriptions (minimum 3 months for Coaching/Elite, how to cancel), lab tests are at the customer's own risk with a health questionnaire, AI plans are not medical advice.
+2. **Processors list** (`docs/legal/processors.md`): hosting (Hetzner), backups (Hetzner Storage Box), email provider (TBD), Stripe, the AI service provider, analytics (Umami, self-hosted), Meta/Google (only with consent).
+3. **Terms:** booking and cancellation rules (free up to 24 h before; later no-show policy), subscriptions (minimum 3 months for Coaching/Elite, how to cancel), lab tests are at the customer's own risk with a health questionnaire, training plans are not medical advice.
 4. **Cookie policy:** matches the categories in T05 exactly.
 5. Footer links come from T08. This task only provides the pages.
 

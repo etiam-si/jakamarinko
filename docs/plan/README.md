@@ -32,7 +32,7 @@ Size: S ≈ hours, M ≈ a day, L ≈ several days for one agent.
 | [T04](tasks/T04-coaching-method.md) | Coaching method document (for the AI and coaches) | 1 | — | M |
 | [T05](tasks/T05-consent-analytics.md) | Cookie consent, analytics, UTM capture, `track()` | 1 | T00 | S |
 | [T06](tasks/T06-email.md) | Email: templates EN/SL, transports | 1 | T00 | S |
-| [T17](tasks/T17-legal.md) | Legal pages: privacy (with AI statement), terms, cookies | 1 | T00 | S |
+| [T17](tasks/T17-legal.md) | Legal pages: privacy (with processor list), terms, cookies | 1 | T00 | S |
 | [T07](tasks/T07-booking-api.md) | Booking backend: services, availability, slots, bookings, reminders | 2 | T02, T03, T06 | L |
 | [T08](tasks/T08-public-site.md) | Public site: home, about, coaching, lab, contact; SEO | 2 | T01, T02 | L |
 | [T10](tasks/T10-app-shells.md) | App shells: coach area + customer account, role guards | 2 | T01, T03 | M |
@@ -115,6 +115,6 @@ Prompt for the keeper session:
 |---|---|---|
 | T20 | Lab results: schema per test type, coach entry form, history | T10, T07 |
 | T21 | Zones library: zones from lactate/VO₂max per sport (pure functions, heavily tested, follows `coaching-method.md`) | T04 |
-| T22 | AI runner: `worker` container with claude-pool, job queue table, `ai_runs` log, one interface for all AI features | T00 |
-| T23 | AI lab report: prompt from the coaching method, coach review/edit/approve, send (EN/SL) | T20, T21, T22 |
+| T22 | Assistant runner + review queue: `worker` container with claude-pool, job table, `drafts` table, coach review queue UI (approve / edit / reject). Nothing reaches a customer without approval | T00, T10 |
+| T23 | Lab report drafts: from the coaching method, into the review queue; the coach sends the approved report (EN/SL) | T20, T21, T22 |
 | T24 | Customer results view: tests, zones, report, subscription offer | T23, T15 |
