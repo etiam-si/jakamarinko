@@ -103,7 +103,7 @@ export default function Coaching({ params }: Props) {
         />
       </Section>
 
-      <Section tone="dark" className="grid gap-12 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:items-center lg:gap-16">
+      <Section tone="dark" data-proof className="grid gap-12 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:items-center lg:gap-16">
         <div className="flex flex-col gap-10">
           <SectionHeading title={about("title")} lead={about("subtitle")} />
           <div className="grid grid-cols-2 gap-x-6 gap-y-10">

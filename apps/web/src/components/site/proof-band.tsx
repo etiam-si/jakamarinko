@@ -21,7 +21,7 @@ export function ProofBand({
   const t = useTranslations("home.proof");
   const site = useTranslations("site");
   return (
-    <Section tone="dark" className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,26rem)] lg:items-center lg:gap-16">
+    <Section tone="dark" data-proof className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,26rem)] lg:items-center lg:gap-16">
       <div className="flex flex-col gap-10">
         <div className="flex max-w-xl flex-col gap-4">
           <h2 className="font-heading text-3xl leading-[1.08] font-bold tracking-tight font-stretch-expanded md:text-[2.75rem]">{t("title")}</h2>

@@ -87,7 +87,7 @@ export default function Home({ params }: Props) {
             {t("offers.lab.title")} · {t("offers.coaching.title")}
           </p>
           <HeroTitle>{t("hero.title")}</HeroTitle>
-          <p className="max-w-xl text-lg text-muted-foreground motion-safe:animate-rise motion-safe:[animation-delay:80ms] md:text-xl">
+          <p data-subline className="max-w-xl text-lg text-muted-foreground motion-safe:animate-rise motion-safe:[animation-delay:80ms] md:text-xl">
             {t("hero.subtitle")}
           </p>
           <div className="flex flex-col gap-3 motion-safe:animate-rise motion-safe:[animation-delay:160ms] sm:flex-row">

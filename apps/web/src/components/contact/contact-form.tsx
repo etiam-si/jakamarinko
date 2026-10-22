@@ -158,9 +158,11 @@ export function ContactForm() {
             <Label htmlFor="contact-consent" className="font-normal">
               {t("consent")}
             </Label>
-            <Link href="/legal/privacy" className="text-sm text-muted-foreground underline underline-offset-4">
-              {t("privacy")}
-            </Link>
+            <p className="text-sm">
+              <Link href="/legal/privacy" className="text-muted-foreground underline underline-offset-4">
+                {t("privacy")}
+              </Link>
+            </p>
           </div>
         </div>
         {error("consent")}

@@ -33,7 +33,11 @@ export function SectionHeading({
       ) : (
         <Tag className={cn("font-heading tracking-tight text-balance font-stretch-expanded", sizes[Tag])}>{title}</Tag>
       )}
-      {lead && <p className="text-lg text-pretty text-muted-foreground md:text-xl">{lead}</p>}
+      {lead && (
+        <p data-subline={Tag === "h1" ? "" : undefined} className="text-lg text-pretty text-muted-foreground md:text-xl">
+          {lead}
+        </p>
+      )}
     </div>
   );
 }
