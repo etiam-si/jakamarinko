@@ -6,7 +6,7 @@
   "features": "What you get",
   "minimumTerm": "Minimum term: {count, plural, one {# month} other {# months}}",
   "noMinimumTerm": "No minimum term",
-  "yearly": "Or {price} € a year, 2 months free",
+  "yearly": "Or {price} € a year, 2 months free",
   "choose": "Choose {name}",
   "oneOff": {
     "title": "Personal training and race preparation",
@@ -14,6 +14,6 @@
   },
   "afterTest": {
     "title": "After your lab test",
-    "text": "Every lab test ends with an offer: {days} days of Plan for free, or your first month of Coaching at −{percent} %."
+    "text": "Every lab test ends with an offer: {days} days of Plan for free, or your first month of Coaching at −{percent} %."
   }
 }

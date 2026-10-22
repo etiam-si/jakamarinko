@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import type { useFormatter } from "next-intl";
 import type { Locale, ServiceId } from "@jakamarinko/types";
 import { locales } from "@jakamarinko/types";
 import { z } from "zod";
@@ -47,7 +48,16 @@ export const bookingHref = (service: ServiceId) => ({ pathname: "/booking", quer
 
 // Prices are whole euros; cents only appear if a price ever has them.
 export const euros = (cents: number) => cents / 100;
+// One way to write a price on every page and in both languages: "90 €", "2,290 €" / "2.290 €", with a no-break
+// space so the sign never wraps alone. Messages that put the € themselves ("{price} €") get euros() plain.
+export const euro = (format: ReturnType<typeof useFormatter>, cents: number) =>
+  `${format.number(euros(cents), { maximumFractionDigits: 2 })}\u00a0€`;
 export const eurFormat = { style: "currency", currency: "EUR", maximumFractionDigits: 2, minimumFractionDigits: 0 } as const;
+
+// The lab. The same string goes into the structured data (JSON-LD); the maps link is a plain search URL (no embedded
+// map: faster, and nothing loads from Google until someone taps it).
+export const labAddress = "Spodnje Pirnice 19N";
+export const labMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${labAddress}, 1215 Medvode, Slovenia`)}`;
 
 // Dev, e2e and screenshot builds: show the designed placeholders for photos we still need (PhotoSlot) and the sample
 // testimonials. Off in production, where every slot falls back to a real photo or the section adapts.

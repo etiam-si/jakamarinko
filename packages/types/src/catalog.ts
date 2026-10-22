@@ -14,6 +14,10 @@ export const labTestIds = [
   "running-economy",
   "anthropometry",
   "performance",
+  "runner",
+  "long-distance",
+  "season",
+  "lactate-retest",
 ] as const;
 export type LabTestId = (typeof labTestIds)[number];
 
@@ -35,6 +39,9 @@ export type LabTest = {
   included: LocalizedList;
   // For combined tests: the single tests it contains.
   contains?: LabTestId[];
+  // For bundles and offers: what the same costs booked one by one, at today's single prices (defaults to
+  // `contains`). The site shows the sum and the saving; it's a comparison with our own prices, not a reduction.
+  comparedTo?: LabTestId[];
 };
 
 export type Session = {
@@ -103,8 +110,8 @@ export const labTests: LabTest[] = [
     priceCents: 9000,
     name: { en: "Lactate profile", sl: "Laktatni profil" },
     description: {
-      en: "How your blood lactate rises as the effort grows. You run or ride in steps of increasing intensity, and after each step a drop of blood is taken from your fingertip or earlobe. The curve shows your aerobic threshold (LT1) and anaerobic threshold (LT2), the most reliable basis for training zones.",
-      sl: "Kako narašča laktat v krvi, ko se napor povečuje. Tečeš ali kolesariš v stopnjah naraščajoče intenzivnosti, po vsaki stopnji pa se odvzame kapljica krvi iz prsta ali ušesne mečice. Krivulja pokaže aerobni prag (LT1) in anaerobni prag (LT2), najzanesljivejšo podlago za trening cone.",
+      en: "How your blood lactate rises as the effort grows. You run or ride in steps that get harder, with a drop of blood from your fingertip or earlobe after each. The curve shows your aerobic (LT1) and anaerobic (LT2) thresholds, the surest basis for training zones.",
+      sl: "Kako narašča laktat v krvi, ko se napor povečuje. Tečeš ali kolesariš v vse težjih stopnjah, po vsaki pa se odvzame kapljica krvi iz prsta ali ušesne mečice. Krivulja pokaže aerobni (LT1) in anaerobni prag (LT2), najzanesljivejšo podlago za trening cone.",
     },
     preparation: restedAndFed,
     included: {
@@ -154,8 +161,8 @@ export const labTests: LabTest[] = [
     priceCents: 13000,
     name: { en: "Fat and carbohydrate use", sl: "Analiza porabe maščob in OH" },
     description: {
-      en: "How much of your energy comes from fat and how much from carbohydrates at different intensities, measured from the air you breathe out. It shows the intensity at which you burn the most fat, which matters for long races and for planning what you eat during them.",
-      sl: "Koliko energije pri različnih intenzivnostih dobiš iz maščob in koliko iz ogljikovih hidratov (OH), izmerjeno iz izdihanega zraka. Pokaže intenzivnost, pri kateri porabiš največ maščob, kar je pomembno za dolge tekme in za načrtovanje prehrane med njimi.",
+      en: "How much of your energy comes from fat and how much from carbohydrates at each intensity, measured from the air you breathe out. It shows where you burn the most fat, which matters for long races and what you eat during them.",
+      sl: "Koliko energije pri vsaki intenzivnosti dobiš iz maščob in koliko iz ogljikovih hidratov (OH), izmerjeno iz izdihanega zraka. Pokaže, kje porabiš največ maščob, kar je pomembno za dolge tekme in prehrano med njimi.",
     },
     preparation: restedAndFasted,
     included: {
@@ -238,7 +245,86 @@ export const labTests: LabTest[] = [
     },
     contains: ["vo2max", "lactate-profile", "fat-carb", "anthropometry"],
   },
+  // Bundles and the retest (docs/content/conversion-playbook.md §5.1; prices for the owner to confirm).
+  {
+    id: "runner",
+    kind: "lab_test",
+    durationMin: 120, // estimate
+    priceCents: 18000,
+    name: { en: "Runner bundle", sl: "Tekaški paket" },
+    description: {
+      en: "Your thresholds, how economically you run, and your body composition. One visit.",
+      sl: "Tvoja pragova, ekonomičnost teka in telesna sestava. En obisk.",
+    },
+    preparation: restedAndFed,
+    included: {
+      en: ["Lactate profile and your training zones", "Running economy", "Anthropometry", explained.en],
+      sl: ["Laktatni profil in tvoje trening cone", "Ekonomičnost teka", "Antropometrija", explained.sl],
+    },
+    contains: ["lactate-profile", "running-economy", "anthropometry"],
+  },
+  {
+    id: "long-distance",
+    kind: "lab_test",
+    durationMin: 90, // estimate
+    priceCents: 18000,
+    name: { en: "Long-distance bundle", sl: "Paket za dolge tekme" },
+    description: {
+      en: "Your thresholds and how you burn fat and carbs at every pace, for long races and fuelling.",
+      sl: "Tvoja pragova in poraba maščob ter OH pri vsakem tempu, za dolge tekme in prehrano med njimi.",
+    },
+    preparation: restedAndFasted,
+    included: {
+      en: ["Lactate profile and your training zones", "Fat and carbohydrate use, with FATmax", explained.en],
+      sl: ["Laktatni profil in tvoje trening cone", "Poraba maščob in OH, s FATmax", explained.sl],
+    },
+    contains: ["lactate-profile", "fat-carb"],
+  },
+  {
+    id: "season",
+    kind: "lab_test",
+    // The bookable visit is the Performance one; Jaka books the two retests with you on site (owner decision open).
+    durationMin: 120, // estimate
+    priceCents: 35000,
+    name: { en: "Season pack", sl: "Sezonski paket" },
+    description: {
+      en: "The Performance package now, and two lactate retests within 6 months to see what changed.",
+      sl: "Performance paket zdaj in dva ponovna laktatna testa v 6 mesecih, da vidiš, kaj se je spremenilo.",
+    },
+    preparation: restedAndFasted,
+    included: {
+      en: ["The Performance package", "Two lactate retests within 6 months", "Your zones updated after each retest"],
+      sl: ["Performance paket", "Dva ponovna laktatna testa v 6 mesecih", "Posodobljene cone po vsakem testu"],
+    },
+    contains: ["vo2max", "lactate-profile", "fat-carb", "anthropometry"],
+    comparedTo: ["performance", "lactate-profile", "lactate-profile"],
+  },
+  {
+    id: "lactate-retest",
+    kind: "lab_test",
+    durationMin: 60, // estimate
+    priceCents: 7000,
+    name: { en: "Lactate retest", sl: "Ponovni laktatni test" },
+    description: {
+      en: "Within 4 months of a test with us. See what your training changed.",
+      sl: "V 4 mesecih po meritvi pri nas. Poglej, kaj je spremenil tvoj trening.",
+    },
+    preparation: restedAndFed,
+    included: {
+      en: ["Both thresholds again, next to your last test", "Your training zones updated", explained.en],
+      sl: ["Oba pragova znova, ob tvoji zadnji meritvi", "Posodobljene trening cone", explained.sl],
+    },
+    comparedTo: ["lactate-profile"],
+  },
 ];
+
+// What a bundle or offer costs booked one by one, and what it saves; null for a single test.
+export function separatePrice(test: LabTest): { separateCents: number; savingCents: number } | null {
+  const parts = test.comparedTo ?? test.contains;
+  if (!parts) return null;
+  const separateCents = parts.reduce((sum, id) => sum + labTests.find((t) => t.id === id)!.priceCents, 0);
+  return { separateCents, savingCents: separateCents - test.priceCents };
+}
 
 export const sessions: Session[] = [
   {

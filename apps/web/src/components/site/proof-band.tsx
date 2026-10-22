@@ -4,11 +4,20 @@ import { StatBlock } from "@/components/brand/stat-block";
 import { Section } from "@/components/site/section";
 import { photos } from "@/components/site/site";
 
-const stats = ["vo2max", "redBull", "nationalTeam", "champion"] as const;
+type Stat = "vo2max" | "redBull" | "nationalTeam" | "champion";
 
 // Jaka's own results on the graphite band: the numbers count up, the race photo gets the width. Home, lab and the ad
-// landing pages show it right after the hero. `action`: the band's call to action.
-export function ProofBand({ action }: { action: React.ReactNode }) {
+// landing pages show it right after the hero. `action`: the band's call to action; `children`: one line under the
+// stats (the disciplines, or who runs the tests).
+export function ProofBand({
+  action,
+  stats = ["vo2max", "redBull", "nationalTeam", "champion"],
+  children,
+}: {
+  action: React.ReactNode;
+  stats?: Stat[];
+  children?: React.ReactNode;
+}) {
   const t = useTranslations("home.proof");
   const site = useTranslations("site");
   return (
@@ -23,6 +32,7 @@ export function ProofBand({ action }: { action: React.ReactNode }) {
             <StatBlock key={key} data-reveal-item style={{ "--i": i } as React.CSSProperties} value={t(`${key}.value`)} label={t(`${key}.label`)} />
           ))}
         </div>
+        {children}
         <div className="flex">{action}</div>
       </div>
       <PhotoFrame

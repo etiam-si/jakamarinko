@@ -6,7 +6,7 @@
   "features": "Kaj dobiš",
   "minimumTerm": "Najmanj {count, plural, one {# mesec} two {# meseca} few {# mesece} other {# mesecev}}",
   "noMinimumTerm": "Brez minimalnega trajanja",
-  "yearly": "Ali {price} € na leto, 2 meseca brezplačno",
+  "yearly": "Ali {price} € na leto, 2 meseca brezplačno",
   "choose": "Izberi paket {name}",
   "oneOff": {
     "title": "Osebni treningi in priprava na tekmo",
@@ -14,6 +14,6 @@
   },
   "afterTest": {
     "title": "Po laboratorijski meritvi",
-    "text": "Vsaka laboratorijska meritev se konča s ponudbo: {days} dni paketa Plan brezplačno ali prvi mesec paketa Coaching s {percent} % popusta."
+    "text": "Vsaka laboratorijska meritev se konča s ponudbo: {days} dni paketa Plan brezplačno ali prvi mesec paketa Coaching s {percent} % popusta."
   }
 }

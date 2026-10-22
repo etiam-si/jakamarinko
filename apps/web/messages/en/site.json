@@ -28,7 +28,8 @@
     }
   },
   "sticky": {
-    "from": "Lab tests from {price} €"
+    "from": "Lactate profile {price} €",
+    "button": "Book"
   },
   "shots": {
     "label": "Photo to come",
@@ -44,5 +45,12 @@
     "sampleName": "Sample athlete",
     "resultsTitle": "Results",
     "resultsCta": "More about Jaka"
+  },
+  "location": {
+    "title": "Where",
+    "place": "The lab in Spodnje Pirnice",
+    "area": "Medvode, north-west of Ljubljana",
+    "maps": "Open in maps",
+    "trust": "Lab in Spodnje Pirnice, Medvode"
   }
 }

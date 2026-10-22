@@ -1,7 +1,7 @@
 import { cn } from "cn";
+import { HeroTitle } from "./hero-title";
 
 const sizes = {
-  h1: "text-[2.5rem] leading-[1.02] font-extrabold sm:text-5xl lg:text-6xl",
   h2: "text-3xl leading-[1.08] font-bold md:text-[2.75rem]",
   h3: "text-xl leading-snug font-bold md:text-2xl",
 };
@@ -28,7 +28,11 @@ export function SectionHeading({
           {eyebrow}
         </p>
       )}
-      <Tag className={cn("font-heading tracking-tight text-balance font-stretch-expanded", sizes[Tag])}>{title}</Tag>
+      {Tag === "h1" ? (
+        <HeroTitle>{title}</HeroTitle>
+      ) : (
+        <Tag className={cn("font-heading tracking-tight text-balance font-stretch-expanded", sizes[Tag])}>{title}</Tag>
+      )}
       {lead && <p className="text-lg text-pretty text-muted-foreground md:text-xl">{lead}</p>}
     </div>
   );

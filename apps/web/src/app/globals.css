@@ -112,6 +112,23 @@
   stroke-dashoffset: 1;
 }
 
+/* FAQ answers slide open where the browser can animate to auto height (Chrome 131+); elsewhere they just open. */
+@supports (interpolate-size: allow-keywords) {
+  .faq {
+    interpolate-size: allow-keywords;
+  }
+  .faq details::details-content {
+    block-size: 0;
+    overflow: clip;
+    transition:
+      block-size var(--duration-slow) var(--ease-out-expo),
+      content-visibility var(--duration-slow) allow-discrete;
+  }
+  .faq details[open]::details-content {
+    block-size: auto;
+  }
+}
+
 /* Cards that lift: a 2 px rise and a deeper shadow on hover (mouse only), a slight press on touch. */
 @utility lift {
   transition-property: transform, box-shadow, border-color;

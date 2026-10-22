@@ -28,7 +28,8 @@
     }
   },
   "sticky": {
-    "from": "Meritve od {price} €"
+    "from": "Laktatni profil {price} €",
+    "button": "Rezerviraj"
   },
   "shots": {
     "label": "Fotografija sledi",
@@ -44,5 +45,12 @@
     "sampleName": "Vzorčni športnik",
     "resultsTitle": "Rezultati",
     "resultsCta": "Več o Jaki"
+  },
+  "location": {
+    "title": "Kje",
+    "place": "Laboratorij v Spodnjih Pirničah",
+    "area": "Medvode, severozahodno od Ljubljane",
+    "maps": "Odpri v zemljevidu",
+    "trust": "Laboratorij v Spodnjih Pirničah, Medvode"
   }
 }

@@ -3,7 +3,7 @@ import { readFileSync } from "node:fs";
 import path from "node:path";
 import { describe, expect, test } from "vitest";
 import { locales } from "./enums";
-import { labTests, oneOffs, packages, sessions, type Localized, type LocalizedList } from "./catalog";
+import { labTests, oneOffs, packages, separatePrice, sessions, type Localized, type LocalizedList } from "./catalog";
 
 const docs = path.join(__dirname, "../../../docs");
 const items = [...labTests, ...sessions, ...oneOffs, ...packages];
@@ -57,6 +57,10 @@ describe("prices match the docs", () => {
     "Ekonomičnost teka": "running-economy",
     Antropometrija: "anthropometry",
     "Performance paket": "performance",
+    "Tekaški paket": "runner",
+    "Paket za dolge tekme": "long-distance",
+    "Sezonski paket": "season",
+    "Ponovni laktatni test": "lactate-retest",
   };
 
   test("lab tests", () => {
@@ -96,6 +100,25 @@ describe("prices match the docs", () => {
   test("minimum terms and the Plan discount", () => {
     expect(packages.filter((p) => p.minimumMonths === 3).map((p) => p.id)).toEqual(["coaching", "elite"]);
     expect(packages.find((p) => p.id === "plan")!.labDiscountPercent).toBe(20);
+  });
+});
+
+describe("bundles", () => {
+  test("every bundle saves money against its parts at today's prices", () => {
+    for (const t of labTests) {
+      const compared = separatePrice(t);
+      if (compared) expect(compared.savingCents, t.id).toBeGreaterThan(0);
+    }
+  });
+
+  test("the playbook prices: Performance saves 110 €, the season pack 80 €", () => {
+    const saving = (id: string) => separatePrice(labTests.find((t) => t.id === id)!)!;
+    expect(saving("performance")).toEqual({ separateCents: 36000, savingCents: 11000 });
+    expect(saving("runner")).toEqual({ separateCents: 22000, savingCents: 4000 });
+    expect(saving("long-distance")).toEqual({ separateCents: 22000, savingCents: 4000 });
+    expect(saving("season")).toEqual({ separateCents: 43000, savingCents: 8000 });
+    expect(saving("lactate-retest")).toEqual({ separateCents: 9000, savingCents: 2000 });
+    expect(separatePrice(labTests.find((t) => t.id === "vo2max")!)).toBeNull();
   });
 });
 

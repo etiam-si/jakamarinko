@@ -5,7 +5,7 @@ import { ConsentSettingsLink } from "@/components/consent/consent-settings-link"
 import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
 import { navItems } from "./nav-items";
-import { legalPages } from "./site";
+import { labAddress, labMapsUrl, legalPages } from "./site";
 
 // 44 px tall on phones (thumb targets), compact from md up.
 const linkClass =
@@ -19,6 +19,7 @@ export function Footer() {
   const nav = useTranslations("common.nav");
   const actions = useTranslations("common.actions");
   const contact = useTranslations("contact");
+  const location = useTranslations("site.location");
 
   const column = (title: string, items: React.ReactNode[], className?: string) => (
     <div className={className}>
@@ -70,6 +71,10 @@ export function Footer() {
               </a>,
               <a key="email" href={contact("email.href")} className={`${linkClass} [overflow-wrap:anywhere]`}>
                 {contact("email.value")}
+              </a>,
+              <a key="maps" href={labMapsUrl} target="_blank" rel="noopener" className={`${linkClass} flex-col items-start justify-center py-1`}>
+                <span>{labAddress}, Medvode</span>
+                <span className="text-xs text-foreground/70">{location("maps")} ↗</span>
               </a>,
             ],
             "col-span-2 sm:col-span-1",

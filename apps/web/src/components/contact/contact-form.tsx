@@ -142,7 +142,7 @@ export function ContactForm() {
       </div>
       <Field>
         <Label htmlFor="contact-message">{t("message")}</Label>
-        <Textarea id="contact-message" rows={6} className="min-h-36" value={values.message} onChange={set("message")} {...invalid("message")} />
+        <Textarea id="contact-message" rows={6} className="min-h-36" placeholder={t("messagePlaceholder")} value={values.message} onChange={set("message")} {...invalid("message")} />
         {error("message")}
       </Field>
       {/* Honeypot: hidden from people and screen readers, bots fill it in. */}

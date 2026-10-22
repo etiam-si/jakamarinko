@@ -84,8 +84,14 @@ Cene coachinga niso objavljene.
 | Ekonomičnost teka | 80 € |
 | Antropometrija | 50 € |
 | **Performance paket** | **250 €** |
+| Tekaški paket | 180 € |
+| Paket za dolge tekme | 180 € |
+| Sezonski paket | 350 € |
+| Ponovni laktatni test | 70 € |
 
 Performance paket vključuje: VO₂max, laktatni profil, analizo porabe maščob, antropometrijo, individualno razlago, določitev trening con.
+
+Zadnji štirje (oktober 2026) so novi paketi iz `conversion-playbook.md` §5.1; cene še potrdi lastnik. Tekaški paket: laktatni profil, ekonomičnost teka, antropometrija. Paket za dolge tekme: laktatni profil in poraba maščob in OH. Sezonski paket: Performance paket in dva ponovna laktatna testa v 6 mesecih. Ponovni laktatni test: v 4 mesecih po meritvi pri nas.
 
 Lokacija meritev ni navedena. Rezervacija je zdaj samo prek kontakta.
 

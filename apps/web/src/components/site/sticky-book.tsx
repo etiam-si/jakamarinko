@@ -7,21 +7,21 @@ import { type ComponentProps, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Link, usePathname } from "@/i18n/navigation";
 
-// Pages where a "Book a test" bar would be in the way: the booking flow itself, legal texts, ad landing pages (those
-// pass their own offer instead).
-const hiddenOn = ["/booking", "/legal", "/lp", "/styleguide"];
+// Pages where the bar would be in the way: the booking flow itself, the contact form, legal texts, and the ad landing
+// pages (they have their own layout).
+const hiddenOn = ["/booking", "/contact", "/legal", "/lp", "/styleguide"];
 const typing = "input, textarea, select, [contenteditable]";
 
 // Phones only: the page's action pinned to the bottom, where the thumb is. It slides in once the hero's primary
 // call to action ([data-cta="primary"]) has scrolled away, so the two never show at once, and steps aside while
 // someone types in a form. The spacer keeps the footer from ending up under it. `from` is the price line, formatted by
-// the server. Without `href` it is "Book a test" → /booking.
+// the server; `href` and `label` default to "Book a test" → /booking.
 export function StickyBook({ from, href, label }: { from: string; href?: ComponentProps<typeof Link>["href"]; label?: string }) {
   const t = useTranslations("common.actions");
   const pathname = usePathname();
   const [pastHero, setPastHero] = useState(false);
   const [typingNow, setTypingNow] = useState(false);
-  const hidden = !href && hiddenOn.some((p) => pathname === p || pathname.startsWith(`${p}/`));
+  const hidden = hiddenOn.some((p) => pathname === p || pathname.startsWith(`${p}/`));
 
   useEffect(() => {
     if (hidden) return;

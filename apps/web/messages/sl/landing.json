@@ -19,11 +19,59 @@
     },
     "where": {
       "question": "Kje je meritev?",
-      "answer": "V Sloveniji. Naslov dobiš v potrditvi rezervacije."
+      "answer": "V laboratoriju na naslovu Spodnje Pirnice 19N, Medvode, severozahodno od Ljubljane. Naslov je tudi v potrditvi rezervacije."
     },
     "raceWhen": {
       "question": "Kdaj naj začnem?",
       "answer": "12 do 16 tednov pred tekmo. Je manj časa? Vseeno piši, pa bomo videli, kaj gre."
+    },
+    "fit": {
+      "question": "Je moja forma dovolj dobra za meritev?",
+      "answer": "Da. Meritev se začne zlahka in se vsakih nekaj minut malo stopnjuje, ustaviš pa se lahko kadarkoli. Pokaže, kje si danes, na katerikoli ravni. Tudi manj izkušenim cone povedo, kako lahki naj bodo lahki treningi."
+    },
+    "blood": {
+      "question": "Ali odvzem krvi boli?",
+      "answer": "Komaj kaj. Majhen vbod v prst ali ušesno mečico in kapljica krvi po vsaki stopnji. Potreben je samo pri laktatnih meritvah."
+    },
+    "duration": {
+      "question": "Koliko časa traja?",
+      "answer": "Laktatni profil traja približno uro, Performance paket približno dve. Trajanje vsake meritve je navedeno ob ceni."
+    },
+    "whatYouGet": {
+      "question": "Kaj dobim?",
+      "answer": "Razlago rezultatov, pri laktatni meritvi in meritvi VO₂max pa tudi osebne trening cone s srčnim utripom in tempom ali močjo za vsako."
+    },
+    "whatYouGetLactate": {
+      "question": "Kaj dobim?",
+      "answer": "Aerobni (LT1) in anaerobni prag (LT2) s srčnim utripom in tempom ali močjo pri vsakem, osebne trening cone in razlago rezultatov."
+    },
+    "whatYouGetPerformance": {
+      "question": "Kaj dobim?",
+      "answer": "VO₂max, laktatni profil, porabo maščob in OH ter telesno sestavo, individualno razlago rezultatov in trening cone."
+    },
+    "cancel": {
+      "question": "Lahko meritev odpovem ali prestavim?",
+      "answer": "Da, brezplačno do 24 ur prej, prek povezave v potrditvenem e-sporočilu. Če je bila plačana s kartico, ti vrnemo celoten znesek. Za prestavitev odpovej termin in rezerviraj novega."
+    },
+    "retest": {
+      "question": "Kako pogosto naj meritev ponovim?",
+      "answer": "Vsake 2–3 mesece med treningom ali pred novo sezono, da cone sledijo tvoji formi. Paket Coaching vključuje laktatni test vsake 3 mesece."
+    },
+    "noCoach": {
+      "question": "Lahko rezultate uporabljam brez trenerja?",
+      "answer": "Da. Dobiš svoje cone in razlago, kaj pomenijo za trening, pripravljene za katerikoli načrt ali uro."
+    },
+    "raceWhatYouGet": {
+      "question": "Kaj je vključeno?",
+      "answer": "12–16-tedenski trening blok za eno tekmo, z meritvijo na začetku, ki določi tvoje cone, in meritvijo na koncu, ki pokaže napredek. Plačaš enkrat."
+    },
+    "raceFit": {
+      "question": "Je samo za hitre?",
+      "answer": "Ne. Blok izhaja iz tvojih rezultatov meritve, zato je prilagojen tvoji ravni in cilju za to tekmo."
+    },
+    "raceStart": {
+      "question": "Kako začnem?",
+      "answer": "Pošlji datum tekme in cilj. Odgovorimo v dveh delovnih dneh in rezerviramo prvo meritev."
     }
   },
   "pages": {
@@ -34,18 +82,27 @@
       },
       "hero": {
         "eyebrow": "Laktatni profil",
-        "title": "Treniraj v svojih conah, ne v conah formule.",
-        "lead": "En test ti da oba pragova in srčni utrip za vsako cono."
+        "title": "Tvoje trening cone iz kapljice krvi.",
+        "lead": "Oba pragova, srčni utrip za vsako cono in razlaga rezultatov. {price} €."
       },
       "points": {
-        "one": { "title": "Dva pragova", "text": "LT1 in LT2, s srčnim utripom in tempom ali močjo pri vsakem." },
-        "two": { "title": "Tvoje cone", "text": "Trening cone iz tvojega laktata v krvi." },
-        "three": { "title": "Z razlago", "text": "Rezultati v preprostih besedah, da veš, kaj narediti naprej." }
+        "one": {
+          "title": "Dva pragova",
+          "text": "LT1 in LT2, s srčnim utripom in tempom ali močjo pri vsakem."
+        },
+        "two": {
+          "title": "Tvoje cone",
+          "text": "Trening cone iz tvojega laktata v krvi."
+        },
+        "three": {
+          "title": "Z razlago",
+          "text": "Rezultati v preprostih besedah, da veš, kaj narediti naprej."
+        }
       },
       "cta": "Rezerviraj laktatni test",
       "close": {
         "title": "Spoznaj svoja pragova pred naslednjim blokom.",
-        "text": "Termin izbereš na spletu v minuti."
+        "text": "Termin izbereš na spletu v minuti. Brezplačna odpoved do 24 ur prej."
       }
     },
     "performance": {
@@ -55,18 +112,27 @@
       },
       "hero": {
         "eyebrow": "Performance paket",
-        "title": "Celoten profil tvoje vzdržljivosti v enem obisku.",
-        "lead": "VO₂max, laktatna pragova, poraba goriva in telesna sestava, s tvojimi conami."
+        "title": "Štiri meritve, en obisk. {price} € namesto {separate} €.",
+        "lead": "VO₂max, laktatni profil, poraba goriva in telesna sestava, s tvojimi conami. Posamično {separate} €."
       },
       "points": {
-        "one": { "title": "Tvoj motor", "text": "VO₂max in maksimalni srčni utrip." },
-        "two": { "title": "Tvoja pragova", "text": "LT1, LT2 in tvoje osebne trening cone." },
-        "three": { "title": "Tvoje gorivo", "text": "Poraba maščob in OH pri vsaki intenzivnosti." }
+        "one": {
+          "title": "Tvoj motor",
+          "text": "VO₂max in maksimalni srčni utrip."
+        },
+        "two": {
+          "title": "Tvoja pragova",
+          "text": "LT1, LT2 in tvoje osebne trening cone."
+        },
+        "three": {
+          "title": "Tvoje gorivo",
+          "text": "Poraba maščob in OH pri vsaki intenzivnosti."
+        }
       },
       "cta": "Rezerviraj Performance paket",
       "close": {
         "title": "Celotna slika v enem obisku.",
-        "text": "Rezerviraj na spletu, navodila za pripravo dobiš po e-pošti."
+        "text": "Rezerviraj na spletu, navodila za pripravo dobiš po e-pošti. Brezplačna odpoved do 24 ur prej."
       }
     },
     "coaching": {
@@ -76,18 +142,27 @@
       },
       "hero": {
         "eyebrow": "Coaching",
-        "title": "Načrt, zgrajen na tvojih številkah.",
-        "lead": "Prilagojen vsak teden, z Jakovimi komentarji in laktatnim testom vsake 3 mesece."
+        "title": "Coaching z Jakom in meritvijo vsake 3 mesece.",
+        "lead": "Načrt, ki se prilagaja vsak teden, Jakovi komentarji na tvoje tedne in pogovor vsak mesec. {price} € na mesec."
       },
       "points": {
-        "one": { "title": "Načrt, ki se prilagaja", "text": "Po Jakovi metodi, vsak teden prilagojen tvojemu treningu." },
-        "two": { "title": "Jakovi komentarji", "text": "Osebni komentarji na tvoje trening tedne." },
-        "three": { "title": "Test vsake 3 mesece", "text": "Laktatni test je vključen, da so tvoje cone vedno aktualne." }
+        "one": {
+          "title": "Načrt, ki se prilagaja",
+          "text": "Po Jakovi metodi, vsak teden prilagojen tvojemu treningu."
+        },
+        "two": {
+          "title": "Jakovi komentarji",
+          "text": "Osebni komentarji na tvoje trening tedne."
+        },
+        "three": {
+          "title": "Test vsake 3 mesece",
+          "text": "Laktatni test je vključen, da so tvoje cone vedno aktualne."
+        }
       },
-      "cta": "Izberi Coaching",
+      "cta": "Napiši svoj cilj",
       "close": {
         "title": "Začni s svojim ciljem.",
-        "text": "Napiši, za kaj treniraš, in oglasili se bomo."
+        "text": "Napiši, za kaj treniraš. Odgovorimo v dveh delovnih dneh."
       }
     },
     "race-preparation": {
@@ -97,18 +172,27 @@
       },
       "hero": {
         "eyebrow": "Priprava na tekmo",
-        "title": "12–16 tednov do tekme, izmerjeno.",
-        "lead": "Trening blok za eno tekmo, z meritvijo na začetku in na koncu."
+        "title": "Izberi tekmo. Pripravo načrtujemo od starta nazaj.",
+        "lead": "12–16-tedenski blok za eno tekmo, z meritvijo na začetku in na koncu. {price} €, plačaš enkrat."
       },
       "points": {
-        "one": { "title": "En cilj", "text": "Blok, zgrajen okoli ene tekme." },
-        "two": { "title": "Dve meritvi", "text": "Prva določi tvoje cone, druga pokaže napredek." },
-        "three": { "title": "Plačaš enkrat", "text": "Brez naročnine." }
+        "one": {
+          "title": "En cilj",
+          "text": "Blok, zgrajen okoli ene tekme."
+        },
+        "two": {
+          "title": "Dve meritvi",
+          "text": "Prva določi tvoje cone, druga pokaže napredek."
+        },
+        "three": {
+          "title": "Plačaš enkrat",
+          "text": "Brez naročnine."
+        }
       },
-      "cta": "Vprašaj za pripravo na tekmo",
+      "cta": "Pošlji datum tekme",
       "close": {
         "title": "Katera tekma je naslednja?",
-        "text": "Pošlji nam datum, pa načrtujemo nazaj od njega."
+        "text": "Pošlji datum. Odgovorimo v dveh delovnih dneh in načrtujemo nazaj od njega."
       }
     }
   },

@@ -7,7 +7,7 @@ import { Footer } from "@/components/site/footer";
 import { Header } from "@/components/site/header";
 import { StickyBook } from "@/components/site/sticky-book";
 import { Reveal } from "@/components/ui/reveal";
-import { euros, siteUrl } from "@/components/site/site";
+import { bookingHref, euros, siteUrl } from "@/components/site/site";
 
 export const metadata: Metadata = { metadataBase: new URL(siteUrl) };
 
@@ -16,8 +16,8 @@ export default function SiteLayout({ children, params }: { children: React.React
   setRequestLocale(use(params).locale);
   const t = useTranslations("site");
   const format = useFormatter();
-  // The message carries the € sign ("from {price} €"), so the number goes in plain.
-  const cheapest = format.number(euros(Math.min(...labTests.map((l) => l.priceCents))), { maximumFractionDigits: 2 });
+  // The entry test. The message carries the € sign ("{price} €"), so the number goes in plain.
+  const lactate = format.number(euros(labTests.find((l) => l.id === "lactate-profile")!.priceCents), { maximumFractionDigits: 2 });
   return (
     <>
       <a
@@ -31,7 +31,7 @@ export default function SiteLayout({ children, params }: { children: React.React
         {children}
       </div>
       <Footer />
-      <StickyBook from={t("sticky.from", { price: cheapest })} />
+      <StickyBook from={t("sticky.from", { price: lactate })} href={bookingHref("lactate-profile")} label={t("sticky.button")} />
       <Reveal />
     </>
   );

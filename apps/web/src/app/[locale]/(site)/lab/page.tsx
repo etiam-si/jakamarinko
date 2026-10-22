@@ -1,6 +1,6 @@
 import type { LabTestId, Locale } from "@jakamarinko/types";
-import { afterTestOffer, labTests, packages, restedAndFed } from "@jakamarinko/types";
-import { ArrowRight, Check, ClipboardList, MapPin, Sparkles } from "lucide-react";
+import { afterTestOffer, labTests, restedAndFed } from "@jakamarinko/types";
+import { ArrowRight, ClipboardList, ShieldCheck, Sparkles } from "lucide-react";
 import type { Metadata } from "next";
 import { useFormatter, useTranslations } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
@@ -8,10 +8,11 @@ import { use } from "react";
 import { LactateCurve } from "@/components/brand/lactate-curve";
 import { SectionHeading } from "@/components/brand/section-heading";
 import { Faq } from "@/components/site/faq";
+import { Location } from "@/components/site/location";
 import { PhotoSlot } from "@/components/site/photo-slot";
 import { ProofBand } from "@/components/site/proof-band";
 import { CtaBand, Section } from "@/components/site/section";
-import { euros, pageMetadata } from "@/components/site/site";
+import { bookingHref, euros, pageMetadata } from "@/components/site/site";
 import { Steps } from "@/components/site/steps";
 import { List, TestCard } from "@/components/site/test-card";
 import { Button } from "@/components/ui/button";
@@ -26,7 +27,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 const what = ["s1", "s2", "s3"] as const;
-const why = ["zones", "progress", "race"] as const;
 // Which need points to which test.
 const choose: [key: string, test: LabTestId][] = [
   ["lactate", "lactate-profile"],
@@ -36,29 +36,41 @@ const choose: [key: string, test: LabTestId][] = [
   ["economy", "running-economy"],
   ["performance", "performance"],
 ];
+// The price list in the order of the conversion playbook (§5.1): the hero bundle first as the anchor, the two
+// named bundles, the middle option, the entry test, then the singles. Retest offers come last, for returning athletes.
+const order: { id: LabTestId; badge?: "forLongRaces" | "forRunners" | "bestFirst" }[] = [
+  { id: "long-distance", badge: "forLongRaces" },
+  { id: "runner", badge: "forRunners" },
+  { id: "vo2max-lactate" },
+  { id: "lactate-profile", badge: "bestFirst" },
+  { id: "vo2max" },
+  { id: "fat-carb" },
+  { id: "running-economy" },
+  { id: "anthropometry" },
+];
+const comeBack: LabTestId[] = ["season", "lactate-retest"];
 const practical = [
   { key: "prepare", icon: ClipboardList },
-  { key: "location", icon: MapPin },
   { key: "after", icon: Sparkles },
 ] as const;
-const faq = ["prepare", "fit", "duration", "results", "cancel"] as const;
+const faq = ["fit", "blood", "duration", "whatYouGet", "preparation", "cancel", "where", "retest", "noCoach"] as const;
 
 export default function Lab({ params }: Props) {
   const locale = use(params).locale as Locale;
   setRequestLocale(locale);
   const t = useTranslations("lab");
   const common = useTranslations("common");
-  const home = useTranslations("home");
+  const landing = useTranslations("landing.faq");
+  const site = useTranslations("site");
   const format = useFormatter();
-  const singles = labTests.filter((test) => test.id !== "performance");
-  const performance = labTests.find((test) => test.id === "performance")!;
-  const testName = (id: LabTestId) => labTests.find((test) => test.id === id)!.name[locale];
-  const minutes = labTests.map((test) => test.durationMin);
+  const test = (id: LabTestId) => labTests.find((item) => item.id === id)!;
+  const lactatePrice = format.number(euros(test("lactate-profile").priceCents), { maximumFractionDigits: 2 });
 
-  const book = (variant: "default" | "outline" = "outline") => (
+  // The page's action at the end of every section: the entry test.
+  const bookLactate = (variant: "default" | "outline" = "outline") => (
     <Button asChild size="lg" variant={variant} data-cta="secondary">
-      <Link href="/booking">
-        {common("actions.bookTest")}
+      <Link href={bookingHref("lactate-profile")}>
+        {t("hero.primaryCta")}
         <ArrowRight aria-hidden />
       </Link>
     </Button>
@@ -71,40 +83,38 @@ export default function Lab({ params }: Props) {
         className="grid items-center gap-12 pt-8 pb-16 md:pt-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,26rem)] lg:gap-16 lg:pt-20 lg:pb-24"
       >
         <div className="flex flex-col gap-8">
-          <SectionHeading as="h1" eyebrow={common("nav.lab")} title={t("hero.title")} lead={t("hero.subtitle")} />
-          <div className="flex flex-col gap-3 sm:flex-row">
-            <Button asChild size="lg" data-cta="primary">
-              <Link href="/booking">
-                {t("hero.primaryCta")}
-                <ArrowRight aria-hidden />
-              </Link>
-            </Button>
-            <Button asChild size="lg" variant="outline">
-              <a href="#choose">{t("hero.secondaryCta")}</a>
-            </Button>
+          <SectionHeading as="h1" eyebrow={common("nav.lab")} title={t("hero.title")} lead={t("hero.subtitle", { price: lactatePrice })} />
+          <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-3 sm:flex-row">
+              <Button asChild size="lg" data-cta="primary">
+                <Link href={bookingHref("lactate-profile")}>
+                  {t("hero.primaryCta")}
+                  <ArrowRight aria-hidden />
+                </Link>
+              </Button>
+              <Button asChild size="lg" variant="outline">
+                <a href="#choose">{t("hero.secondaryCta")}</a>
+              </Button>
+            </div>
+            <p className="flex items-start gap-2 text-sm text-muted-foreground">
+              <ShieldCheck aria-hidden className="mt-0.5 size-4 shrink-0 text-primary" />
+              {t("hero.trust")} · {site("location.trust")}
+            </p>
           </div>
-          <ul className="flex flex-col gap-2.5 text-sm">
-            {why.map((key) => (
-              <li key={key} className="flex items-start gap-2.5">
-                <Check aria-hidden className="mt-0.5 size-4 shrink-0 text-primary" />
-                <span>
-                  <span className="font-semibold">{t(`why.${key}.title`)}.</span>{" "}
-                  <span className="text-muted-foreground">{t(`why.${key}.text`)}</span>
-                </span>
-              </li>
-            ))}
-          </ul>
         </div>
         <PhotoSlot
           slot="labHero"
           className="mx-auto max-w-md lg:max-w-none"
           fallback={
             <div className="relative mx-auto w-full max-w-md lg:max-w-none">
-              <div aria-hidden className="absolute inset-0 translate-x-2.5 translate-y-2.5 rounded-2xl bg-linear-to-br from-primary to-primary-deep md:translate-x-4 md:translate-y-4" />
+              <div
+                aria-hidden
+                className="absolute inset-0 translate-x-2.5 translate-y-2.5 rounded-2xl bg-linear-to-br from-primary to-primary-deep md:translate-x-4 md:translate-y-4"
+              />
               <div className="relative mr-2.5 rounded-2xl border bg-card p-5 shadow-xl md:mr-4 md:p-7">
                 <p className="mb-5 flex items-center gap-2 font-mono text-xs tracking-wider text-muted-foreground uppercase">
                   <span aria-hidden className="size-1.5 rounded-full bg-signal" />
-                  {testName("lactate-profile")}
+                  {test("lactate-profile").name[locale]}
                 </p>
                 <LactateCurve labels={{ x: t("curve.x"), y: t("curve.y") }} />
               </div>
@@ -113,49 +123,65 @@ export default function Lab({ params }: Props) {
         />
       </Section>
 
-      <ProofBand action={book()} />
+      <ProofBand action={bookLactate()}>
+        <p className="flex items-center gap-2 font-mono text-xs tracking-wider text-muted-foreground uppercase">
+          <span aria-hidden className="size-1.5 rounded-full bg-signal" />
+          {t("proof.by")}
+        </p>
+      </ProofBand>
 
-      <Section id="tests" className="flex scroll-mt-20 flex-col gap-10">
-        <SectionHeading title={t("tests.title")} lead={common("units.vatIncluded")} />
-        <TestCard test={performance} locale={locale} featured />
-        <div className="grid gap-6 lg:grid-cols-2">
-          {singles.map((test) => (
-            <TestCard key={test.id} test={test} locale={locale} />
+      <Section id="choose" className="flex scroll-mt-20 flex-col gap-10">
+        <SectionHeading title={t("choose.title")} />
+        <ul className="grid gap-3 md:grid-cols-2">
+          {choose.map(([key, id], i) => (
+            <li key={key} data-reveal-item style={{ "--i": i } as React.CSSProperties}>
+              <a href={`#${id}`} className="group lift flex min-h-18 items-center gap-4 rounded-2xl border bg-card px-5 py-4 shadow-sm hover:border-primary/40">
+                <span className="flex min-w-0 flex-1 flex-col gap-0.5">
+                  <span className="text-sm text-muted-foreground">{t(`choose.${key}`)}</span>
+                  <span className="font-semibold">{test(id).name[locale]}</span>
+                </span>
+                <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-muted text-muted-foreground transition-colors duration-(--duration-base) group-hover:bg-primary group-hover:text-primary-foreground">
+                  <ArrowRight aria-hidden className="size-4" />
+                </span>
+              </a>
+            </li>
           ))}
+        </ul>
+        <div className="flex">{bookLactate()}</div>
+      </Section>
+
+      <Section id="tests" tone="tinted" className="flex scroll-mt-20 flex-col gap-10">
+        <SectionHeading title={t("tests.title")} lead={common("units.vatIncluded")} />
+        <TestCard test={test("performance")} locale={locale} featured badge={t("tests.bestValue")} />
+        <div className="grid gap-6 lg:grid-cols-2">
+          {order.map(({ id, badge }) => (
+            <TestCard key={id} test={test(id)} locale={locale} badge={badge && t(`tests.${badge}`)} />
+          ))}
+        </div>
+        <div className="flex flex-col gap-6 pt-6">
+          <SectionHeading as="h3" title={t("tests.comeBack.title")} lead={t("tests.comeBack.lead")} />
+          <div className="grid gap-6 lg:grid-cols-2">
+            {comeBack.map((id) => (
+              <TestCard key={id} test={test(id)} locale={locale} />
+            ))}
+          </div>
         </div>
       </Section>
 
-      <Section tone="tinted" className="grid gap-14 md:grid-cols-2 md:gap-12">
+      <Section className="grid gap-14 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] md:gap-12">
         <div className="flex flex-col gap-10">
           <SectionHeading title={t("what.title")} />
           <Steps vertical items={what.map((key) => ({ text: t(`what.${key}`) }))} />
+          <p className="border-l-2 border-signal pl-4 font-medium">{t("what.hard")}</p>
+          <div className="flex">{bookLactate("default")}</div>
         </div>
-        <div id="choose" className="flex scroll-mt-24 flex-col gap-8">
-          <SectionHeading title={t("choose.title")} />
-          <ul className="flex flex-col divide-y overflow-hidden rounded-2xl border bg-card shadow-sm">
-            {choose.map(([key, id]) => (
-              <li key={key}>
-                <a href={`#${id}`} className="group flex min-h-16 items-center gap-3 px-5 py-3.5 transition-colors duration-(--duration-fast) hover:bg-muted/60 active:bg-muted">
-                  <span className="flex min-w-0 flex-1 flex-col gap-0.5">
-                    <span className="text-sm text-muted-foreground">{t(`choose.${key}`)}</span>
-                    <span className="font-semibold">{testName(id)}</span>
-                  </span>
-                  <ArrowRight
-                    aria-hidden
-                    className="size-4 shrink-0 text-muted-foreground transition-transform duration-(--duration-base) group-hover:translate-x-1 group-hover:text-foreground"
-                  />
-                </a>
-              </li>
-            ))}
-          </ul>
-          <div className="flex">{book("default")}</div>
-        </div>
+        <PhotoSlot slot="labSample" className="self-start" />
       </Section>
 
-      <Section className="flex flex-col gap-10">
+      <Section className="flex flex-col gap-10 pt-0 md:pt-0">
         <div className="grid gap-4 md:grid-cols-3">
           {practical.map(({ key, icon: Icon }, i) => (
-            <div key={key} data-reveal-item style={{ "--i": i } as React.CSSProperties} className="flex flex-col gap-3 rounded-2xl border bg-card p-6 shadow-sm">
+            <div key={key} data-reveal-item style={{ "--i": i } as React.CSSProperties} className="flex flex-col gap-4 rounded-2xl border bg-card p-6 shadow-sm">
               <span className="flex size-10 items-center justify-center rounded-full bg-primary/10 text-primary">
                 <Icon aria-hidden className="size-5" />
               </span>
@@ -175,29 +201,24 @@ export default function Lab({ params }: Props) {
               )}
             </div>
           ))}
+          <Location data-reveal-item />
         </div>
-        <PhotoSlot slot="labSample" className="max-w-3xl" />
-        <div className="flex">{book()}</div>
+        <div className="flex">{bookLactate()}</div>
       </Section>
 
       <Section className="flex flex-col gap-10 pt-0 md:pt-0">
         <SectionHeading title={t("faq.title")} />
-        <Faq
-          items={faq.map((key) => ({
-            question: t(`faq.${key}.question`),
-            answer: t(`faq.${key}.answer`, { min: Math.min(...minutes), max: Math.max(...minutes) }),
-          }))}
-        />
-        <div className="flex">{book()}</div>
+        <Faq items={faq.map((key) => ({ question: landing(`${key}.question`), answer: landing(`${key}.answer`) }))} />
+        <div className="flex">{bookLactate()}</div>
       </Section>
 
       <CtaBand
-        title={`${home("offers.coaching.title")}, ${home("offers.coaching.price", { price: format.number(euros(Math.min(...packages.map((p) => p.priceCents)))) })}`}
-        text={home("offers.coaching.text")}
+        title={t("close.title")}
+        text={t("close.text")}
         action={
-          <Button asChild size="lg" variant="secondary">
-            <Link href="/coaching">
-              {home("offers.coaching.cta")}
+          <Button asChild size="lg" variant="secondary" data-cta="secondary">
+            <Link href={bookingHref("lactate-profile")}>
+              {t("close.button")}
               <ArrowRight aria-hidden />
             </Link>
           </Button>
