@@ -8,7 +8,7 @@ export function HeroTitle({ children, className }: { children: string; className
   return (
     <h1
       className={cn(
-        "font-heading text-[2.5rem] leading-[1.02] font-extrabold tracking-[-0.015em] text-balance font-stretch-expanded motion-safe:animate-nudge sm:text-5xl lg:text-6xl",
+        "font-heading text-[2.25rem] leading-[1.04] font-extrabold tracking-[-0.015em] text-balance font-stretch-expanded motion-safe:animate-nudge min-[400px]:text-[2.5rem] sm:text-5xl lg:text-6xl",
         className,
       )}
     >

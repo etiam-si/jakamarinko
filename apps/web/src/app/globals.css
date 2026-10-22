@@ -102,12 +102,12 @@
   transition-delay: calc(120ms + min(var(--i, 0), 8) * 70ms);
 }
 
-/* The lactate curve (components/brand/lactate-curve.tsx) draws itself in on load, or when its section is revealed. */
-.lactate-curve-path {
+/* Chart lines (lactate curve, Šmarna gora) draw themselves in on load, or when their section is revealed. */
+.draw-path {
   animation: var(--animate-draw);
   animation-delay: 200ms;
 }
-[data-reveal="pending"] .lactate-curve-path {
+[data-reveal="pending"] .draw-path {
   animation: none;
   stroke-dashoffset: 1;
 }

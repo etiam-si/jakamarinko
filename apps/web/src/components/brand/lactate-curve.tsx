@@ -11,7 +11,7 @@ const bands = [
 
 // What a lactate profile looks like: flat, then bending up past the two thresholds, over the five zones. An
 // illustration with no numbers on it, not anyone's result. The curve draws itself in when it comes into view
-// (globals.css, .lactate-curve-path). `labels`: the axis names, when the drawing stands alone.
+// (globals.css, .draw-path). `labels`: the axis names, when the drawing stands alone.
 export function LactateCurve({ labels, className }: { labels?: { x: string; y: string }; className?: string }) {
   return (
     <figure aria-hidden className={cn("flex flex-col gap-2", className)}>
@@ -28,7 +28,7 @@ export function LactateCurve({ labels, className }: { labels?: { x: string; y: s
           ))}
           <line x1={0} y1={168} x2={320} y2={168} className="stroke-foreground/30" strokeWidth={1} />
           <path
-            className="lactate-curve-path stroke-foreground"
+            className="draw-path stroke-foreground"
             d="M 6 150 C 70 150, 120 146, 164 136 S 236 108, 262 76 S 300 22, 314 10"
             fill="none"
             strokeWidth={3}

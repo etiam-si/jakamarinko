@@ -27,6 +27,9 @@
   },
   "book": {
     "title": "Know which test you want?",
-    "text": "Book it online. No message needed."
-  }
+    "text": "Book it online. No message needed.",
+    "cta": "Book online"
+  },
+  "proof": "VO₂max 80 · U20 national team · Faculty of Sport student",
+  "direct": "Or call or email"
 }

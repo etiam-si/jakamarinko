@@ -16,12 +16,23 @@ const typing = "input, textarea, select, [contenteditable]";
 // call to action ([data-cta="primary"]) has scrolled away, so the two never show at once, and steps aside while
 // someone types in a form. The spacer keeps the footer from ending up under it. `from` is the price line, formatted by
 // the server; `href` and `label` default to "Book a test" → /booking.
-export function StickyBook({ from, href, label }: { from: string; href?: ComponentProps<typeof Link>["href"]; label?: string }) {
+export function StickyBook({
+  from,
+  href,
+  label,
+  always = false,
+}: {
+  from: string;
+  href?: ComponentProps<typeof Link>["href"];
+  label?: string;
+  // On every page, including the ones in hiddenOn (the ad landing pages render their own).
+  always?: boolean;
+}) {
   const t = useTranslations("common.actions");
   const pathname = usePathname();
   const [pastHero, setPastHero] = useState(false);
   const [typingNow, setTypingNow] = useState(false);
-  const hidden = hiddenOn.some((p) => pathname === p || pathname.startsWith(`${p}/`));
+  const hidden = !always && hiddenOn.some((p) => pathname === p || pathname.startsWith(`${p}/`));
 
   useEffect(() => {
     if (hidden) return;

@@ -63,7 +63,8 @@
     "comeBack": {
       "title": "Vrni se in poglej, kaj se je spremenilo",
       "lead": "Ponovne meritve in sezonski paket za športnike, ki so se že merili pri nas."
-    }
+    },
+    "separatelyOnly": "Posamično {price} €"
   },
   "prepare": {
     "title": "Kako se pripraviti",

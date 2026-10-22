@@ -10,10 +10,12 @@
   "choose": "Izberi paket {name}",
   "oneOff": {
     "title": "Osebni treningi in priprava na tekmo",
-    "subtitle": "Enkratno, brez naročnine."
+    "subtitle": "Enkratno, brez naročnine.",
+    "cta": "Povprašaj"
   },
   "afterTest": {
     "title": "Po laboratorijski meritvi",
     "text": "Vsaka laboratorijska meritev se konča s ponudbo: {days} dni paketa Plan brezplačno ali prvi mesec paketa Coaching s {percent} % popusta."
-  }
+  },
+  "ask": "Povprašaj za {name}"
 }

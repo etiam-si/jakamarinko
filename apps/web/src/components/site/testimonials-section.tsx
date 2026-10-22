@@ -9,14 +9,16 @@ import { shownTestimonials } from "./testimonials";
 const results = ["worldXc", "europeanMountain", "worldMountain", "worldSkimo", "champion", "redBull"] as const;
 
 // Proof from people. Real quotes (components/site/testimonials.ts) when there are any; the samples only in
-// placeholder builds, badged "Sample". Until then: Jaka's own results, which are real. `action`: the section's CTA.
-export function TestimonialsSection({ action }: { action: React.ReactNode }) {
+// placeholder builds, badged "Sample". Until then: Jaka's own results, which are real, or nothing with `realOnly`
+// (where the page already shows his results). `action`: the section's CTA.
+export function TestimonialsSection({ action, realOnly = false }: { action: React.ReactNode; realOnly?: boolean }) {
   const t = useTranslations("site.testimonials");
   const about = useTranslations("about.achievements");
   const common = useTranslations("common.sports");
   const locale = useLocale() as Locale;
 
   if (shownTestimonials.length === 0) {
+    if (realOnly) return null;
     return (
       <Section className="flex flex-col gap-12">
         <SectionHeading title={about("title")} />

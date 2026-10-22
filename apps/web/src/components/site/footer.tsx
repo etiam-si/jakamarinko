@@ -73,7 +73,9 @@ export function Footer() {
                 {contact("email.value")}
               </a>,
               <a key="maps" href={labMapsUrl} target="_blank" rel="noopener" className={`${linkClass} flex-col items-start justify-center py-1`}>
-                <span>{labAddress}, Medvode</span>
+                <span>
+                  {labAddress}, {location("town")}
+                </span>
                 <span className="text-xs text-foreground/70">{location("maps")} ↗</span>
               </a>,
             ],

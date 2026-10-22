@@ -28,7 +28,8 @@ export function PhotoFrame({
   src: string;
   alt: string;
   caption?: string;
-  aspect?: keyof typeof aspects;
+  // A named ratio, or Tailwind aspect classes for a ratio that changes with the width.
+  aspect?: keyof typeof aspects | (string & {});
   treatment?: "natural" | "tinted";
   position?: string;
   hero?: boolean;
@@ -51,7 +52,7 @@ export function PhotoFrame({
           />
         )}
         <div
-          className={cn("relative isolate overflow-hidden bg-muted", !flush && "rounded-2xl", !flush && (depth ? "shadow-xl" : "shadow-md"), aspects[aspect])}
+          className={cn("relative isolate overflow-hidden bg-muted", !flush && "rounded-2xl", !flush && (depth ? "shadow-xl" : "shadow-md"), aspects[aspect as keyof typeof aspects] ?? aspect)}
         >
           <Image
             src={src}

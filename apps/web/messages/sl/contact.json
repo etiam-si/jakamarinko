@@ -27,6 +27,9 @@
   },
   "book": {
     "title": "Že veš, katero meritev želiš?",
-    "text": "Rezerviraj jo na spletu. Sporočilo ni potrebno."
-  }
+    "text": "Rezerviraj jo na spletu. Sporočilo ni potrebno.",
+    "cta": "Rezerviraj na spletu"
+  },
+  "proof": "VO₂max 80 · reprezentant U20 · študent Fakultete za šport",
+  "direct": "Ali pokliči ali piši"
 }

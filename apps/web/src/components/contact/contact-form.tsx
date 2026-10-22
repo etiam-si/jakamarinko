@@ -97,7 +97,8 @@ export function ContactForm() {
 
   return (
     <form
-      className="flex flex-col gap-5 rounded-xl border bg-card p-5 shadow-sm sm:p-8"
+      id="message"
+      className="flex scroll-mt-24 flex-col gap-5 rounded-2xl border bg-card p-5 shadow-md sm:p-8"
       onSubmit={submit}
       noValidate
       aria-labelledby="contact-form-title"

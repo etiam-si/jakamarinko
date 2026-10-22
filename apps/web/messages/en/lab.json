@@ -63,7 +63,8 @@
     "comeBack": {
       "title": "Come back and see what changed",
       "lead": "Retest and season offers for athletes who have tested with us."
-    }
+    },
+    "separatelyOnly": "{price} € if booked separately"
   },
   "prepare": {
     "title": "How to prepare",

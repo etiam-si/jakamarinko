@@ -29,7 +29,8 @@
   },
   "sticky": {
     "from": "Laktatni profil {price} €",
-    "button": "Rezerviraj"
+    "button": "Rezerviraj",
+    "offer": "{name} · {price}"
   },
   "shots": {
     "label": "Fotografija sledi",
@@ -51,6 +52,7 @@
     "place": "Laboratorij v Spodnjih Pirničah",
     "area": "Medvode, severozahodno od Ljubljane",
     "maps": "Odpri v zemljevidu",
-    "trust": "Laboratorij v Spodnjih Pirničah, Medvode"
+    "trust": "Laboratorij v Spodnjih Pirničah, Medvode",
+    "town": "Medvode"
   }
 }
