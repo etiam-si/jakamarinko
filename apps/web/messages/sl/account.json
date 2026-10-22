@@ -1,0 +1,126 @@
+{
+  "deletedUser": "Izbrisan uporabnik",
+  "block": {
+    "loading": "Nalagam",
+    "processing": "Delamo na tem"
+  },
+  "status": {
+    "pending_payment": "Čaka na plačilo",
+    "confirmed": "Potrjeno",
+    "cancelled": "Odpovedano",
+    "completed": "Opravljeno",
+    "no_show": "Zamujeno"
+  },
+  "booking": {
+    "when": "Kdaj",
+    "where": "Kje",
+    "map": "Odpri na zemljevidu",
+    "addToCalendar": "Dodaj v koledar",
+    "prepare": "Kako se pripraviš",
+    "cancel": "Odpovej rezervacijo",
+    "cancelTitle": "Odpoveš to rezervacijo?",
+    "cancelBody": "{service}, {date}. Termin se sprosti za koga drugega, potrditev ti pošljemo po e-pošti.",
+    "cancelConfirm": "Da, odpovej",
+    "keep": "Obdrži",
+    "cancelError": "Rezervacije ni bilo mogoče odpovedati. Poskusi znova ali nam piši.",
+    "tooLate": "Brezplačna odpoved je mogoča do 24 ur pred začetkom. Za spremembo zdaj nas pokliči ali nam piši."
+  },
+  "overview": {
+    "nextBooking": {
+      "title": "Naslednja rezervacija",
+      "startsIn": "Začetek {relative}",
+      "emptyTitle": "Še nimaš rezervacije",
+      "emptyBody": "Rezerviraj meritev ali trening in tukaj najdeš, kdaj, kje in kako se pripraviš.",
+      "book": "Poglej meritve",
+      "manage": "Upravljaj rezervacije"
+    },
+    "pastBookings": {
+      "title": "Pretekle rezervacije",
+      "empty": "Še ni preteklih rezervacij.",
+      "all": "Vse rezervacije"
+    },
+    "profile": {
+      "title": "Tvoj profil",
+      "progress": "Izpolnjeno {done} od {total}",
+      "complete": "Vse je izpolnjeno. Vemo, kako te dosežemo.",
+      "missing": "Manjka še: {fields}.",
+      "name": "tvoje ime",
+      "phone": "tvoja telefonska številka",
+      "edit": "Uredi profil"
+    }
+  },
+  "bookings": {
+    "upcoming": "Prihajajoče",
+    "past": "Pretekle in odpovedane",
+    "noUpcoming": "Nič prihajajočega.",
+    "noPast": "Tukaj še ni ničesar.",
+    "book": "Rezerviraj meritev"
+  },
+  "profile": {
+    "name": "Ime",
+    "email": "E-pošta",
+    "emailHint": "S tem naslovom se prijavljaš. Če ga želiš spremeniti, nam piši.",
+    "phone": "Telefon",
+    "phoneHint": "Da te lahko dosežemo glede rezervacije.",
+    "language": "Jezik",
+    "languageHint": "Jezik te strani in naših sporočil tebi.",
+    "save": "Shrani",
+    "saving": "Shranjujem …",
+    "saved": "Shranjeno.",
+    "error": "Shranjevanje ni uspelo. Preveri polja in poskusi znova.",
+    "invalidName": "Vpiši svoje ime.",
+    "invalidPhone": "Vpiši telefonsko številko z vsaj 6 znaki ali pusti polje prazno."
+  },
+  "privacy": {
+    "consents": {
+      "title": "Privolitve",
+      "lead": "Kaj dovoljuješ in od kdaj. Spremeniš lahko kadar koli.",
+      "health_data": "Obdelava mojih podatkov o zdravju in treningu",
+      "marketing": "Novice in ponudbe po e-pošti",
+      "given": "Dano {date}",
+      "notGiven": "Ni dano",
+      "withdraw": "Prekliči",
+      "grant": "Dam privolitev",
+      "history": "Zgodovina",
+      "historyGiven": "{kind}: dano {date}",
+      "historyWithdrawn": "{kind}: dano {date}, preklicano {withdrawn}",
+      "error": "Sprememba ni bila shranjena. Poskusi znova.",
+      "healthTitle": "Prekličeš privolitev za podatke o zdravju?",
+      "healthIntro": "Brez nje ne smemo obdelovati tvojih podatkov o zdravju in treningu. Nehalo bo delovati:",
+      "healthStop1": "Tvoj račun (pregled, rezervacije, profil) bo pred odprtjem znova vprašal za to privolitev.",
+      "healthStop2": "Ne moremo beležiti tvojih rezultatov meritev ali ti pripraviti načrta treninga.",
+      "healthStop3": "Trenerji v tvojem računu ne vidijo več tvojih odgovorov o zdravju.",
+      "healthKeeps": "Tvoje rezervacije ostanejo, kot so, in jih še vedno upravljaš prek povezave v e-pošti. Podatki, ki jih že hranimo, ostanejo, dokler ne izbrišeš računa.",
+      "healthConfirm": "Prekliči privolitev",
+      "healthCancel": "Obdrži"
+    },
+    "export": {
+      "title": "Prenesi svoje podatke",
+      "body": "Datoteka zip z vsem, kar hranimo o tebi: profil, privolitve in rezervacije, v JSON in CSV za preglednice.",
+      "button": "Prenesi moje podatke"
+    },
+    "delete": {
+      "title": "Izbriši račun",
+      "body": "Izbrišemo tvoj profil, privolitve, odgovore o zdravju in podatke za prijavo. Zaradi računovodstva moramo zapis preteklih rezervacij hraniti 10 let, brez tvojega imena, e-pošte in telefona.",
+      "button": "Izbriši moj račun",
+      "sending": "Pošiljam …",
+      "sent": "Povezavo za potrditev smo poslali na {email}. Odpri jo v eni uri, da izbrišeš račun.",
+      "error": "Sporočila ni bilo mogoče poslati. Poskusi pozneje.",
+      "upcoming": "Imaš prihajajoče rezervacije. Najprej jih odpovej ali nam piši.",
+      "staff": "Računa trenerja tukaj ni mogoče izbrisati. Obrni se na lastnika."
+    },
+    "confirm": {
+      "title": "Izbriši svoj račun",
+      "body": "Tega ni mogoče razveljaviti. Tvoj profil, privolitve, odgovori o zdravju in podatki za prijavo se takoj izbrišejo. Pretekle rezervacije ostanejo v računovodskih evidencah 10 let, brez tvojega imena, e-pošte in telefona.",
+      "button": "Dokončno izbriši moj račun",
+      "deleting": "Brišem …",
+      "invalid": "Ta povezava je potekla ali pripada drugemu računu. Novo zahtevaj na strani Zasebnost.",
+      "error": "Brisanje ni uspelo. Poskusi znova ali nam piši.",
+      "missing": "To stran odpri s povezavo iz e-pošte.",
+      "back": "Nazaj na zasebnost",
+      "doneTitle": "Tvoj račun je izbrisan",
+      "doneBody": "Hvala za zaupanje. Če se znova prijaviš z istim e-naslovom, začneš z novim, praznim računom.",
+      "home": "Na domačo stran"
+    }
+  }
+}

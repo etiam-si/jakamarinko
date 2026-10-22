@@ -80,5 +80,14 @@
     "intro": "Hvala za sporočilo. Odgovorili ti bomo v dveh delovnih dneh.",
     "meanwhile": "Medtem si lahko na spletni strani ogledaš laboratorijske meritve in pakete coachinga.",
     "button": "Na spletno stran"
+  },
+  "accountDelete": {
+    "subject": "Potrdi izbris računa",
+    "preview": "Še en korak do izbrisa računa",
+    "intro": "Prejeli smo zahtevo za izbris tvojega računa Jaka Marinko. Ko jo potrdiš, za vedno izbrišemo tvoj profil, privolitve, odgovore o zdravju in podatke za prijavo.",
+    "kept": "Zaradi računovodstva moramo zapis preteklih rezervacij (storitev, datum, cena, plačilo) hraniti 10 let, brez tvojega imena, e-pošte in telefona.",
+    "button": "Izbriši moj račun",
+    "expires": "Povezava velja {minutes} minut. Odpri jo v brskalniku, v katerem uporabljaš svoj račun.",
+    "ignore": "Če te zahteve ne prepoznaš, sporočilo prezri. Tvoj račun ostane, kot je."
   }
 }

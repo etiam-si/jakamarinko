@@ -1,0 +1,126 @@
+{
+  "deletedUser": "Deleted user",
+  "block": {
+    "loading": "Loading",
+    "processing": "Working on it"
+  },
+  "status": {
+    "pending_payment": "Waiting for payment",
+    "confirmed": "Confirmed",
+    "cancelled": "Cancelled",
+    "completed": "Done",
+    "no_show": "Missed"
+  },
+  "booking": {
+    "when": "When",
+    "where": "Where",
+    "map": "Open in maps",
+    "addToCalendar": "Add to calendar",
+    "prepare": "How to prepare",
+    "cancel": "Cancel booking",
+    "cancelTitle": "Cancel this booking?",
+    "cancelBody": "{service}, {date}. The time becomes free for someone else, and we'll email you a confirmation.",
+    "cancelConfirm": "Yes, cancel it",
+    "keep": "Keep it",
+    "cancelError": "The booking couldn't be cancelled. Try again, or write to us.",
+    "tooLate": "Free cancellation ends 24 hours before the start. To change it now, call or write to us."
+  },
+  "overview": {
+    "nextBooking": {
+      "title": "Next booking",
+      "startsIn": "Starts {relative}",
+      "emptyTitle": "Nothing booked yet",
+      "emptyBody": "Book a lab test or a session and you'll see when, where and how to prepare right here.",
+      "book": "See lab tests",
+      "manage": "Manage bookings"
+    },
+    "pastBookings": {
+      "title": "Past bookings",
+      "empty": "No past bookings yet.",
+      "all": "All bookings"
+    },
+    "profile": {
+      "title": "Your profile",
+      "progress": "{done} of {total} filled in",
+      "complete": "Everything's there. We know how to reach you.",
+      "missing": "Still missing: {fields}.",
+      "name": "your name",
+      "phone": "your phone number",
+      "edit": "Edit profile"
+    }
+  },
+  "bookings": {
+    "upcoming": "Upcoming",
+    "past": "Past and cancelled",
+    "noUpcoming": "Nothing upcoming.",
+    "noPast": "Nothing here yet.",
+    "book": "Book a lab test"
+  },
+  "profile": {
+    "name": "Name",
+    "email": "Email",
+    "emailHint": "You sign in with this address. To change it, write to us.",
+    "phone": "Phone",
+    "phoneHint": "So we can reach you about a booking.",
+    "language": "Language",
+    "languageHint": "The language of this site and of our emails to you.",
+    "save": "Save",
+    "saving": "Saving…",
+    "saved": "Saved.",
+    "error": "Saving didn't work. Check the fields and try again.",
+    "invalidName": "Enter your name.",
+    "invalidPhone": "Enter a phone number of at least 6 characters, or leave it empty."
+  },
+  "privacy": {
+    "consents": {
+      "title": "Consents",
+      "lead": "What you've agreed to, and when. You can change it at any time.",
+      "health_data": "Processing of my health and training data",
+      "marketing": "News and offers by email",
+      "given": "Given on {date}",
+      "notGiven": "Not given",
+      "withdraw": "Withdraw",
+      "grant": "Give consent",
+      "history": "History",
+      "historyGiven": "{kind}: given {date}",
+      "historyWithdrawn": "{kind}: given {date}, withdrawn {withdrawn}",
+      "error": "Saving the change didn't work. Try again.",
+      "healthTitle": "Withdraw consent for your health data?",
+      "healthIntro": "Without it we may not process your health and training data. This stops working:",
+      "healthStop1": "Your account (overview, bookings, profile) asks for this consent again before it opens.",
+      "healthStop2": "We can't record your lab results or prepare a training plan for you.",
+      "healthStop3": "Coaches no longer see your health answers in your account.",
+      "healthKeeps": "Your bookings stay as they are, and you can still manage them from the link in your emails. Data we already hold stays until you delete your account.",
+      "healthConfirm": "Withdraw consent",
+      "healthCancel": "Keep it"
+    },
+    "export": {
+      "title": "Download your data",
+      "body": "A zip file with everything we hold about you: profile, consents and bookings, as JSON and as CSV for spreadsheets.",
+      "button": "Download my data"
+    },
+    "delete": {
+      "title": "Delete your account",
+      "body": "We delete your profile, consents, health answers and sign-in details. For accounting we must keep a record of past bookings for 10 years, without your name, email or phone.",
+      "button": "Delete my account",
+      "sending": "Sending…",
+      "sent": "We sent a confirmation link to {email}. Open it within an hour to delete your account.",
+      "error": "The email couldn't be sent. Try again later.",
+      "upcoming": "You have upcoming bookings. Cancel them first, or write to us.",
+      "staff": "A coach account can't be deleted here. Ask the owner."
+    },
+    "confirm": {
+      "title": "Delete your account",
+      "body": "This can't be undone. Your profile, consents, health answers and sign-in details are deleted right away. Past bookings stay in our accounting records for 10 years, without your name, email or phone.",
+      "button": "Delete my account for good",
+      "deleting": "Deleting…",
+      "invalid": "This link has expired or belongs to another account. Ask for a new one on the privacy page.",
+      "error": "Deleting didn't work. Try again, or write to us.",
+      "missing": "Open this page from the link in the email.",
+      "back": "Back to privacy",
+      "doneTitle": "Your account is deleted",
+      "doneBody": "Thank you for training with us. If you sign in again with the same email, you start with a new, empty account.",
+      "home": "To the home page"
+    }
+  }
+}
