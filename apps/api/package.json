@@ -1,26 +1,33 @@
 {
-  "name": "@jakamarinko/api",
+  "name": "@jakamarinko/api-server",
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "tsx watch src/index.ts",
-    "build": "esbuild src/index.ts --bundle --platform=node --target=node24 --format=esm --outfile=dist/index.mjs --external:pg-native --banner:js=\"import{createRequire}from'node:module';const require=createRequire(import.meta.url);\"",
+    "dev": "tsx watch src/dev.ts",
+    "start": "tsx src/index.ts",
+    "worker": "tsx src/worker.ts",
+    "build": "esbuild src/index.ts src/worker.ts --bundle --platform=node --target=node24 --format=esm --outdir=dist --out-extension:.js=.mjs --external:pg-native --banner:js=\"import{createRequire}from'node:module';const require=createRequire(import.meta.url);\"",
     "typecheck": "tsc --noEmit",
-    "test": "vitest run",
-    "db:generate": "drizzle-kit generate"
+    "test": "vitest run"
   },
   "dependencies": {
     "@hono/node-server": "2.1.5",
-    "@jakamarinko/shared": "*",
+    "@hono/zod-validator": "0.9.1",
+    "@jakamarinko/api": "workspace:*",
+    "@jakamarinko/auth": "workspace:*",
+    "@jakamarinko/db": "workspace:*",
+    "@jakamarinko/email": "workspace:*",
+    "@jakamarinko/types": "workspace:*",
     "drizzle-orm": "0.45.4",
     "hono": "4.13.13",
-    "pg": "8.23.1"
+    "zod": "4.6.7"
   },
   "devDependencies": {
+    "@electric-sql/pglite": "0.5.10",
     "@types/node": "^24",
     "@types/pg": "8.23.1",
-    "drizzle-kit": "0.31.11",
     "esbuild": "0.28.2",
+    "pg": "8.23.1",
     "tsx": "4.23.15",
     "typescript": "5.9.3",
     "vitest": "5.0.5"

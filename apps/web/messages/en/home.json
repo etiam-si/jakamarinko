@@ -1,0 +1,72 @@
+{
+  "meta": {
+    "title": "Jaka Marinko — Endurance coaching and lab testing",
+    "description": "Lab tests (VO₂max, lactate profile) and coaching for runners, cyclists and skiers. Train on data, not guesswork."
+  },
+  "hero": {
+    "title": "Smarter training. Higher performance. Better results.",
+    "subtitle": "Train on data, not guesswork.",
+    "primaryCta": "Book a lab test",
+    "secondaryCta": "See coaching packages"
+  },
+  "intro": "I'm Jaka Marinko: an endurance athlete, a Faculty of Sport student and a personal trainer. I help endurance athletes improve faster and more safely, with lab testing and coaching built on their own numbers.",
+  "proof": {
+    "title": "Proven at the top junior level",
+    "vo2max": {
+      "value": "80",
+      "label": "measured VO₂max (ml/kg/min)"
+    },
+    "redBull": {
+      "value": "5th",
+      "label": "Red Bull 400 Planica, fastest junior"
+    },
+    "nationalTeam": {
+      "value": "U20",
+      "label": "Slovenian national team at world and European championships"
+    },
+    "champion": {
+      "value": "4",
+      "label": "sports with junior national titles"
+    }
+  },
+  "howItWorks": {
+    "title": "How it works",
+    "test": {
+      "title": "Test",
+      "text": "A lab test shows where you are today: VO₂max, lactate thresholds, heart rate."
+    },
+    "zones": {
+      "title": "Zones",
+      "text": "Your results become personal training zones for every intensity."
+    },
+    "plan": {
+      "title": "Plan",
+      "text": "You train to a plan built on your zones, your goal and the time you have."
+    },
+    "progress": {
+      "title": "Progress",
+      "text": "Your training is analysed every week, and a retest shows what has changed."
+    }
+  },
+  "offers": {
+    "title": "Where to start",
+    "lab": {
+      "title": "Lab tests",
+      "text": "VO₂max, lactate profile, fat and carbohydrate use and more. Know your numbers.",
+      "cta": "See lab tests"
+    },
+    "coaching": {
+      "title": "Coaching",
+      "text": "A training plan built on my method and analysis of every workout, from {price} € a month. Personal coaching from me in Coaching and Elite.",
+      "cta": "See packages"
+    }
+  },
+  "sports": {
+    "title": "Sports I coach"
+  },
+  "cta": {
+    "title": "Ready to know your numbers?",
+    "text": "Book a test, or write to me and I'll get back to you as soon as I can.",
+    "button": "Book a test"
+  }
+}

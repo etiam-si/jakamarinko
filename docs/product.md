@@ -60,8 +60,9 @@ Minimum 3 months on Coaching and Elite. Paying a year up front: 2 months free.
 
 ### One-off
 - **Lab tests** at the existing prices (VO₂max 90 €, lactate 90 €, both 150 €, fat/carb use 130 €, running economy 80 €, anthropometry 50 €, Performance package 250 €). Every test ends with an offer: 30 days of Plan free, or the first month of Coaching at −50 %.
-- **Personal training**: one session (e.g. 45 €), or a pack of 10 at a discount.
-- **Race preparation**: a 12–16-week block for one race, with a test at the start and end, paid once.
+- **Personal training**: one session 45 €, or a pack of 10 for 400 €.
+- **Race preparation**: a 12–16-week block for one race, with a test at the start and end, paid once: 490 €.
+- All prices shown to customers include VAT (EU rules for consumer prices; decided 2026-10-22).
 
 ### Credits
 Packages give credits on a schedule (e.g. Coaching: 1 lactate test every 3 months; Elite: 2 in-person sessions a month). A credit is spent by booking. Coaches see unused and overdue credits, and the app reminds the athlete. Stripe handles billing; credits are our own simple ledger.
@@ -228,8 +229,8 @@ Web: Next.js 16, Tailwind, shadcn/ui, TanStack Query, Zod, Recharts. API: Hono +
 1. Email sender: Gmail or an address on jakamarinko.com? (Grega)
 2. Jaka's qualifications and liability insurance for max-effort lab tests (to add to the site).
 3. Lab: equipment, tests per week, consumables cost per test.
-4. Are prices shown with VAT included?
-5. Full-resolution photos (to add).
+4. Full-resolution photos (to add).
+5. Owner email for the seed (`OWNER_EMAIL`), Google OAuth client, lab address (`LAB_ADDRESS`). (Grega)
 
 ## Building it
 How the work is split into tasks for parallel agents: [plan/README.md](plan/README.md).

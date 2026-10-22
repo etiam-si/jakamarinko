@@ -1,0 +1,76 @@
+{
+  "areas": {
+    "coach": "Trener",
+    "account": "Moj račun"
+  },
+  "nav": {
+    "label": "Meni",
+    "openMenu": "Odpri meni",
+    "soon": "Kmalu",
+    "today": "Danes",
+    "bookings": "Rezervacije",
+    "requests": "Povpraševanja",
+    "athletes": "Športniki",
+    "settings": "Nastavitve",
+    "myBookings": "Moje rezervacije",
+    "profile": "Profil",
+    "privacy": "Zasebnost"
+  },
+  "userMenu": {
+    "label": "Meni računa",
+    "toCoach": "Preklopi na pogled trenerja",
+    "toAccount": "Preklopi na moj račun",
+    "signOut": "Odjava"
+  },
+  "coachSwitcher": {
+    "label": "Koledar",
+    "you": "{name} (ti)"
+  },
+  "pages": {
+    "overview": {
+      "title": "Moj račun"
+    },
+    "today": {
+      "title": "Danes",
+      "lead": "Današnja testiranja in treningi, po vrsti.",
+      "emptyTitle": "Danes ni nič rezervirano",
+      "emptyBody": "Ko nekdo rezervira testiranje ali trening za danes, ga vidiš tukaj, z uro, športnikom in tem, kar je treba pripraviti."
+    },
+    "bookings": {
+      "title": "Rezervacije",
+      "lead": "Vse rezervacije, prihodnje in pretekle, in ure, ko si na voljo.",
+      "emptyTitle": "Še ni rezervacij",
+      "emptyBody": "Sem pridejo rezervacije s spletne strani. Tukaj bo mogoče nastaviti tvoje ure ter prestaviti ali odpovedati rezervacijo."
+    },
+    "requests": {
+      "title": "Povpraševanja",
+      "lead": "Vprašanja in prošnje, poslane prek kontaktnega obrazca.",
+      "emptyTitle": "Ni povpraševanj",
+      "emptyBody": "Ko nekdo piše prek kontaktnega obrazca, njegovo sporočilo počaka tukaj, dokler ne odgovoriš."
+    },
+    "settings": {
+      "title": "Nastavitve",
+      "lead": "Kako trenerski del deluje zate.",
+      "emptyTitle": "Zaenkrat ni kaj nastaviti",
+      "emptyBody": "Tukaj bo mogoče urediti povezavo s koledarjem in druge nastavitve."
+    },
+    "myBookings": {
+      "title": "Moje rezervacije",
+      "lead": "Tvoja laboratorijska testiranja in treningi.",
+      "emptyTitle": "Še nimaš rezervacij",
+      "emptyBody": "Ko rezerviraš testiranje ali trening, tukaj najdeš datum, kraj in navodila za pripravo."
+    },
+    "profile": {
+      "title": "Profil",
+      "lead": "Tvoje ime, e-pošta in jezik, v katerem ti pišemo.",
+      "emptyTitle": "Profil prihaja",
+      "emptyBody": "Kmalu bo tukaj mogoče spremeniti ime in jezik. Do takrat nam piši, če je treba kaj popraviti."
+    },
+    "privacy": {
+      "title": "Zasebnost",
+      "lead": "Tvoje privolitve in tvoji podatki.",
+      "emptyTitle": "Nastavitve zasebnosti prihajajo",
+      "emptyBody": "Kmalu bo tukaj mogoče spremeniti privolitve, prenesti svoje podatke ali izbrisati račun. Do takrat nam piši in to uredimo namesto tebe."
+    }
+  }
+}

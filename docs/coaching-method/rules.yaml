@@ -1,0 +1,502 @@
+# Hard rules of the coaching method, machine-readable.
+# Human version and reasoning: docs/coaching-method.md, section 10.
+# The rule check (T22) loads this file and validates every plan and plan change
+# before a customer sees it. Every rule can be checked from the inputs below alone.
+# Each rule has a passing and a failing example; T22 turns them into unit tests.
+#
+# Status: draft for Jaka's review. Lines marked "JAKA:" are defaults he may override.
+
+version: 1
+
+# ---------------------------------------------------------------------------
+# Inputs the rule check receives. All durations are minutes, dates are ISO
+# dates in the athlete's timezone, weeks run Monday to Sunday.
+# ---------------------------------------------------------------------------
+inputs:
+  athlete:
+    level: beginner | intermediate | advanced | competitive
+    age: integer, whole years on the first day of the plan
+    availability: "{mon..sun: max minutes that day}; 0 = not available"
+    baseline_weekly_min: self-reported weekly training minutes over the last 4 weeks (onboarding)
+    conditions: "list from onboarding, any of: heart_condition, pregnancy, insulin_diabetes, epilepsy, other_medical"
+    zones:
+      source: lab | field | formula
+      tested_on: date of the test the zones come from
+      by_sport: "{<sport>: {hr?: {z1: [lo, hi], ..., z5: [lo, hi]}, pace_s_per_km?: {...}, power_w?: {...}, vert_m_per_h?: {...}}}"
+  history:
+    weeks: "completed weeks, oldest first: [{start, volume_min, impact_min, longest_min, recovery: bool}]"
+    gaps: "periods of 7+ days with no completed endurance session that were not planned rest: [{from, to}]"
+  events:
+    illnesses: "[{reported_on, symptoms: above_neck | below_neck | fever, well_on: date | null}]"
+    races: "past and planned: [{date, duration_min, priority: A | B | C}]"
+    red_flags_open: list of red flag ids (RF-xx) not yet cleared by a coach
+  plan:
+    phase: transition | base | build | peak | taper | race
+    weeks: "[{start, recovery: bool, sessions: [session]}]"
+  session:
+    date: date
+    sport: "ski_touring | xc_skiing | mountain_running | road_running | road_cycling | mtb | hiking | roller_skiing | other_cardio"
+    kind: endurance | strength | mobility | rest
+    duration_min: integer
+    zone_min: "{z1, z2, z3, z4, z5}: planned minutes per zone, endurance sessions only"
+    targets: "[{zone, hr?: [lo, hi], pace_s_per_km?: [lo, hi], power_w?: [lo, hi], vert_m_per_h?: [lo, hi]}]"
+    race: "{priority: A | B | C} when the session is a race"
+  text: customer-facing text of the output (plan descriptions, analysis, report), per language
+
+# ---------------------------------------------------------------------------
+# Terms used by the rules.
+# ---------------------------------------------------------------------------
+definitions:
+  impact_sports: [road_running, mountain_running]
+  volume: sum of duration_min of the week's endurance sessions (races included; strength, mobility and rest excluded)
+  impact_volume: volume counting only impact_sports
+  intensity_session: an endurance session that is a race, or has z4 + z5 >= 10 min, or has z3 >= 30 min
+  hard_day: a day with at least one intensity_session
+  rest_day: a day with no sessions other than mobility of at most 20 min
+  easy_day: a rest_day, or a day whose endurance sessions total <= 60 min, all in z1 and z2
+  double_day: a day with two or more endurance sessions
+  reference_volume: >-
+    mean volume of the 3 most recent weeks before the checked week that are not recovery weeks and
+    contain no race, looking back at most 6 weeks. Completed weeks come from history, earlier weeks
+    of the same plan from the plan. If fewer than 3 such weeks exist, the missing ones count as
+    athlete.baseline_weekly_min.
+  reference_impact: the same as reference_volume, for impact_volume
+  reference_longest: >-
+    longest single endurance session in the last 6 weeks (history and earlier plan weeks), races
+    excluded; athlete.baseline_weekly_min / 3 if there is no history
+  zones_untested: zones.source is formula, or zones.tested_on is more than 365 days before the checked day
+
+# Applied in order. The first failing rule's on_fail decides what happens:
+#   regenerate: the engine tries once more; a second failure goes to the coach (hold).
+#   hold: the output goes to the coach; the customer sees "your coach is preparing this".
+#   stop: no generated output at all; only the pre-approved response or red flag message is sent.
+rules:
+  - id: HR-01
+    title: Weekly volume grows at most 10 %
+    applies_to: all
+    check: for every plan week, volume <= max(1.10 * reference_volume, reference_volume + 30)
+    params: {factor: 1.10, floor_min: 30}  # JAKA: is +30 min a fair floor for athletes who train under 5 h?
+    on_fail: regenerate
+    examples:
+      pass: {reference_volume: 400, week_volume: 440}
+      fail: {reference_volume: 400, week_volume: 445}
+
+  - id: HR-02
+    title: Running volume grows at most 10 %
+    applies_to: all
+    check: for every plan week, impact_volume <= max(1.10 * reference_impact, reference_impact + 20)
+    params: {factor: 1.10, floor_min: 20}
+    on_fail: regenerate
+    examples:
+      pass: {reference_impact: 150, week_impact: 170}
+      fail: {reference_impact: 150, week_impact: 171}
+
+  - id: HR-03
+    title: Longest session grows at most 15 %
+    applies_to: all
+    check: every endurance session that is not a race has duration_min <= max(1.15 * reference_longest, reference_longest + 20)
+    params: {factor: 1.15, floor_min: 20}
+    on_fail: regenerate
+    examples:
+      pass: {reference_longest: 120, session_min: 138}
+      fail: {reference_longest: 120, session_min: 145}
+
+  - id: HR-04
+    title: Weekly volume stays under the level ceiling
+    applies_to: all
+    check: for every plan week, volume <= ceiling_min[athlete.level]
+    params:
+      ceiling_min: {beginner: 360, intermediate: 600, advanced: 900, competitive: 1500}  # JAKA: ceilings per level
+    on_fail: regenerate
+    examples:
+      pass: {level: intermediate, week_volume: 600}
+      fail: {level: beginner, week_volume: 380}
+
+  - id: HR-05
+    title: Sessions fit the athlete's availability
+    applies_to: all
+    check: >-
+      for every day, the sum of duration_min of all non-rest sessions <= availability[weekday];
+      days with availability 0 have no sessions
+    on_fail: regenerate
+    examples:
+      pass: {availability_tue: 60, tue_sessions_min: [45, 15]}
+      fail: {availability_tue: 0, tue_sessions_min: [30]}
+
+  - id: HR-06
+    title: Intensity sessions per week by level
+    applies_to: all
+    check: for every plan week, count(intensity_session) <= max_per_week[level], or max_build_peak[level] when plan.phase is build or peak
+    params:
+      max_per_week: {beginner: 1, intermediate: 2, advanced: 2, competitive: 3}
+      max_build_peak: {beginner: 1, intermediate: 2, advanced: 3, competitive: 3}  # JAKA: 3 for advanced in build/peak?
+    on_fail: regenerate
+    examples:
+      pass: {level: advanced, phase: build, intensity_sessions: 3}
+      fail: {level: intermediate, phase: build, intensity_sessions: 3}
+
+  - id: HR-07
+    title: No hard days in a row below advanced
+    applies_to: all
+    check: >-
+      beginner and intermediate: no two hard_days on consecutive dates.
+      advanced and competitive: at most one pair of consecutive hard_days per plan week, and never three in a row.
+      Pairs across the week boundary count for the later week.
+    params: {max_pairs: {beginner: 0, intermediate: 0, advanced: 1, competitive: 1}}
+    on_fail: regenerate
+    examples:
+      pass: {level: advanced, hard_dates: ["2026-11-03", "2026-11-04", "2026-11-07"]}
+      fail: {level: intermediate, hard_dates: ["2026-11-03", "2026-11-04"]}
+
+  - id: HR-08
+    title: At least 75 % of training time is easy
+    applies_to: all
+    check: for every plan week without a race, (sum of z1 + z2) / volume >= 0.75
+    params: {min_easy_share: 0.75}  # JAKA: 0.75 is a floor; most weeks should land at 0.80-0.90
+    on_fail: regenerate
+    examples:
+      pass: {week_z1_z2: 330, week_volume: 420}
+      fail: {week_z1_z2: 300, week_volume: 420}
+
+  - id: HR-09
+    title: One rest or easy day every week
+    applies_to: all
+    check: >-
+      beginner and intermediate: every plan week has at least one rest_day.
+      advanced and competitive: every plan week has at least one easy_day.
+    on_fail: regenerate
+    examples:
+      pass: {level: advanced, week_days: ["easy_day", "hard_day", "endurance", "hard_day", "endurance", "endurance", "endurance"]}
+      fail: {level: beginner, week_days: ["easy_day", "endurance", "endurance", "hard_day", "endurance", "endurance", "endurance"]}
+
+  - id: HR-10
+    title: A recovery week after at most 3 loading weeks
+    applies_to: all
+    check: >-
+      across history and plan, no run of more than max_loading_weeks consecutive weeks without a recovery week.
+      A plan week marked recovery must have volume <= 0.70 * reference_volume and at most 1 intensity_session.
+      A week with an A race counts as a recovery week.
+    params:
+      max_loading_weeks: 3
+      max_loading_weeks_if: {beginner: 2, age_50_plus: 2}  # JAKA: 2:1 for beginners and 50+?
+      recovery_volume_factor: 0.70
+    on_fail: regenerate
+    examples:
+      pass: {level: intermediate, age: 35, weeks_recovery: [false, false, false, true]}
+      fail: {level: beginner, age: 35, weeks_recovery: [false, false, false]}
+
+  - id: HR-11
+    title: Double days only for advanced and competitive
+    applies_to: all
+    check: for every plan week, count(double_day) <= max_double_days[level]
+    params: {max_double_days: {beginner: 0, intermediate: 0, advanced: 2, competitive: 4}}
+    on_fail: regenerate
+    examples:
+      pass: {level: competitive, double_days: 3}
+      fail: {level: intermediate, double_days: 1}
+
+  - id: HR-12
+    title: Every session has zones, and targets match the athlete's zones
+    applies_to: all
+    check: >-
+      every endurance session has zone_min whose sum is within 5 % (at least 2 min) of duration_min,
+      and every target range lies inside athlete.zones.by_sport[sport][metric][zone].
+      A sport without its own zones uses the zones of the sport they were derived for (see section 2 of the method).
+    params: {sum_tolerance: 0.05, sum_tolerance_min: 2}
+    on_fail: regenerate
+    examples:
+      pass: {duration_min: 60, zone_min_sum: 59, target_hr_z2: [140, 150], athlete_hr_z2: [136, 150]}
+      fail: {duration_min: 60, zone_min_sum: 60, target_hr_z2: [140, 155], athlete_hr_z2: [136, 150]}
+
+  - id: HR-13
+    title: Untested zones mean no z5 and one intensity session
+    applies_to: athletes whose zones_untested is true
+    check: no session has z5 > 0, and every plan week has at most 1 intensity_session (overrides HR-06)
+    on_fail: regenerate
+    examples:
+      pass: {zones_source: formula, z5_min: 0, intensity_sessions: 1}
+      fail: {zones_source: lab, tested_on: "2025-06-01", plan_day: "2026-11-02", z5_min: 8, intensity_sessions: 1}
+
+  - id: HR-14
+    title: Illness - rest, easy days, then a gradual return
+    applies_to: athletes with an illness reported in the last 30 days
+    check: >-
+      on reported_on: only rest.
+      after reported_on while well_on is null: only z1 and z2, at most 45 min per day, no intensity_session.
+      return_days = clamp(well_on - reported_on in days, 2, 7). From well_on, for return_days days:
+      only z1 and z2, at most 60 min per day.
+      In the 7 days from well_on: volume <= 0.70 * reference_volume measured before reported_on.
+      below_neck and fever illnesses also open RF-04, which stops the engine until a coach clears it.
+    params: {while_ill_max_min: 45, return_days_min: 2, return_days_max: 7, return_max_min: 60, return_volume_factor: 0.70}
+    on_fail: regenerate
+    response: PR-01
+    examples:
+      pass: {reported_on: "2026-11-02", well_on: "2026-11-05", session: {date: "2026-11-07", duration_min: 50, zone_min: {z1: 20, z2: 30}}}
+      fail: {reported_on: "2026-11-02", well_on: "2026-11-05", session: {date: "2026-11-07", duration_min: 50, zone_min: {z2: 40, z4: 10}}}
+
+  - id: HR-15
+    title: Recovery after a race
+    applies_to: athletes with a race in the last 14 days
+    check: >-
+      the day after a race is a rest_day or a single z1 session of at most 45 min, and there is no
+      intensity_session on any of the no_intensity_days[race length] days after the race.
+    params:
+      # race duration_min: days without intensity, race day not counted. JAKA: these are conservative defaults.
+      no_intensity_days: {under_60: 3, 60_to_179: 5, 180_to_359: 10, 360_plus: 14}
+      day_after_max_min: 45
+    on_fail: regenerate
+    response: PR-05
+    examples:
+      pass: {race: {date: "2026-11-01", duration_min: 95}, next_intensity: "2026-11-07"}
+      fail: {race: {date: "2026-11-01", duration_min: 95}, next_intensity: "2026-11-05"}
+
+  - id: HR-16
+    title: Gradual return after a training gap
+    applies_to: athletes with a gap that ended in the last 7 days
+    check: >-
+      gap of 7-13 days: the 7 days after the gap have volume <= 0.80 * reference_volume measured before the gap,
+      and no intensity_session in the first 3 days.
+      gap of 14-27 days: volume <= 0.60 * reference_volume before the gap, and no intensity_session in the 7 days.
+      gap of 28 days or more: hold (the coach restarts the plan).
+    params:
+      short: {days: [7, 13], volume_factor: 0.80, no_intensity_days: 3}
+      long: {days: [14, 27], volume_factor: 0.60, no_intensity_days: 7}
+      hold_from_days: 28
+    on_fail: regenerate  # hold for 28+ days
+    examples:
+      pass: {gap_days: 10, reference_volume_before: 400, next7_volume: 320, first_intensity_day: 4}
+      fail: {gap_days: 16, reference_volume_before: 400, next7_volume: 300, first_intensity_day: 5}
+
+  - id: HR-17
+    title: Taper and the days before a race
+    applies_to: athletes with an A or B race in the plan
+    check: >-
+      in the 2 days before an A or B race: every session <= 60 min and z4 + z5 <= 10 min per day.
+      in the 7 days before an A race (race day excluded): volume <= 0.70 * reference_volume measured
+      at the start of the taper (section 7 gives taper length per race length).
+    params: {openers_max_min: 60, openers_max_hard_min: 10, race_week_volume_factor: 0.70}
+    on_fail: regenerate
+    examples:
+      pass: {race_priority: A, day_minus_1: {duration_min: 40, zone_min: {z1: 32, z4: 8}}}
+      fail: {race_priority: B, day_minus_2: {duration_min: 90, zone_min: {z2: 90}}}
+
+  - id: HR-18
+    title: An open red flag stops the engine
+    applies_to: all
+    check: if events.red_flags_open is not empty, the output contains no plan, analysis or report; only the red flag's fixed message
+    on_fail: stop
+    examples:
+      pass: {red_flags_open: ["RF-05"], output: fixed_message}
+      fail: {red_flags_open: ["RF-05"], output: plan}
+
+  - id: HR-19
+    title: Athletes outside the method go to a coach
+    applies_to: all
+    check: no automatic plan when athlete.age < 16 or athlete.conditions is not empty
+    params: {min_age: 16}  # JAKA: minimum age for automatic plans? Under 18 also needs a parent's consent (T03).
+    on_fail: hold
+    examples:
+      pass: {age: 34, conditions: []}
+      fail: {age: 15, conditions: []}
+
+  - id: HR-20
+    title: Customer-facing text never mentions the tools behind it
+    applies_to: all
+    check: >-
+      text, lower-cased, contains none of banned_terms as a whole word or phrase.
+      Matching is case-insensitive and ignores diacritics.
+    params:
+      banned_terms:
+        en: ["ai", "a.i.", "artificial intelligence", "machine learning", "language model", "llm", "chatgpt", "gpt", "claude", "algorithm", "neural network", "generated by", "automatically generated", "handwritten", "written by jaka"]
+        sl: ["ui", "umetna inteligenca", "umetne inteligence", "umetno inteligenco", "strojno ucenje", "jezikovni model", "algoritem", "algoritma", "nevronska mreza", "generirano", "samodejno ustvarjeno", "rocno napisano", "napisal jaka"]
+    on_fail: regenerate
+    examples:
+      pass: {text: "Your plan for next week is ready."}
+      fail: {text: "Our AI has prepared your plan."}
+
+# ---------------------------------------------------------------------------
+# Pre-approved responses. The engine may apply these without a coach.
+# Messages are customer-facing; T22 moves them into message files (EN/SL).
+# ---------------------------------------------------------------------------
+responses:
+  - id: PR-01
+    when: check-in or message reports illness with symptoms above_neck only (runny nose, sore throat, sneezing), no fever
+    action: >-
+      today becomes a rest day. Until the athlete reports feeling well, each day is rest or at most 45 min
+      in z1-z2, no intensity. Then the return in HR-14. Coach is notified in the daily briefing (no alert).
+    message:
+      en: "Rest today. Until you feel well again, keep it to easy movement of 45 minutes at most, or rest. Tell us in your check-in when you feel well and your plan will ease you back in."
+      sl: "Danes počivaj. Dokler se ne počutiš dobro, si privošči največ 45 minut lahkega gibanja ali počitek. Ko se boš počutil/-a dobro, to sporoči v dnevnem vprašalniku in načrt te bo postopno vrnil v trening."
+
+  - id: PR-02
+    when: daily check-in has fatigue >= 4 of 5 or sleep quality <= 2 of 5, for 1 or 2 days in a row
+    action: >-
+      today's intensity session becomes z1-z2 at <= 60 % of its planned duration, or rest if the athlete prefers.
+      The intensity is not made up later unless HR-06 and HR-07 still pass. A third day in a row opens RF-06.
+    message:
+      en: "You reported a tough night or high fatigue, so today's hard session is swapped for an easy one. Recovery is part of training."
+      sl: "Sporočil/-a si slab spanec ali veliko utrujenost, zato je današnji zahteven trening zamenjan z lahkim. Tudi regeneracija je del treninga."
+
+  - id: PR-03
+    when: daily check-in has muscle soreness >= 4 of 5 and no pain (pain 0-3 of 10)
+    action: no intensity and no impact sport today; replace with z1-z2 cycling, skiing or hiking of the same or shorter duration, or rest.
+    message:
+      en: "Your legs need a day: today is easy and low-impact."
+      sl: "Noge potrebujejo dan oddiha: danes je na vrsti lahek trening brez udarnih obremenitev."
+
+  - id: PR-04
+    when: a planned session was not done
+    action: >-
+      it is not made up. The rest of the week stays as planned unless the missed session was the only
+      long session; then the next free easy day may take it at <= the planned duration, if HR-05, HR-07 and HR-09 still pass.
+      Next week is built from what was done (HR-01 uses completed volume).
+    message:
+      en: "No problem: missed sessions are not made up. The rest of your week stays as planned."
+      sl: "Nič hudega: zamujenih treningov ne nadomeščamo. Preostanek tedna ostaja, kot je načrtovan."
+
+  - id: PR-05
+    when: a race is reported done
+    action: recovery days per HR-15 are written into the plan.
+    message:
+      en: "Well done on your race. The next days are easy so your body can recover before hard training starts again."
+      sl: "Čestitke za tekmo. Naslednji dnevi so lahki, da si telo opomore, preden začnemo znova z zahtevnejšimi treningi."
+
+# ---------------------------------------------------------------------------
+# Red flags. Any trigger opens the flag: the engine stops for that athlete
+# (HR-18), the athlete gets the fixed message, the coach is alerted.
+# Only a coach closes a flag. Keywords are stems: a keyword matches when it
+# starts at the beginning of a word in a check-in note or message, compared
+# lower-case and without diacritics. A keyword hit always opens the flag
+# (a false positive costs the coach a minute, a miss can cost much more).
+# stop:
+#   all_training: planned sessions become rest until the flag is cleared
+#   intensity: planned sessions become z1-z2 of at most 45 min until cleared
+#   pause: the plan stays as it is, but no automatic output of any kind is sent
+# ---------------------------------------------------------------------------
+red_flags:
+  - id: RF-01
+    title: Chest symptoms
+    triggers:
+      checkin: [chest_pain, palpitations, unusual_breathlessness]
+      keywords:
+        en: ["chest pain", "chest tight", "chest pressure", "pain in my chest", "palpitation", "heart racing", "irregular heartbeat", "heart skipping", "can't breathe", "short of breath"]
+        sl: ["bolecina v prsih", "bolecine v prsih", "boli me v prsih", "tiscanje v prsih", "pritisk v prsih", "razbijanje srca", "nepravilen utrip", "aritmij", "ne morem dihati", "tezko diham", "zmanjkuje mi zraka"]
+    stop: all_training
+    coach_alert: immediate
+    resume: coach clears after the athlete reports a doctor's assessment
+    message:
+      en: "Stop training for now. If you have chest pain or pressure right now, or it came at rest, call 112. Otherwise please see a doctor before your next session. Your coach has been alerted and will contact you."
+      sl: "Za zdaj prekini s treningom. Če te v prsih boli ali tišči prav zdaj ali se je to zgodilo v mirovanju, pokliči 112. Sicer pred naslednjim treningom obišči zdravnika. Trener je obveščen in se ti bo oglasil."
+
+  - id: RF-02
+    title: Fainting or near-fainting
+    triggers:
+      checkin: [fainted, dizzy_during_exercise]
+      keywords:
+        en: ["faint", "passed out", "blacked out", "collapsed", "dizzy", "lightheaded"]
+        sl: ["omedle", "izgubil zavest", "izgubila zavest", "zrusil", "zrusila", "vrtoglav", "pocrnilo pred ocmi"]
+    stop: all_training
+    coach_alert: immediate
+    resume: coach clears after the athlete reports a doctor's assessment
+    message:
+      en: "Stop training for now and please see a doctor before your next session. If it happens again or you feel unwell now, call 112. Your coach has been alerted and will contact you."
+      sl: "Za zdaj prekini s treningom in pred naslednjim treningom obišči zdravnika. Če se ponovi ali se zdaj ne počutiš dobro, pokliči 112. Trener je obveščen in se ti bo oglasil."
+
+  - id: RF-03
+    title: Head injury
+    triggers:
+      checkin: [head_injury]
+      keywords:
+        en: ["hit my head", "concussion", "head injury", "crashed and hit"]
+        sl: ["udaril v glavo", "udarila v glavo", "pretres moganov", "poskodba glave", "padec na glavo"]
+    stop: all_training
+    coach_alert: immediate
+    resume: coach clears once the athlete is symptom-free and a doctor has cleared a return
+    message:
+      en: "After a blow to the head, don't train until a doctor has checked you and you have no symptoms. If you have a worsening headache, vomiting, confusion or drowsiness, call 112. Your coach has been alerted and will contact you."
+      sl: "Po udarcu v glavo ne treniraj, dokler te ne pregleda zdravnik in nimaš več simptomov. Če se glavobol stopnjuje, bruhaš, si zmeden/-a ali zaspan/-a, pokliči 112. Trener je obveščen in se ti bo oglasil."
+
+  - id: RF-04
+    title: Fever or illness below the neck
+    triggers:
+      checkin: [fever, illness_below_neck]
+      keywords:
+        en: ["fever", "high temperature", "a temperature", "the flu", "influenza", "chest cough", "body aches", "vomit", "diarrh", "covid"]
+        sl: ["vrocin", "povisana temperatura", "povisano temperaturo", "zvisana temperatura", "zvisano temperaturo", "grip", "kaselj", "kaslj", "boli me celo telo", "bruh", "drisk", "covid"]
+    stop: all_training
+    coach_alert: same_day
+    resume: coach clears after the athlete reports feeling well; the return in HR-14 then applies
+    message:
+      en: "With a fever or a bug below the neck, rest completely. See a doctor if the fever lasts more than 3 days or you feel worse. Tell us when you feel well; your coach has been alerted and will restart your plan gently."
+      sl: "Ob vročini ali bolezni pod vratom popolnoma počivaj. Če vročina traja več kot 3 dni ali se počutiš slabše, obišči zdravnika. Sporoči nam, ko se boš počutil/-a dobro; trener je obveščen in bo načrt previdno znova zagnal."
+
+  - id: RF-05
+    title: Pain or injury
+    triggers:
+      checkin: ["pain >= 4 of 10", "pain >= 1 of 10 at the same location on 2 check-ins in a row", "pain changes how you move", swelling, acute_injury]
+      keywords:
+        en: ["injur", "sprain", "swollen", "swelling", "fracture", "broke my", "limp", "sharp pain", "can't run", "stress fracture", "shin pain", "knee pain", "achilles"]
+        sl: ["poskodb", "zvin", "otekl", "zlom", "sepam", "ostra bolecina", "ne morem teci", "utrujenostni zlom", "bolecina v kolenu", "boli me koleno", "ahil"]
+    stop: all_training
+    coach_alert: same_day
+    resume: coach clears and decides which sports and intensities are allowed
+    message:
+      en: "Don't train through pain. Rest from anything that hurts until your coach gets back to you. If you can't put weight on it, it is swollen, or the pain is in a bone, see a doctor or physiotherapist. Your coach has been alerted."
+      sl: "Ne treniraj skozi bolečino. Do odgovora trenerja počivaj od vsega, kar boli. Če ne moreš obremeniti uda, je otečen ali boli kost, obišči zdravnika ali fizioterapevta. Trener je obveščen."
+
+  - id: RF-06
+    title: Signs of overtraining
+    triggers:
+      checkin: ["fatigue >= 4 of 5 on 3 check-ins in a row", "resting HR >= 7 bpm above the 14-day average on 3 days in a row", "motivation <= 1 of 5 on 3 check-ins in a row"]
+      workouts: ["two intensity sessions in a row where the athlete could not reach the target zone and reported fatigue >= 3"]
+      keywords:
+        en: ["exhausted all the time", "always tired", "burned out", "burnt out", "can't recover", "legs are dead"]
+        sl: ["ves cas utrujen", "ves cas utrujena", "izgorel", "ne morem si opomoci", "brez energije", "noge so mrtve"]
+    stop: intensity
+    coach_alert: same_day
+    resume: coach clears and sets the next week
+    message:
+      en: "Your body is asking for a break. For the next days, keep everything easy and short, or rest. Your coach has been alerted and will look at your training with you."
+      sl: "Telo potrebuje oddih. Naslednje dni naj bo vse lahko in kratko ali pa počivaj. Trener je obveščen in bo s tabo pregledal trening."
+
+  - id: RF-07
+    title: Signs of under-fuelling
+    triggers:
+      checkin: ["period missing 3 months or more, or a new irregularity (only when the athlete chose to track it)", "unintended weight loss >= 5 % in 4 weeks", bone_stress_injury]
+      events: ["3 or more illnesses in 90 days"]
+      keywords:
+        en: ["no period", "missed period", "lost my period", "not eating", "skipping meals", "eating disorder"]
+        sl: ["izostanek menstruacije", "nimam menstruacije", "ni menstruacije", "ne jem", "izpuscam obroke", "motnja hranjenja"]
+    stop: intensity
+    coach_alert: same_day
+    resume: coach clears after a conversation with the athlete
+    message:
+      en: "What you describe can be a sign that your body isn't getting enough energy for your training. Please talk to your doctor or a sports dietitian. Your plan stays easy for now, and your coach has been alerted and will contact you."
+      sl: "To, kar opisuješ, je lahko znak, da telo ne dobi dovolj energije za trening. Pogovori se z zdravnikom ali športnim nutricionistom. Načrt za zdaj ostaja lahek, trener je obveščen in se ti bo oglasil."
+
+  - id: RF-08
+    title: Mental health crisis
+    triggers:
+      keywords:
+        en: ["suicid", "kill myself", "end my life", "self-harm", "hurt myself", "don't want to live"]
+        sl: ["samomor", "ubil se bom", "ubila se bom", "koncati zivljenje", "samoposkodb", "ne zelim vec ziveti"]
+    stop: pause
+    coach_alert: immediate
+    resume: coach clears
+    message:
+      en: "Thank you for telling us. You don't have to deal with this alone. If you are in danger now, call 112. In Slovenia you can talk to someone any time at Samarijan, 116 123. Your coach has been alerted."
+      sl: "Hvala, da si nam povedal/-a. S tem se ti ni treba spopadati sam/-a. Če si zdaj v nevarnosti, pokliči 112. Kadar koli lahko pokličeš tudi Samarijana na 116 123. Trener je obveščen."
+
+  - id: RF-09
+    title: Pregnancy or a new medical condition
+    triggers:
+      checkin: [pregnancy, new_diagnosis, new_medication]
+      keywords:
+        en: ["pregnan", "diagnosed", "new medication", "beta blocker", "blood pressure", "diabetes", "heart condition"]
+        sl: ["noseca", "nosecnost", "diagnoz", "nova zdravila", "beta bloka", "krvni tlak", "sladkorn", "bolezen srca"]
+    stop: pause
+    coach_alert: same_day
+    resume: coach clears and adjusts the athlete's profile
+    message:
+      en: "Thanks for letting us know. Your plan is paused until your coach has looked at it with you, so that it fits your situation. Your coach has been alerted and will contact you."
+      sl: "Hvala, da si nam sporočil/-a. Načrt je začasno ustavljen, dokler ga trener ne pregleda s tabo in ga prilagodi tvoji situaciji. Trener je obveščen in se ti bo oglasil."

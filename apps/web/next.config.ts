@@ -1,5 +1,7 @@
 import path from "node:path";
 import type { NextConfig } from "next";
+import createNextIntlPlugin from "next-intl/plugin";
+import { env } from "./src/env";
 
 const root = path.join(__dirname, "../..");
 
@@ -8,11 +10,11 @@ const nextConfig: NextConfig = {
   output: "standalone",
   outputFileTracingRoot: root,
   turbopack: { root },
-  transpilePackages: ["@jakamarinko/shared"],
+  transpilePackages: ["@jakamarinko/api", "@jakamarinko/types"],
   // Local dev only: on the server Traefik sends /api/* to the api container before it reaches Next.
   async rewrites() {
-    return [{ source: "/api/:path*", destination: `${process.env.API_URL ?? "http://localhost:3001"}/api/:path*` }];
+    return [{ source: "/api/:path*", destination: `${env.API_URL}/api/:path*` }];
   },
 };
 
-export default nextConfig;
+export default createNextIntlPlugin("./src/i18n/request.ts")(nextConfig);

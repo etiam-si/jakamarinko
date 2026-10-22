@@ -1,0 +1,19 @@
+{
+  "title": "Packages",
+  "subtitle": "Every package is built on Jaka's method. The difference is how closely you work with your coach.",
+  "featured": "Recommended",
+  "audience": "Who it's for",
+  "features": "What you get",
+  "minimumTerm": "Minimum term: {count, plural, one {# month} other {# months}}",
+  "noMinimumTerm": "No minimum term",
+  "yearly": "Or {price} € a year, 2 months free",
+  "choose": "Choose {name}",
+  "oneOff": {
+    "title": "Personal training and race preparation",
+    "subtitle": "One-off, without a subscription."
+  },
+  "afterTest": {
+    "title": "After your lab test",
+    "text": "Every lab test ends with an offer: {days} days of Plan for free, or your first month of Coaching at −{percent} %."
+  }
+}

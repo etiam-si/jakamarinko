@@ -1,0 +1,77 @@
+{
+  "meta": {
+    "title": "Coaching for endurance athletes",
+    "description": "Individual and online coaching for running, cycling, cross-country skiing and ski mountaineering, built on your lab results and training data."
+  },
+  "hero": {
+    "title": "Training built around you.",
+    "subtitle": "Science, experience and consistent tracking of your progress, combined in one system."
+  },
+  "services": {
+    "title": "What coaching covers",
+    "individual": {
+      "title": "Individual coaching",
+      "text": "A plan fitted to your goal, your daily routine and your current fitness."
+    },
+    "online": {
+      "title": "Online coaching",
+      "text": "Weekly planning, adjustments along the way and ongoing contact, wherever you live."
+    },
+    "racePrep": {
+      "title": "Race preparation",
+      "text": "Season periodisation, peaking at the right time and tactics for your key races."
+    },
+    "watchData": {
+      "title": "Watch data analysis",
+      "text": "Interpreting the training load, heart rate and recovery data from your Garmin or other sports watch."
+    },
+    "progressReview": {
+      "title": "Progress review",
+      "text": "A look back at your training and the long-term trends in your progress."
+    },
+    "mental": {
+      "title": "Mental preparation",
+      "text": "Working on motivation, focus and handling race pressure."
+    },
+    "biomechanics": {
+      "title": "Biomechanics",
+      "text": "Analysis of your technique and movement patterns, for more efficiency and fewer injuries."
+    },
+    "physiology": {
+      "title": "Physiology",
+      "text": "Training zones, the aerobic threshold and endurance development on a scientific basis."
+    }
+  },
+  "packages": {
+    "title": "Packages",
+    "subtitle": "Three levels of support. Pick the one that fits your goal."
+  },
+  "faq": {
+    "title": "Questions",
+    "labTestFirst": {
+      "question": "Do I need a lab test first?",
+      "answer": "It isn't required, but it's the best start. Training zones from your own lactate or VO₂max test are more accurate than any estimate, and your plan is built on them."
+    },
+    "devices": {
+      "question": "Which watch do I need?",
+      "answer": "Any watch or bike computer that can export workout files (.FIT, .TCX or .GPX), such as Garmin, COROS, Polar, Suunto or Wahoo. You upload your workouts; no special connection is needed."
+    },
+    "minimumTerm": {
+      "question": "Is there a minimum term?",
+      "answer": "Coaching and Elite run for at least 3 months. Plan has no minimum term."
+    },
+    "yearly": {
+      "question": "Can I pay for a year?",
+      "answer": "Yes. Pay for a year up front and you get 2 months free."
+    },
+    "messages": {
+      "question": "Who answers my messages?",
+      "answer": "Your coach. Messages are always answered by a person: within 72 hours on Plan, 48 hours on Coaching and 24 hours on Elite."
+    }
+  },
+  "cta": {
+    "title": "Not sure which package fits?",
+    "text": "Write to me with your goal and I'll suggest where to start.",
+    "button": "Get in touch"
+  }
+}

@@ -35,6 +35,14 @@ services:
       - traefik.http.routers.jakamarinko-api.priority=100
       - traefik.http.services.jakamarinko-api.loadbalancer.server.port=3000
 
+  # Background jobs (apps/api/src/jobs). Serves no traffic, so it stays off the edge network.
+  worker:
+    image: ghcr.io/etiam-si/jakamarinko-worker:${IMAGE_TAG:-latest}
+    restart: unless-stopped
+    env_file: .env
+    networks:
+      - db
+
 networks:
   edge:
     external: true

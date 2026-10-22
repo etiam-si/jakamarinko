@@ -1,0 +1,43 @@
+"use client";
+
+import { useQuery } from "@tanstack/react-query";
+import Script from "next/script";
+import { TagsConfig } from "@jakamarinko/api";
+import { api } from "@/lib/api";
+import { useConsent } from "./use-consent";
+
+// The ids come from the api at runtime; with none set, nothing loads.
+async function fetchConfig() {
+  const res = await api.events.config.$get();
+  return TagsConfig.parse(await res.json());
+}
+
+const metaPixel = (id: string) =>
+  `!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init',${JSON.stringify(id)});fbq('track','PageView');`;
+
+const googleTag = (id: string) =>
+  `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config',${JSON.stringify(id)});`;
+
+export function Tags() {
+  const consent = useConsent();
+  const { data: config } = useQuery({ queryKey: ["tags-config"], queryFn: fetchConfig, staleTime: Infinity, retry: false });
+  if (!config || consent === undefined) return null;
+  const marketing = consent?.marketing === true;
+
+  return (
+    <>
+      {/* Umami sets no cookies and stores nothing on the device, so it needs no consent and runs before the
+          visitor chooses. It stays off once they decline analytics. */}
+      {config.umami && consent?.analytics !== false && (
+        <Script src={config.umami.src} data-website-id={config.umami.websiteId} strategy="afterInteractive" />
+      )}
+      {marketing && config.metaPixelId && <Script id="meta-pixel">{metaPixel(config.metaPixelId)}</Script>}
+      {marketing && config.googleTagId && (
+        <>
+          <Script src={`https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(config.googleTagId)}`} />
+          <Script id="google-tag">{googleTag(config.googleTagId)}</Script>
+        </>
+      )}
+    </>
+  );
+}

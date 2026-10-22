@@ -1,0 +1,27 @@
+{
+  "banner": {
+    "title": "Piškotki",
+    "text": "Za delovanje strani uporabljamo nujne piškotke. Z vašim dovoljenjem uporabljamo tudi marketinške piškotke Mete in Googla, s katerimi vidimo, kateri oglasi pripeljejo obiskovalce. Statistika obiskov je anonimna in ne uporablja piškotkov.",
+    "settings": "Nastavitve"
+  },
+  "acceptAll": "Sprejmi vse",
+  "rejectAll": "Zavrni vse",
+  "settings": {
+    "title": "Nastavitve piškotkov",
+    "description": "Izberite, kaj smemo uporabljati. Izbiro lahko kadar koli spremenite pod »Nastavitve piškotkov« na dnu strani.",
+    "save": "Shrani izbiro"
+  },
+  "necessary": {
+    "label": "Nujni",
+    "description": "Jezik, prijava in ta izbira. Vedno vklopljeni."
+  },
+  "analytics": {
+    "label": "Analitika",
+    "description": "Anonimna statistika obiskov, brez piškotkov in osebnih podatkov."
+  },
+  "marketing": {
+    "label": "Marketing",
+    "description": "Meta in Google merita, kateri oglasi pripeljejo obiskovalce, in nastavita lastne piškotke. Za 30 dni si zapomnimo tudi, kateri oglas ali povezava vas je pripeljala."
+  },
+  "link": "Nastavitve piškotkov"
+}
