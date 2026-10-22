@@ -6,12 +6,14 @@ import enCoaching from "../messages/en/coaching.json";
 import enLab from "../messages/en/lab.json";
 import slCoaching from "../messages/sl/coaching.json";
 import slLab from "../messages/sl/lab.json";
+import enSite from "../messages/en/site.json";
+import slSite from "../messages/sl/site.json";
 
 const common = { en: enCommon, sl: slCommon } as const;
 // The entry offer (conversion playbook): these buttons all open the booking with the lactate profile.
 const lactateCtas = {
-  en: [enLab.hero.primaryCta, enLab.close.button, enCoaching.hero.secondaryCta],
-  sl: [slLab.hero.primaryCta, slLab.close.button, slCoaching.hero.secondaryCta],
+  en: [enLab.hero.primaryCta, enLab.close.button, enCoaching.hero.secondaryCta, enSite.sticky.button],
+  sl: [slLab.hero.primaryCta, slLab.close.button, slCoaching.hero.secondaryCta, slSite.sticky.button],
 } as const;
 const pages = [
   { path: "/about", key: "about" },

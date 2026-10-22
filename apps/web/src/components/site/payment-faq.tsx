@@ -6,6 +6,8 @@ import { usePayments } from "@/components/booking/payment/payment";
 
 // "How do I pay?" depends on whether online payment is switched on (a runtime flag of the api), so this one question
 // is answered in the browser, with the same check the booking review uses. Nothing shows until the answer is known.
+// Not on a page yet: the FAQPage structured data must list exactly the questions shown, and this one is only known
+// in the browser. Use it once online payment is decided (or render its question into the structured data too).
 export function PaymentFaq() {
   const t = useTranslations("landing.faq.payment");
   const info = usePayments();
