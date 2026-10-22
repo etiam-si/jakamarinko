@@ -1,6 +1,6 @@
 # jakamarinko.com: product plan
 
-> **Status: draft v3 (2026-10-21).** Agreed in conversation, not yet validated with real customers. Points marked **❓** are open. Content and lab prices: [content/jaka-marinko.md](content/jaka-marinko.md). Never copy the old Lovable design. Jaka Torkar is not part of the project.
+> **Status: draft v4 (2026-10-21).** Agreed in conversation, not yet validated with real customers. Points marked **❓** are open. Content and lab prices: [content/jaka-marinko.md](content/jaka-marinko.md). Never copy the old Lovable design. Jaka Torkar is not part of the project.
 
 ## Decisions (2026-10-21)
 | Topic | Decision |
@@ -11,7 +11,8 @@
 | Lab location | At Jaka's home by default; can be a different place per booking. |
 | Garmin | Not planned for now. Training data comes from file upload; device connections stay on the later list. |
 | AI provider | claude-pool, also in production. Code calls one internal interface, so the provider can be swapped. |
-| AI is internal | Customers never see the word AI: not on the site, in the app, in emails, ads or package names. AI is a tool the coaches use. **Every output is reviewed and approved by a coach before a customer sees it**, in every package. |
+| AI | Runs everything automatically and fast, with **no approval step**. Customers never see the word AI (site, app, emails, ads, package names). Safety comes from automatic rule checks and red-flag stops, not from approvals. Messages from athletes are answered by a person. |
+| Customer overview | Every customer has one overview page with all their data and the live status of anything being prepared. |
 | Languages | English and Slovenian from day one (see "Languages"). |
 | Brand | Logo, colours and type designed as part of phase 1 (no existing logo). |
 | Marketing | Jaka's Instagram and Strava profile, plus paid ads (Meta/Instagram first, Google later). |
@@ -20,12 +21,12 @@
 | Prices | The prices in this doc are the launch prices. They live in the database and can change without code. |
 
 ## In one paragraph
-Jaka Marinko's endurance coaching and lab testing, run as one app. The thing that can't be copied is Jaka himself (national-team background, VO₂max 80) plus real lab data (lactate, VO₂max). AI is the lever that lets one coach serve many athletes: it drafts plans, analyses training and writes reports, and Jaka approves. We do **not** compete as a generic AI training app (Runna, TrainerRoad, Humango and Garmin Coach already own that); we sell Jaka + lab + data, with AI underneath.
+Jaka Marinko's endurance coaching and lab testing, run as one app. The thing that can't be copied is Jaka himself (national-team background, VO₂max 80) plus real lab data (lactate, VO₂max). AI is the lever that lets one coach serve many athletes: it writes plans, analyses training and writes reports automatically within Jaka's method, and Jaka spends his time on lab tests, calls and the athletes who need him. We do **not** compete as a generic AI training app (Runna, TrainerRoad, Humango and Garmin Coach already own that); we sell Jaka + lab + data, with AI underneath.
 
 ```
-Lab test ──> zones ──> draft plan (internal) ──> coach approves ──> athlete trains ──> workout file / sync
+Lab test ──> zones ──> plan (automatic, rule-checked) ──> athlete trains ──> workout file / sync
    ▲                                                                                  │
-   └──── "time for a retest" <──── weekly review (coach) <──── planned vs done ◄─────┘
+   └──── "time for a retest" <──── weekly analysis (automatic) <──── planned vs done ◄┘
 ```
 
 ## Who uses it
@@ -34,8 +35,8 @@ Lab test ──> zones ──> draft plan (internal) ──> coach approves ─�
 | **Visitor** | Endurance athlete looking for a coach or a test | Understand the offer and prices, trust Jaka, book a test or start a package in a minute. |
 | **Test-only customer** | Wants their numbers, not a coach | Book and pay for a test, get results, zones and a report in their account. |
 | **Athlete** | Subscriber | This week's plan, zones, lab history, feedback on how training went. |
-| **Coach** | An employed coach (later) | Their own athletes, review and approve drafts, enter lab results, their own bookings. |
-| **Head coach** | Jaka | Everything a coach does, plus all athletes, assigning athletes to coaches, the coaching method and AI rules, reviewing other coaches' plans. |
+| **Coach** | An employed coach (later) | Their own athletes (overview + what the engine sent), red-flag alerts, enter lab results, answer messages, their own bookings. |
+| **Head coach** | Jaka | Everything a coach does, plus all athletes, assigning athletes to coaches, the coaching method and its rules, spot checks across all coaches. |
 | **Owner** | Grega | Prices and packages, payouts, coaches, reports, settings. |
 
 One business, several coaches. Every athlete belongs to one coach. Every booking belongs to one coach and one location. Jaka is the only coach at launch.
@@ -47,13 +48,13 @@ Prices below are the launch prices (decided 2026-10-21). The pricing guide stays
 | | **Plan** | **Coaching** ⭐ | **Elite** |
 |---|---|---|---|
 | For | Wants structure for little money; often after a test | Has a goal and wants Jaka | Competitors |
-| Training plan | monthly plan from the coach, checked every week | weekly plan, adjusted to how training went | weekly plan, adjusted day by day |
-| Review | weekly summary | weekly summary + personal comment | same, plus daily adjustments |
+| Training plan | plan built on Jaka's method, adapts every week | same, plus Jaka's personal comments on your weeks | same, adjusted day by day, plus Jaka's direct involvement |
+| Analysis | every workout + weekly summary, within minutes | same | same |
 | Lab tests | −20 % | lactate test every 3 months included | lactate every 2 months + Performance package 2×/year |
 | Contact | messages in the app, answered within 72 h | reply within 48 h + monthly call | reply within 24 h + call every two weeks + 2 in-person sessions/month |
 | Rough price | ~25 €/mo | ~119 €/mo | ~229 €/mo |
 
-Package names, descriptions and every text customers read describe what the coach does, never the tools behind it.
+Package names, descriptions and every text customers read describe what the customer gets, never the tools behind it, and never promise personal work that isn't part of the package.
 
 Minimum 3 months on Coaching and Elite. Paying a year up front: 2 months free.
 
@@ -68,16 +69,16 @@ Packages give credits on a schedule (e.g. Coaching: 1 lactate test every 3 month
 ### Pricing guide
 Prices come from three things: Jaka's time, what the market pays, and what is left after costs.
 
-**1. Time per customer per month** (with internal drafting tools; estimate, measure with the first athletes):
+**1. Time per customer per month** (plans and analyses are automatic; estimate, measure with the first athletes):
 | | Jaka's hours / athlete / month |
 |---|---|
-| Plan | ~0.5 (weekly check of drafts) |
-| Coaching | ~2 (approvals, comments, one call, tests spread over the quarter) |
+| Plan | ~0.1 (red flags and messages only) |
+| Coaching | ~1.5 (personal comments, messages, one call, tests spread over the quarter) |
 | Elite | ~6 (plus 2 in-person sessions, calls, more tests) |
 
 **2. Capacity.** Full time is about 140 working hours a month; keep ~40 for lab tests, marketing and admin, so ~100 h for coaching. For example 30 Coaching (60 h) + 6 Elite (36 h) = 96 h.
 
-**3. Revenue at the starting prices** (before VAT and costs): 30 × 119 € + 6 × 229 € ≈ **4,940 €/month**, plus one-off lab tests and Plan subscriptions on top (e.g. 40 × 25 € = 1,000 € for ~20 h).
+**3. Revenue at the starting prices** (before VAT and costs): 30 × 119 € + 6 × 229 € ≈ **4,940 €/month**, plus one-off lab tests and Plan subscriptions on top, which scale almost without Jaka's time (e.g. 200 × 25 € = 5,000 € for ~20 h).
 
 **4. Costs to subtract:** Stripe (~1.5 % + 0.25 € per EU card payment), lab consumables per test (lactate strips etc., **❓** Jaka to list), ads, hosting (small), AI usage, VAT if the company is registered for it (**❓** are prices shown with VAT included?).
 
@@ -105,35 +106,52 @@ How to proceed: Jaka lists the consumables cost per test and his realistic hours
 | **COROS** Partner API | Needs an established user base | Webhooks, FIT, push plans to the watch. Until then: COROS MCP (self-serve; read its terms first). |
 | **Apple Health / Android Health Connect** | With the Expo app | Covers almost every watch through the phone. Needs explicit consent; disclose AI use. |
 
-All sources feed the same `activities` table, so the dashboards and drafting tools don't care where a workout came from.
+All sources feed the same `activities` table, so the dashboards and the engine don't care where a workout came from.
 
-## Coach assistant (internal AI)
-AI is a tool for coaches only. It runs as background jobs through claude-pool (decided); the code calls one internal interface, so the provider can be swapped later. **Its output never goes to a customer directly**: every draft lands in the coach's **review queue**, and the coach edits, approves or rejects it. Customers see only what a coach approved, in the coach's name. The coach area may say "draft" or "suggestion"; customer-facing text never mentions AI.
+## Coaching engine (automatic, AI inside)
+Plans, analyses and reports are produced **automatically and fast**, with no approval step. Customers never see the word AI: the site, app and emails talk about "your plan", "your analysis", "your report". The engine runs as background jobs through claude-pool (decided); the code calls one internal interface, so the provider can be swapped later.
 
-Drafts are written in the athlete's language.
+**Speed targets:**
+| Trigger | Result | Target |
+|---|---|---|
+| Workout file uploaded | analysis of that workout + updated week | < 2 min |
+| Lab results entered by the coach | lab report + zones in the customer's account, email sent | < 5 min |
+| New subscriber finishes onboarding | first training block + this week | < 10 min |
+| Daily check-in sent | today's workout adjusted | < 1 min |
+| Sunday evening | weekly summary + next week's plan for every athlete | done by Monday 06:00 |
 
-1. **Lab report draft**: from the measured values, the interpretation, zones and "what this means for your training". **Built first**: it needs no wearable data and it sells the subscriptions.
-2. **Plan drafts**: from goal, race date, available days and hours, zones and training history, a block and next week. Follows Jaka's written method.
-3. **Weekly review draft**: planned vs done, load and fatigue trend, HR drift, missed sessions; a short summary for the athlete and a proposed adjustment of next week.
-4. **Daily check-in**: the athlete reports sleep, fatigue, soreness and illness in 10 seconds. The assistant proposes a change to today's workout; the coach approves it (one tap). Rules the coach has pre-approved in the method (e.g. "illness → rest day") can apply at once; they are the coach's rules, written by the coach.
-5. **Message reply drafts**: an athlete's message gets a suggested reply from their own data. The coach edits and sends it. Nothing is sent automatically.
-6. **Coach briefing**: every morning, the athletes who need their coach's attention (internal only).
+1. **Lab report**: interpretation, zones and "what this means for your training", sent as soon as the coach has entered the measured values. **Built first**: it needs no wearable data and it sells the subscriptions.
+2. **Plans**: from goal, race date, available days and hours, zones and training history, a training block and next week. Follows Jaka's written method.
+3. **Workout and weekly analysis**: planned vs done, load and fatigue trend, HR drift, missed sessions, a short summary, and next week adjusted.
+4. **Daily check-in**: sleep, fatigue, soreness, illness in 10 seconds; today's workout adjusted.
+5. **Coach briefing**: every morning, the athletes who need a human (internal only).
 
-**Review queue** (coach area): drafts sorted by urgency, with the inputs that led to each draft, one-tap approve, edit, or reject with a note. A target response time per package (Plan 72 h, Coaching 48 h, Elite 24 h) is shown, so nothing waits too long.
+**Messages are not automated.** When an athlete writes a message, the coach answers it (the engine may suggest a reply in the coach area, but a person sends it). This keeps us out of the EU AI Act rule that people talking to an AI must be told so (art. 50).
 
-**Jaka's method** (`docs/coaching-method.md`, written by Claude, reviewed by Jaka): zones model, periodization, how load progresses per sport, taper rules, what he never does. Without it the drafts are generic.
+**Guardrails replace approval.** With no human approving, every output passes an automatic check before the customer sees it:
+- **Rule check (code, not AI):** every plan and change is validated against the hard rules in `docs/coaching-method.md` (e.g. at most +10 % weekly volume, no two threshold days in a row below advanced, rest after illness). Failing output is regenerated once, and if it fails again it goes to the coach and the customer sees "your coach is preparing this".
+- **Red flags stop the engine for that athlete:** pain, injury, chest symptoms, illness, signs of overtraining or under-fuelling. The athlete gets a fixed, pre-written message (rest, see a doctor if needed); the coach is alerted at once.
+- **The coach can always see and change everything** (an activity feed of what was sent, with one-tap edit or undo), but nothing waits for him.
+- **Spot checks:** the coach area shows a daily sample of outputs to read, to catch quality drift.
+- Every output is stored with its inputs, so the coach can see why it said what it did.
 
-**Guardrails (from day one):**
-- Never diagnoses. Pain, injury, chest symptoms or illness → plan paused, Jaka notified, advise seeing a doctor.
-- Hard limits on load increase (e.g. at most +10 % weekly volume).
-- In every package, nothing reaches the athlete without their coach's approval.
-- Every draft is stored with its inputs, so the coach can see why it suggested what it did.
+**What customers see while it works:** every automatic step has a visible status in their overview ("analysing your workout…", "preparing next week…", "ready"). It updates live, so the app feels instant even when a job takes a minute.
 
-**What we may and may not say (legal limits of "not mentioning AI"):**
-- Marketing, the app and emails describe the coaching, not the tools. That is fine: what the customer gets is reviewed and sent by a coach.
-- The privacy policy must still list every processor, including the AI service provider, in neutral legal wording (GDPR art. 13). It lives on the legal page, not in marketing.
-- Never claim the opposite (e.g. "100 % handwritten", "no software involved"). That would be misleading advertising.
-- No customer ever talks to an AI directly (no chatbot), so the EU AI Act duty to tell people they are talking to an AI (art. 50) doesn't arise. Keep it that way: every message to a customer is sent by a coach.
+**Jaka's method** (`docs/coaching-method.md`, written by Claude, reviewed by Jaka) is what makes the output "Jaka's" and what the rule check enforces.
+
+**Honesty limits (keep these, they protect the business):**
+- Describe what the customer gets truthfully. The Plan package says "a plan built on Jaka's method that adapts to your training", **not** "Jaka writes your plan". Personal contact is promised only where it exists (Coaching and Elite: calls, comments, sessions). Claiming personal work that doesn't happen is a misleading commercial practice under EU consumer law.
+- Never claim "no software" or "handwritten".
+- The privacy policy lists the AI service provider among the processors and explains that plans and analyses are produced automatically from the athlete's data, with a coach responsible for the method and available on request (GDPR art. 13 and 22). Neutral legal wording, on the legal page only.
+
+## Customer overview
+Every customer has one overview page (`/account`) that shows everything about them at a glance, and it grows with each phase:
+- **Phase 1:** next booking (with preparation instructions and a countdown), past bookings, profile.
+- **Phase 2:** latest lab results, zones, report, progress between tests, "next test due".
+- **Phase 3:** this week's plan, today's workout, recent workouts with their analysis, package and credits left, next payment.
+- **Phase 4:** weekly summary, check-in, messages with the coach.
+
+Each block shows its processing status when something is being prepared. The coach has the same overview for each athlete, plus the activity feed of what the engine sent.
 
 ## Booking
 - Each coach sets a weekly availability plus exceptions. Test and session types have duration, price and preparation instructions.
@@ -144,7 +162,7 @@ Drafts are written in the athlete's language.
 - Bookings sync to the coach's Google Calendar.
 
 ## Languages
-- English and Slovenian everywhere: site, app, emails, drafts.
+- English and Slovenian everywhere: site, app, emails, plans and reports.
 - URLs `/en/...` and `/sl/...`. The first visit picks the browser language (Slovenian → `/sl`, everything else → `/en`), then the choice is remembered.
 - Each user has a language setting that emails and reports follow.
 - Content (texts, test descriptions, packages) is stored in both languages from the start. Slovenian originals in `docs/content/` need an English version (Claude drafts it, Jaka checks).
@@ -170,9 +188,9 @@ Heart rate, lab results and how someone feels are health data (GDPR art. 9).
 ## Phases
 0. **Groundwork.** pnpm + Turborepo, i18n (EN/SL), brand, cookie consent + analytics.
 1. **Public site + landing pages + booking + test-only accounts.** Replaces the Lovable site and is what ads point to; earns money from day one. Done when a stranger, in either language, can book and pay for a lab test, gets confirmation and preparation emails, Jaka sees it in his calendar, and the booking shows up as a conversion with its ad source.
-2. **Lab results + lab report + zones.** The coach enters results, the assistant drafts the report, the coach edits and sends it, and the customer sees results and zones in their account. Ends with the subscription offer.
-3. **Subscriptions + credits + file upload + plans.** Stripe billing, credits, FIT/TCX/GPX upload, plan drafts in the review queue, athlete week view, coach dashboard.
-4. **Weekly reviews, daily check-in, messages, coach briefing.**
+2. **Lab results + lab report + zones.** The coach enters results; the report and zones appear in the customer's overview within minutes and by email. Ends with the subscription offer.
+3. **Subscriptions + credits + file upload + plans.** Stripe billing, credits, FIT/TCX/GPX upload, automatic plans and workout analysis with the rule check, athlete week view, coach overview and activity feed.
+4. **Weekly analysis, daily check-in, messages with the coach, coach briefing.**
 5. **Expo mobile app** (plan, check-in, upload from phone, Apple Health / Health Connect, push notifications).
 6. **Device connections** once file upload limits growth: Polar, Suunto, COROS, Garmin.
 
@@ -193,9 +211,11 @@ bookings           id, service_type_id, coach_id, location_id, customer_id, star
 lab_tests          id, athlete_id, booking_id, date, type, results jsonb, zones jsonb, report_md, report_sent_at
 activities         id, athlete_id, source (file | garmin | polar | ...), source_id, sport, start, duration, distance,
                    elevation, avg_hr, avg_power, summary jsonb, streams_key, original_file_key
-planned_workouts   id, athlete_id, date, sport, target jsonb, zone, description, status (draft | approved), activity_id
-drafts             id, kind, athlete_id, coach_id, input jsonb, output jsonb, edited_output jsonb, status (pending | approved | rejected),
-                   model, created_at, reviewed_by, reviewed_at   -- internal; customers only see approved output
+planned_workouts   id, athlete_id, date, sport, target jsonb, zone, description, status (planned | done | skipped), activity_id
+jobs               id, kind, athlete_id, status (queued | running | done | failed | held), progress, created_at, finished_at
+                   -- drives the live "processing" status in the overview
+engine_outputs     id, job_id, kind, athlete_id, input jsonb, output jsonb, rule_check jsonb, sent_at, edited_by, model
+red_flags          id, athlete_id, source (check_in | message | workout), reason, created_at, handled_by, handled_at
 comments           id, author_id, athlete_id, planned_workout_id?, body, created_at
 requests           id, kind (contact), name, email, phone, message, status
 ```
