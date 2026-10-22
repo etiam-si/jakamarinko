@@ -4,10 +4,10 @@
     "description": "Individualno in online trenerstvo za tek, kolesarstvo, tek na smučeh in turno smučanje, na podlagi tvojih laboratorijskih rezultatov in podatkov s treningov."
   },
   "hero": {
-    "title": "Trening, zgrajen okoli tebe.",
-    "subtitle": "Načrt na podlagi tvojih številk, ki se vsak teden prilagodi tvojemu treningu.",
-    "primaryCta": "Poglej pakete",
-    "secondaryCta": "Začni z meritvijo"
+    "title": "Načrt po tvojih številkah, prilagojen vsak teden.",
+    "subtitle": "Trije paketi od 25 € na mesec, Coaching pa doda Jakove komentarje in meritev vsake 3 mesece.",
+    "primaryCta": "Napiši svoj cilj",
+    "secondaryCta": "Začni z laktatnim testom"
   },
   "services": {
     "title": "Kaj vključuje trenerstvo",
@@ -47,7 +47,8 @@
   },
   "packages": {
     "title": "Paketi",
-    "subtitle": "Tri ravni podpore. Izberi tisto, ki ustreza tvojemu cilju."
+    "subtitle": "Tri ravni podpore. Izberi tisto, ki ustreza tvojemu cilju.",
+    "includedTest": "Vključuje laktatni test vsake 3 mesece (vsak v vrednosti {price} €)"
   },
   "faq": {
     "title": "Vprašanja",
@@ -70,11 +71,52 @@
     "messages": {
       "question": "Kdo odgovarja na moja sporočila?",
       "answer": "Tvoj trener. Na sporočila vedno odgovori človek: v paketu Plan v 72 urah, v paketu Coaching v 48 urah in v paketu Elite v 24 urah."
+    },
+    "whoWrites": {
+      "question": "Ali moj načrt napiše Jaka?",
+      "answer": "Načrt temelji na Jakovi metodi in se vsak teden prilagodi tvojemu treningu. V paketu Coaching Jaka tvoje tedne tudi osebno komentira, pogovor imata vsak mesec; v paketu Elite vsaka dva tedna, poleg tega so tu še treningi v živo. Na sporočila vedno odgovori človek."
+    },
+    "coachingFit": {
+      "question": "Je trenerstvo samo za tekmovalce?",
+      "answer": "Ne. Plan in Coaching sta za vsakogar s ciljem, od prvega polmaratona do sezone tekem. Elite je za tekmovalce."
+    },
+    "coachingTime": {
+      "question": "Koliko ur na teden potrebujem?",
+      "answer": "Toliko, kolikor jih imaš. Načrt je zgrajen na dnevih in urah, ki jih imaš za trening, in se prilagodi, ko se teden spremeni."
+    },
+    "coachingStart": {
+      "question": "Kako začnem?",
+      "answer": "Pošlji svoj cilj in datum tekme. V dveh delovnih dneh ti odgovorimo s predlogom paketa, in če še nimaš meritve, z laktatnim testom za tvoje cone."
     }
   },
   "cta": {
     "title": "Ne veš, kateri paket je pravi zate?",
     "text": "Piši mi s svojim ciljem in predlagal ti bom, kje začeti.",
-    "button": "Piši mi"
+    "button": "Napiši svoj cilj"
+  },
+  "whoDoesWhat": {
+    "title": "Kdo naredi kaj",
+    "plan": "Načrt temelji na Jakovi metodi in se vsak teden prilagodi tvojemu treningu.",
+    "coach": "V paketih Coaching in Elite Jaka tvoje tedne komentira, redno pa se tudi pogovorita.",
+    "messages": "Na sporočila vedno odgovori človek."
+  },
+  "howItWorks": {
+    "title": "Kako poteka trenerstvo",
+    "test": {
+      "title": "Meritev",
+      "text": "Laktatni test določi tvoje cone."
+    },
+    "plan": {
+      "title": "Načrt",
+      "text": "Načrt po tvojih conah, cilju in času, ki ga imaš."
+    },
+    "analysis": {
+      "title": "Vsak trening",
+      "text": "Vsak naložen trening se analizira glede na načrt."
+    },
+    "retest": {
+      "title": "Ponovna meritev",
+      "text": "Ponovna meritev pokaže, kaj se je spremenilo, cone pa se premaknejo s tabo."
+    }
   }
 }

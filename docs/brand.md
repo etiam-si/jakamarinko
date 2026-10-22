@@ -71,7 +71,7 @@ shadcn primitives in `components/ui/` take the brand from the tokens; don't rest
 
 ## Photos
 The photos we have (`apps/web/public/brand/photos/`) are small (460–1200 px on the short side).
-- Show them at most 384 px wide (`PhotoFrame` default). **Never full-bleed, never as a hero background.**
+- On a phone, never wider than half the file's width, so they stay sharp on 3× screens (e2e checks it); on large screens up to about 450 px. The hero photo gets room as an editorial crop with depth (`PhotoFrame hero depth strip`, see [design.md](design.md)). **Never full-bleed, never as a background behind text.**
 - Portrait 4:5 by default; square or 3:2 when the layout needs it. Set `position` so faces aren't cut.
 - When several photos sit together, use `treatment="tinted"` (spruce tint): it hides compression and mixed colour casts. A single photo can stay natural.
 - Always a caption naming the race or discipline, and a real `alt`.

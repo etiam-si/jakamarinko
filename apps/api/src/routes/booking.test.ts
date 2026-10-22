@@ -85,6 +85,10 @@ describe("public", () => {
       "running-economy",
       "anthropometry",
       "performance",
+      "runner",
+      "long-distance",
+      "season",
+      "lactate-retest",
       "personal-training",
     ]);
     expect(services.find((s) => s.id === "performance")).toMatchObject({ name: "Performance paket", priceCents: 25000, durationMin: 120 });

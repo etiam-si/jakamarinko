@@ -40,15 +40,15 @@
     "seePackages": "See packages"
   },
   "units": {
-    "price": "{price} €",
-    "perMonth": "{price} € / month",
-    "perYear": "{price} € / year",
+    "price": "{price} €",
+    "perMonth": "{price} € / month",
+    "perYear": "{price} € / year",
     "vatIncluded": "All prices include VAT.",
     "minutes": "{count} min",
     "aboutMinutes": "about {count} min",
     "months": "{count, plural, one {# month} other {# months}}",
     "weeks": "{count, plural, one {# week} other {# weeks}}",
-    "percentOff": "−{percent} %",
+    "percentOff": "−{percent} %",
     "vo2max": "ml/kg/min",
     "heartRate": "bpm",
     "lactate": "mmol/L"

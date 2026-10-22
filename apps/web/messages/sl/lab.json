@@ -4,16 +4,18 @@
     "description": "VO₂max, laktatni profil, poraba maščob in ogljikovih hidratov, ekonomičnost teka in antropometrija. Kaj posamezna meritev meri, kako se pripraviti in koliko stane."
   },
   "hero": {
-    "title": "Laboratorijske meritve: spoznaj svoje številke",
-    "subtitle": "Trening cone iz tvojega telesa, ne iz formul.",
-    "primaryCta": "Rezerviraj meritev",
-    "secondaryCta": "Katera meritev je prava zame?"
+    "title": "Ura ocenjuje. Laboratorij meri.",
+    "subtitle": "Tvoja pragova, VO₂max in trening cone, izmerjeni in razloženi, z laktatnim profilom že za {price} €.",
+    "primaryCta": "Rezerviraj laktatni test",
+    "secondaryCta": "Katera meritev je prava zame?",
+    "trust": "Z DDV · Brezplačna odpoved do 24 ur prej · Rezervacija na spletu v minuti"
   },
   "what": {
     "title": "Kako poteka meritev",
     "s1": "Tečeš ali kolesariš, vsako stopnjo malo hitreje.",
     "s2": "Meri se srčni utrip, poraba kisika in iz kapljice krvi laktat.",
-    "s3": "Dobiš svoja pragova, VO₂max in trening cone."
+    "s3": "Dobiš svoja pragova, VO₂max in trening cone.",
+    "hard": "Zadnjih nekaj minut je naporno, ustaviš pa se lahko kadarkoli."
   },
   "why": {
     "title": "Zakaj meritev?",
@@ -45,7 +47,24 @@
     "preparation": "Kako se pripraviti",
     "included": "Kaj dobiš",
     "duration": "Trajanje",
-    "contains": "Vključuje"
+    "contains": "Vključuje",
+    "prep": {
+      "fed": "Pridi spočit",
+      "fasted": "Pridi spočit in na tešče",
+      "none": "Priprava ni potrebna",
+      "title": "Kako se pripraviš",
+      "fastedNote": "Meritev porabe maščob in ogljikovih hidratov ter Performance: pridi na tešče, 8 ur prej nič hrane, samo voda."
+    },
+    "separately": "Posamično {price} € · prihraniš {saving} €",
+    "bestFirst": "Najboljša prva meritev",
+    "bestValue": "Največ za tvoj denar",
+    "forRunners": "Za tekače",
+    "forLongRaces": "Za dolge tekme",
+    "comeBack": {
+      "title": "Vrni se in poglej, kaj se je spremenilo",
+      "lead": "Ponovne meritve in sezonski paket za športnike, ki so se že merili pri nas."
+    },
+    "separatelyOnly": "Posamično {price} €"
   },
   "prepare": {
     "title": "Kako se pripraviti",
@@ -58,6 +77,21 @@
   "after": {
     "title": "Po meritvi",
     "text": "Dobiš razlago rezultatov, pri laktatni meritvi in meritvi VO₂max pa tudi svoje osebne trening cone.",
-    "offer": "Vsaka meritev se konča s ponudbo: {days} dni paketa Plan brezplačno ali prvi mesec paketa Coaching s {percent} % popusta."
+    "offer": "Vsaka meritev se konča s ponudbo: {days} dni paketa Plan brezplačno ali prvi mesec paketa Coaching s {percent} % popusta."
+  },
+  "curve": {
+    "x": "Hitrost ali moč",
+    "y": "Laktat"
+  },
+  "faq": {
+    "title": "Vprašanja pred meritvijo"
+  },
+  "proof": {
+    "by": "Meritve izvaja Jaka Marinko"
+  },
+  "close": {
+    "title": "Do tvojih con te loči ena meritev.",
+    "text": "Termin izbereš na spletu v minuti.",
+    "button": "Rezerviraj laktatni test"
   }
 }

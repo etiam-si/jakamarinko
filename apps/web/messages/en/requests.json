@@ -33,7 +33,8 @@
       "title": "Thanks, your message is on its way",
       "body": "You'll get a confirmation by email, and a reply within two working days.",
       "again": "Send another message"
-    }
+    },
+    "messagePlaceholder": "Your goal, race date and how many hours a week you can train."
   },
   "inbox": {
     "title": "Requests",
