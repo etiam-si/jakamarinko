@@ -14,7 +14,9 @@
     "@hono/node-server": "2.1.5",
     "@hono/zod-validator": "0.9.1",
     "@jakamarinko/api": "workspace:*",
+    "@jakamarinko/auth": "workspace:*",
     "@jakamarinko/db": "workspace:*",
+    "@jakamarinko/types": "workspace:*",
     "drizzle-orm": "0.45.4",
     "hono": "4.13.13",
     "zod": "4.6.7"

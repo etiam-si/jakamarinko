@@ -10,6 +10,7 @@ export const namespaces = [
   "contact",
   "footer",
   "brand",
+  "auth",
 ] as const;
 
 export type Namespace = (typeof namespaces)[number];
