@@ -7,6 +7,7 @@ import { SectionHeading } from "@/components/brand/section-heading";
 import { AddToCalendar } from "@/components/booking/add-to-calendar";
 import { CancelBooking } from "@/components/booking/cancel-booking";
 import { PaidNote } from "@/components/booking/payment/paid-note";
+import { PaidTracker } from "@/components/booking/payment/paid-tracker";
 import { PendingPayment } from "@/components/booking/payment/pending-payment";
 import { formatWhen } from "@/components/booking/time";
 import { Unavailable } from "@/components/booking/unavailable";
@@ -109,6 +110,7 @@ export default async function ManageBookingPage({ params, searchParams }: Props)
 
         {booking.status === "confirmed" && booking.paidVia === "none" && <p>{t("confirmed.payOnSite")}</p>}
         {active && booking.paidVia === "stripe" && <PaidNote />}
+        {active && booking.paidVia === "stripe" && paid === "1" && <PaidTracker id={booking.id} service={booking.service} />}
         {booking.status === "pending_payment" && <PendingPayment id={booking.id} token={token} returned={paid === "1"} />}
         {active && <AddToCalendar event={event} />}
 

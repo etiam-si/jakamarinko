@@ -16,3 +16,8 @@ test("every entry has a unique href inside its area", () => {
   expect(new Set(hrefs).size).toBe(hrefs.length);
   for (const e of nav) expect(e.href.startsWith(`/${e.area}`)).toBe(true);
 });
+
+test("an entry with a role is only for that role and up", () => {
+  const report = nav.find((e) => e.href === "/coach/ad-sources");
+  expect(report?.role).toBe("owner");
+});

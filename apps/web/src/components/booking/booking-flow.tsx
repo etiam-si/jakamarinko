@@ -117,7 +117,8 @@ export function BookingFlow({ services, prefill }: { services: Service[]; prefil
         if (url && url !== "expired") return window.location.assign(url);
         return router.replace({ pathname: `/booking/${booking.id}`, query: { token } });
       }
-      track("booking_paid", { service: service.id, value: service.priceCents / 100, currency: "EUR" });
+      // The event id is the one the api reports to Meta, so the two copies count once.
+      track("booking_paid", { service: service.id, value: service.priceCents / 100, currency: "EUR" }, `booking_paid-${booking.id}`);
       router.replace({ pathname: `/booking/${booking.id}`, query: { token, confirmed: "1" } });
     } catch {
       setNotice("unavailable");

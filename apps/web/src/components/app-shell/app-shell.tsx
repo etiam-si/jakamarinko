@@ -31,13 +31,13 @@ export async function AppShell({ area, session, children }: { area: Area; sessio
           {areaName}
         </p>
         {switcher}
-        <NavList area={area} />
+        <NavList area={area} role={user.role} />
         <div className="mt-auto border-t pt-3">
           <UserMenu {...menu} />
         </div>
       </aside>
       <header className="sticky top-0 z-40 flex h-14 items-center gap-2 border-b bg-background/95 px-2 backdrop-blur lg:hidden">
-        <MobileNav area={area}>{switcher}</MobileNav>
+        <MobileNav area={area} role={user.role}>{switcher}</MobileNav>
         <Link href={areaHome[area]} aria-label={areaName}>
           <Logo variant="mark" className="h-8" />
         </Link>

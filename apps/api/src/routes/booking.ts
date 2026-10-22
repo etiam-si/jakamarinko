@@ -44,6 +44,7 @@ import { bookable, serviceView } from "../booking/catalog";
 import { assertCoachAccess, ownCoachId, targetCoach } from "../booking/coach";
 import { bookingConfig } from "../booking/config";
 import { sendCancelled, sendConfirmed, sendRescheduled } from "../booking/emails";
+import { recordConversion, reportBookingPaid } from "../conversions/record";
 import { addDays, zoned } from "../booking/time";
 import { requireRole, requireSession } from "../lib/auth";
 import { settleCancelled } from "../payments/refunds";
@@ -256,7 +257,12 @@ export const booking = new Hono()
     const config = bookingConfig();
     const now = new Date();
     const row = await createBooking(c.req.valid("json"), user, now, config);
-    if (row.booking.status === "confirmed") await sendConfirmed(row, config);
+    // The Purchase goes to Meta once the booking is paid (T13's webhook), or now when it is confirmed straight away.
+    await recordConversion(c, "booking_paid", { bookingId: row.booking.id });
+    if (row.booking.status === "confirmed") {
+      await sendConfirmed(row, config);
+      await reportBookingPaid(row.booking.id);
+    }
     return c.json<CreatedBooking>({ booking: customerView(row, now, config), manageUrl: manageUrl(row.booking, config) }, 201);
   })
   .get("/mine", requireSession, async (c) => {

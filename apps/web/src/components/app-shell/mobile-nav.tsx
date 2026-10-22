@@ -6,11 +6,12 @@ import { useState } from "react";
 import { Logo } from "@/components/brand/logo";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import type { Role } from "@jakamarinko/types";
 import type { Area } from "@/lib/nav";
 import { NavList } from "./nav-list";
 
 // Phones and tablets: the area menu in a sheet from the left. `children` go above the menu (coach switcher).
-export function MobileNav({ area, children }: { area: Area; children?: React.ReactNode }) {
+export function MobileNav({ area, role, children }: { area: Area; role: Role; children?: React.ReactNode }) {
   const t = useTranslations("app");
   const [open, setOpen] = useState(false);
 
@@ -26,7 +27,7 @@ export function MobileNav({ area, children }: { area: Area; children?: React.Rea
         <SheetTitle className="sr-only">{t(`areas.${area}`)}</SheetTitle>
         <SheetDescription className="sr-only">{t("nav.label")}</SheetDescription>
         {children}
-        <NavList area={area} onNavigate={() => setOpen(false)} />
+        <NavList area={area} role={role} onNavigate={() => setOpen(false)} />
       </SheetContent>
     </Sheet>
   );
