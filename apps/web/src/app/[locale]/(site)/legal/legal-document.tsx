@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
+import { pageMetadata } from "@/components/site/site";
 import { Link } from "@/i18n/navigation";
 
 export type Doc = "privacy" | "terms" | "cookies";
@@ -9,7 +10,7 @@ type Section = { title: string; body: (string | string[])[] };
 
 export async function legalMetadata(locale: string, doc: Doc): Promise<Metadata> {
   const t = await getTranslations({ locale, namespace: "legal" });
-  return { title: t(`${doc}.title`), description: t(`${doc}.description`) };
+  return pageMetadata(locale, `/legal/${doc}`, { title: t(`${doc}.title`), description: t(`${doc}.description`) });
 }
 
 // Renders one legal document from messages/{en,sl}/legal.json. Both languages share the keys,
