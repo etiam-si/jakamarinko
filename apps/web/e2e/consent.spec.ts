@@ -55,7 +55,7 @@ test("after reject all marketing tags never load, also on the next page", async 
 test("the settings dialog saves a choice per category", async ({ page, context }) => {
   const requested = await withTags(context);
   await visit(page, "/en");
-  await page.getByRole("button", { name: "Settings" }).click();
+  await page.getByRole("button", { name: "Settings", exact: true }).click();
   const dialog = page.getByRole("dialog", { name: "Cookie settings" });
   await expect(dialog.getByRole("checkbox", { name: "Necessary" })).toBeDisabled();
   await dialog.getByRole("checkbox", { name: "Marketing" }).check();

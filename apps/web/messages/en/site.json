@@ -1,0 +1,30 @@
+{
+  "skipToContent": "Skip to content",
+  "perMonth": "/ month",
+  "photos": {
+    "redBull": {
+      "caption": "Red Bull 400 Planica",
+      "alt": "Jaka Marinko climbing the Planica ski jump at Red Bull 400"
+    },
+    "trail": {
+      "caption": "Mountain running",
+      "alt": "Jaka Marinko on a mountain trail on a summer evening"
+    },
+    "skimo": {
+      "caption": "Ski mountaineering",
+      "alt": "Jaka Marinko on skis during a ski mountaineering climb"
+    },
+    "xcSki": {
+      "caption": "Cross-country skiing",
+      "alt": "Jaka Marinko skating in a cross-country ski race"
+    },
+    "finish": {
+      "caption": "U20 World Championships, mountain running",
+      "alt": "Jaka Marinko sprinting for the finish line at the World Mountain and Trail Running Championships"
+    },
+    "europeans": {
+      "caption": "U20 European Championships, mountain running",
+      "alt": "Jaka Marinko in the Slovenian team vest at the front of the field in a mountain running race"
+    }
+  }
+}
