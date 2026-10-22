@@ -5,6 +5,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Providers } from "@/components/providers/providers";
 import { Toaster } from "@/components/ui/sonner";
 import { routing } from "@/i18n/routing";
+import { fontVariables } from "@/styles/fonts";
 import "../globals.css";
 
 type Props = { children: React.ReactNode; params: Promise<{ locale: string }> };
@@ -25,7 +26,7 @@ export default async function LocaleLayout({ children, params }: Props) {
   setRequestLocale(locale);
 
   return (
-    <html lang={locale}>
+    <html lang={locale} className={fontVariables}>
       <body className="min-h-dvh antialiased">
         <NextIntlClientProvider>
           <Providers>

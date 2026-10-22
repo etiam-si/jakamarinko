@@ -1,0 +1,114 @@
+/* Brand theme: the shadcn tokens plus brand, zone and chart colours. Light on :root, dark on .dark.
+   Hex values on purpose: src/styles/theme.test.ts parses this file and checks contrast and colour-blind safety. */
+
+@theme inline {
+  --font-sans: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-martian), ui-monospace, monospace;
+  --color-signal: var(--signal);
+  --color-signal-foreground: var(--signal-foreground);
+  --color-photo-tint: var(--photo-tint);
+  --color-zone-1: var(--zone-1);
+  --color-zone-2: var(--zone-2);
+  --color-zone-3: var(--zone-3);
+  --color-zone-4: var(--zone-4);
+  --color-zone-5: var(--zone-5);
+  --color-zone-1-foreground: var(--zone-1-foreground);
+  --color-zone-2-foreground: var(--zone-2-foreground);
+  --color-zone-3-foreground: var(--zone-3-foreground);
+  --color-zone-4-foreground: var(--zone-4-foreground);
+  --color-zone-5-foreground: var(--zone-5-foreground);
+}
+
+:root {
+  --radius: 0.375rem;
+
+  /* Firn (snow) background, graphite ink, spruce primary, signal orange for the one thing that matters. */
+  --background: #f4f6f5;
+  --foreground: #121a18;
+  --card: #ffffff;
+  --card-foreground: #121a18;
+  --popover: #ffffff;
+  --popover-foreground: #121a18;
+  --primary: #15493f;
+  --primary-foreground: #f4f6f5;
+  --secondary: #e3eae7;
+  --secondary-foreground: #15493f;
+  --muted: #e8edeb;
+  --muted-foreground: #4f5d59;
+  --accent: #e3eae7;
+  --accent-foreground: #121a18;
+  --signal: #e8542a;
+  --signal-foreground: #121a18;
+  --destructive: #b42318;
+  --border: #d3dcd8;
+  --input: #c4cfcb;
+  --ring: #15493f;
+  /* Photos keep the same spruce tint in both themes (mint in dark is too loud on skin). */
+  --photo-tint: #15493f;
+
+  /* Training zones: cool to hot with falling lightness, so they stay apart without red-green vision. */
+  --zone-1: #9cc3e6;
+  --zone-2: #2f6fb3;
+  --zone-3: #f2c14e;
+  --zone-4: #e8742a;
+  --zone-5: #b8232f;
+  --zone-1-foreground: #121a18;
+  --zone-2-foreground: #ffffff;
+  --zone-3-foreground: #121a18;
+  --zone-4-foreground: #121a18;
+  --zone-5-foreground: #ffffff;
+
+  --chart-1: #15493f;
+  --chart-2: #e8542a;
+  --chart-3: #2f6fb3;
+  --chart-4: #d9a21b;
+  --chart-5: #8e9b97;
+
+  --sidebar: #eef2f0;
+  --sidebar-foreground: #121a18;
+  --sidebar-primary: #15493f;
+  --sidebar-primary-foreground: #f4f6f5;
+  --sidebar-accent: #e3eae7;
+  --sidebar-accent-foreground: #121a18;
+  --sidebar-border: #d3dcd8;
+  --sidebar-ring: #15493f;
+}
+
+.dark {
+  --background: #0d1412;
+  --foreground: #e8eeec;
+  --card: #141d1a;
+  --card-foreground: #e8eeec;
+  --popover: #141d1a;
+  --popover-foreground: #e8eeec;
+  --primary: #5cc2a8;
+  --primary-foreground: #0d1412;
+  --secondary: #1e2a27;
+  --secondary-foreground: #e8eeec;
+  --muted: #1a2421;
+  --muted-foreground: #9aa9a4;
+  --accent: #1e2a27;
+  --accent-foreground: #e8eeec;
+  --signal: #f26a41;
+  --signal-foreground: #0d1412;
+  --destructive: #f97066;
+  --border: #27342f;
+  --input: #33433e;
+  --ring: #5cc2a8;
+
+  --chart-1: #5cc2a8;
+  --chart-2: #f26a41;
+  --chart-3: #6aa6e8;
+  --chart-4: #f2c14e;
+  --chart-5: #d3dbd8;
+
+  --sidebar: #111a17;
+  --sidebar-foreground: #e8eeec;
+  --sidebar-primary: #5cc2a8;
+  --sidebar-primary-foreground: #0d1412;
+  --sidebar-accent: #1e2a27;
+  --sidebar-accent-foreground: #e8eeec;
+  --sidebar-border: #27342f;
+  --sidebar-ring: #5cc2a8;
+}
