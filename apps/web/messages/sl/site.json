@@ -1,0 +1,30 @@
+{
+  "skipToContent": "Preskoči na vsebino",
+  "perMonth": "/ mesec",
+  "photos": {
+    "redBull": {
+      "caption": "Red Bull 400 Planica",
+      "alt": "Jaka Marinko med vzponom po planiški skakalnici na Red Bull 400"
+    },
+    "trail": {
+      "caption": "Gorski tek",
+      "alt": "Jaka Marinko na gorski poti v poletnem večeru"
+    },
+    "skimo": {
+      "caption": "Turno smučanje",
+      "alt": "Jaka Marinko na smučeh med vzponom pri turnem smučanju"
+    },
+    "xcSki": {
+      "caption": "Tek na smučeh",
+      "alt": "Jaka Marinko v drsalni tehniki na tekmi v teku na smučeh"
+    },
+    "finish": {
+      "caption": "Svetovno prvenstvo U20, gorski tek",
+      "alt": "Jaka Marinko v zaključnem šprintu na svetovnem prvenstvu v gorskem in trail teku"
+    },
+    "europeans": {
+      "caption": "Evropsko prvenstvo U20, gorski tek",
+      "alt": "Jaka Marinko v dresu slovenske reprezentance na čelu skupine na tekmi v gorskem teku"
+    }
+  }
+}

@@ -13,6 +13,7 @@ export const namespaces = [
   "auth",
   "consent",
   "app",
+  "site",
 ] as const;
 
 export type Namespace = (typeof namespaces)[number];
