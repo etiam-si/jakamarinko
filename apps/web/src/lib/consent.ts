@@ -43,22 +43,24 @@ export function subscribeConsent(listener: () => void) {
 export function saveConsent(consent: Consent) {
   const before = readConsent();
   writeCookie(COOKIE, serializeConsent(consent), 180);
-  // Loaded scripts can't be unloaded: on withdrawal drop their cookies and start the page fresh.
-  if ((before?.marketing && !consent.marketing) || (before?.analytics && !consent.analytics)) {
-    clearTagCookies();
+  const marketingWithdrawn = before?.marketing && !consent.marketing;
+  if (marketingWithdrawn) clearMarketingCookies();
+  // Loaded scripts can't be unloaded: on withdrawal start the page fresh.
+  if (marketingWithdrawn || (before?.analytics && !consent.analytics)) {
     location.reload();
     return;
   }
   listeners.forEach((l) => l());
 }
 
-// Meta (_fbp, _fbc) and Google (_ga, _ga_*, _gcl_*) set theirs on the host or the parent domain.
-function clearTagCookies() {
+// Ours (jm_attribution) and Meta's (_fbp, _fbc) and Google's (_ga, _ga_*, _gcl_*), which they set on the host or
+// the parent domain.
+function clearMarketingCookies() {
   const host = location.hostname;
   const domains = ["", `; Domain=${host}`, `; Domain=.${host.replace(/^www\./, "")}`];
   for (const part of document.cookie.split(";")) {
     const name = part.trim().split("=")[0];
-    if (!/^(_fbp|_fbc|_ga|_gcl)/.test(name)) continue;
+    if (!/^(jm_attribution$|_fbp|_fbc|_ga|_gcl)/.test(name)) continue;
     for (const domain of domains) document.cookie = `${name}=; Max-Age=0; Path=/${domain}`;
   }
 }

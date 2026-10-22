@@ -13,7 +13,7 @@
   },
   "necessary": {
     "label": "Necessary",
-    "description": "Language, sign-in, this choice and the link you came from. Always on."
+    "description": "Language, sign-in and this choice. Always on."
   },
   "analytics": {
     "label": "Analytics",
@@ -21,7 +21,7 @@
   },
   "marketing": {
     "label": "Marketing",
-    "description": "Meta and Google measure which ads bring visitors. They set their own cookies."
+    "description": "Meta and Google measure which ads bring visitors and set their own cookies. We also remember which ad or link brought you here, for 30 days."
   },
   "link": "Cookie settings"
 }

@@ -82,13 +82,53 @@ test("with no ids set nothing loads and nothing errors", async ({ page, context 
   expect((await context.cookies()).some((c) => c.name === "jm_consent")).toBe(true);
 });
 
-test("the ad source is remembered across pages", async ({ page, context }) => {
+const attribution = async (context: BrowserContext) =>
+  getAttribution((await context.cookies()).map((c) => `${c.name}=${c.value}`).join("; "));
+
+// Nothing about the landing link may reach a cookie or browser storage before marketing consent.
+async function expectNothingStored(page: Page, context: BrowserContext) {
+  expect((await context.cookies()).some((c) => c.name === "jm_attribution")).toBe(false);
+  const storage = await page.evaluate(() => JSON.stringify({ ...localStorage, ...sessionStorage }));
+  expect(storage).not.toContain("instagram");
+}
+
+test("the ad source is remembered across pages once marketing consent is given", async ({ page, context }) => {
   await visit(page, "/en?utm_source=instagram&utm_campaign=x");
+  await expectNothingStored(page, context);
+
+  await page.getByRole("button", { name: "Accept all" }).click();
+  await expect.poll(() => attribution(context)).toEqual({ utm_source: "instagram", utm_campaign: "x" });
+
   await visit(page, "/sl");
   await page.getByRole("link", { name: "English" }).click();
   await expect(page).toHaveURL(/\/en$/);
   await visit(page, "/sl");
+  expect(await attribution(context)).toEqual({ utm_source: "instagram", utm_campaign: "x" });
+});
 
-  const cookies = (await context.cookies()).map((c) => `${c.name}=${c.value}`).join("; ");
-  expect(getAttribution(cookies)).toEqual({ utm_source: "instagram", utm_campaign: "x" });
+test("without marketing consent the ad source is never stored", async ({ page, context }) => {
+  await visit(page, "/en?utm_source=instagram&utm_campaign=x");
+  await page.getByRole("button", { name: "Reject all" }).click();
+  await visit(page, "/sl");
+  await expectNothingStored(page, context);
+});
+
+test("with consent from an earlier visit a new landing is stored at once", async ({ page, context }) => {
+  await visit(page, "/en");
+  await page.getByRole("button", { name: "Accept all" }).click();
+  await visit(page, "/sl?gclid=g1");
+  await expect.poll(() => attribution(context)).toEqual({ gclid: "g1" });
+});
+
+test("withdrawing marketing consent deletes the ad source", async ({ page, context }) => {
+  await visit(page, "/en?utm_source=instagram");
+  await page.getByRole("button", { name: "Accept all" }).click();
+  await expect.poll(() => attribution(context)).toEqual({ utm_source: "instagram" });
+
+  // The footer link (T08) does this.
+  await page.evaluate(() => window.dispatchEvent(new Event("jm:consent-settings")));
+  const reload = page.waitForEvent("load");
+  await page.getByRole("dialog").getByRole("button", { name: "Reject all" }).click();
+  await reload;
+  expect(await attribution(context)).toBeNull();
 });

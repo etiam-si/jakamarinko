@@ -13,7 +13,7 @@
   },
   "necessary": {
     "label": "Nujni",
-    "description": "Jezik, prijava, ta izbira in povezava, prek katere ste prišli. Vedno vklopljeni."
+    "description": "Jezik, prijava in ta izbira. Vedno vklopljeni."
   },
   "analytics": {
     "label": "Analitika",
@@ -21,7 +21,7 @@
   },
   "marketing": {
     "label": "Marketing",
-    "description": "Meta in Google merita, kateri oglasi pripeljejo obiskovalce. Nastavita lastne piškotke."
+    "description": "Meta in Google merita, kateri oglasi pripeljejo obiskovalce, in nastavita lastne piškotke. Za 30 dni si zapomnimo tudi, kateri oglas ali povezava vas je pripeljala."
   },
   "link": "Nastavitve piškotkov"
 }
