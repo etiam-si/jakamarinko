@@ -1,3 +1,5 @@
+// Automatic JSX runtime even when another package's tsconfig compiles this file (tsx in apps/api).
+/** @jsxRuntime automatic @jsxImportSource react */
 import { Body, Button, Container, Head, Hr, Html, Link, Preview, Section, Text } from "@react-email/components";
 import type { CSSProperties, ReactNode } from "react";
 import type { Locale } from "@jakamarinko/types";

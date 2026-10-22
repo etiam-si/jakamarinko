@@ -1,3 +1,4 @@
+import { DrizzleQueryError } from "drizzle-orm/errors";
 import type { ErrorHandler, NotFoundHandler } from "hono";
 import { HTTPException } from "hono/http-exception";
 import type { ContentfulStatusCode } from "hono/utils/http-status";
@@ -16,11 +17,23 @@ export class ApiError extends Error {
 
 const body = (code: string, message: string): ApiErrorBody => ({ error: { code, message } });
 
+// What goes to the log for an unexpected error. Drizzle puts a failed query's parameters (which can be health data)
+// into its message and stack, so for those only the SQL with placeholders and Postgres' error code are kept.
+export function loggable(err: unknown): string {
+  for (let e: unknown = err; e instanceof Error; e = e.cause) {
+    if (e instanceof DrizzleQueryError) {
+      const cause = e.cause as { code?: unknown } | undefined;
+      return `database query failed (postgres ${String(cause?.code ?? "unknown")}): ${e.query}`;
+    }
+  }
+  return err instanceof Error ? (err.stack ?? err.message) : String(err);
+}
+
 export const onError: ErrorHandler = (err, c) => {
   if (err instanceof ApiError) return c.json(body(err.code, err.message), err.status);
   if (err instanceof HTTPException) return c.json(body(`http_${err.status}`, err.message), err.status);
-  // Only the stack: request bodies can hold health data and never go to the log.
-  console.error(err instanceof Error ? err.stack : String(err));
+  // Request bodies can hold health data and never go to the log.
+  console.error(loggable(err));
   return c.json(body("internal", "Something went wrong"), 500);
 };
 
