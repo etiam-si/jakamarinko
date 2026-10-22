@@ -42,6 +42,13 @@ export const landingPages: LandingPage[] = [
     blocks: ["hero", "points", "proof", "price", "faq", "cta"],
     faq: ["coaching.faq.labTestFirst", "coaching.faq.devices", "coaching.faq.minimumTerm", "coaching.faq.messages"],
   },
+  {
+    slug: "race-preparation",
+    offer: { kind: "oneOff", id: "race-preparation" },
+    photo: "finish",
+    blocks: ["hero", "points", "price", "proof", "faq", "cta"],
+    faq: ["landing.faq.raceWhen", "coaching.faq.devices", "coaching.faq.messages"],
+  },
 ];
 
 export const landingPage = (slug: string) => landingPages.find((p) => p.slug === slug);

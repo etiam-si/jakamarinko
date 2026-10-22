@@ -20,6 +20,10 @@
     "where": {
       "question": "Where is the test?",
       "answer": "In Slovenia. The address comes with your booking confirmation."
+    },
+    "raceWhen": {
+      "question": "When should I start?",
+      "answer": "12 to 16 weeks before your race. Closer than that? Write anyway and we'll see what fits."
     }
   },
   "pages": {
@@ -84,6 +88,27 @@
       "close": {
         "title": "Start with your goal.",
         "text": "Tell us what you're training for and we'll get back to you."
+      }
+    },
+    "race-preparation": {
+      "meta": {
+        "title": "Race preparation: 12–16 weeks to your race",
+        "description": "A training block for one race, with a lab test at the start and at the end. Paid once."
+      },
+      "hero": {
+        "eyebrow": "Race preparation",
+        "title": "12–16 weeks to your race, measured.",
+        "lead": "A training block for one race, tested at the start and at the end."
+      },
+      "points": {
+        "one": { "title": "One goal", "text": "A block built around a single race." },
+        "two": { "title": "Tested twice", "text": "The first test sets your zones, the second shows your progress." },
+        "three": { "title": "Paid once", "text": "No subscription." }
+      },
+      "cta": "Ask about race preparation",
+      "close": {
+        "title": "Which race is next?",
+        "text": "Send us the date and we'll plan back from it."
       }
     }
   },

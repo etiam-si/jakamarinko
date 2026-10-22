@@ -20,6 +20,10 @@
     "where": {
       "question": "Kje je meritev?",
       "answer": "V Sloveniji. Naslov dobiš v potrditvi rezervacije."
+    },
+    "raceWhen": {
+      "question": "Kdaj naj začnem?",
+      "answer": "12 do 16 tednov pred tekmo. Je manj časa? Vseeno piši, pa bomo videli, kaj gre."
     }
   },
   "pages": {
@@ -84,6 +88,27 @@
       "close": {
         "title": "Začni s svojim ciljem.",
         "text": "Napiši, za kaj treniraš, in oglasili se bomo."
+      }
+    },
+    "race-preparation": {
+      "meta": {
+        "title": "Priprava na tekmo: 12–16 tednov do tvoje tekme",
+        "description": "Trening blok za eno tekmo, z laboratorijsko meritvijo na začetku in na koncu. Plačaš enkrat."
+      },
+      "hero": {
+        "eyebrow": "Priprava na tekmo",
+        "title": "12–16 tednov do tekme, izmerjeno.",
+        "lead": "Trening blok za eno tekmo, z meritvijo na začetku in na koncu."
+      },
+      "points": {
+        "one": { "title": "En cilj", "text": "Blok, zgrajen okoli ene tekme." },
+        "two": { "title": "Dve meritvi", "text": "Prva določi tvoje cone, druga pokaže napredek." },
+        "three": { "title": "Plačaš enkrat", "text": "Brez naročnine." }
+      },
+      "cta": "Vprašaj za pripravo na tekmo",
+      "close": {
+        "title": "Katera tekma je naslednja?",
+        "text": "Pošlji nam datum, pa načrtujemo nazaj od njega."
       }
     }
   },
