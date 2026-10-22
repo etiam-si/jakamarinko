@@ -9,6 +9,7 @@ export const namespaces = [
   "packages",
   "contact",
   "footer",
+  "brand",
 ] as const;
 
 export type Namespace = (typeof namespaces)[number];

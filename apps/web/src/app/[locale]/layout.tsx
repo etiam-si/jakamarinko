@@ -5,6 +5,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Providers } from "@/components/providers/providers";
 import { Toaster } from "@/components/ui/sonner";
 import { routing } from "@/i18n/routing";
+import { fontVariables } from "@/styles/fonts";
 import "../globals.css";
 
 type Props = { children: React.ReactNode; params: Promise<{ locale: string }> };
@@ -16,7 +17,18 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "common.meta" });
-  return { title: t("title"), description: t("description") };
+  return {
+    title: t("title"),
+    description: t("description"),
+    icons: {
+      icon: [
+        { url: "/brand/icons/favicon.ico", sizes: "16x16 32x32 48x48" },
+        { url: "/brand/icon.svg", type: "image/svg+xml" },
+      ],
+      apple: "/brand/icons/apple-touch-icon.png",
+    },
+    manifest: "/brand/site.webmanifest",
+  };
 }
 
 export default async function LocaleLayout({ children, params }: Props) {
@@ -25,7 +37,7 @@ export default async function LocaleLayout({ children, params }: Props) {
   setRequestLocale(locale);
 
   return (
-    <html lang={locale}>
+    <html lang={locale} className={fontVariables}>
       <body className="min-h-dvh antialiased">
         <NextIntlClientProvider>
           <Providers>
