@@ -1,0 +1,295 @@
+{
+  "draft": {
+    "title": "Draft, not yet in force.",
+    "body": "This text is still being reviewed and may change before it applies."
+  },
+  "nav": {
+    "label": "Legal"
+  },
+  "company": {
+    "name": "Company d.o.o.",
+    "address": "Street 1, 1000 Ljubljana, Slovenia",
+    "registration": "0000000000",
+    "vatId": "SI00000000",
+    "email": "info@jakamarinko.com"
+  },
+  "privacy": {
+    "title": "Privacy policy",
+    "description": "What personal data we collect, why, who processes it and what your rights are.",
+    "updated": "Draft of 22 October 2026",
+    "sections": {
+      "controller": {
+        "title": "Who is responsible for your data",
+        "body": [
+          "The controller of your personal data is {company}, {address}, registration number {registration}, VAT ID {vatId}. It runs jakamarinko.com, the coaching and lab testing of Jaka Marinko and its coaches.",
+          "For anything about your data, write to {email}. We answer within one month."
+        ]
+      },
+      "data": {
+        "title": "What data we collect and why",
+        "body": [
+          [
+            "<b>Account:</b> your name, email address, language, how you sign in (email link or Google) and the consents you gave, with their dates. We need it to give you an account.",
+            "<b>Bookings:</b> the test or session you booked, date, time and location, your name, email and phone number, payment status and the link or ad that brought you to us. We need it to carry out the booking.",
+            "<b>Payments:</b> amount, status and invoice. Card details go directly to Stripe; we never see your full card number.",
+            "<b>Health data:</b> your answers to the health questionnaire (PAR-Q+) and the informed consent form before a lab test; test measurements such as blood lactate, heart rate, power and speed, VO₂max and body measurements; training files you upload (heart rate, power, pace, route); daily check-ins (sleep, fatigue, soreness, illness); and the plans, analyses, reports and training zones made from them. This is a special category of data under GDPR art. 9 and we use it only with your explicit consent.",
+            "<b>Messages:</b> what you write to your coach or through the contact form.",
+            "<b>Technical data:</b> IP address and browser details in server logs, to keep the site secure, and the cookies described in the <cookies>cookie policy</cookies>."
+          ]
+        ]
+      },
+      "bases": {
+        "title": "Legal bases",
+        "body": [
+          [
+            "<b>Contract</b> (GDPR art. 6(1)(b)): account, bookings, payments, packages and messages.",
+            "<b>Legal obligation</b> (art. 6(1)(c)): invoices and accounting records.",
+            "<b>Explicit consent</b> (art. 9(2)(a)): health data. You give it when you create an account or fill in the health questionnaire before a test.",
+            "<b>Consent</b> (art. 6(1)(a)): marketing cookies and ad measurement, and marketing emails.",
+            "<b>Legitimate interest</b> (art. 6(1)(f)): security, server logs and visit statistics without cookies."
+          ]
+        ]
+      },
+      "consent": {
+        "title": "Your consents and how to withdraw them",
+        "body": [
+          "You can withdraw any consent at any time, as easily as you gave it: health data and marketing in your account settings (Privacy), cookies through \"Cookie settings\" at the bottom of every page, or by writing to {email}. Withdrawing does not make earlier processing unlawful.",
+          "Without consent to process health data we cannot prepare plans, analyses or lab reports, so the packages that rely on them cannot continue. Bookings and invoices stay as they are."
+        ]
+      },
+      "automated": {
+        "title": "How plans, analyses and reports are made",
+        "body": [
+          "Training plans, workout analyses, lab reports and training zones are produced automatically by software from your data. Part of that software is a service of an AI service provider (see Processors), which writes the plans and texts within fixed rules.",
+          "The logic, in plain words: the software takes your lab results, goals, available time, the training you upload and your check-ins. From them it calculates your training zones and builds or adjusts your plan according to the coaching method of our head coach, Jaka Marinko, who is responsible for that method. Before you see anything, the result is checked against fixed safety rules, for example how quickly weekly training volume may grow and how much rest follows an illness. If a check fails, or your data shows a warning sign such as illness, pain or unusual heart rate, nothing is sent to you automatically: a coach is alerted and takes it over.",
+          "This processing sets your training content. It is not a medical assessment and decides nothing about your contract, price or access to our services. Messages you write to a coach are answered by a person.",
+          "You can ask at any time for a coach to review a plan, analysis or report, tell us your view and contest the result (GDPR art. 22(3)). You can also object to this processing (art. 21) by writing to {email}. We then stop it for your data. Because the plans, analyses and reports in our packages are produced this way, your package ends at the end of the paid period, without the minimum term."
+        ]
+      },
+      "recipients": {
+        "title": "Who sees your data",
+        "body": [
+          "Your data is seen by the coaches assigned to you, the head coach, and the people who run the service when it is needed for support or security. We do not sell personal data.",
+          "Processors handle data for us, only on our instructions and under a data processing agreement. They are listed in the next section."
+        ]
+      },
+      "processors": {
+        "title": "Processors",
+        "body": [
+          [
+            "<b>Hetzner Online GmbH</b> (Germany): servers, database and encrypted backups (Storage Box). All in Germany.",
+            "<b>Cloudflare, Inc.</b> (USA, global network): delivers the website and protects it from attacks. It sees IP addresses and page requests.",
+            "<b>Stripe Payments Europe, Ltd.</b> (Ireland): online payments and invoices.",
+            "<b>Email delivery provider</b>: sends account and booking emails. It will be named here before this policy takes effect.",
+            "<b>Anthropic, PBC</b> (USA): AI service provider that produces plans, analyses and reports from your data (see above).",
+            "<b>Google Ireland Limited</b>: sign-in with Google, if you choose it, and the coach's calendar, which receives the time, type and your name for each booking.",
+            "<b>Meta Platforms Ireland Ltd.</b> and <b>Google Ireland Limited</b>: measuring our ads, only with your marketing consent (see the <cookies>cookie policy</cookies>)."
+          ],
+          "Visit statistics come from Umami, which runs on our own server in Germany, sets no cookies and shares nothing with anyone."
+        ]
+      },
+      "location": {
+        "title": "Where your data is",
+        "body": [
+          "Our servers and backups are in Germany, in the EU. Data leaves the EU only through processors based outside it (Cloudflare and Anthropic, and Meta and Google for ads with your consent). Those transfers rely on the EU-US Data Privacy Framework or the European Commission's standard contractual clauses."
+        ]
+      },
+      "retention": {
+        "title": "How long we keep data",
+        "body": [
+          [
+            "Account, health and training data: while your account exists. After you delete the account it is removed within 30 days.",
+            "Health data after consent is withdrawn: deleted within 30 days, unless you give consent again.",
+            "Invoices and accounting records: 10 years after the end of the year they were issued, as tax law requires.",
+            "Bookings without an account, including the health questionnaire: 2 years after the test.",
+            "Contact form messages: 12 months after our last reply.",
+            "Server logs: 30 days.",
+            "Backups: deleted data stays in encrypted backups for up to 6 months, until they rotate out."
+          ]
+        ]
+      },
+      "rights": {
+        "title": "Your rights",
+        "body": [
+          "You have the right to access your data, correct it, have it deleted, restrict its processing, receive it in a machine-readable format (portability) and object to processing. You can export your data and delete your account yourself in your account settings (Privacy); for anything else write to {email}.",
+          "If you think we handle your data unlawfully, you can complain to the Information Commissioner of the Republic of Slovenia (Informacijski pooblaščenec, Dunajska cesta 22, 1000 Ljubljana, www.ip-rs.si) or the authority where you live."
+        ]
+      },
+      "children": {
+        "title": "Young athletes",
+        "body": [
+          "Our services are for people aged 15 and over. For younger athletes a parent or guardian creates the account, gives the consents and signs the consent form for a test."
+        ]
+      },
+      "security": {
+        "title": "Security",
+        "body": [
+          "Data travels encrypted (HTTPS), backups are encrypted, and each coach sees only their own athletes."
+        ]
+      },
+      "changes": {
+        "title": "Changes",
+        "body": [
+          "If this policy changes, we publish the new version here with its date. If a change affects how we use data you already gave us, we tell you by email first."
+        ]
+      }
+    }
+  },
+  "terms": {
+    "title": "Terms of service",
+    "description": "Rules for booking lab tests and sessions, packages and subscriptions.",
+    "updated": "Draft of 22 October 2026",
+    "sections": {
+      "provider": {
+        "title": "Who we are",
+        "body": [
+          "Services on jakamarinko.com are provided by {company}, {address}, registration number {registration}, VAT ID {vatId}, email {email}. Coaching and lab tests are carried out by Jaka Marinko and the coaches working with him.",
+          "These terms apply to every booking, package and account. How we handle personal data is in the <privacy>privacy policy</privacy>."
+        ]
+      },
+      "account": {
+        "title": "Account",
+        "body": [
+          "You sign in with an email link or with Google. Keep access to your email safe; everything done from your account counts as done by you. Give us correct details, especially about your health."
+        ]
+      },
+      "booking": {
+        "title": "Booking and payment",
+        "body": [
+          "Lab tests take place by appointment, usually between 7:00 and 19:00, and must be booked at least 24 hours in advance. The price is shown before you book and is the price you pay. A booking is confirmed when it is paid online through Stripe or covered by a credit from your package, and you receive a confirmation email.",
+          "The test takes place at the location given in the confirmation email. Follow the preparation instructions we send, for example no hard training in the 24 hours before a test."
+        ]
+      },
+      "cancellation": {
+        "title": "Cancelling and rescheduling",
+        "body": [
+          [
+            "<b>At least 24 hours before</b> the start you can cancel or reschedule free of charge, in your account or by email. A payment is refunded in full to the original payment method; a credit is returned to your account.",
+            "<b>Less than 24 hours before, or not showing up:</b> the full price is charged, or the credit is used. If you are ill or injured, tell us before the start and we offer you a new time once, free of charge.",
+            "If we have to cancel (for example illness or a broken device), you choose between a new time and a full refund."
+          ]
+        ]
+      },
+      "withdrawal": {
+        "title": "Right of withdrawal",
+        "body": [
+          "As a consumer you may withdraw from a contract concluded online within 14 days, without giving a reason, by writing to {email}. If you ask for a service to start within those 14 days (for example a test booked for next week or a package starting today), you pay for the part already provided, and once a service is fully provided the right of withdrawal ends."
+        ]
+      },
+      "packages": {
+        "title": "Packages and subscriptions",
+        "body": [
+          [
+            "Plan, Coaching and Elite are subscriptions paid in advance each month, or each year with two months free. They renew automatically until you cancel.",
+            "<b>Coaching and Elite have a minimum term of 3 months.</b> Plan has no minimum term.",
+            "You cancel in your account settings at any time. Cancellation takes effect at the end of the paid period, but not before the minimum term ends.",
+            "What each package includes, including calls, comments and in-person sessions with a coach, is described on its page. Personal contact with a coach is part of a package only where that description says so.",
+            "Credits (for example a lactate test every 3 months) are added on the package's schedule and used by booking. A credit is valid for 6 months and ends with the subscription."
+          ]
+        ]
+      },
+      "labTests": {
+        "title": "Lab tests",
+        "body": [
+          "A lactate profile test takes about 60 minutes on a bike trainer, a running track or a treadmill, depending on your sport. After a 5-minute warm-up at easy intensity, the pace or power rises in steps of about 3 to 5 minutes. At the end of each step we measure heart rate and take a drop of blood from a fingertip to measure lactate. You receive a written report with your training zones within 48 hours, and can ask questions about it by email.",
+          [
+            "<b>Submaximal test:</b> ends a little above your estimated lactate threshold. You do not go to maximal effort.",
+            "<b>Maximal test:</b> continues until exhaustion or until a stop criterion below is reached."
+          ]
+        ]
+      },
+      "safety": {
+        "title": "Health questionnaire, consent and safety",
+        "body": [
+          [
+            "Before every test you fill in the health questionnaire PAR-Q+ and must answer it truthfully. If your answers call for it, you need your doctor's clearance before the test.",
+            "Before a maximal test you also sign a written informed consent form that explains the test and its risks.",
+            "Maximal effort is demanding for the heart and circulation and can cause exhaustion, nausea, dizziness and, rarely, more serious heart problems. The finger prick can leave a small bruise.",
+            "<b>You may stop a test at any moment</b>, without giving a reason.",
+            "We stop the test immediately if you ask, or if you show chest pain or pressure, dizziness, confusion, unusual shortness of breath, paleness or cold sweat, an irregular or unusual heart rate, or any other sign that continuing is unsafe, and when equipment fails. If your answers or your condition on the day suggest a risk, we postpone the test; it is then rescheduled or refunded.",
+            "In an emergency we stop the test, call 112 and give first aid until help arrives."
+          ]
+        ]
+      },
+      "notMedical": {
+        "title": "Tests and training plans are not medical advice",
+        "body": [
+          "A lab test is not a medical examination and does not replace one. Test results, training zones, plans, analyses and reports are sports guidance, not medical advice, diagnosis or treatment. Stop training if you feel pain, chest pressure, dizziness or unusual shortness of breath, tell your coach about illness or injury, and see a doctor when in doubt. How plans and reports are prepared is explained in the <privacy>privacy policy</privacy>."
+        ]
+      },
+      "liability": {
+        "title": "Liability",
+        "body": [
+          "We are liable for damage under Slovenian law. Nothing in these terms limits our liability for harm to life, body or health, or your rights as a consumer. You help keep tests safe by answering the questionnaire truthfully and telling us how you feel during the test."
+        ]
+      },
+      "complaints": {
+        "title": "Complaints and disputes",
+        "body": [
+          "Send complaints to {email}; we confirm receipt within 5 working days and reply within 8 working days. Slovenian law applies. We do not recognise any provider of out-of-court consumer dispute resolution. Disputes are decided by the competent court in Slovenia; consumers keep the rights the law of their country gives them."
+        ]
+      },
+      "changes": {
+        "title": "Changes",
+        "body": [
+          "We may change these terms. The version in force when you book applies to that booking. For running subscriptions we announce changes by email at least 30 days in advance, and you may cancel before they apply."
+        ]
+      }
+    }
+  },
+  "cookies": {
+    "title": "Cookie policy",
+    "description": "Which cookies jakamarinko.com uses, why, and how to change your choice.",
+    "updated": "Draft of 22 October 2026",
+    "sections": {
+      "intro": {
+        "title": "What cookies are",
+        "body": [
+          "Cookies are small files a website stores in your browser. We use as few as we can. Only necessary cookies are set without asking; everything else waits for your consent. You can change your choice at any time through \"Cookie settings\" at the bottom of every page."
+        ]
+      },
+      "necessary": {
+        "title": "Necessary (always on)",
+        "body": [
+          "These make the site work and cannot be switched off.",
+          [
+            "<b>NEXT_LOCALE</b>: remembers your language. 1 year.",
+            "<b>jm_consent</b>: remembers your cookie choice and which version of this policy it was given for. 12 months.",
+            "<b>better-auth.session_token</b> (with the __Secure- prefix on our site): keeps you signed in. Set only when you sign in. 7 days."
+          ]
+        ]
+      },
+      "analytics": {
+        "title": "Analytics",
+        "body": [
+          "We count visits with Umami, which runs on our own server. It sets no cookies, stores no IP addresses and shares nothing with anyone, so it runs without asking.",
+          "Nothing in this category sets cookies at the moment. If we add a tool that does, it will be listed here and will run only with your consent."
+        ]
+      },
+      "marketing": {
+        "title": "Marketing",
+        "body": [
+          "Only with your consent. They tell us which ads bring people who book, so we can spend less on ads that don't work.",
+          [
+            "<b>jm_attribution</b> (ours): remembers which ad or link brought you (utm parameters, fbclid, gclid) until you book. 30 days.",
+            "<b>_fbp</b>, <b>_fbc</b> (Meta Platforms Ireland): measure Facebook and Instagram ads. 90 days.",
+            "<b>_gcl_au</b> (Google Ireland): measures Google ads. 90 days."
+          ],
+          "Meta and Google may process this data for their own purposes as well; see their privacy policies."
+        ]
+      },
+      "thirdParty": {
+        "title": "Pages of other providers",
+        "body": [
+          "Payment runs on Stripe's page and sign-in with Google on Google's page. Those pages set their own cookies, covered by Stripe's and Google's policies."
+        ]
+      },
+      "more": {
+        "title": "More",
+        "body": [
+          "How we handle personal data is in the <privacy>privacy policy</privacy>. Questions: {email}."
+        ]
+      }
+    }
+  }
+}
