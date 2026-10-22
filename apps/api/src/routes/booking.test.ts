@@ -361,6 +361,19 @@ describe("coach", () => {
     expect((await send("GET", `/coach/bookings/${booking.id}/slots?from=2026-11-02&to=2027-02-02`)).status).toBe(400);
   });
 
+  test("coaches for the switcher: coach ids (not user ids), own first; a coach sees only their own", async () => {
+    expect((await send("GET", "/coach/coaches")).status).toBe(401);
+    as(people.ana);
+    expect((await send("GET", "/coach/coaches")).status).toBe(403);
+    as(people.jaka);
+    expect(await (await send("GET", "/coach/coaches")).json()).toEqual([
+      { id: ids.jakaCoachId, name: "jaka", own: true },
+      { id: ids.majaCoachId, name: "maja", own: false },
+    ]);
+    as(people.maja);
+    expect(await (await send("GET", "/coach/coaches")).json()).toEqual([{ id: ids.majaCoachId, name: "maja", own: true }]);
+  });
+
   test("locations are listed for staff, the default first", async () => {
     expect((await send("GET", "/coach/locations")).status).toBe(401);
     as(people.maja);

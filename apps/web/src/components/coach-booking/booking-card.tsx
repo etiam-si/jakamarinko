@@ -4,11 +4,12 @@ import { cn } from "cn";
 import { HeartPulse, Mail, Phone } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
-import type { CoachBooking } from "@jakamarinko/api";
+import { type CoachBooking, isDeletedCustomer } from "@jakamarinko/api";
+import { healthLabelKey } from "@/components/booking/health";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { BookingActions, isActive } from "./booking-actions";
-import { useServiceName, useWhen } from "./format";
+import { useCustomerName, useServiceName, useWhen } from "./format";
 
 const minutes = (b: CoachBooking) => (Date.parse(b.end) - Date.parse(b.start)) / 60_000;
 
@@ -44,11 +45,12 @@ export function BookingCard({ booking, now }: { booking: CoachBooking; now?: Dat
   const t = useTranslations("coach-booking.card");
   const when = useWhen();
   const serviceName = useServiceName();
+  const name = useCustomerName()(booking);
   const [details, setDetails] = useState(false);
 
   return (
     <article
-      aria-label={`${when.time(booking.start)} ${booking.name}`}
+      aria-label={`${when.time(booking.start)} ${name}`}
       className={cn("flex flex-col gap-3 rounded-lg border bg-card p-4", !isActive(booking) && "opacity-75")}
     >
       <div className="flex gap-4">
@@ -57,7 +59,7 @@ export function BookingCard({ booking, now }: { booking: CoachBooking; now?: Dat
           <span className="text-xs text-muted-foreground">{when.time(booking.end)}</span>
         </div>
         <div className="flex min-w-0 flex-1 flex-col gap-1">
-          <p className="truncate font-semibold">{booking.name}</p>
+          <p className="truncate font-semibold">{name}</p>
           <p className="text-sm text-muted-foreground">
             {serviceName(booking.service)} · {t("minutes", { minutes: minutes(booking) })}
           </p>
@@ -69,18 +71,22 @@ export function BookingCard({ booking, now }: { booking: CoachBooking; now?: Dat
         </div>
       </div>
       <div className="flex flex-wrap gap-2">
-        <Button size="sm" variant="secondary" asChild>
-          <a href={`tel:${booking.phone.replace(/[^\d+]/g, "")}`}>
-            <Phone aria-hidden />
-            {t("call")}
-          </a>
-        </Button>
-        <Button size="sm" variant="secondary" asChild>
-          <a href={`mailto:${booking.email}`}>
-            <Mail aria-hidden />
-            {t("email")}
-          </a>
-        </Button>
+        {!isDeletedCustomer(booking) && (
+          <>
+            <Button size="sm" variant="secondary" asChild>
+              <a href={`tel:${booking.phone.replace(/[^\d+]/g, "")}`}>
+                <Phone aria-hidden />
+                {t("call")}
+              </a>
+            </Button>
+            <Button size="sm" variant="secondary" asChild>
+              <a href={`mailto:${booking.email}`}>
+                <Mail aria-hidden />
+                {t("email")}
+              </a>
+            </Button>
+          </>
+        )}
         <Button size="sm" variant="outline" onClick={() => setDetails(true)}>
           {t("details")}
         </Button>
@@ -96,12 +102,16 @@ export function BookingDetails({ booking, onClose }: { booking: CoachBooking; on
   const t = useTranslations("coach-booking.details");
   const when = useWhen();
   const serviceName = useServiceName();
+  const name = useCustomerName()(booking);
   const rows: [string, React.ReactNode][] = [
     [t("when"), `${when.when(booking.start)}–${when.time(booking.end)}`],
     [t("where"), `${booking.location.name}, ${booking.location.address}`],
     [
       t("contact"),
-      <span key="contact" className="flex flex-col">
+      isDeletedCustomer(booking) ? (
+        name
+      ) : (
+        <span key="contact" className="flex flex-col">
         <a className="underline underline-offset-4" href={`tel:${booking.phone.replace(/[^\d+]/g, "")}`}>
           {booking.phone}
         </a>
@@ -109,7 +119,8 @@ export function BookingDetails({ booking, onClose }: { booking: CoachBooking; on
           {booking.email}
         </a>
         <span className="text-muted-foreground">{booking.customerUserId ? t("account") : t("guest")}</span>
-      </span>,
+      </span>
+      ),
     ],
   ];
   if (booking.cancelReason) rows.push([t("cancelReason"), booking.cancelReason]);
@@ -118,7 +129,7 @@ export function BookingDetails({ booking, onClose }: { booking: CoachBooking; on
     <Dialog open onOpenChange={(o) => !o && onClose()}>
       <DialogContent showCloseButton={false} className="max-h-[90dvh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle>{booking.name}</DialogTitle>
+          <DialogTitle>{name}</DialogTitle>
           <DialogDescription>{serviceName(booking.service)}</DialogDescription>
         </DialogHeader>
         <div className="flex flex-wrap gap-1.5 empty:hidden">
@@ -147,6 +158,12 @@ export function BookingDetails({ booking, onClose }: { booking: CoachBooking; on
 // The questionnaire as the booking's coach sees it. Anyone else on staff gets the flag and a note.
 function HealthAnswers({ booking }: { booking: CoachBooking }) {
   const t = useTranslations("coach-booking.health");
+  const questions = useTranslations("booking.health");
+  // The questions as the customer saw them (T11); a key the form no longer asks, as words.
+  const label = (key: string) => {
+    const k = healthLabelKey(key);
+    return k ? questions(k) : key.replaceAll("_", " ");
+  };
   const answers = booking.healthAnswers && Object.entries(booking.healthAnswers);
   return (
     <section aria-labelledby={`health-${booking.id}`} className="flex flex-col gap-2 rounded-md bg-muted/60 p-3">
@@ -163,8 +180,7 @@ function HealthAnswers({ booking }: { booking: CoachBooking }) {
           <dl className="flex flex-col gap-1.5">
             {answers.map(([key, value]) => (
               <div key={key} className="flex justify-between gap-4">
-                {/* T11 owns the questions; until it exports their labels, the key is shown as words. */}
-                <dt className="first-letter:uppercase">{key.replaceAll("_", " ")}</dt>
+                <dt className="first-letter:uppercase">{label(key)}</dt>
                 <dd className={cn("text-right", value === true && "font-semibold")}>
                   {value === true ? t("yes") : value === false ? t("no") : value}
                 </dd>

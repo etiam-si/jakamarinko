@@ -15,17 +15,19 @@ import {
   RescheduleSlotsQuery,
   ServicesQuery,
   SlotsQuery,
+  roleAllows,
   type Availability,
   type AvailabilityException,
   type Booking,
   type CoachBooking,
+  type CoachSummary,
   type CreatedBooking,
   type Service,
   type Slot,
 } from "@jakamarinko/api";
 import { getSessionUser, type SessionUser } from "@jakamarinko/auth";
 import { db } from "@jakamarinko/db";
-import { availability, availabilityExceptions, bookings, locations, serviceTypes } from "@jakamarinko/db/schema";
+import { availability, availabilityExceptions, bookings, coaches, locations, serviceTypes, users } from "@jakamarinko/db/schema";
 import {
   cancelBooking,
   cancellable,
@@ -101,6 +103,18 @@ const exceptionOwner = (id: string) =>
 
 // A coach's calendar: availability, exceptions and bookings. Customers and guests never reach these.
 const coach = new Hono()
+  // Whose calendar the switcher offers: a coach only their own, head coach and owner every active coach. Own first.
+  .get("/coaches", staff, async (c) => {
+    const user = c.get("user");
+    const rows = await db()
+      .select({ id: coaches.id, userId: coaches.userId, name: users.name, email: users.email })
+      .from(coaches)
+      .innerJoin(users, eq(users.id, coaches.userId))
+      .where(roleAllows(user.role, ["head_coach"]) ? eq(coaches.active, true) : eq(coaches.userId, user.id))
+      .orderBy(users.name);
+    const list = rows.map((r) => ({ id: r.id, name: r.name || r.email, own: r.userId === user.id }));
+    return c.json<CoachSummary[]>([...list.filter((r) => r.own), ...list.filter((r) => !r.own)]);
+  })
   .get("/locations", staff, async (c) => {
     const rows = await db().select().from(locations).orderBy(desc(locations.isDefault), locations.name);
     return c.json<Location[]>(rows.map((r) => ({ id: r.id, name: r.name, address: r.address, isDefault: r.isDefault })));

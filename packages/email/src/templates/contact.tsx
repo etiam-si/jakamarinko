@@ -1,15 +1,22 @@
 // Automatic JSX runtime even when another package's tsconfig compiles this file (tsx in apps/api).
 /** @jsxRuntime automatic @jsxImportSource react */
 import { Link } from "@react-email/components";
-import { fill, messagesFor } from "../i18n";
+import { fill, type Messages, messagesFor } from "../i18n";
 import { Action, Details, Layout, P } from "../layout";
 import { site } from "../theme";
 import type { Template } from "../types";
 
 // To the coach, in the coach's language.
-export type ContactReceivedProps = { name: string; email: string; phone?: string; message: string; requestUrl: string };
+export type ContactReceivedProps = {
+  name: string;
+  email: string;
+  phone?: string;
+  topic: keyof Messages["contactReceived"]["topics"];
+  message: string;
+  requestUrl: string;
+};
 
-export const contactReceived: Template<ContactReceivedProps> = ({ name, email, phone, message, requestUrl }, locale) => {
+export const contactReceived: Template<ContactReceivedProps> = ({ name, email, phone, topic, message, requestUrl }, locale) => {
   const m = messagesFor(locale).contactReceived;
   return {
     subject: fill(m.subject, { name }),
@@ -21,6 +28,7 @@ export const contactReceived: Template<ContactReceivedProps> = ({ name, email, p
             [m.name, name],
             [m.email, <Link href={`mailto:${email}`}>{email}</Link>],
             ...(phone ? [[m.phone, phone] as [string, string]] : []),
+            [m.topic, m.topics[topic]],
             [m.message, <span style={{ whiteSpace: "pre-wrap" }}>{message}</span>],
           ]}
         />

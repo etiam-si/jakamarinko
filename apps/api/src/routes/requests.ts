@@ -73,6 +73,7 @@ async function notify(row: typeof requests.$inferSelect) {
       name: row.name,
       email: row.email,
       phone: row.phone ?? undefined,
+      topic: row.topic,
       message: row.message,
       requestUrl: `${siteUrl}/${locale}/coach/requests/${row.id}`,
     };

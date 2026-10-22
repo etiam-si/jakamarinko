@@ -21,6 +21,7 @@ export const samples: { [N in TemplateName]: TemplateProps<N> } = {
     name: "Ana Novak",
     email: "ana@example.com",
     phone: "+386 41 000 000",
+    topic: "lab_test",
     message: "Hi, I'd like to do a lactate test before the season.\nWhich days work?",
     requestUrl: "https://jakamarinko.com/coach/requests/rq_sample",
   },
