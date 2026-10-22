@@ -1,6 +1,7 @@
 "use client";
 
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
+import { type CoachBooking, isDeletedCustomer } from "@jakamarinko/api";
 import { labTests, type Locale, sessions } from "@jakamarinko/types";
 import { dayAsDate, localDate, timeZone } from "./time";
 
@@ -13,6 +14,12 @@ export function useServiceName() {
 }
 
 export const services = catalog.map((s) => s.id);
+
+// The customer's name, or "Deleted user" once they deleted their account and the booking was anonymised.
+export function useCustomerName() {
+  const t = useTranslations("account");
+  return (b: CoachBooking) => (isDeletedCustomer(b) ? t("deletedUser") : b.name);
+}
 
 // British English like the emails: "Monday 2 November", 24-hour times.
 const intlLocale: Record<Locale, string> = { en: "en-GB", sl: "sl-SI" };

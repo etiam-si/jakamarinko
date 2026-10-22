@@ -79,10 +79,18 @@ const dayLabel = (date: string) =>
   new Intl.DateTimeFormat("en-GB", { timeZone: "UTC", weekday: "long", day: "numeric", month: "long" }).format(new Date(`${date}T12:00:00Z`));
 const today = () => ljubljanaDate(new Date());
 
-type NewBooking = { coachId: string; day: string; time: string; name: string; service?: string; health?: Record<string, boolean | string> };
+type NewBooking = {
+  coachId: string;
+  day: string;
+  time: string;
+  name: string;
+  email?: string;
+  service?: string;
+  health?: Record<string, boolean | string>;
+};
 
 // Straight into the database, so a booking can be today (the public flow needs 24 h notice).
-async function insertBooking({ coachId, day, time, name, service = "vo2max", health }: NewBooking) {
+async function insertBooking({ coachId, day, time, name, email = `${name.toLowerCase()}@example.com`, service = "vo2max", health }: NewBooking) {
   const [row] = await sql<{ id: string }>(
     `insert into bookings (service_type_id, coach_id, location_id, customer_name, customer_email, customer_phone,
        start_at, end_at, status, locale, health_answers, health_consent_at, manage_token)
@@ -92,7 +100,7 @@ async function insertBooking({ coachId, day, time, name, service = "vo2max", hea
        'confirmed', 'en', $6::jsonb, case when $6::jsonb is null then null else now() end, $7
      from service_types s where s.catalog_id = $8
      returning id`,
-    [coachId, name, `${name.toLowerCase()}@example.com`, day, time, health ? JSON.stringify(health) : null, randomBytes(24).toString("base64url"), service],
+    [coachId, name, email, day, time, health ? JSON.stringify(health) : null, randomBytes(24).toString("base64url"), service],
   );
   return row!.id;
 }
@@ -104,6 +112,9 @@ async function coachSlots(page: Page, coachId: string, day: string) {
 }
 
 const notice = (page: Page) => page.locator("[data-notice]");
+
+// How the booking form asked the chest pain question (messages/*/booking.json), which the coach sees too.
+const chestPain = { en: "Do you feel pain in your chest", sl: "Čutiš bolečino v prsih" };
 
 const noSideScroll = async (page: Page) =>
   expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(page.viewportSize()!.width);
@@ -177,7 +188,36 @@ test("a head coach on another coach's calendar (?coach=) sees the health flag, n
   await card.getByRole("button", { name: "Details" }).click();
   const dialog = page.getByRole("dialog", { name });
   await expect(dialog.getByText("Only the coach of this booking sees the answers.")).toBeVisible();
-  await expect(dialog.getByText("chest pain")).toHaveCount(0);
+  await expect(dialog.getByText(chestPain.en)).toHaveCount(0);
+});
+
+test("a booking whose customer deleted their account shows Deleted user, without call or email", async ({ page }) => {
+  const coachId = await makeCoach(await signInAs(page, "coach"));
+  await insertBooking({ coachId, day: today(), time: "06:15", name: "", email: "" });
+  for (const [locale, label] of [["en", "Deleted user"], ["sl", "Izbrisan uporabnik"]] as const) {
+    await page.goto(`/${locale}/coach`);
+    const card = page.getByRole("article", { name: `06:15 ${label}` });
+    await expect(card.getByText(label)).toBeVisible();
+    await expect(card.getByRole("link", { name: locale === "en" ? "Call" : "Pokliči" })).toHaveCount(0);
+  }
+});
+
+test("the head coach switches calendars by coach id, and sees the other coach's bookings", async ({ page, browser }) => {
+  const other = await browser.newPage();
+  const otherEmail = await signInAs(other, "coach");
+  await other.close();
+  const otherName = unique("Maja");
+  await sql("update users set name = $1 where email = $2", [otherName, otherEmail]);
+  const otherId = await makeCoach(otherEmail);
+  await makeCoach(await signInAs(page, "head_coach"));
+  const name = unique("Ana");
+  await insertBooking({ coachId: otherId, day: today(), time: "06:30", name });
+
+  await page.goto("/en/coach");
+  await page.getByRole("combobox", { name: "Calendar of" }).click();
+  await page.getByRole("option", { name: otherName }).click();
+  await expect(page).toHaveURL(`/en/coach?coach=${otherId}`);
+  await expect(page.getByRole("article", { name: `06:30 ${name}` })).toBeVisible();
 });
 
 test.describe("on a phone", () => {
@@ -197,7 +237,8 @@ test.describe("on a phone", () => {
       await shot(page, `375-${locale}-today.png`);
 
       await page.getByRole("article").first().getByRole("button", { name: locale === "en" ? "Details" : "Podrobnosti" }).click();
-      await expect(page.getByRole("dialog")).toContainText("chest pain", { ignoreCase: true });
+      await expect(page.getByRole("dialog")).toContainText(chestPain[locale]);
+      await expect(page.getByRole("dialog")).not.toContainText("chest pain", { ignoreCase: true });
       await shot(page, `375-${locale}-booking-details.png`);
       await page.keyboard.press("Escape");
 

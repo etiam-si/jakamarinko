@@ -33,7 +33,10 @@ export function createAuth(env: AuthEnv = readEnv()) {
       user: { create: { before: async (user, ctx) => ({ data: { ...user, locale: localeFromContext(ctx) } }) } },
     },
     // No cookie domain is set, so cookies stay on the exact host (jakamarinko.com). Secure when the URL is https.
-    advanced: { ipAddress: { ipAddressHeaders: ["x-forwarded-for"] } },
+    // Rate limits are per client IP. Cloudflare sets CF-Connecting-IP (overwriting any the client sent), and Traefik
+    // only lets Cloudflare connect (infra/edge, cloudflare-only). X-Forwarded-For arrives as "client, cloudflare",
+    // which Better Auth rightly won't trust, so it would put everyone in one bucket.
+    advanced: { ipAddress: { ipAddressHeaders: ["cf-connecting-ip"] } },
     telemetry: { enabled: false },
     plugins: [
       magicLink({

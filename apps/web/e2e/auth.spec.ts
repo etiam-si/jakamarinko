@@ -94,3 +94,21 @@ test("a used link sends you back to sign in with an error", async ({ page, brows
   await expect(other.getByText("That sign-in link has expired or was already used. Ask for a new one.")).toBeVisible();
   await other.close();
 });
+
+test("after sign-in, next keeps a path with its query on this site, and never leads to another one", async ({ page, baseURL }) => {
+  const email = unique("next");
+  await page.goto(`/en/sign-in?next=${encodeURIComponent("//evil.example/x")}`);
+  await page.locator("#email").fill(email);
+  await page.locator("form button[type=submit]").click();
+  await expect(page.getByRole("status")).toContainText(email);
+  await page.goto(await magicLink(email));
+  await expect(page).toHaveURL(`${baseURL}/en/consent`);
+  expect((await page.request.post("/api/auth/consents", { data: { kind: "health_data", granted: true } })).ok()).toBe(true);
+
+  for (const bad of ["//evil.example", "https://evil.example", "/\\evil.example", "/\t/evil.example", "/\n/evil.example"]) {
+    await page.goto(`/en/sign-in/continue?next=${encodeURIComponent(bad)}`);
+    await expect(page).toHaveURL(`${baseURL}/en/account`);
+  }
+  await page.goto(`/en/sign-in/continue?next=${encodeURIComponent("/account/privacy/delete?token=abc_123")}`);
+  await expect(page).toHaveURL(`${baseURL}/en/account/privacy/delete?token=abc_123`);
+});

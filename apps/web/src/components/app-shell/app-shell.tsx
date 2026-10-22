@@ -13,8 +13,8 @@ import { UserMenu } from "./user-menu";
 export async function AppShell({ area, session, children }: { area: Area; session: Me; children: React.ReactNode }) {
   const t = await getTranslations("app");
   const { user } = session;
-  const coaches = area === "coach" ? await getCoaches(session) : [];
-  const switcher = showCoachSwitcher(user.role, coaches) && <CoachSwitcher coaches={coaches} self={user.id} />;
+  const coaches = area === "coach" ? await getCoaches() : [];
+  const switcher = showCoachSwitcher(user.role, coaches) && <CoachSwitcher coaches={coaches} />;
   // Staff are customers too: they can switch to their own account and back.
   const switchTo: Area | undefined = isStaff(user.role) ? (area === "coach" ? "account" : "coach") : undefined;
   const menu = { name: user.name, email: user.email, switchTo };

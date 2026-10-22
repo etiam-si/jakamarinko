@@ -76,6 +76,7 @@ describe("POST /api/requests", () => {
     expect(coach!.subject).toBe("New message from Ana Novak");
     expect(coach!.html).toContain(`/en/coach/requests/${row!.id}`);
     expect(coach!.text).toContain("laktatni test");
+    expect(coach!.text).toMatch(/Topic\s*Lab test/);
     // The auto-reply doesn't repeat the message.
     expect(reply!.text).not.toContain("laktatni test");
   });

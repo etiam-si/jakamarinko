@@ -164,6 +164,11 @@ export const CoachBooking = Booking.extend({
 });
 export type CoachBooking = z.infer<typeof CoachBooking>;
 
+// GET /api/booking/coach/coaches: the calendars the signed-in coach may open, for the switcher (?coach=<id>).
+// id is the coach id (coaches.id), the one every coachId means; own marks the caller's calendar.
+export const CoachSummary = z.object({ id: z.string(), name: z.string(), own: z.boolean() });
+export type CoachSummary = z.infer<typeof CoachSummary>;
+
 // GET /api/booking/coach/locations: where availability can be.
 export const Location = z.object({ id: z.string(), name: z.string(), address: z.string(), isDefault: z.boolean() });
 export type Location = z.infer<typeof Location>;
