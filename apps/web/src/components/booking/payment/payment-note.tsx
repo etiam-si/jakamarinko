@@ -2,7 +2,7 @@
 
 import type { Service } from "@jakamarinko/api";
 import { useFormatter, useTranslations } from "next-intl";
-import { eurFormat, euros } from "@/components/site/site";
+import { euro } from "@/components/site/site";
 import { paysOnline, usePayments } from "./payment";
 
 // Under the review: how this booking is paid, and whether the price includes VAT.
@@ -25,5 +25,5 @@ export function usePayLabel(service: Service, submitting: boolean) {
   const t = useTranslations("payments.review");
   const format = useFormatter();
   if (!paysOnline(usePayments(), service)) return null;
-  return submitting ? t("paying") : t("pay", { price: format.number(euros(service.priceCents), eurFormat) });
+  return submitting ? t("paying") : t("pay", { price: euro(format, service.priceCents) });
 }

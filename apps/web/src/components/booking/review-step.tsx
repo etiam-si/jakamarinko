@@ -6,7 +6,7 @@ import { Check, ShieldCheck } from "lucide-react";
 import { useFormatter, useLocale, useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { FormActions } from "@/components/ui/field";
-import { eurFormat, euros } from "@/components/site/site";
+import { euro } from "@/components/site/site";
 import type { Details } from "./details-step";
 import { anyYes } from "./health";
 import { PaymentNote, usePayLabel } from "./payment/payment-note";
@@ -37,7 +37,7 @@ export function ReviewStep({
     ["service", service.name, "service"],
     ["when", formatWhen(slot.start, locale), "time"],
     ["duration", t("service.minutes", { count: service.durationMin }), null],
-    ["price", format.number(euros(service.priceCents), eurFormat), null],
+    ["price", euro(format, service.priceCents), null],
     ["name", details.name.trim(), "details"],
     ["email", details.email.trim(), "details"],
     ["phone", details.phone.trim(), "details"],

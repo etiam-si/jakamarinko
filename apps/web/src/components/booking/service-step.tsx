@@ -5,7 +5,7 @@ import { useFormatter, useTranslations } from "next-intl";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { FieldError, FormActions } from "@/components/ui/field";
-import { eurFormat, euros } from "@/components/site/site";
+import { euro } from "@/components/site/site";
 import { Choice } from "./choice";
 
 // The first test most people should book comes first, then the best value; the rest keep the api's order.
@@ -51,7 +51,7 @@ export function ServiceStep({ services, initial, onContinue }: { services: Servi
                 <span className="text-sm text-muted-foreground">{t("service.about", { count: s.durationMin })}</span>
               </span>
               <span className="shrink-0 font-heading text-lg font-bold tabular-nums font-stretch-expanded">
-                {format.number(euros(s.priceCents), eurFormat)}
+                {euro(format, s.priceCents)}
               </span>
             </Choice>
           );
