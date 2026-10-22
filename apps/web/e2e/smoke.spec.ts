@@ -7,7 +7,7 @@ test.describe("Slovenian browser", () => {
     await page.goto("/");
     await expect(page).toHaveURL(/\/sl$/);
     await expect(page.locator("html")).toHaveAttribute("lang", "sl");
-    await expect(page.getByRole("heading", { level: 1 })).toHaveText("Jaka Marinko");
+    await expect(page.getByRole("heading", { level: 1 })).toHaveText("Pametnejši trening. Večja zmogljivost. Boljši rezultati.");
   });
 });
 
