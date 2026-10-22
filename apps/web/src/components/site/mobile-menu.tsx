@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "cn";
-import { ArrowRight, LogOut, X } from "lucide-react";
+import { ArrowRight, LogOut, UserRound, X } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Dialog } from "radix-ui";
 import { useEffect, useState } from "react";
@@ -104,64 +104,67 @@ export function MobileMenu({ account }: { account: HeaderAccount | null }) {
                 </ul>
               </nav>
 
-              <section aria-labelledby="menu-account" className="flex flex-col gap-3" {...rise()}>
-                <h2 id="menu-account" className={eyebrow}>
-                  {tHeader("menu.account")}
-                </h2>
-                {account ? (
-                  <div className="flex flex-col overflow-hidden rounded-xl bg-white/[0.06] ring-1 ring-white/10">
-                    <div className="flex items-center gap-3 px-4 py-3.5">
-                      <BibAvatar initials={account.initials} />
-                      <span className="flex min-w-0 flex-col">
-                        {account.name && <span className="truncate font-semibold">{account.name}</span>}
-                        <span className="truncate text-sm text-muted-foreground">{account.email}</span>
-                      </span>
-                    </div>
-                    <ul className="border-t border-white/10">
-                      {accountLinks(account).map(({ href, key, icon: Icon }) => (
-                        <li key={href}>
-                          <Link
-                            href={href}
-                            onClick={close}
-                            className="flex min-h-12 items-center gap-3 px-4 text-base font-medium outline-none hover:bg-white/[0.06] focus-visible:bg-white/[0.08]"
+              <div className="grid gap-9 sm:grid-cols-2 sm:items-start sm:gap-6">
+                <section aria-labelledby="menu-account" className="flex flex-col gap-3" {...rise()}>
+                  <h2 id="menu-account" className={eyebrow}>
+                    {tHeader("menu.account")}
+                  </h2>
+                  {account ? (
+                    <div className="flex flex-col overflow-hidden rounded-xl bg-white/[0.06] ring-1 ring-white/10">
+                      <div className="flex items-center gap-3 px-4 py-3.5">
+                        <BibAvatar initials={account.initials} />
+                        <span className="flex min-w-0 flex-col">
+                          {account.name && <span className="truncate font-semibold">{account.name}</span>}
+                          <span className="truncate text-sm text-muted-foreground">{account.email}</span>
+                        </span>
+                      </div>
+                      <ul className="border-t border-white/10">
+                        {accountLinks(account).map(({ href, key, icon: Icon }) => (
+                          <li key={href}>
+                            <Link
+                              href={href}
+                              onClick={close}
+                              className="flex min-h-12 items-center gap-3 px-4 text-base font-medium outline-none hover:bg-white/[0.06] focus-visible:bg-white/[0.08]"
+                            >
+                              <Icon aria-hidden className="size-4 text-muted-foreground" />
+                              {tHeader(`account.${key}`)}
+                            </Link>
+                          </li>
+                        ))}
+                        <li>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              close();
+                              void signOut();
+                            }}
+                            className="flex min-h-12 w-full cursor-pointer items-center gap-3 border-t border-white/10 px-4 text-left text-base font-medium outline-none hover:bg-white/[0.06] focus-visible:bg-white/[0.08]"
                           >
-                            <Icon aria-hidden className="size-4 text-muted-foreground" />
-                            {tHeader(`account.${key}`)}
-                          </Link>
+                            <LogOut aria-hidden className="size-4 text-muted-foreground" />
+                            {tHeader("account.signOut")}
+                          </button>
                         </li>
-                      ))}
-                      <li>
-                        <button
-                          type="button"
-                          onClick={() => {
-                            close();
-                            void signOut();
-                          }}
-                          className="flex min-h-12 w-full cursor-pointer items-center gap-3 border-t border-white/10 px-4 text-left text-base font-medium outline-none hover:bg-white/[0.06] focus-visible:bg-white/[0.08]"
-                        >
-                          <LogOut aria-hidden className="size-4 text-muted-foreground" />
-                          {tHeader("account.signOut")}
-                        </button>
-                      </li>
-                    </ul>
-                  </div>
-                ) : (
-                  <div className="flex flex-col gap-2">
-                    <Button asChild variant="outline" size="lg" className="w-full border-white/20 bg-transparent hover:bg-white/10 dark:bg-transparent">
-                      <Link href="/sign-in" onClick={close}>
-                        {tHeader("account.signIn")}
-                      </Link>
-                    </Button>
-                    <p className="text-sm text-muted-foreground">{tHeader("menu.signInHint")}</p>
-                  </div>
-                )}
-              </section>
+                      </ul>
+                    </div>
+                  ) : (
+                    <div className="flex flex-col gap-2">
+                      <Button asChild variant="outline" size="lg" className="w-full border-white/20 bg-transparent hover:bg-white/10 dark:bg-transparent">
+                        <Link href="/sign-in" onClick={close}>
+                          <UserRound aria-hidden />
+                          {tHeader("account.signIn")}
+                        </Link>
+                      </Button>
+                      <p className="text-sm text-muted-foreground">{tHeader("menu.signInHint")}</p>
+                    </div>
+                  )}
+                </section>
 
-              <div className="flex flex-col gap-3" {...rise()}>
-                <p className={eyebrow} aria-hidden>
-                  {tHeader("language.label")}
-                </p>
-                <LanguageMenu full className="rounded-xl bg-white/[0.06] ring-1 ring-white/10 hover:bg-white/10" />
+                <div className="flex flex-col gap-3" {...rise()}>
+                  <p className={eyebrow} aria-hidden>
+                    {tHeader("language.label")}
+                  </p>
+                  <LanguageMenu full className="rounded-xl bg-white/[0.06] ring-1 ring-white/10 hover:bg-white/10" />
+                </div>
               </div>
             </div>
 
