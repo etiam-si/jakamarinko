@@ -98,10 +98,14 @@ async function ownerPage(browser: Browser, baseURL: string) {
   return page;
 }
 
-// Booking steps: the first free time, then the details with every health answer "No".
-async function pickFirstTime(page: Page) {
+// Booking steps: a random free time on the first free day (not the first one, which booking.spec.ts takes, so the
+// specs running side by side don't race for it), then the details with every health answer "No".
+async function pickTime(page: Page) {
   await expect(page.locator("#booking-step")).toHaveText("Pick a date and time");
-  await page.locator('input[name="time"]').first().check({ force: true });
+  const times = page.locator('input[name="time"]');
+  await expect(times.first()).toBeAttached();
+  const count = await times.count();
+  await times.nth(Math.min(count - 1, 4 + Math.floor(Math.random() * Math.max(1, count - 4)))).check({ force: true });
   await page.getByRole("button", { name: "Continue" }).click();
 }
 
@@ -157,7 +161,7 @@ test("the owner gives Ana a free test: email with the code, pre-filled at review
   expect(new URL(mail.link).pathname).toBe("/en/booking");
 
   await page.goto(mail.link);
-  await pickFirstTime(page);
+  await pickTime(page);
   await fillDetails(page, email);
   await expect(page.getByLabel("Offer or voucher code")).toHaveValue(code!.code);
   await expect(page.getByTestId("offer-new-price")).toHaveText("€0");
@@ -176,7 +180,7 @@ test("the owner gives Ana a free test: email with the code, pre-filled at review
 test("SPRING20 at the review shows the old price struck through and the new one; a bad code an inline error; 44 px at 390", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/en/booking?service=lactate-profile");
-  await pickFirstTime(page);
+  await pickTime(page);
   await fillDetails(page, unique("spring"));
 
   const field = page.getByLabel("Offer or voucher code");
@@ -296,7 +300,7 @@ test("a gift voucher page shows the value and the service, books with the code f
   expect(violations.map((v) => v.id)).toEqual([]);
 
   await book.click();
-  await pickFirstTime(page);
+  await pickTime(page);
   await fillDetails(page, unique("gift"));
   await expect(page.getByLabel("Offer or voucher code")).toHaveValue(code);
   await expect(page.getByTestId("offer-new-price")).toHaveText("€0");
