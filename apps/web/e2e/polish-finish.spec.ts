@@ -152,6 +152,8 @@ test.describe("structured data", () => {
     const types = (await jsonLd(page)).map((n) => n["@type"]);
     expect(types).toContain("Person");
     expect(types.some((t) => t === "LocalBusiness" || t === "SportsActivityLocation")).toBe(true);
+    const lab = (await jsonLd(page)).find((n) => n["@type"] === "SportsActivityLocation");
+    expect(lab?.address).toMatchObject({ streetAddress: "Spodnje Pirnice 19N", postalCode: "1215", addressLocality: "Medvode", addressCountry: "SI" });
   });
 
   for (const locale of locales) {
