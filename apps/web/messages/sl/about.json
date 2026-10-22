@@ -1,0 +1,55 @@
+{
+  "meta": {
+    "title": "O Jaki Marinku",
+    "description": "Vzdržljivostni športnik, študent Fakultete za šport in osebni trener. Mladinski državni prvak, reprezentant U20, VO₂max 80."
+  },
+  "title": "O meni",
+  "intro": "Vzdržljivostni športnik, študent Fakultete za šport in osebni trener.",
+  "bio": {
+    "p1": "Sem Jaka Marinko, vzdržljivostni športnik, študent Fakultete za šport in osebni trener, specializiran za pripravo športnikov v vzdržljivostnih disciplinah.",
+    "p2": "Že od otroštva je šport del mojega vsakdana. Leta tekmovanja na najvišji mladinski ravni so mi dala izkušnje, ki jih danes združujem z najnovejšim znanjem športne znanosti, da lahko drugim pomagam do hitrejšega in varnejšega napredka.",
+    "p3": "Kot večkratni mladinski državni prvak v turnem smučanju, teku na smučeh, teku na smučarskih rolkah in gorskem teku sem spoznal, kaj je potrebno za doseganje vrhunskih rezultatov.",
+    "p4": "Moja izmerjena maksimalna poraba kisika (VO₂max) znaša 80 ml/kg/min.",
+    "p5": "Posebej ponosen sem na 5. mesto na Red Bull 400 Planica, kjer sem kot mladinec dosegel najhitrejši čas v mladinski konkurenci.",
+    "p6": "Danes svoje praktične izkušnje dopolnjujem s študijem na Fakulteti za šport, kjer poglabljam znanje iz fiziologije, biomehanike, metodike treninga in športne psihologije.",
+    "p7": "Verjamem, da najboljši rezultati niso posledica naključja, temveč premišljenega načrtovanja, doslednosti in individualnega pristopa."
+  },
+  "qualifications": {
+    "title": "Izobrazba in licence",
+    "text": "TODO(qualifications)"
+  },
+  "achievements": {
+    "title": "Dosežki",
+    "champion": "Večkratni mladinski državni prvak: turno smučanje, tek na smučeh, smučarske rolke, gorski tek",
+    "nationalTeam": "Reprezentant Slovenije",
+    "worldXc": "2× svetovno prvenstvo U20 v teku na smučeh",
+    "europeanMountain": "Evropsko prvenstvo U20 v gorskem teku",
+    "worldMountain": "Svetovno prvenstvo U20 v gorskem teku",
+    "worldSkimo": "Svetovno prvenstvo U20 v turnem smučanju",
+    "vo2max": "VO₂max: 80 ml/kg/min",
+    "redBull": "Red Bull 400 Planica: 5. mesto, najhitrejši mladinec"
+  },
+  "disciplines": {
+    "title": "Discipline"
+  },
+  "smarnaGora": {
+    "title": "Šmarna gora: napredek, merjen v sekundah",
+    "subtitle": "Vsakoletni vzpon kot osebno merilo razvoja vzdržljivosti.",
+    "age": "{age} let",
+    "ageAxis": "Starost",
+    "timeAxis": "Čas (min:s)",
+    "goal": "Cilj pri {age} letih: pod {time}",
+    "goalAge": "20",
+    "goalTime": "12:00",
+    "times": {
+      "12": "15:11",
+      "13": "14:48",
+      "14": "14:24",
+      "15": "13:47",
+      "16": "13:11",
+      "17": "12:42",
+      "18": "12:38",
+      "19": "12:33"
+    }
+  }
+}

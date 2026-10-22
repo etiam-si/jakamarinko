@@ -1,0 +1,72 @@
+{
+  "meta": {
+    "title": "Jaka Marinko — trenerstvo in laboratorijske meritve",
+    "description": "Laboratorijske meritve (VO₂max, laktatni profil) in trenerstvo za tekače, kolesarje in smučarje. Treniraj na podlagi podatkov, ne ugibanja."
+  },
+  "hero": {
+    "title": "Pametnejši trening. Večja zmogljivost. Boljši rezultati.",
+    "subtitle": "Treniraj na podlagi podatkov. Ne ugibanja.",
+    "primaryCta": "Rezerviraj meritev",
+    "secondaryCta": "Poglej pakete"
+  },
+  "intro": "Sem Jaka Marinko, vzdržljivostni športnik, študent Fakultete za šport in osebni trener. Vzdržljivostnim športnikom pomagam do hitrejšega in varnejšega napredka, z laboratorijskimi meritvami in treningom na podlagi njihovih lastnih podatkov.",
+  "proof": {
+    "title": "Preverjeno na najvišji mladinski ravni",
+    "vo2max": {
+      "value": "80",
+      "label": "izmerjeni VO₂max (ml/kg/min)"
+    },
+    "redBull": {
+      "value": "5.",
+      "label": "Red Bull 400 Planica, najhitrejši mladinec"
+    },
+    "nationalTeam": {
+      "value": "U20",
+      "label": "reprezentant Slovenije na svetovnih in evropskih prvenstvih"
+    },
+    "champion": {
+      "value": "4",
+      "label": "športi z mladinskimi naslovi državnega prvaka"
+    }
+  },
+  "howItWorks": {
+    "title": "Kako poteka",
+    "test": {
+      "title": "Meritev",
+      "text": "Laboratorijska meritev pokaže, kje si danes: VO₂max, laktatna pragova, srčni utrip."
+    },
+    "zones": {
+      "title": "Cone",
+      "text": "Iz rezultatov nastanejo tvoje osebne trening cone za vsako intenzivnost."
+    },
+    "plan": {
+      "title": "Načrt",
+      "text": "Treniraš po načrtu, ki upošteva tvoje cone, cilj in čas, ki ga imaš."
+    },
+    "progress": {
+      "title": "Napredek",
+      "text": "Tvoj trening se analizira vsak teden, ponovna meritev pa pokaže, kaj se je spremenilo."
+    }
+  },
+  "offers": {
+    "title": "Kje začeti",
+    "lab": {
+      "title": "Laboratorijske meritve",
+      "text": "VO₂max, laktatni profil, poraba maščob in ogljikovih hidratov in več. Spoznaj svoje številke.",
+      "cta": "Poglej meritve"
+    },
+    "coaching": {
+      "title": "Trenerstvo",
+      "text": "Načrt treninga, analiza treningov in trener, od {price} € na mesec.",
+      "cta": "Poglej pakete"
+    }
+  },
+  "sports": {
+    "title": "Discipline, v katerih pripravljam športnike"
+  },
+  "cta": {
+    "title": "Želiš spoznati svoje številke?",
+    "text": "Rezerviraj meritev ali mi piši in odgovoril ti bom v najkrajšem času.",
+    "button": "Rezerviraj meritev"
+  }
+}

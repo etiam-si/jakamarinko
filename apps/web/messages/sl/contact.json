@@ -1,0 +1,28 @@
+{
+  "meta": {
+    "title": "Kontakt: Jaka Marinko",
+    "description": "Trening, meritve ali sodelovanje: telefon, e-pošta in Instagram."
+  },
+  "title": "Kontakt",
+  "text": "Za trening, meritve ali sodelovanje — piši mi in odgovoril ti bom v najkrajšem času.",
+  "phone": {
+    "label": "Telefon",
+    "value": "+386 64 146 508",
+    "href": "tel:+38664146508"
+  },
+  "email": {
+    "label": "E-pošta",
+    "value": "jaka.marinko06@gmail.com",
+    "href": "mailto:jaka.marinko06@gmail.com"
+  },
+  "instagram": {
+    "label": "Instagram",
+    "value": "@marinkojaka",
+    "href": "https://www.instagram.com/marinkojaka"
+  },
+  "strava": {
+    "label": "Strava",
+    "value": "Jaka Marinko",
+    "href": "https://www.strava.com/athletes/82762066"
+  }
+}

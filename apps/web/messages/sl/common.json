@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Jaka Marinko — Endurance Performance",
-    "description": "Trening za vzdržljivostne športe in laboratorijska testiranja."
+    "description": "Trenerstvo za vzdržljivostne športe in laboratorijske meritve: VO₂max, laktatni profil in trening cone."
   },
   "home": {
     "title": "Jaka Marinko",
@@ -12,5 +12,53 @@
     "label": "Jezik",
     "en": "English",
     "sl": "Slovenščina"
+  },
+  "brand": {
+    "name": "Jaka Marinko",
+    "tagline": "Endurance Performance"
+  },
+  "nav": {
+    "label": "Glavni meni",
+    "home": "Domov",
+    "about": "O meni",
+    "coaching": "Trenerstvo",
+    "lab": "Meritve",
+    "contact": "Kontakt",
+    "account": "Moj račun",
+    "signIn": "Prijava",
+    "openMenu": "Odpri meni",
+    "closeMenu": "Zapri meni"
+  },
+  "actions": {
+    "bookTest": "Rezerviraj meritev",
+    "book": "Rezerviraj",
+    "bookItem": "Rezerviraj: {name}",
+    "choosePackage": "Izberi paket {name}",
+    "contact": "Piši mi",
+    "learnMore": "Več o tem",
+    "seeTests": "Poglej meritve",
+    "seePackages": "Poglej pakete"
+  },
+  "units": {
+    "price": "{price} €",
+    "perMonth": "{price} € / mesec",
+    "perYear": "{price} € / leto",
+    "priceOnRequest": "Cena po dogovoru",
+    "minutes": "{count} min",
+    "aboutMinutes": "približno {count} min",
+    "months": "{count, plural, one {# mesec} two {# meseca} few {# mesece} other {# mesecev}}",
+    "weeks": "{count, plural, one {# teden} two {# tedna} few {# tedne} other {# tednov}}",
+    "percentOff": "−{percent} %",
+    "vo2max": "ml/kg/min",
+    "heartRate": "u/min",
+    "lactate": "mmol/L"
+  },
+  "sports": {
+    "road_running": "Cestni tek",
+    "trail_running": "Gorski tek",
+    "road_cycling": "Cestno kolesarstvo",
+    "mountain_biking": "Gorsko kolesarstvo",
+    "cross_country_skiing": "Tek na smučeh",
+    "ski_touring": "Turno smučanje"
   }
 }
