@@ -8,7 +8,8 @@
     "subtitle": "Laboratorijske meritve in trenerstvo za tekače, kolesarje in smučarje.",
     "primaryCta": "Rezerviraj meritev",
     "secondaryCta": "Poglej trenerstvo",
-    "note": "Meritve od {price} €, z DDV."
+    "note": "Meritve od {price} €, z DDV.",
+    "bib": "VO₂max"
   },
   "proof": {
     "title": "Preverjeno na najvišji mladinski ravni",

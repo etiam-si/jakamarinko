@@ -131,7 +131,7 @@ export default function Lab({ params }: Props) {
         </div>
       </Section>
 
-      <Section tinted className="grid gap-10 md:grid-cols-2">
+      <Section tone="tinted" className="grid gap-10 md:grid-cols-2">
         <div className="flex flex-col gap-6">
           <h2 className="font-heading text-2xl font-bold tracking-tight font-stretch-expanded md:text-3xl">{t("what.title")}</h2>
           <ol className="flex flex-col gap-4">

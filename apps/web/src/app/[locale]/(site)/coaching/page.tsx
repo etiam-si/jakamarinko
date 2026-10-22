@@ -72,7 +72,7 @@ export default function Coaching({ params }: Props) {
         />
       </Section>
 
-      <Section tinted className="flex flex-col gap-10">
+      <Section tone="tinted" className="flex flex-col gap-10">
         <SectionHeading title={t("services.title")} />
         <ul className="grid grid-cols-2 gap-3 md:gap-4 lg:grid-cols-4">
           {services.map(({ key, icon: Icon }) => (

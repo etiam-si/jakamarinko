@@ -8,7 +8,8 @@
     "subtitle": "Lab tests and coaching for runners, cyclists and skiers.",
     "primaryCta": "Book a test",
     "secondaryCta": "See coaching",
-    "note": "Lab tests from {price} €, VAT included."
+    "note": "Lab tests from {price} €, VAT included.",
+    "bib": "VO₂max"
   },
   "proof": {
     "title": "Proven at the top junior level",

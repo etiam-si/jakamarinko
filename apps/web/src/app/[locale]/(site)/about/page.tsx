@@ -73,7 +73,7 @@ export default function About({ params }: Props) {
         />
       </Section>
 
-      <Section tinted className="grid gap-10 md:grid-cols-2">
+      <Section tone="tinted" className="grid gap-10 md:grid-cols-2">
         <div className="flex flex-col gap-6">
           <h2 className="font-heading text-2xl font-bold tracking-tight font-stretch-expanded md:text-3xl">{t("achievements.title")}</h2>
           <ul className="flex flex-col divide-y overflow-hidden rounded-xl border bg-card shadow-sm">

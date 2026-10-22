@@ -6,7 +6,8 @@ import { labTests } from "@jakamarinko/types";
 import { Footer } from "@/components/site/footer";
 import { Header } from "@/components/site/header";
 import { StickyBook } from "@/components/site/sticky-book";
-import { eurFormat, euros, siteUrl } from "@/components/site/site";
+import { Reveal } from "@/components/ui/reveal";
+import { euros, siteUrl } from "@/components/site/site";
 
 export const metadata: Metadata = { metadataBase: new URL(siteUrl) };
 
@@ -15,7 +16,8 @@ export default function SiteLayout({ children, params }: { children: React.React
   setRequestLocale(use(params).locale);
   const t = useTranslations("site");
   const format = useFormatter();
-  const cheapest = format.number(euros(Math.min(...labTests.map((l) => l.priceCents))), eurFormat);
+  // The message carries the € sign ("from {price} €"), so the number goes in plain.
+  const cheapest = format.number(euros(Math.min(...labTests.map((l) => l.priceCents))), { maximumFractionDigits: 2 });
   return (
     <>
       <a
@@ -30,6 +32,7 @@ export default function SiteLayout({ children, params }: { children: React.React
       </div>
       <Footer />
       <StickyBook from={t("sticky.from", { price: cheapest })} />
+      <Reveal />
     </>
   );
 }

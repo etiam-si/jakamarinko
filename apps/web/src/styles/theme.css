@@ -13,12 +13,42 @@
   --color-warning: var(--warning);
   --color-info: var(--info);
 
-  /* Soft, low-contrast shadows: cards sit on the page, they don't float above it. */
+  /* Layered, graphite-tinted shadows: a hairline contact shadow plus a soft ambient one, so cards read as objects
+     resting on the page. `lg`/`xl` are for things that lift (hover, the hero photo, popovers). */
   --shadow-xs: 0 1px 2px 0 rgb(18 26 24 / 0.05);
-  --shadow-sm: 0 1px 2px 0 rgb(18 26 24 / 0.06), 0 1px 3px 0 rgb(18 26 24 / 0.04);
-  --shadow-md: 0 4px 6px -1px rgb(18 26 24 / 0.08), 0 2px 4px -2px rgb(18 26 24 / 0.06);
-  --shadow-lg: 0 10px 15px -3px rgb(18 26 24 / 0.08), 0 4px 6px -4px rgb(18 26 24 / 0.06);
-  --shadow-xl: 0 20px 25px -5px rgb(18 26 24 / 0.08), 0 8px 10px -6px rgb(18 26 24 / 0.06);
+  --shadow-sm: 0 1px 1px 0 rgb(18 26 24 / 0.04), 0 2px 4px -1px rgb(18 26 24 / 0.05), 0 6px 16px -6px rgb(18 26 24 / 0.06);
+  --shadow-md: 0 1px 1px 0 rgb(18 26 24 / 0.04), 0 4px 8px -2px rgb(18 26 24 / 0.06), 0 12px 24px -8px rgb(18 26 24 / 0.1);
+  --shadow-lg: 0 1px 2px 0 rgb(18 26 24 / 0.05), 0 8px 16px -4px rgb(18 26 24 / 0.08), 0 24px 48px -12px rgb(18 26 24 / 0.16);
+  --shadow-xl: 0 2px 4px 0 rgb(18 26 24 / 0.05), 0 16px 32px -8px rgb(18 26 24 / 0.12), 0 40px 80px -20px rgb(18 26 24 / 0.24);
+
+  /* Motion: fast and precise, never bouncy. Out-expo for things arriving, out-quart for state changes. */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --duration-fast: 150ms;
+  --duration-base: 250ms;
+  --duration-slow: 400ms;
+  --animate-rise: rise 600ms var(--ease-out-expo) both;
+  --animate-settle: settle 1400ms var(--ease-out-expo) both;
+  --animate-nudge: nudge 700ms var(--ease-out-expo) both;
+  --animate-fill-x: fill-x 900ms var(--ease-out-expo) both;
+  --animate-draw: draw 1600ms var(--ease-out-quart) both;
+
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(14px); }
+  }
+  /* Transform only, never opacity: used on the hero photo and h1, which must paint at once (LCP). */
+  @keyframes settle {
+    from { transform: scale(1.06); }
+  }
+  @keyframes nudge {
+    from { transform: translateY(10px); }
+  }
+  @keyframes fill-x {
+    from { transform: scaleX(0); }
+  }
+  @keyframes draw {
+    from { stroke-dashoffset: 1; }
+  }
   --color-zone-1: var(--zone-1);
   --color-zone-2: var(--zone-2);
   --color-zone-3: var(--zone-3);
