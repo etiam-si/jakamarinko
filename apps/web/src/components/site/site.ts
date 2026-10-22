@@ -31,6 +31,17 @@ export function pageMetadata(locale: string, path: string, meta: { title: string
     title: meta.title,
     description: meta.description,
     alternates: { canonical: url(locale, path), languages: languages(path) },
+    ...socialMetadata(locale, path, meta),
+  };
+}
+
+// The page's preview image (app/og): "" is home, /legal/privacy is privacy, /lp/coaching is lp-coaching.
+export const ogKey = (path: string) => path.replace(/^\/(legal\/)?/, "").replaceAll("/", "-") || "home";
+
+// Link previews (Open Graph and X) for one page in one language, with its own 1200×630 image.
+export function socialMetadata(locale: string, path: string, meta: { title: string; description: string }): Metadata {
+  const image = { url: `${siteUrl}/og/${locale}/${ogKey(path)}.png`, width: 1200, height: 630, alt: meta.title };
+  return {
     openGraph: {
       type: "website",
       siteName: BRAND_NAME,
@@ -38,7 +49,10 @@ export function pageMetadata(locale: string, path: string, meta: { title: string
       description: meta.description,
       url: url(locale, path),
       locale: locale === "sl" ? "sl_SI" : "en_GB",
+      alternateLocale: locale === "sl" ? "en_GB" : "sl_SI",
+      images: [image],
     },
+    twitter: { card: "summary_large_image", title: meta.title, description: meta.description, images: [image] },
   };
 }
 

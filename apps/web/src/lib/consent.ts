@@ -1,4 +1,5 @@
-import { z } from "zod";
+// zod/mini: this runs on every page, and the full zod would double the script a visitor downloads.
+import { z } from "zod/mini";
 import { readCookie, writeCookie } from "./cookie";
 
 // Bump when categories or tags change in a way the visitor should agree to again: older choices then show the banner.
