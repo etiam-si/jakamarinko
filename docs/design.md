@@ -152,3 +152,33 @@ Fonts: Archivo (headings use `font-heading font-stretch-expanded`), Martian Mono
 - **Link previews** (`app/og/[locale]/[page].png`, `components/site/og-image.tsx`): 1200×630, spruce panel with the light logo, a signal-orange eyebrow, the page title in Archivo Expanded 800, Jaka's photo on the right and the zone stripe along the bottom. Titles come from the page's messages; a new page adds one line to `ogPages`.
 - **Emails** (`packages/email/src/layout.tsx`): spruce header with `email-logo.png`, the zone stripe, a white card whose heading is the preview line, at most one spruce button (`Action`), booking details in a firn box with a spruce left rule, and the contact footer under the card. Tables and inline styles only; colours in `packages/email/src/theme.ts` mirror `theme.css`.
 - **Fonts** (`styles/fonts.ts`): self-hosted subsets of Archivo (wght 400–800, wdth 100–125) and Martian Mono (400–700). A weight or width outside those ranges, or a character outside the list there, needs a new subset.
+
+## Header, account and language (T18, customer-login)
+
+| Element | Pattern |
+|---|---|
+| Site header | `components/site/header.tsx`: fixed, with a spacer of its height in the flow (its states never move the page). At the top it sits on the page with no edge; scrolled (`data-scrolled="true"`) it turns `bg-background/75` with `backdrop-blur-xl`, a hairline and a soft shadow, and the bar goes 64 → 56 px. On phones it slides away while reading down and returns on any scroll up. Logo left, pages centred (lg up), language, account and "Book a test" right |
+| Current page | `aria-current="page"` on the nav link: a 2 px signal line under it. Hover draws a quiet graphite line from the left |
+| Phone menu | Below lg: a full-screen deep spruce dialog (`dark` tokens inside), opening as a circle out of the menu button, its rows rising in 35 ms apart. Pages in large expanded type with an arrow (the current one has the signal dot), then the account, the language and, pinned to the bottom, "Book a test". Modal: focus trap, page scroll locked, Escape returns to the button |
+| Language | `LanguageMenu`: one button named "Language"/"Jezik" (globe, `EN`, chevron) with a menu of the languages; keeps the path, query and hash. `LocaleSwitcher` is the compact `EN | SL` pill for ad landing pages |
+| Account entry | Signed out: "Sign in" (icon only on phones). Signed in: the person's initials on a `BibAvatar` (a mini race bib with four pin holes) opening My account, My bookings, Coach area (staff), Sign out. Read on the server; the api is only asked when a session cookie exists |
+| Date tile | `DateTile` (account): a booking's day printed like a race number, month / day / weekday; muted for bookings that are over |
+
+## Sign-in
+
+Split screen from lg: the form on the right (max-w-sm, vertically centred, language top right), the brand panel on the left: deep spruce, Jaka's finish photo pinned on like a bib (tilted 2°, four pin holes), and three things an account gives you. On phones the form comes first and the panel follows without the photo. The sent state replaces the form: the heading becomes "Check your inbox", the address is shown, "Open Gmail/Outlook" when the domain is theirs, and "Send the link again" waits 30 s (`resendCooldown`) with a live countdown. Google, when configured, is the first button, with its own G.
+
+## Booking flow
+
+- **Progress:** four segments filling in spruce, with numbered labels from sm; on phones one line `STEP 2 OF 4 · DATE AND TIME`. The current step has `aria-current="step"` and `aria-label="Step 2 of 4: Date and time"`.
+- **Step changes:** the new step fades and slides 12 px in from the side it comes from (300 ms ease-out); nothing moves on the first load or with reduced motion.
+- **Tiles:** `Choice` `card` for services (radio dot, spruce outline when picked, badge and one line of what you get), `chip` for days (weekday over date) and times (mono). "Next free" picks the earliest time in one tap; once a time is picked, Continue sticks to the bottom on phones.
+- **Phones:** no card around the steps; they use the page gutter.
+
+## Cookie banner
+
+Phones: a bottom sheet (`rounded-t-2xl`, safe-area padding), 13 px text, Settings · Reject all · Accept all in one row of 44 px buttons (Settings drops to its own row under 360 px). It reserves the lines its text takes with the web font, so it doesn't grow when the font arrives. From sm: the floating card. The settings dialog loads only when opened.
+
+## Motion
+
+150–400 ms, ease-out, never bouncy. Header states, menu reveal, step changes, tile press (`active:scale-[0.98]`), progress fill. Everything has `motion-reduce:` off-states: no animation and no transition runs with reduced motion.
