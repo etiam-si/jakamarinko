@@ -22,19 +22,21 @@ export function ConsentBanner() {
   return (
     <>
       {consent === null && !settingsOpen && (
+        // Phones: a compact sheet on the bottom edge, clear of the hero's headline and button and above the home bar.
+        // From sm up: a floating card.
         <section
           aria-label={t("banner.title")}
-          className="fixed inset-x-4 bottom-4 z-40 mx-auto flex max-w-2xl flex-col gap-4 rounded-xl bg-popover p-5 text-sm text-popover-foreground shadow-lg ring-1 ring-foreground/10"
+          className="fixed inset-x-0 bottom-0 z-40 mx-auto flex max-w-2xl flex-col gap-3 rounded-t-2xl bg-popover px-4 pt-4 pb-[max(1rem,env(safe-area-inset-bottom))] text-[0.8125rem] leading-snug text-popover-foreground shadow-[0_-12px_32px_-12px_rgb(18_26_24/0.25)] ring-1 ring-foreground/10 duration-300 animate-in fade-in-0 slide-in-from-bottom-4 motion-reduce:animate-none sm:inset-x-4 sm:bottom-4 sm:gap-4 sm:rounded-xl sm:p-5 sm:text-sm sm:shadow-lg"
         >
-          <p>{t("banner.text")}</p>
-          <div className="flex flex-col gap-2 sm:flex-row sm:justify-end">
-            <Button variant="ghost" onClick={() => setSettingsOpen(true)}>
+          <p className="text-pretty">{t("banner.text")}</p>
+          <div className="grid grid-cols-2 gap-2 min-[360px]:grid-cols-[auto_1fr_1fr] sm:flex sm:justify-end">
+            <Button variant="ghost" className="order-last col-span-2 h-11 px-3 min-[360px]:order-none min-[360px]:col-span-1 sm:h-10 sm:px-5" onClick={() => setSettingsOpen(true)}>
               {t("banner.settings")}
             </Button>
-            <Button variant="outline" onClick={() => saveConsent(none)}>
+            <Button variant="outline" className="h-11 px-3 sm:h-10 sm:px-5" onClick={() => saveConsent(none)}>
               {t("rejectAll")}
             </Button>
-            <Button variant="outline" onClick={() => saveConsent(all)}>
+            <Button variant="outline" className="h-11 px-3 sm:h-10 sm:px-5" onClick={() => saveConsent(all)}>
               {t("acceptAll")}
             </Button>
           </div>
