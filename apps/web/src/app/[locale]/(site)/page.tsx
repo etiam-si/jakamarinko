@@ -81,6 +81,7 @@ export default function Home({ params }: Props) {
           caption={site("photos.redBull.caption")}
           position="55% 30%"
           eager
+          sizes="(min-width: 1024px) 24rem, (min-width: 768px) 20rem, (min-width: 640px) 18rem, 16rem"
           className="mx-auto w-64 sm:w-72 md:w-80 lg:w-96"
         />
       </Section>

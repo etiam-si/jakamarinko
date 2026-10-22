@@ -13,6 +13,7 @@ export function PhotoFrame({
   treatment = "natural",
   position = "center",
   eager = false,
+  sizes = "(min-width: 640px) 24rem, 100vw",
   className,
 }: {
   src: string;
@@ -23,6 +24,8 @@ export function PhotoFrame({
   position?: string;
   // The photo above the fold: loads first instead of lazily, so it doesn't hold up the largest paint.
   eager?: boolean;
+  // The width the frame is shown at, when a className makes it narrower than the default.
+  sizes?: string;
   className?: string;
 }) {
   return (
@@ -32,7 +35,7 @@ export function PhotoFrame({
           src={src}
           alt={alt}
           fill
-          sizes="(min-width: 640px) 24rem, 100vw"
+          sizes={sizes}
           loading={eager ? "eager" : undefined}
           fetchPriority={eager ? "high" : undefined}
           className={cn("object-cover", treatment === "tinted" && "contrast-110 grayscale")}
