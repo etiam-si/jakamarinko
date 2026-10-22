@@ -32,7 +32,7 @@ export function Section({
 export function CtaBand({ title, text, action }: { title: string; text: string; action: React.ReactNode }) {
   return (
     <Section className="py-10 md:py-16">
-      <div className="relative isolate flex flex-col gap-8 overflow-hidden rounded-3xl bg-linear-to-br from-primary to-primary-deep px-6 pt-10 pb-12 text-primary-foreground shadow-xl sm:px-10 md:flex-row md:items-end md:justify-between md:p-14">
+      <div className="relative isolate flex flex-col gap-8 overflow-hidden rounded-3xl bg-linear-to-br from-primary to-primary-deep px-6 pt-10 pb-12 text-primary-foreground shadow-xl sm:px-10 md:p-14 lg:flex-row lg:items-end lg:justify-between">
         {/* Light from the top right, and the zone strip along the bottom edge. */}
         <div
           aria-hidden

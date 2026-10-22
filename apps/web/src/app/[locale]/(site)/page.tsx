@@ -88,7 +88,7 @@ export default function Home({ params }: Props) {
           </p>
           <HeroTitle>{t("hero.title")}</HeroTitle>
           <p data-subline className="max-w-xl text-lg text-muted-foreground motion-safe:animate-rise motion-safe:[animation-delay:80ms] md:text-xl">
-            {t("hero.subtitle")}
+            {t("hero.subtitle", { price: price(lactate.priceCents) })}
           </p>
           <div className="flex flex-col gap-3 motion-safe:animate-rise motion-safe:[animation-delay:160ms] sm:flex-row">
             <Button asChild size="lg" data-cta="primary">

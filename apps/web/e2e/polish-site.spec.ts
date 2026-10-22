@@ -93,7 +93,13 @@ test.describe("US-005 mobile quality", () => {
         await page.goto(`/en${p}`);
         const small = await page.evaluate(() => {
           const selector = "a, button, input, select, textarea, [role=button]";
-          const inText = (el: Element) => !!el.closest("p a, li > p a") || (el.tagName === "A" && !!el.parentElement?.closest("p"));
+          // Links inside running text (a paragraph or a list item with more words around them) are exempt.
+          const inText = (el: Element) => {
+            if (el.tagName !== "A" || !el.parentElement) return false;
+            if (el.closest("p a, li > p a")) return true;
+            const block = el.parentElement.closest("p, li");
+            return !!block && (block.textContent ?? "").trim().length > (el.textContent ?? "").trim().length + 10;
+          };
           return [...document.querySelectorAll<HTMLElement>(`main :is(${selector}), footer :is(${selector})`)]
             .filter((el) => {
               const box = el.getBoundingClientRect();
@@ -180,13 +186,19 @@ test.describe("US-005 mobile quality", () => {
       const { context, page } = await open(browser, baseURL!, { width: 390, dpr: 3 });
       await page.goto(`/en${p}`);
       await scrollThrough(page);
-      await page.evaluate(() => Promise.all([...document.images].map((img) => (img.complete ? null : img.decode().catch(() => null)))));
-      const blurry = await page.evaluate(() =>
-        [...document.images]
-          .filter((img) => !img.currentSrc.endsWith(".svg") && img.getBoundingClientRect().width > 0)
-          .filter((img) => img.naturalWidth < img.getBoundingClientRect().width * 2)
-          .map((img) => `${img.alt}: ${img.naturalWidth} px for ${Math.round(img.getBoundingClientRect().width)} px`),
-      );
+      // naturalWidth of a srcset image is density-corrected, so measure the file the browser picked on its own.
+      const blurry = await page.evaluate(async () => {
+        const found: string[] = [];
+        for (const img of [...document.images]) {
+          const width = img.getBoundingClientRect().width;
+          if (!img.currentSrc || img.currentSrc.endsWith(".svg") || width === 0) continue;
+          const file = new Image();
+          file.src = img.currentSrc;
+          await file.decode();
+          if (file.naturalWidth < width * 2) found.push(`${img.alt}: ${file.naturalWidth} px for ${Math.round(width)} px`);
+        }
+        return found;
+      });
       expect(blurry).toEqual([]);
       await context.close();
     });
@@ -198,7 +210,8 @@ test.describe("US-007 motion", () => {
     test(`motion: sections below the fold reveal on scroll on /en at ${width} px`, async ({ browser, baseURL }) => {
       const { context, page } = await open(browser, baseURL!, { width, motion: "no-preference" });
       await page.goto("/en");
-      await page.waitForLoadState("load");
+      // The reveal script hides what is below the fold once the page is interactive.
+      await expect(page.locator('[data-reveal="pending"]').first()).toBeAttached();
       const below = page.locator("main section").filter({ has: page.locator("*") });
       const states = await below.evaluateAll((sections) =>
         sections
@@ -247,8 +260,8 @@ test.describe("US-007 motion", () => {
       if (motion === "reduce") {
         expect(await stats.allTextContents()).toEqual(values);
       } else {
-        // Below the fold they start at 0, then count to the exact value once seen.
-        expect(await stats.first().textContent()).toBe("0");
+        // Below the fold they start at 0 once the page is interactive, then count to the exact value once seen.
+        await expect(stats.first()).toHaveText("0");
         await stats.first().scrollIntoViewIfNeeded();
         await stats.last().scrollIntoViewIfNeeded();
         await expect.poll(() => stats.allTextContents(), { timeout: 4000 }).toEqual(values);
@@ -418,7 +431,11 @@ test.describe("US-010 conversion", () => {
         await expect(h1).toHaveText(hooks[locale][p]!);
         expect(words((await h1.textContent())!), `${locale}${p} h1`).toBeLessThanOrEqual(10);
         const subline = page.locator("[data-subline]").first();
-        if ((await subline.count()) > 0) expect(words((await subline.textContent())!), `${locale}${p} subline`).toBeLessThanOrEqual(20);
+        if ((await subline.count()) > 0) {
+          const text = (await subline.textContent())!;
+          expect(words(text), `${locale}${p} subline`).toBeLessThanOrEqual(20);
+          expect(text.match(/[.!?](?=\s+\p{Lu})/gu) ?? [], `${locale}${p} subline is one sentence`).toEqual([]);
+        }
       }
     }
   });
@@ -524,7 +541,8 @@ test.describe("US-010 conversion", () => {
   test("conversion: honest wording, no AI and no fake urgency", async ({ page }) => {
     await page.context().addCookies([consentCookie(test.info().project.use.baseURL!)]);
     for (const locale of locales) {
-      for (const p of pages) {
+      // The privacy policy is the one place that may name automated processing (CLAUDE.md).
+      for (const p of pages.filter((p) => p !== "/legal/privacy")) {
         await page.goto(`/${locale}${p}`);
         const text = await page.locator("body").innerText();
         expect(text, `${locale}${p}`).not.toMatch(/\bAI\b|artificial intelligence|umetn[a-z]* inteligenc/i);

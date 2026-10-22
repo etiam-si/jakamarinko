@@ -19,7 +19,7 @@
     },
     "where": {
       "question": "Kje je meritev?",
-      "answer": "V laboratoriju na naslovu Spodnje Pirnice 19N, Medvode, severozahodno od Ljubljane. Naslov je tudi v potrditvi rezervacije."
+      "answer": "V Spodnjih Pirničah 19N, Medvode, severozahodno od Ljubljane. Naslov je tudi v potrditvi rezervacije."
     },
     "raceWhen": {
       "question": "Kdaj naj začnem?",
@@ -72,6 +72,11 @@
     "raceStart": {
       "question": "Kako začnem?",
       "answer": "Pošlji datum tekme in cilj. Odgovorimo v dveh delovnih dneh in rezerviramo prvo meritev."
+    },
+    "payment": {
+      "question": "Kako plačam?",
+      "answerOnline": "S kartico ob rezervaciji, na varni plačilni strani Stripe. Cena vključuje DDV.",
+      "answerOnSite": "Na kraju samem, na dan meritve. Cena vključuje DDV."
     }
   },
   "pages": {
@@ -83,7 +88,7 @@
       "hero": {
         "eyebrow": "Laktatni profil",
         "title": "Tvoje trening cone iz kapljice krvi.",
-        "lead": "Oba pragova, srčni utrip za vsako cono in razlaga rezultatov. {price} €."
+        "lead": "Oba pragova, srčni utrip za vsako cono in razlaga rezultatov, za {price} €."
       },
       "points": {
         "one": {
@@ -113,7 +118,7 @@
       "hero": {
         "eyebrow": "Performance paket",
         "title": "Štiri meritve, en obisk. {price} € namesto {separate} €.",
-        "lead": "VO₂max, laktatni profil, poraba goriva in telesna sestava, s tvojimi conami. Posamično {separate} €."
+        "lead": "VO₂max, laktatni profil, poraba goriva in telesna sestava s tvojimi conami, posamično {separate} €."
       },
       "points": {
         "one": {
@@ -143,7 +148,7 @@
       "hero": {
         "eyebrow": "Coaching",
         "title": "Coaching z Jakom in meritvijo vsake 3 mesece.",
-        "lead": "Načrt, ki se prilagaja vsak teden, Jakovi komentarji na tvoje tedne in pogovor vsak mesec. {price} € na mesec."
+        "lead": "Načrt, ki se prilagaja vsak teden, Jakovi komentarji na tvoje tedne in pogovor vsak mesec, za {price} € na mesec."
       },
       "points": {
         "one": {
@@ -173,7 +178,7 @@
       "hero": {
         "eyebrow": "Priprava na tekmo",
         "title": "Izberi tekmo. Pripravo načrtujemo od starta nazaj.",
-        "lead": "12–16-tedenski blok za eno tekmo, z meritvijo na začetku in na koncu. {price} €, plačaš enkrat."
+        "lead": "12–16-tedenski blok za eno tekmo z meritvijo na začetku in na koncu, za {price} € z enkratnim plačilom."
       },
       "points": {
         "one": {

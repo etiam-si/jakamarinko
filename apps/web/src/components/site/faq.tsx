@@ -2,7 +2,8 @@ import { Plus } from "lucide-react";
 
 // Questions as native <details>: works without JavaScript and is read by search engines. Each row is a 56 px tap
 // target; the answer slides open where the browser can animate it (globals.css, .faq), and the plus turns into a cross.
-export function Faq({ items }: { items: { question: string; answer: string }[] }) {
+// `children`: extra rows rendered elsewhere (PaymentFaq), after the listed ones.
+export function Faq({ items, children }: { items: { question: string; answer: string }[]; children?: React.ReactNode }) {
   return (
     <div className="faq flex max-w-3xl flex-col divide-y divide-border border-y border-border">
       {items.map((item) => (
@@ -19,6 +20,7 @@ export function Faq({ items }: { items: { question: string; answer: string }[] }
           <p className="max-w-2xl pr-12 pb-5 text-muted-foreground">{item.answer}</p>
         </details>
       ))}
+      {children}
     </div>
   );
 }

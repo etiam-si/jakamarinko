@@ -136,7 +136,8 @@ export default function About({ params }: Props) {
         <figure className="flex flex-col gap-3 rounded-2xl border bg-card p-4 shadow-md md:p-6">
           <figcaption className="font-mono text-xs tracking-wider text-muted-foreground uppercase">{t("smarnaGora.timeAxis")}</figcaption>
           <ClimbChart climbs={climbs} goal={goal} ageLabel={(age) => t("smarnaGora.age", { age })} />
-          <table className="sr-only">
+          <div className="sr-only">
+          <table>
             <caption>{t("smarnaGora.title")}</caption>
             <thead>
               <tr>
@@ -153,6 +154,7 @@ export default function About({ params }: Props) {
               ))}
             </tbody>
           </table>
+          </div>
           <p className="text-sm text-muted-foreground">{goalLabel}</p>
         </figure>
         <div className="flex">

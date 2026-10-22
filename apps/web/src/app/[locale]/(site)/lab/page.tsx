@@ -8,6 +8,7 @@ import { use } from "react";
 import { LactateCurve } from "@/components/brand/lactate-curve";
 import { SectionHeading } from "@/components/brand/section-heading";
 import { Faq } from "@/components/site/faq";
+import { PaymentFaq } from "@/components/site/payment-faq";
 import { Location } from "@/components/site/location";
 import { PhotoSlot } from "@/components/site/photo-slot";
 import { ProofBand } from "@/components/site/proof-band";
@@ -208,7 +209,9 @@ export default function Lab({ params }: Props) {
 
       <Section className="flex flex-col gap-10 pt-0 md:pt-0">
         <SectionHeading title={t("faq.title")} />
-        <Faq items={faq.map((key) => ({ question: landing(`${key}.question`), answer: landing(`${key}.answer`) }))} />
+        <Faq items={faq.map((key) => ({ question: landing(`${key}.question`), answer: landing(`${key}.answer`) }))}>
+          <PaymentFaq />
+        </Faq>
         <div className="flex">{bookLactate()}</div>
       </Section>
 

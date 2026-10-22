@@ -110,7 +110,7 @@ export const labTests: LabTest[] = [
     priceCents: 9000,
     name: { en: "Lactate profile", sl: "Laktatni profil" },
     description: {
-      en: "How your blood lactate rises as the effort grows. You run or ride in steps that get harder, with a drop of blood from your fingertip or earlobe after each. The curve shows your aerobic (LT1) and anaerobic (LT2) thresholds, the surest basis for training zones.",
+      en: "How your blood lactate rises with effort. You run or ride in steps that get harder, with a drop of blood from your fingertip or earlobe after each. The curve shows your aerobic (LT1) and anaerobic (LT2) thresholds, the surest basis for training zones.",
       sl: "Kako narašča laktat v krvi, ko se napor povečuje. Tečeš ali kolesariš v vse težjih stopnjah, po vsaki pa se odvzame kapljica krvi iz prsta ali ušesne mečice. Krivulja pokaže aerobni (LT1) in anaerobni prag (LT2), najzanesljivejšo podlago za trening cone.",
     },
     preparation: restedAndFed,
