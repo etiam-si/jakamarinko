@@ -5,6 +5,7 @@ import { bookings, calendarConnections, calendarEvents } from "@jakamarinko/db/s
 import { setTransport } from "@jakamarinko/email";
 import { app } from "../app";
 import { people, seedFixtures, testDb } from "../booking/test-db";
+import { idle } from "./background";
 import { cut } from "./busy";
 import { decrypt, encrypt, signState, verifyState } from "./crypto";
 import { fakeGoogle } from "./fake-google";
@@ -50,7 +51,8 @@ beforeEach(async () => {
   await database.delete(bookings);
 });
 
-afterEach(() => {
+afterEach(async () => {
+  await idle();
   vi.useRealTimers();
   vi.unstubAllEnvs();
 });
@@ -63,6 +65,8 @@ const send = (method: string, path: string, body?: unknown) =>
     headers: body === undefined ? {} : { "content-type": "application/json" },
     body: body === undefined ? undefined : JSON.stringify(body),
   });
+// Pushes and busy-time reads run after the response, on purpose. On a busy CI machine they take more than vi.waitFor's 1 s.
+const settled = <T>(check: () => T) => vi.waitFor(check, { timeout: 10_000 });
 const errorCode = async (res: Response) => ApiErrorBody.parse(await res.json()).error.code;
 const status = async () => CalendarStatus.parse(await (await send("GET", "/calendar")).json());
 const connection = async () => (await database.select().from(calendarConnections))[0];
@@ -74,6 +78,8 @@ async function connect(code = "good-code") {
   const state = new URL(url).searchParams.get("state")!;
   const res = await send("GET", `/calendar/google/callback?code=${code}&state=${encodeURIComponent(state)}`);
   expect(res.status).toBe(302);
+  // Connecting starts a sync in the background; let it finish so each test starts from a known state.
+  await idle();
   return res.headers.get("location");
 }
 
@@ -103,7 +109,6 @@ async function slots() {
 }
 
 // Pushes run in the background after the booking call; wait until one reached Google.
-const pushTried = () => vi.waitFor(() => expect(google.state.requests.some((r) => r.path.includes("/events"))).toBe(true));
 
 describe("tokens and state", () => {
   test("tokens are encrypted; a changed value or another key fails", () => {
@@ -195,10 +200,10 @@ describe("connect", () => {
     expect(await errorCode(await send("PUT", "/calendar", { calendarId: "someone@else.com" }))).toBe("unknown_calendar");
     const res = await send("PUT", "/calendar", { calendarId: "lab@group.calendar.google.com" });
     expect(CalendarStatus.parse(await res.json()).connection).toMatchObject({ calendarId: "lab@group.calendar.google.com", calendarName: "Lab" });
-    await vi.waitFor(() => expect(google.state.requests.some((r) => r.path.endsWith("/freeBusy"))).toBe(true));
+    await settled(() => expect(google.state.requests.some((r) => r.path.endsWith("/freeBusy"))).toBe(true));
 
     await book();
-    await vi.waitFor(() => expect(google.live()).toHaveLength(1));
+    await settled(() => expect(google.live()).toHaveLength(1));
     expect(google.live()[0]![1].calendarId).toBe("lab@group.calendar.google.com");
   });
 
@@ -206,7 +211,8 @@ describe("connect", () => {
     await connect();
     expect((await send("DELETE", "/calendar")).status).toBe(204);
     expect(await connection()).toBeUndefined();
-    expect(google.state.requests.at(-1)).toMatchObject({ path: "/revoke", body: "token=refresh-secret" });
+    // Not necessarily the last request: the busy-time read that connecting starts may still be on its way.
+    expect(google.state.requests).toContainEqual(expect.objectContaining({ path: "/revoke", body: "token=refresh-secret" }));
     expect((await status()).connection).toBeNull();
   });
 });
@@ -215,24 +221,24 @@ describe("push", () => {
   test("book → the event appears; move → it moves; cancel → it disappears", async () => {
     await connect();
     const booking = await book();
-    await vi.waitFor(() => expect(google.live()).toHaveLength(1));
+    await settled(() => expect(google.live()).toHaveLength(1));
     const [id, event] = google.live()[0]!;
     expect(event.calendarId).toBe("jaka@example.com");
     expect(event.body).toMatchObject({ summary: "Ana · Performance package", start: { dateTime: monday16 } });
 
     as(people.jaka);
     expect((await send("POST", `/booking/coach/bookings/${booking.id}/reschedule`, { start: monday18 })).status).toBe(200);
-    await vi.waitFor(() => expect(google.state.events.get(id)!.body.start).toEqual({ dateTime: monday18 }));
+    await settled(() => expect(google.state.events.get(id)!.body.start).toEqual({ dateTime: monday18 }));
 
     expect((await send("POST", `/booking/coach/bookings/${booking.id}/cancel`, { reason: "Ill" })).status).toBe(200);
-    await vi.waitFor(() => expect(google.live()).toHaveLength(0));
+    await settled(() => expect(google.live()).toHaveLength(0));
     expect(await database.select().from(calendarEvents)).toEqual([]);
   });
 
   test("the event holds the first name and the service only: no email, phone, last name or health answers", async () => {
     await connect();
     await book();
-    await vi.waitFor(() => expect(google.live()).toHaveLength(1));
+    await settled(() => expect(google.live()).toHaveLength(1));
     const sent = google.state.requests.filter((r) => r.path.includes("/events")).map((r) => r.body);
     expect(sent.length).toBeGreaterThan(0);
     for (const body of sent) {
@@ -244,11 +250,22 @@ describe("push", () => {
     expect(Object.keys(google.live()[0]![1].body).every((k) => fields.includes(k))).toBe(true);
   });
 
+  test("moved right after booking, before the first push is through: Google ends up with the new time", async () => {
+    await connect();
+    const booking = await book();
+    as(people.jaka);
+    expect((await send("POST", `/booking/coach/bookings/${booking.id}/reschedule`, { start: monday18 })).status).toBe(200);
+    await idle();
+    expect(google.live()).toHaveLength(1);
+    expect(google.live()[0]![1].body.start).toEqual({ dateTime: monday18 });
+  });
+
   test("a failing Google never fails the booking; the job pushes it later", async () => {
     await connect();
     google.state.failWith = 503;
     await book();
-    await pushTried();
+    await idle();
+    expect(google.state.requests.some((r) => r.path.includes("/events"))).toBe(true);
     expect(google.live()).toHaveLength(0);
     google.state.failWith = undefined;
     expect((await syncCalendars()).bookings).toBe(1);
@@ -260,7 +277,7 @@ describe("push", () => {
   test("bookings made before connecting are pushed by the job", async () => {
     await book();
     await connect();
-    await vi.waitFor(() => expect(google.live()).toHaveLength(1));
+    await settled(() => expect(google.live()).toHaveLength(1));
   });
 });
 
@@ -298,7 +315,7 @@ describe("pull", () => {
   test("a booking being moved isn't blocked by its own event in Google", async () => {
     await connect();
     const booking = await book();
-    await vi.waitFor(() => expect(google.live()).toHaveLength(1));
+    await settled(() => expect(google.live()).toHaveLength(1));
     // Google reports the booking's own event as busy.
     google.state.busy = [{ start: monday16, end: "2026-11-02T17:00:00.000Z" }];
     await syncCalendars();
@@ -333,7 +350,7 @@ describe("revoked access", () => {
     // Connecting again brings sync back.
     google.state.revoked = false;
     await connect();
-    await vi.waitFor(() => expect(google.live()).toHaveLength(1));
+    await settled(() => expect(google.live()).toHaveLength(1));
     expect((await status()).connection).toMatchObject({ status: "connected" });
   });
 
@@ -341,7 +358,7 @@ describe("revoked access", () => {
     await connect();
     google.state.accessTokens.clear();
     await book();
-    await vi.waitFor(() => expect(google.live()).toHaveLength(1));
+    await settled(() => expect(google.live()).toHaveLength(1));
     expect((await connection())!.status).toBe("connected");
   });
 });

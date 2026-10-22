@@ -207,13 +207,21 @@ test("time shown = time in the email = time in the .ics, on a date across the DS
   expect(icsStart(mail.ics)).toBe(`${day} ${time}`);
 });
 
-// Up to the review step in a fresh browser, on the first free time.
-async function toReview(browser: Browser, baseURL: string, name: string, email: string) {
+// A weekday at least 3 days ahead: it has free times all afternoon whatever the time is now. The first free day can be
+// tomorrow evening with a single time left, and then there is no other time to move to.
+function quietWeekday() {
+  let day = addDays(localDay(new Date()), 3);
+  while ([0, 6].includes(new Date(`${day}T12:00:00Z`).getUTCDay())) day = addDays(day, 1);
+  return day;
+}
+
+// Up to the review step in a fresh browser, on the first free time of `day`.
+async function toReview(browser: Browser, baseURL: string, name: string, email: string, day: string) {
   const context = await browser.newContext({ viewport: { width: 375, height: 812 } });
   await context.addCookies([consentCookie(baseURL)]);
   const page = await context.newPage();
   await page.goto("/en/booking?service=personal-training");
-  const time = await pickTime(page, "en");
+  const time = await pickTime(page, "en", day);
   await expect(stepHeading(page)).toHaveText("Your details");
   await page.getByLabel("Full name").fill(name);
   await page.getByLabel("Email", { exact: true }).fill(email);
@@ -225,9 +233,12 @@ async function toReview(browser: Browser, baseURL: string, name: string, email: 
 }
 
 test("two browsers pick the same time: the second gets 'slot taken' and keeps the details", async ({ browser, baseURL }) => {
-  const first = await toReview(browser, baseURL!, "Cene Prvi", unique("first"));
+  // Three bookings through the whole flow in two browsers, plus an accessibility scan: over 30 s on a loaded machine.
+  test.slow();
+  const day = quietWeekday();
+  const first = await toReview(browser, baseURL!, "Cene Prvi", unique("first"), day);
   const secondEmail = unique("second");
-  const second = await toReview(browser, baseURL!, "Dana Druga", secondEmail);
+  const second = await toReview(browser, baseURL!, "Dana Druga", secondEmail, day);
   expect(second.time).toBe(first.time);
 
   await first.page.getByRole("button", { name: "Confirm booking" }).click();
@@ -239,7 +250,7 @@ test("two browsers pick the same time: the second gets 'slot taken' and keeps th
   await noAxeViolations(second.page);
   await shot(second.page, "375-en-slot-taken.png");
 
-  await pickTime(second.page, "en", undefined, 1);
+  await pickTime(second.page, "en", day, 1);
   await expect(second.page.getByLabel("Full name")).toHaveValue("Dana Druga");
   await expect(second.page.getByLabel("Email", { exact: true })).toHaveValue(secondEmail);
   await expect(second.page.getByLabel("Phone", { exact: true })).toHaveValue("041 555 666");

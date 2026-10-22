@@ -4,6 +4,7 @@ import { calendarConnections, calendarEvents } from "@jakamarinko/db/schema";
 import type { Q } from "../booking/calendar";
 import type { Interval } from "../booking/slots";
 import { loggable } from "../lib/errors";
+import { inBackground } from "./background";
 import { calendarConfig, type CalendarConfig } from "./config";
 import { withGoogle, type Connection } from "./connection";
 import { freeBusy, GoogleError } from "./google";
@@ -35,6 +36,7 @@ function refreshOnce(config: CalendarConfig, conn: Connection, now: Date) {
       .catch((err: unknown) => console.error(`calendar busy times not read: ${err instanceof GoogleError ? err.message : loggable(err)}`))
       .finally(() => running.delete(conn.coachId));
     running.set(conn.coachId, run);
+    inBackground(run);
   }
   return run;
 }
