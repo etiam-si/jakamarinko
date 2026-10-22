@@ -215,6 +215,65 @@ The two new spec files are:
 - **Tests:** `apps/web/e2e/polish-finish.spec.ts` and Vitest in `packages/email`.
 - **Regression risk:** i18n loading on every page; all e2e specs that read text.
 
+### US-012: Offers: free tests, discount codes, referrals, founding athletes, retests, gift vouchers (offers)
+**Description:** As the owner, I want to give anyone a free or discounted test, reward customers who bring friends, and run the playbook's offers, so that word of mouth and promotions turn into bookings without manual bookkeeping. The owner confirmed the bundle prices and asked for these offers (2026-10-22).
+
+**Rules (decided):**
+- **Codes:** created by owner or head_coach in the coach area. Each code has:
+  - a type: free (100 %), percent off, or a fixed € off;
+  - which services it applies to (all, or a list);
+  - optional max uses, an optional expiry, and an optional "only for this email";
+  - an internal note.
+
+  A code is entered at the booking review step. The discounted price is what the customer sees, what Stripe charges (when payments are on) and what the confirmation email says ("You pay X on site" when payments are off). A free code confirms the booking with nothing to pay.
+- **Give a free test:** in the coach area, the owner enters a name, an email and a service. The system creates a single-use free code for that email and emails it (EN/SL by chosen language) with a book link that has the code pre-filled.
+- **Referrals:**
+  - Every signed-in customer has a personal referral link (`/{locale}/r/<code>`) on `/account`, with a copy and share button.
+  - A friend who books their first test through it gets 10 € off.
+  - When that booking is completed (marked completed by the coach), the referrer gets a 10 € credit code, emailed and shown on `/account`.
+  - Self-referral (same email) and a second "first" booking don't count.
+- **Founding athletes:**
+  - The first 20 distinct customers with a completed booking get the founding status: 30 % off every future booking, automatically, for life.
+  - Public pages show "N of 20 founding places left", computed from the database. The counter disappears at 0.
+  - The owner can switch the founding offer off.
+- **Lactate retest (70 €):** bookable only if the same email has a completed booking that included a lactate test in the last 120 days. Otherwise the booking step explains why and offers the full lactate profile.
+- **Season pack (350 €):** the confirmation email contains two single-use codes for the `lactate-retest` service, valid for 6 months and tied to the buyer's email.
+- **Gift vouchers:**
+  - The owner can create a gift voucher (value in € or a specific service), which is a code with a printable/forwardable voucher page (`/{locale}/gift/<code>`).
+  - Buying a voucher online is built behind `PAYMENTS_ENABLED` (Stripe Checkout). When payments are off, the voucher page says to contact Jaka.
+- **Stacking:** at most one code per booking. Founding status and a code don't stack; the larger saving wins. Prices never go below 0.
+- **Records:** every redemption is recorded (code, booking, amount saved). A `/coach/offers` page shows codes, uses, revenue and discount totals for a date range.
+
+**Acceptance criteria:**
+- [api] POST to create a code as owner → 201. As customer → 403; as guest → 401. A code string is unique; a duplicate gives 409.
+- [api] Booking `lactate-profile` (90 €):
+  - with a 20 % code, the booking price is 72 € and a redemption row records 18 €;
+  - with a free code, it's confirmed at 0 € with no payment;
+  - with an expired, used-up, wrong-service or wrong-email code → 422 with error codes `code_expired`, `code_used_up`, `code_not_for_service`, `code_not_for_you`, and the booking is not created.
+- [api] Concurrency: a single-use code used by 5 parallel bookings for different slots gives exactly 1 success. The redemption is claimed in the booking transaction.
+- [api] Payments on (fake Stripe): a Checkout session for a booking with a 20 % code has `unit_amount` 7200 (cents). A refund refunds what was paid, not the list price.
+- [api] Referral:
+  - booking through `/r/<code>` as a new email gets 10 € off;
+  - after the coach marks it completed, exactly one 10 € credit code exists for the referrer and one email is sent;
+  - marking it completed again creates nothing new;
+  - the referrer using their own link gets no discount.
+- [api] Founding: with 19 founding customers, completing a booking for a 20th makes them founding and the counter shows 0. The 21st gets nothing. A founding customer's next booking of 90 € costs 63 €. A 20 % code on a founding customer's booking still costs 63 € (the larger saving wins).
+- [api] Retest: `lactate-retest` for an email without a completed lactate booking in 120 days → 422 `retest_not_eligible`. With one (completed 30 days ago) → created at 70 €.
+- [api] Season pack: the confirmation email contains 2 distinct codes valid for `lactate-retest` only, for 6 months, tied to the buyer's email.
+- [e2e] Owner gives a free test:
+  - in `/en/coach/offers` the owner fills name `Ana`, email `ana-<rand>@example.com`, service `lactate-profile` and submits → toast, and the outbox has an email to Ana with a link containing `code=`;
+  - opening that link pre-fills the code at review;
+  - the review shows `0 €`, and confirming leads to the booked page with nothing to pay.
+- [e2e] Code at checkout: at `/en/booking` review, entering `SPRING20` (seeded 20 %) shows the old price struck through and the new price, and an invalid code shows an inline error. At 390 px the field and button meet the US-005 sizes.
+- [e2e] Signed-in customer: `/en/account` shows their referral link and a working copy button (clipboard contains a URL with `/r/`). After a referred friend's booking is completed, `/en/account` lists the 10 € credit.
+- [e2e] Public: `/en` and `/en/lab` show "N of 20 founding places left" with N equal to `20 − founding count` from the database. With the founding offer switched off, the text is absent.
+- [e2e] Gift voucher page `/en/gift/<code>` shows the value and the service, and a "Book with this voucher" link with the code pre-filled. It's `noindex`.
+- [e2e] Every new string is in EN and SL. The founding counter always equals the database (no fake urgency).
+
+**Verification:**
+- **Tests:** `apps/api/src/offers/*.test.ts`, `apps/web/e2e/offers.spec.ts`.
+- **Regression risk:** booking creation, payments (amounts, refunds), conversions (`booking_paid` value is the paid price), the owner report.
+
 ## 4. Functional requirements
 
 - **FR-1:** The header shows one language control (US-001) that keeps the path and query.
