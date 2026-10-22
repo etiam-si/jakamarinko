@@ -1,0 +1,124 @@
+{
+  "meta": {
+    "title": "Book a lab test or session",
+    "description": "Pick a test or training session and a time that suits you. Book in a minute, pay on site."
+  },
+  "title": "Book",
+  "steps": {
+    "label": "Booking steps",
+    "service": "Service",
+    "time": "Date and time",
+    "details": "Your details",
+    "review": "Review"
+  },
+  "back": "Back",
+  "continue": "Continue",
+  "service": {
+    "heading": "What would you like to book?",
+    "minutes": "{count} min",
+    "change": "Change",
+    "required": "Choose what you'd like to book."
+  },
+  "time": {
+    "heading": "Pick a date and time",
+    "timeZone": "All times are Slovenian time (Ljubljana).",
+    "days": "Day",
+    "times": "Time on {date}",
+    "loading": "Looking for free times…",
+    "empty": "There are no free times in the next two months. Call or write and we'll find one.",
+    "moreDays": "Show more dates",
+    "required": "Choose a time.",
+    "slotTaken": "Someone has just booked that time. Please pick another one; your details are kept."
+  },
+  "details": {
+    "heading": "Your details",
+    "name": "Full name",
+    "email": "Email",
+    "phone": "Phone",
+    "phoneHint": "In case we need to reach you on the day.",
+    "healthConsent": "I agree that my answers to the health questions are processed to run the test safely, as described in the <privacy>privacy policy</privacy>.",
+    "terms": "I accept the <terms>terms</terms>.",
+    "errors": {
+      "name": "Enter your name.",
+      "email": "Enter a valid email address.",
+      "phone": "Enter a phone number.",
+      "health": "Answer every health question.",
+      "healthConsent": "Please agree to the processing of your health answers.",
+      "terms": "Please accept the terms."
+    }
+  },
+  "health": {
+    "heading": "Health questions",
+    "intro": "A lab test means hard effort. These questions are from the standard PAR-Q+ form and help keep the test safe.",
+    "yes": "Yes",
+    "no": "No",
+    "questions": {
+      "heart_condition": "Has your doctor ever said that you have a heart condition or high blood pressure?",
+      "chest_pain": "Do you feel pain in your chest at rest, during daily activities, or when you are physically active?",
+      "dizziness": "Do you lose balance because of dizziness, or have you lost consciousness in the last 12 months? (Answer no if the dizziness came from over-breathing, including during hard exercise.)",
+      "chronic_condition": "Have you ever been diagnosed with another chronic medical condition (other than heart disease or high blood pressure)?",
+      "medication": "Are you currently taking prescribed medication for a chronic medical condition?",
+      "bone_joint": "Do you have, or have you had in the last 12 months, a bone, joint or soft tissue (muscle, ligament or tendon) problem that could get worse with more physical activity? (Answer no if it doesn't limit you now.)",
+      "supervised_only": "Has your doctor ever said that you should only do medically supervised physical activity?"
+    },
+    "other": "Anything else about your health we should know? (optional)",
+    "doctorNote": "You answered yes to at least one question. Please talk to your doctor before the test and make sure hard exercise is safe for you. You can still book now."
+  },
+  "review": {
+    "heading": "Check and confirm",
+    "service": "Service",
+    "when": "When",
+    "duration": "Duration",
+    "price": "Price",
+    "name": "Name",
+    "email": "Email",
+    "phone": "Phone",
+    "edit": "Edit",
+    "payOnSite": "You pay on site, on the day.",
+    "confirm": "Confirm booking",
+    "confirming": "Booking…"
+  },
+  "unavailable": {
+    "title": "Booking isn't working right now",
+    "text": "Sorry, something went wrong on our side. Call or email and we'll book you in by hand.",
+    "phone": "Phone",
+    "email": "Email"
+  },
+  "confirmed": {
+    "heading": "You're booked",
+    "text": "The confirmation is on its way to {email}.",
+    "payOnSite": "You pay on site, on the day.",
+    "addToCalendar": "Add to calendar",
+    "ics": "Download (.ics)",
+    "google": "Google Calendar",
+    "preparation": "How to prepare",
+    "account": {
+      "title": "Keep your bookings in one place",
+      "text": "With an account you see your bookings and, after the test, your results. Sign in with this email; no password needed.",
+      "action": "Create an account"
+    }
+  },
+  "manage": {
+    "meta": "Your booking",
+    "heading": "Your booking",
+    "where": "Where",
+    "map": "Open in maps",
+    "statusLabel": "Status",
+    "status": {
+      "pending_payment": "Waiting for payment",
+      "confirmed": "Confirmed",
+      "cancelled": "Cancelled",
+      "completed": "Completed",
+      "no_show": "Missed"
+    },
+    "cancel": "Cancel booking",
+    "cancelConfirm": "Cancel this booking? The time goes back to the calendar.",
+    "cancelYes": "Yes, cancel it",
+    "cancelNo": "Keep it",
+    "cancelling": "Cancelling…",
+    "cancelled": "This booking is cancelled. We've sent you an email.",
+    "tooLate": "Free cancellation ends 24 hours before the start, so it can't be cancelled here any more. Please call or email.",
+    "notFound": "We can't find this booking. Check that you opened the full link from your email.",
+    "bookAgain": "Book another time"
+  }
+}

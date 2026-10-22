@@ -1,0 +1,75 @@
+"use client";
+
+import type { Service } from "@jakamarinko/api";
+import type { Locale } from "@jakamarinko/types";
+import { useFormatter, useLocale, useTranslations } from "next-intl";
+import { Button } from "@/components/ui/button";
+import { eurFormat, euros } from "@/components/site/site";
+import type { Details } from "./details-step";
+import { anyYes } from "./health";
+import { formatWhen } from "./time";
+import type { Picked } from "./time-step";
+
+export function ReviewStep({
+  service,
+  slot,
+  details,
+  submitting,
+  onEdit,
+  onConfirm,
+}: {
+  service: Service;
+  slot: Picked;
+  details: Details;
+  submitting: boolean;
+  onEdit: (step: "service" | "time" | "details") => void;
+  onConfirm: () => void;
+}) {
+  const t = useTranslations("booking");
+  const locale = useLocale() as Locale;
+  const format = useFormatter();
+  const rows = [
+    ["service", service.name, "service"],
+    ["when", formatWhen(slot.start, locale), "time"],
+    ["duration", t("service.minutes", { count: service.durationMin }), null],
+    ["price", format.number(euros(service.priceCents), eurFormat), null],
+    ["name", details.name.trim(), "details"],
+    ["email", details.email.trim(), "details"],
+    ["phone", details.phone.trim(), "details"],
+  ] as const;
+
+  return (
+    <div className="flex flex-col gap-6">
+      <dl className="flex flex-col divide-y divide-border border-y border-border">
+        {rows.map(([key, value, edit]) => (
+          <div key={key} className="grid grid-cols-[5.5rem_1fr] items-baseline gap-3 py-3">
+            <dt className="text-sm text-muted-foreground">{t(`review.${key}`)}</dt>
+            <dd className="flex items-baseline justify-between gap-3">
+              <span className="font-medium break-words" data-testid={`review-${key}`}>
+                {value}
+              </span>
+              {edit && (
+                <Button type="button" variant="link" className="h-auto p-0" onClick={() => onEdit(edit)}>
+                  {t("review.edit")}
+                  <span className="sr-only">{t(`review.${key}`)}</span>
+                </Button>
+              )}
+            </dd>
+          </div>
+        ))}
+      </dl>
+      {service.kind === "lab_test" && anyYes(details.health) && (
+        <p className="rounded-md border border-amber-500/50 bg-amber-500/10 p-4">{t("health.doctorNote")}</p>
+      )}
+      <p>{t("review.payOnSite")}</p>
+      <div className="flex flex-wrap gap-3">
+        <Button type="button" variant="outline" size="lg" onClick={() => onEdit("details")}>
+          {t("back")}
+        </Button>
+        <Button type="button" size="lg" disabled={submitting} onClick={onConfirm}>
+          {submitting ? t("review.confirming") : t("review.confirm")}
+        </Button>
+      </div>
+    </div>
+  );
+}
