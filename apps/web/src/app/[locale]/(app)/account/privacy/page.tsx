@@ -11,10 +11,10 @@ function Part({ id, title, lead, children }: { id: string; title: string; lead: 
   return (
     <section aria-labelledby={id} className="flex flex-col gap-4">
       <div className="flex flex-col gap-1">
-        <h2 id={id} className="text-xl font-semibold">
+        <h2 id={id} className="text-lg font-semibold">
           {title}
         </h2>
-        <p className="max-w-2xl text-pretty text-muted-foreground">{lead}</p>
+        <p className="max-w-2xl text-sm text-pretty text-muted-foreground">{lead}</p>
       </div>
       {children}
     </section>

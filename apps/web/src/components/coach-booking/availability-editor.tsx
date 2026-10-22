@@ -11,7 +11,7 @@ export function AvailabilityEditor({ coachId }: { coachId?: string }) {
     <NoticeProvider>
       <section aria-labelledby="weekly-hours" className="flex flex-col gap-3">
         <div className="flex flex-col gap-1">
-          <h2 id="weekly-hours" className="text-xl font-semibold">
+          <h2 id="weekly-hours" className="text-lg font-semibold">
             {t("weekTitle")}
           </h2>
           <p className="text-sm text-muted-foreground">{t("weekBody")}</p>
@@ -20,7 +20,7 @@ export function AvailabilityEditor({ coachId }: { coachId?: string }) {
       </section>
       <section aria-labelledby="exceptions" className="flex flex-col gap-3">
         <div className="flex flex-col gap-1">
-          <h2 id="exceptions" className="text-xl font-semibold">
+          <h2 id="exceptions" className="text-lg font-semibold">
             {t("exceptionsTitle")}
           </h2>
           <p className="text-sm text-muted-foreground">{t("exceptionsBody")}</p>

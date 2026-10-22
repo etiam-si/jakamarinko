@@ -25,9 +25,9 @@ export default async function SignInPage({ params, searchParams }: Props) {
 
   return (
     <>
-      <div className="flex flex-col gap-2">
-        <h1 className="text-3xl font-semibold tracking-tight">{t("title")}</h1>
-        <p className="text-muted-foreground">{t("intro")}</p>
+      <div className="flex flex-col gap-1.5">
+        <h1 className="font-heading text-2xl font-bold tracking-tight font-stretch-expanded">{t("title")}</h1>
+        <p className="text-sm text-muted-foreground">{t("intro")}</p>
       </div>
       <SignInForm
         google={providers.google}

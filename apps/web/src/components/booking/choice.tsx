@@ -19,9 +19,9 @@ export function Choice({
   return (
     <label
       className={cn(
-        "flex cursor-pointer items-center justify-center rounded-md border border-border px-3 py-2 text-center transition-colors hover:bg-muted",
-        "has-[:focus-visible]:ring-3 has-[:focus-visible]:ring-ring/50 has-[:focus-visible]:border-ring",
-        checked && "border-primary bg-primary text-primary-foreground hover:bg-primary/90",
+        "flex min-h-11 cursor-pointer items-center justify-center rounded-lg border border-input bg-card px-3 py-2 text-center shadow-xs transition-[color,background-color,border-color,box-shadow] hover:border-foreground/25 hover:bg-muted/60",
+        "has-[:focus-visible]:border-primary has-[:focus-visible]:ring-[3px] has-[:focus-visible]:ring-ring/20",
+        checked && "border-primary bg-primary text-primary-foreground shadow-sm hover:border-primary hover:bg-primary/90",
         className,
       )}
     >

@@ -14,6 +14,8 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { FieldError } from "@/components/ui/field";
+import { StatusBadge } from "@/components/ui/status-badge";
 import { useRouter } from "@/i18n/navigation";
 import { api } from "@/lib/api";
 import { formatShortDay } from "./format";
@@ -45,26 +47,30 @@ export function ConsentsPanel({ history }: { history: ConsentRecord[] }) {
 
   return (
     <div className="flex flex-col gap-4">
-      <ul className="flex flex-col divide-y rounded-lg border bg-card">
+      <ul className="flex flex-col divide-y overflow-hidden rounded-xl border bg-card shadow-sm">
         {kinds.map((kind) => {
           const grant = activeGrant(kind);
           return (
             <li key={kind} className="flex flex-col gap-3 p-4 sm:flex-row sm:items-center sm:justify-between" data-consent={kind}>
               <div className="flex flex-col gap-0.5">
                 <p className="font-medium">{t(kind)}</p>
-                <p className="text-sm text-muted-foreground">{grant ? t("given", { date: formatShortDay(grant.grantedAt, locale) }) : t("notGiven")}</p>
+                <p className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <StatusBadge tone={grant ? "success" : "neutral"} dot>
+                    {grant ? t("given", { date: formatShortDay(grant.grantedAt, locale) }) : t("notGiven")}
+                  </StatusBadge>
+                </p>
               </div>
               {grant ? (
                 <Button
                   variant="outline"
                   size="sm"
-                  disabled={pending === kind}
+                  loading={pending === kind}
                   onClick={() => (kind === "health_data" ? setConfirmHealth(true) : change(kind, false))}
                 >
                   {t("withdraw")}
                 </Button>
               ) : (
-                <Button size="sm" disabled={pending === kind} onClick={() => change(kind, true)}>
+                <Button size="sm" loading={pending === kind} onClick={() => change(kind, true)}>
                   {t("grant")}
                 </Button>
               )}
@@ -72,11 +78,7 @@ export function ConsentsPanel({ history }: { history: ConsentRecord[] }) {
           );
         })}
       </ul>
-      {error && (
-        <p role="alert" className="text-sm text-destructive">
-          {t("error")}
-        </p>
-      )}
+      {error && <FieldError role="alert">{t("error")}</FieldError>}
       {history.length > 0 && (
         <details className="text-sm">
           <summary className="cursor-pointer text-muted-foreground">{t("history")}</summary>
@@ -112,7 +114,7 @@ export function ConsentsPanel({ history }: { history: ConsentRecord[] }) {
             <DialogClose asChild>
               <Button variant="outline">{t("healthCancel")}</Button>
             </DialogClose>
-            <Button variant="destructive" disabled={pending === "health_data"} onClick={() => change("health_data", false)}>
+            <Button variant="destructive" loading={pending === "health_data"} onClick={() => change("health_data", false)}>
               {t("healthConfirm")}
             </Button>
           </DialogFooter>

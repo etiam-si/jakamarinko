@@ -81,7 +81,7 @@ export default async function ManageBookingPage({ params, searchParams }: Props)
           {justBooked && <p className="text-lg">{t("confirmed.text", { email: booking.email })}</p>}
         </div>
 
-        <dl className="flex flex-col divide-y divide-border border-y border-border">
+        <dl className="flex flex-col divide-y divide-border overflow-hidden rounded-xl border bg-card shadow-sm">
           {[
             [t("review.service"), <span key="s" data-testid="booking-service">{booking.serviceName}</span>],
             [t("review.when"), <span key="w" data-testid="booking-when">{formatWhen(booking.start, locale)}</span>],
@@ -98,14 +98,14 @@ export default async function ManageBookingPage({ params, searchParams }: Props)
             [t("review.name"), booking.name],
             [t("manage.statusLabel"), <span key="st" data-testid="booking-status">{t(`manage.status.${booking.status}`)}</span>],
           ].map(([label, value], i) => (
-            <div key={i} className="grid grid-cols-[5.5rem_1fr] items-baseline gap-3 py-3">
+            <div key={i} className="grid grid-cols-[5.5rem_1fr] items-baseline gap-3 px-4 py-3 sm:grid-cols-[7rem_1fr]">
               <dt className="text-sm text-muted-foreground">{label}</dt>
               <dd className="font-medium break-words">{value}</dd>
             </div>
           ))}
         </dl>
 
-        {active && booking.paidVia === "none" && <p>{t("confirmed.payOnSite")}</p>}
+        {active && booking.paidVia === "none" && <p className="rounded-lg bg-muted px-4 py-3 text-sm">{t("confirmed.payOnSite")}</p>}
         {active && <AddToCalendar event={event} />}
 
         {active && preparation.length > 0 && (
@@ -130,7 +130,7 @@ export default async function ManageBookingPage({ params, searchParams }: Props)
         )}
 
         {!session && active && (
-          <div className="flex flex-col items-start gap-3 rounded-lg bg-muted p-6">
+          <div className="flex flex-col items-start gap-3 rounded-xl border bg-card p-6 shadow-sm">
             <h2 className="text-lg font-semibold">{t("confirmed.account.title")}</h2>
             <p>{t("confirmed.account.text")}</p>
             <Link href={{ pathname: "/sign-in", query: { next: "/account" } }} className={buttonVariants({ size: "lg" })}>

@@ -31,20 +31,20 @@ export function CancelBooking({ id, token, cancellable }: { id: string; token?: 
     }
   }
 
-  if (state === "tooLate") return <p className="rounded-md bg-muted p-4">{t("tooLate")}</p>;
+  if (state === "tooLate") return <p className="rounded-lg bg-muted p-4">{t("tooLate")}</p>;
   if (state === "failed") return <Unavailable />;
   if (!asking) {
     return (
-      <Button variant="outline" size="lg" className="self-start" onClick={() => setAsking(true)}>
+      <Button variant="destructive-outline" size="lg" className="self-start" onClick={() => setAsking(true)}>
         {t("cancel")}
       </Button>
     );
   }
   return (
-    <div role="group" aria-labelledby="cancel-question" className="flex flex-col gap-3 rounded-md border border-border p-4">
+    <div role="group" aria-labelledby="cancel-question" className="flex flex-col gap-4 rounded-xl border border-destructive/30 bg-destructive/5 p-4">
       <p id="cancel-question">{t("cancelConfirm")}</p>
-      <div className="flex flex-wrap gap-3">
-        <Button variant="destructive" size="lg" disabled={state === "cancelling"} onClick={cancel} autoFocus>
+      <div className="flex flex-col gap-3 sm:flex-row">
+        <Button variant="destructive" size="lg" loading={state === "cancelling"} onClick={cancel} autoFocus>
           {state === "cancelling" ? t("cancelling") : t("cancelYes")}
         </Button>
         <Button variant="outline" size="lg" onClick={() => setAsking(false)}>
