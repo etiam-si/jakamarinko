@@ -6,6 +6,8 @@ import { labTests, locales } from "@jakamarinko/types";
 import { SectionHeading } from "@/components/brand/section-heading";
 import { AddToCalendar } from "@/components/booking/add-to-calendar";
 import { CancelBooking } from "@/components/booking/cancel-booking";
+import { PaidNote } from "@/components/booking/payment/paid-note";
+import { PendingPayment } from "@/components/booking/payment/pending-payment";
 import { formatWhen } from "@/components/booking/time";
 import { Unavailable } from "@/components/booking/unavailable";
 import { Section } from "@/components/site/section";
@@ -16,7 +18,7 @@ import { getSession } from "@/lib/session";
 
 type Props = {
   params: Promise<{ locale: string; id: string }>;
-  searchParams: Promise<{ token?: string; confirmed?: string }>;
+  searchParams: Promise<{ token?: string; confirmed?: string; paid?: string }>;
 };
 
 // The link in every booking email. Private to whoever holds the token, so never indexed.
@@ -42,7 +44,7 @@ export default async function ManageBookingPage({ params, searchParams }: Props)
   const { locale: raw, id } = await params;
   setRequestLocale(raw);
   const locale = locales.find((l) => l === raw) ?? "en";
-  const { token, confirmed } = await searchParams;
+  const { token, confirmed, paid } = await searchParams;
   const t = await getTranslations("booking");
   const [booking, session] = await Promise.all([load(id, typeof token === "string" ? token : undefined), getSession().catch(() => null)]);
 
@@ -105,7 +107,9 @@ export default async function ManageBookingPage({ params, searchParams }: Props)
           ))}
         </dl>
 
-        {active && booking.paidVia === "none" && <p>{t("confirmed.payOnSite")}</p>}
+        {booking.status === "confirmed" && booking.paidVia === "none" && <p>{t("confirmed.payOnSite")}</p>}
+        {active && booking.paidVia === "stripe" && <PaidNote />}
+        {booking.status === "pending_payment" && <PendingPayment id={booking.id} token={token} returned={paid === "1"} />}
         {active && <AddToCalendar event={event} />}
 
         {active && preparation.length > 0 && (

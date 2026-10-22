@@ -45,6 +45,7 @@ import { bookingConfig } from "../booking/config";
 import { sendCancelled, sendConfirmed, sendRescheduled } from "../booking/emails";
 import { addDays, zoned } from "../booking/time";
 import { requireRole, requireSession } from "../lib/auth";
+import { settleCancelled } from "../payments/refunds";
 import { ApiError } from "../lib/errors";
 import { validate } from "../lib/validate";
 
@@ -184,6 +185,7 @@ const coach = new Hono()
     const config = bookingConfig();
     const now = new Date();
     const cancelled = await cancelBooking(row, now, reason);
+    await settleCancelled(row, "coach", now, config);
     await sendCancelled(cancelled, config, reason);
     return c.json<CoachBooking>(coachView(cancelled, await ownCoachId(user), now, config));
   })
@@ -279,6 +281,7 @@ export const booking = new Hono()
     }
     if (!cancellable(row, now, config)) throw new ApiError(409, "too_late", `Free cancellation ends ${config.cancelMin / 60} hours before`);
     const cancelled = await cancelBooking(row, now);
+    await settleCancelled(row, "customer", now, config);
     await sendCancelled(cancelled, config);
     return c.json<Booking>(customerView(cancelled, now, config));
   });

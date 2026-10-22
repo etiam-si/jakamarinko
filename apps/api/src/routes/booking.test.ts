@@ -169,6 +169,9 @@ describe("public", () => {
 
   test("with payments on, a paid service waits for payment and sends no email yet", async () => {
     vi.stubEnv("PAYMENTS_ENABLED", "true");
+    // Payments are on only with both Stripe keys (T13).
+    vi.stubEnv("STRIPE_SECRET_KEY", "sk_test_x");
+    vi.stubEnv("STRIPE_WEBHOOK_SECRET", "whsec_x");
     const { booking } = await book();
     vi.unstubAllEnvs();
     expect(booking).toMatchObject({ status: "pending_payment", paidVia: "none" });

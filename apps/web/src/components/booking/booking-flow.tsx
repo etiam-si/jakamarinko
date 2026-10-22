@@ -13,6 +13,7 @@ import { track } from "@/lib/track";
 import { getAttribution } from "@/lib/utm";
 import { DetailsStep, type Details } from "./details-step";
 import { healthAnswers } from "./health";
+import { checkoutUrl } from "./payment/payment";
 import { ReviewStep } from "./review-step";
 import { ServiceStep } from "./service-step";
 import { slotsKey, TimeStep, type Picked } from "./time-step";
@@ -108,9 +109,15 @@ export function BookingFlow({ services, prefill }: { services: Service[]; prefil
       }
       if (status !== 201) throw new Error(`booking failed: ${status}`);
       const { booking, manageUrl } = await res.json();
-      // T13 moves this to after the payment.
-      track("booking_paid", { service: service.id, value: service.priceCents / 100, currency: "EUR" });
       const token = new URL(manageUrl).searchParams.get("token") ?? "";
+      // Paid online: on to Stripe. The api counts booking_paid when the payment arrives; if Stripe can't be
+      // opened, the booking page offers it again.
+      if (booking.status === "pending_payment") {
+        const url = await checkoutUrl(booking.id, token);
+        if (url && url !== "expired") return window.location.assign(url);
+        return router.replace({ pathname: `/booking/${booking.id}`, query: { token } });
+      }
+      track("booking_paid", { service: service.id, value: service.priceCents / 100, currency: "EUR" });
       router.replace({ pathname: `/booking/${booking.id}`, query: { token, confirmed: "1" } });
     } catch {
       setNotice("unavailable");
