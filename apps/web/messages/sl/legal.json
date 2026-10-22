@@ -1,0 +1,295 @@
+{
+  "draft": {
+    "title": "Osnutek, še ne velja.",
+    "body": "Besedilo je še v pregledu in se lahko spremeni, preden začne veljati."
+  },
+  "nav": {
+    "label": "Pravno"
+  },
+  "company": {
+    "name": "Podjetje d.o.o.",
+    "address": "Ulica 1, 1000 Ljubljana, Slovenija",
+    "registration": "0000000000",
+    "vatId": "SI00000000",
+    "email": "info@jakamarinko.com"
+  },
+  "privacy": {
+    "title": "Politika zasebnosti",
+    "description": "Katere osebne podatke zbiramo, zakaj, kdo jih obdeluje in kakšne pravice imate.",
+    "updated": "Osnutek z dne 22. oktobra 2026",
+    "sections": {
+      "controller": {
+        "title": "Kdo je odgovoren za vaše podatke",
+        "body": [
+          "Upravljavec vaših osebnih podatkov je {company}, {address}, matična številka {registration}, ID za DDV {vatId}. Upravlja spletno stran jakamarinko.com ter treninge in laboratorijska testiranja Jake Marinka in njegovih trenerjev.",
+          "Za vse v zvezi z vašimi podatki pišite na {email}. Odgovorimo v enem mesecu."
+        ]
+      },
+      "data": {
+        "title": "Katere podatke zbiramo in zakaj",
+        "body": [
+          [
+            "<b>Račun:</b> ime, e-naslov, jezik, način prijave (povezava po e-pošti ali Google) in privolitve, ki ste jih dali, z datumi. Potrebujemo jih, da vam lahko odpremo račun.",
+            "<b>Rezervacije:</b> rezervirani test ali termin, datum, ura in lokacija, vaše ime, e-naslov in telefonska številka, stanje plačila ter povezava ali oglas, prek katerega ste prišli do nas. Potrebujemo jih za izvedbo rezervacije.",
+            "<b>Plačila:</b> znesek, stanje in račun. Podatki o kartici gredo neposredno k Stripu; celotne številke kartice nikoli ne vidimo.",
+            "<b>Podatki o zdravju:</b> odgovori na zdravstveni vprašalnik (PAR-Q+) in obrazec informiranega soglasja pred laboratorijskim testom; meritve testa, kot so laktat v krvi, srčni utrip, moč in hitrost, VO₂max in telesne mere; datoteke treningov, ki jih naložite (srčni utrip, moč, tempo, pot); dnevna samoocena (spanec, utrujenost, bolečine v mišicah, bolezen); ter načrti, analize, poročila in trenažna območja, narejeni iz njih. To so posebne vrste osebnih podatkov po 9. členu Splošne uredbe o varstvu podatkov (GDPR), zato jih uporabljamo le z vašo izrecno privolitvijo.",
+            "<b>Sporočila:</b> kar napišete trenerju ali prek kontaktnega obrazca.",
+            "<b>Tehnični podatki:</b> naslov IP in podatki o brskalniku v strežniških dnevnikih, zaradi varnosti strani, ter piškotki, opisani v <cookies>politiki piškotkov</cookies>."
+          ]
+        ]
+      },
+      "bases": {
+        "title": "Pravne podlage",
+        "body": [
+          [
+            "<b>Pogodba</b> (točka (b) prvega odstavka 6. člena GDPR): račun, rezervacije, plačila, paketi in sporočila.",
+            "<b>Zakonska obveznost</b> (točka (c) prvega odstavka 6. člena): računi in računovodske listine.",
+            "<b>Izrecna privolitev</b> (točka (a) drugega odstavka 9. člena): podatki o zdravju. Daste jo ob odprtju računa ali ko pred testom izpolnite zdravstveni vprašalnik.",
+            "<b>Privolitev</b> (točka (a) prvega odstavka 6. člena): trženjski piškotki in merjenje oglasov ter trženjska e-sporočila.",
+            "<b>Zakoniti interes</b> (točka (f) prvega odstavka 6. člena): varnost, strežniški dnevniki in statistika obiskov brez piškotkov."
+          ]
+        ]
+      },
+      "consent": {
+        "title": "Vaše privolitve in kako jih prekličete",
+        "body": [
+          "Vsako privolitev lahko kadar koli prekličete, enako preprosto, kot ste jo dali: privolitev za podatke o zdravju in trženje v nastavitvah računa (Zasebnost), piškotke prek \"Nastavitve piškotkov\" na dnu vsake strani, ali s sporočilom na {email}. Preklic ne vpliva na zakonitost obdelave pred preklicem.",
+          "Brez privolitve za obdelavo podatkov o zdravju ne moremo pripraviti načrtov, analiz ali poročil o testih, zato se paketi, ki temeljijo na njih, ne morejo nadaljevati. Rezervacije in računi ostanejo, kot so."
+        ]
+      },
+      "automated": {
+        "title": "Kako nastanejo načrti, analize in poročila",
+        "body": [
+          "Načrte treningov, analize treningov, poročila o laboratorijskih testih in trenažna območja samodejno pripravi programska oprema iz vaših podatkov. Del te programske opreme je storitev ponudnika umetne inteligence (glejte Obdelovalci), ki piše načrte in besedila v okviru določenih pravil.",
+          "Logika, preprosto povedano: programska oprema vzame vaše rezultate testov, cilje, razpoložljiv čas, treninge, ki jih naložite, in vašo dnevno samooceno. Iz njih izračuna vaša trenažna območja ter sestavi ali prilagodi načrt po trenerski metodi našega glavnega trenerja Jake Marinka, ki je za to metodo odgovoren. Preden karkoli vidite, se rezultat preveri po določenih varnostnih pravilih, na primer kako hitro sme rasti tedenski obseg treninga in koliko počitka sledi bolezni. Če preverjanje ne uspe ali vaši podatki kažejo opozorilni znak, kot so bolezen, bolečina ali nenavaden srčni utrip, se vam nič ne pošlje samodejno: obvesti se trener, ki zadevo prevzame.",
+          "Ta obdelava določa vsebino vašega treninga. Ni zdravniška ocena in ne odloča o vaši pogodbi, ceni ali dostopu do naših storitev. Na sporočila, ki jih napišete trenerju, odgovori človek.",
+          "Kadar koli lahko zahtevate, da načrt, analizo ali poročilo pregleda trener, izrazite svoje stališče in izpodbijate rezultat (tretji odstavek 22. člena GDPR). Tej obdelavi lahko tudi ugovarjate (21. člen) s sporočilom na {email}. Takrat jo za vaše podatke ustavimo. Ker načrti, analize in poročila v naših paketih nastajajo na ta način, se vaš paket konča ob koncu plačanega obdobja, brez najkrajšega trajanja."
+        ]
+      },
+      "recipients": {
+        "title": "Kdo vidi vaše podatke",
+        "body": [
+          "Vaše podatke vidijo trenerji, ki so vam dodeljeni, glavni trener ter osebe, ki upravljajo storitev, kadar je to potrebno za podporo ali varnost. Osebnih podatkov ne prodajamo.",
+          "Obdelovalci obdelujejo podatke za nas, le po naših navodilih in na podlagi pogodbe o obdelavi osebnih podatkov. Navedeni so v naslednjem razdelku."
+        ]
+      },
+      "processors": {
+        "title": "Obdelovalci",
+        "body": [
+          [
+            "<b>Hetzner Online GmbH</b> (Nemčija): strežniki, podatkovna baza in šifrirane varnostne kopije (Storage Box). Vse v Nemčiji.",
+            "<b>Cloudflare, Inc.</b> (ZDA, globalno omrežje): dostavlja spletno stran in jo varuje pred napadi. Vidi naslove IP in zahteve za strani.",
+            "<b>Stripe Payments Europe, Ltd.</b> (Irska): spletna plačila in računi.",
+            "<b>Ponudnik pošiljanja e-pošte</b>: pošilja e-sporočila o računu in rezervacijah. Naveden bo tukaj, preden ta politika začne veljati.",
+            "<b>Anthropic, PBC</b> (ZDA): ponudnik umetne inteligence, ki iz vaših podatkov pripravlja načrte, analize in poročila (glejte zgoraj).",
+            "<b>Google Ireland Limited</b>: prijava z Googlom, če jo izberete, in koledar trenerja, ki za vsako rezervacijo prejme čas, vrsto in vaše ime.",
+            "<b>Meta Platforms Ireland Ltd.</b> in <b>Google Ireland Limited</b>: merjenje naših oglasov, le z vašo privolitvijo za trženje (glejte <cookies>politiko piškotkov</cookies>)."
+          ],
+          "Statistika obiskov prihaja iz orodja Umami, ki teče na našem strežniku v Nemčiji, ne nastavlja piškotkov in ničesar ne deli z nikomer."
+        ]
+      },
+      "location": {
+        "title": "Kje so vaši podatki",
+        "body": [
+          "Naši strežniki in varnostne kopije so v Nemčiji, v EU. Podatki zapustijo EU le prek obdelovalcev s sedežem zunaj nje (Cloudflare in Anthropic ter Meta in Google za oglase z vašo privolitvijo). Ti prenosi temeljijo na okviru EU-ZDA za zasebnost podatkov ali na standardnih pogodbenih klavzulah Evropske komisije."
+        ]
+      },
+      "retention": {
+        "title": "Kako dolgo hranimo podatke",
+        "body": [
+          [
+            "Podatki o računu, zdravju in treningih: dokler obstaja vaš račun. Ko račun izbrišete, jih odstranimo v 30 dneh.",
+            "Podatki o zdravju po preklicu privolitve: izbrisani v 30 dneh, razen če privolitev ponovno daste.",
+            "Računi in računovodske listine: 10 let po koncu leta, v katerem so bili izdani, kot zahteva davčna zakonodaja.",
+            "Rezervacije brez računa, vključno z zdravstvenim vprašalnikom: 2 leti po testu.",
+            "Sporočila iz kontaktnega obrazca: 12 mesecev po našem zadnjem odgovoru.",
+            "Strežniški dnevniki: 30 dni.",
+            "Varnostne kopije: izbrisani podatki ostanejo v šifriranih varnostnih kopijah največ 6 mesecev, dokler se kopije ne zamenjajo."
+          ]
+        ]
+      },
+      "rights": {
+        "title": "Vaše pravice",
+        "body": [
+          "Imate pravico do dostopa do svojih podatkov, popravka, izbrisa, omejitve obdelave, prejema podatkov v strojno berljivi obliki (prenosljivost) in ugovora obdelavi. Podatke lahko izvozite in račun izbrišete sami v nastavitvah računa (Zasebnost); za vse drugo pišite na {email}.",
+          "Če menite, da z vašimi podatki ravnamo nezakonito, se lahko pritožite pri Informacijskem pooblaščencu Republike Slovenije (Dunajska cesta 22, 1000 Ljubljana, www.ip-rs.si) ali pri nadzornem organu v državi, kjer živite."
+        ]
+      },
+      "children": {
+        "title": "Mladi športniki",
+        "body": [
+          "Naše storitve so namenjene osebam, starim 15 let ali več. Za mlajše športnike račun odpre, privolitve da in obrazec soglasja za test podpiše starš ali skrbnik."
+        ]
+      },
+      "security": {
+        "title": "Varnost",
+        "body": [
+          "Podatki potujejo šifrirano (HTTPS), varnostne kopije so šifrirane, vsak trener pa vidi le svoje športnike."
+        ]
+      },
+      "changes": {
+        "title": "Spremembe",
+        "body": [
+          "Če se politika spremeni, novo različico z datumom objavimo tukaj. Če sprememba vpliva na to, kako uporabljamo podatke, ki ste nam jih že dali, vas o tem prej obvestimo po e-pošti."
+        ]
+      }
+    }
+  },
+  "terms": {
+    "title": "Splošni pogoji",
+    "description": "Pravila za rezervacijo laboratorijskih testov in terminov, pakete in naročnine.",
+    "updated": "Osnutek z dne 22. oktobra 2026",
+    "sections": {
+      "provider": {
+        "title": "Kdo smo",
+        "body": [
+          "Storitve na jakamarinko.com zagotavlja {company}, {address}, matična številka {registration}, ID za DDV {vatId}, e-naslov {email}. Treninge in laboratorijska testiranja izvajajo Jaka Marinko in trenerji, ki delajo z njim.",
+          "Ti pogoji veljajo za vsako rezervacijo, paket in račun. Kako ravnamo z osebnimi podatki, je opisano v <privacy>politiki zasebnosti</privacy>."
+        ]
+      },
+      "account": {
+        "title": "Račun",
+        "body": [
+          "Prijavite se s povezavo po e-pošti ali z Googlom. Dostop do svoje e-pošte varujte; vse, kar je narejeno iz vašega računa, velja, kot da ste naredili vi. Navajajte pravilne podatke, posebej o svojem zdravju."
+        ]
+      },
+      "booking": {
+        "title": "Rezervacija in plačilo",
+        "body": [
+          "Laboratorijski testi potekajo po dogovoru, praviloma med 7.00 in 19.00, rezervirati pa jih je treba najmanj 24 ur vnaprej. Cena je prikazana pred rezervacijo in je cena, ki jo plačate. Rezervacija je potrjena, ko je plačana prek Stripa ali pokrita s kreditom iz vašega paketa, in prejmete potrditveno e-sporočilo.",
+          "Test poteka na lokaciji, navedeni v potrditvenem e-sporočilu. Upoštevajte navodila za pripravo, ki vam jih pošljemo, na primer brez težkega treninga 24 ur pred testom."
+        ]
+      },
+      "cancellation": {
+        "title": "Odpoved in prestavitev",
+        "body": [
+          [
+            "<b>Najmanj 24 ur pred</b> začetkom lahko brezplačno odpoveste ali prestavite, v svojem računu ali po e-pošti. Plačilo vrnemo v celoti na prvotni način plačila; kredit se vrne v vaš račun.",
+            "<b>Manj kot 24 ur prej ali neudeležba:</b> zaračuna se polna cena oziroma se porabi kredit. Če ste bolni ali poškodovani, nam to sporočite pred začetkom in enkrat vam brezplačno ponudimo nov termin.",
+            "Če moramo odpovedati mi (na primer zaradi bolezni ali okvare naprave), izberete nov termin ali celotno vračilo."
+          ]
+        ]
+      },
+      "withdrawal": {
+        "title": "Pravica do odstopa",
+        "body": [
+          "Kot potrošnik lahko od pogodbe, sklenjene na spletu, odstopite v 14 dneh brez navedbe razloga, s sporočilom na {email}. Če zahtevate, da se storitev začne v teh 14 dneh (na primer test, rezerviran za prihodnji teden, ali paket, ki se začne danes), plačate že opravljeni del, ko je storitev v celoti opravljena, pa pravica do odstopa preneha."
+        ]
+      },
+      "packages": {
+        "title": "Paketi in naročnine",
+        "body": [
+          [
+            "Plan, Coaching in Elite so naročnine, ki se plačujejo vnaprej vsak mesec ali vsako leto z dvema mesecema brezplačno. Samodejno se podaljšujejo, dokler jih ne odpoveste.",
+            "<b>Coaching in Elite imata najkrajše trajanje 3 mesece.</b> Plan nima najkrajšega trajanja.",
+            "Odpoveste jih kadar koli v nastavitvah računa. Odpoved začne veljati ob koncu plačanega obdobja, vendar ne pred iztekom najkrajšega trajanja.",
+            "Kaj vključuje posamezni paket, vključno s klici, komentarji in osebnimi srečanji s trenerjem, je opisano na njegovi strani. Osebni stik s trenerjem je del paketa le, kjer tako piše v opisu.",
+            "Krediti (na primer laktatni test vsake 3 mesece) se dodajajo po urniku paketa in porabijo z rezervacijo. Kredit velja 6 mesecev in preneha s koncem naročnine."
+          ]
+        ]
+      },
+      "labTests": {
+        "title": "Laboratorijski testi",
+        "body": [
+          "Test laktatnega profila traja približno 60 minut, na kolesarskem trenažerju, tekaški stezi ali tekaškem trenažerju, odvisno od vašega športa. Po 5-minutnem ogrevanju pri lahki intenzivnosti se tempo ali moč povečuje v stopnjah po približno 3 do 5 minut. Ob koncu vsake stopnje izmerimo srčni utrip in iz prsta vzamemo kapljico krvi za meritev laktata. V 48 urah prejmete pisno poročilo s trenažnimi območji, vprašanja o njem pa nam lahko pošljete po e-pošti.",
+          [
+            "<b>Submaksimalni test:</b> konča se malo nad vašim ocenjenim laktatnim pragom. Do maksimalnega napora ne greste.",
+            "<b>Maksimalni test:</b> traja do izčrpanosti ali do enega od spodaj navedenih razlogov za prekinitev."
+          ]
+        ]
+      },
+      "safety": {
+        "title": "Zdravstveni vprašalnik, soglasje in varnost",
+        "body": [
+          [
+            "Pred vsakim testom izpolnite zdravstveni vprašalnik PAR-Q+ in nanj odgovorite resnično. Če odgovori to zahtevajo, pred testom potrebujete soglasje svojega zdravnika.",
+            "Pred maksimalnim testom podpišete tudi pisno informirano soglasje, ki pojasni test in njegova tveganja.",
+            "Maksimalen napor je zahteven za srce in krvni obtok in lahko povzroči izčrpanost, slabost, vrtoglavico, redko pa tudi resnejše težave s srcem. Vbod v prst lahko pusti majhno modrico.",
+            "<b>Test lahko kadar koli prekinete</b>, brez navedbe razloga.",
+            "Test takoj prekinemo, če to zahtevate ali če se pojavijo bolečina ali pritisk v prsih, vrtoglavica, zmedenost, nenavadno težko dihanje, bledica ali hladen pot, nereden ali nenavaden srčni utrip ali drug znak, da nadaljevanje ni varno, ter ob okvari opreme. Če vaši odgovori ali stanje na dan testa kažejo tveganje, test prestavimo; rezervacijo takrat prestavimo ali vrnemo plačilo.",
+            "V nujnem primeru test prekinemo, pokličemo 112 in nudimo prvo pomoč, dokler ne pride pomoč."
+          ]
+        ]
+      },
+      "notMedical": {
+        "title": "Testi in načrti treningov niso zdravniški nasvet",
+        "body": [
+          "Laboratorijski test ni zdravniški pregled in ga ne nadomešča. Rezultati testov, trenažna območja, načrti, analize in poročila so športna navodila, ne zdravniški nasvet, diagnoza ali zdravljenje. Prenehajte trenirati, če čutite bolečino, pritisk v prsih, vrtoglavico ali nenavadno težko dihanje, trenerju povejte za bolezen ali poškodbo in v dvomu obiščite zdravnika. Kako nastanejo načrti in poročila, je pojasnjeno v <privacy>politiki zasebnosti</privacy>."
+        ]
+      },
+      "liability": {
+        "title": "Odgovornost",
+        "body": [
+          "Za škodo odgovarjamo po slovenskem pravu. Nič v teh pogojih ne omejuje naše odgovornosti za škodo na življenju, telesu ali zdravju ali vaših pravic kot potrošnika. K varnosti testa prispevate tako, da na vprašalnik odgovorite resnično in nam med testom poveste, kako se počutite."
+        ]
+      },
+      "complaints": {
+        "title": "Pritožbe in spori",
+        "body": [
+          "Pritožbe pošljite na {email}; prejem potrdimo v 5 delovnih dneh in odgovorimo v 8 delovnih dneh. Velja slovensko pravo. Nobenega izvajalca izvensodnega reševanja potrošniških sporov ne priznavamo. O sporih odloča pristojno sodišče v Sloveniji; potrošniki ohranijo pravice, ki jim jih daje pravo njihove države."
+        ]
+      },
+      "changes": {
+        "title": "Spremembe",
+        "body": [
+          "Te pogoje lahko spremenimo. Za rezervacijo velja različica, ki je veljala ob rezervaciji. Pri tekočih naročninah spremembe sporočimo po e-pošti vsaj 30 dni vnaprej, vi pa lahko naročnino odpoveste, preden začnejo veljati."
+        ]
+      }
+    }
+  },
+  "cookies": {
+    "title": "Politika piškotkov",
+    "description": "Katere piškotke uporablja jakamarinko.com, zakaj in kako spremenite svojo izbiro.",
+    "updated": "Osnutek z dne 22. oktobra 2026",
+    "sections": {
+      "intro": {
+        "title": "Kaj so piškotki",
+        "body": [
+          "Piškotki so majhne datoteke, ki jih spletna stran shrani v vaš brskalnik. Uporabljamo jih čim manj. Brez vprašanja se nastavijo le nujni piškotki; vse drugo počaka na vašo privolitev. Izbiro lahko kadar koli spremenite prek \"Nastavitve piškotkov\" na dnu vsake strani."
+        ]
+      },
+      "necessary": {
+        "title": "Nujni (vedno vklopljeni)",
+        "body": [
+          "Ti omogočajo delovanje strani in jih ni mogoče izklopiti.",
+          [
+            "<b>NEXT_LOCALE</b>: si zapomni vaš jezik. 1 leto.",
+            "<b>jm_consent</b>: si zapomni vašo izbiro piškotkov in za katero različico te politike je bila dana. 12 mesecev.",
+            "<b>better-auth.session_token</b> (na naši strani s predpono __Secure-): ohranja vas prijavljene. Nastavi se le, ko se prijavite. 7 dni."
+          ]
+        ]
+      },
+      "analytics": {
+        "title": "Analitika",
+        "body": [
+          "Obiske štejemo z orodjem Umami, ki teče na našem strežniku. Ne nastavlja piškotkov, ne shranjuje naslovov IP in ničesar ne deli z nikomer, zato deluje brez vprašanja.",
+          "Trenutno v tej kategoriji noben piškotek ni nastavljen. Če dodamo orodje, ki ga nastavlja, bo navedeno tukaj in bo delovalo le z vašo privolitvijo."
+        ]
+      },
+      "marketing": {
+        "title": "Trženje",
+        "body": [
+          "Le z vašo privolitvijo. Povedo nam, kateri oglasi pripeljejo ljudi, ki rezervirajo, da manj porabimo za oglase, ki ne delujejo.",
+          [
+            "<b>jm_attribution</b> (naš): si zapomni, kateri oglas ali povezava vas je pripeljala (parametri utm, fbclid, gclid), dokler ne rezervirate. 30 dni.",
+            "<b>_fbp</b>, <b>_fbc</b> (Meta Platforms Ireland): merita oglase na Facebooku in Instagramu. 90 dni.",
+            "<b>_gcl_au</b> (Google Ireland): meri Googlove oglase. 90 dni."
+          ],
+          "Meta in Google lahko te podatke obdelujeta tudi za svoje namene; glejte njuni politiki zasebnosti."
+        ]
+      },
+      "thirdParty": {
+        "title": "Strani drugih ponudnikov",
+        "body": [
+          "Plačilo poteka na Stripovi strani, prijava z Googlom pa na Googlovi. Te strani nastavljajo svoje piškotke, za katere veljajo politike Stripa in Googla."
+        ]
+      },
+      "more": {
+        "title": "Več",
+        "body": [
+          "Kako ravnamo z osebnimi podatki, je opisano v <privacy>politiki zasebnosti</privacy>. Vprašanja: {email}."
+        ]
+      }
+    }
+  }
+}
