@@ -187,6 +187,8 @@ describe("booking_paid", () => {
 
   test("with online payment it waits for the payment, then reports once however often it is called", async () => {
     vi.stubEnv("PAYMENTS_ENABLED", "true");
+    vi.stubEnv("STRIPE_SECRET_KEY", "sk_test_x");
+    vi.stubEnv("STRIPE_WEBHOOK_SECRET", "whsec_x");
     const { booking: b } = CreatedBooking.parse(await (await post("/booking", booking(), consent(true))).json());
     expect(b.status).toBe("pending_payment");
     expect(meta).toEqual([]);
