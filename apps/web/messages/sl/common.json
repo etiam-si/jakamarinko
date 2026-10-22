@@ -1,0 +1,16 @@
+{
+  "meta": {
+    "title": "Jaka Marinko — Endurance Performance",
+    "description": "Trening za vzdržljivostne športe in laboratorijska testiranja."
+  },
+  "home": {
+    "title": "Jaka Marinko",
+    "tagline": "Treniraj na podlagi podatkov. Ne ugibanja.",
+    "soon": "Nova spletna stran je v pripravi."
+  },
+  "localeSwitcher": {
+    "label": "Jezik",
+    "en": "English",
+    "sl": "Slovenščina"
+  }
+}

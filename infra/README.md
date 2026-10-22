@@ -48,15 +48,16 @@ One Postgres 18 in `/srv/postgres` for every app on t4a, one database + owner ro
 
 ## This app (`infra/compose.yml` → `/srv/jakamarinko`)
 - `web`: `ghcr.io/etiam-si/jakamarinko-web:<sha>`, Next.js standalone.
-- `api`: `ghcr.io/etiam-si/jakamarinko-api:<sha>`, Hono. Gets `/api/*` (router priority 100 beats web). Also on the `db` network; database `jakamarinko`. Tables in `apps/api/src/schema.ts` (Drizzle); `npm run db:generate -w apps/api` writes a migration to `apps/api/drizzle/`, which the api applies on start. `/api/health` checks the database, so a deploy with a broken connection fails.
-- Runtime secrets go in `/srv/jakamarinko/.env` (owner `deploy`, mode 600). Both services read it.
+- `api`: `ghcr.io/etiam-si/jakamarinko-api:<sha>`, Hono. Gets `/api/*` (router priority 100 beats web). Also on the `db` network; database `jakamarinko`. Tables in `packages/db/src/schema/` (Drizzle); `pnpm db:generate` writes a migration to `packages/db/drizzle/`, which the api applies on start. `/api/health` checks the database, so a deploy with a broken connection fails.
+- `worker`: `ghcr.io/etiam-si/jakamarinko-worker:<sha>`, the background jobs from `apps/api/src/jobs/` (reminders, later the engine), each on its own interval. Only on the `db` network: it serves no traffic. Logs: `docker compose logs -f worker`.
+- Runtime secrets go in `/srv/jakamarinko/.env` (owner `deploy`, mode 600). All three services read it.
 
 ## Deploy (`.github/workflows/deploy.yml`)
-Push to `main`: **check** (typecheck, test, build), then **images** (web and api to GHCR), then **deploy** (scp `compose.yml`, `docker compose pull && up -d` as `deploy`, poll `https://jakamarinko.com/api/health` and `/`). Pull requests only run check.
+Push to `main`: **check** (typecheck, test, build, e2e against a Postgres service), then **images** (web, api and worker to GHCR), then **deploy** (scp `compose.yml`, `docker compose pull && up -d` as `deploy`, poll `https://jakamarinko.com/api/health` and `/`). Pull requests into `development` and `main` only run check. pnpm and Turbo caches are kept between runs.
 
 Repo secrets: `DEPLOY_HOST`, `DEPLOY_SSH_KEY` (its public half is in `~deploy/.ssh/authorized_keys` as `github-actions@jakamarinko`), `DEPLOY_KNOWN_HOSTS`.
 
 Rollback: run the workflow by hand with `tag=<older sha>`. Or on the server: `cd /srv/jakamarinko && IMAGE_TAG=<sha> docker compose up -d`.
 
 ## Mobile (Expo)
-Not in the repo yet. Add it as `apps/mobile` (`npx create-expo-app@latest apps/mobile`). It ships through EAS, not this server, and talks to `https://jakamarinko.com/api`. Shared types live in `packages/shared`.
+Not in the repo yet. Add it as `apps/mobile` (`npx create-expo-app@latest apps/mobile`). It ships through EAS, not this server, and talks to `https://jakamarinko.com/api`. It uses the typed client and Zod contracts from `packages/api` and the types in `packages/types`.

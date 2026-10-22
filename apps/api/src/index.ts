@@ -1,17 +1,12 @@
-import { existsSync } from "node:fs";
 import { serve } from "@hono/node-server";
-import { migrate } from "drizzle-orm/node-postgres/migrator";
+import { runMigrations } from "@jakamarinko/db";
 import { app } from "./app";
-import { db } from "./db";
+import { env } from "./env";
 
-const port = Number(process.env.PORT ?? 3001);
-const migrationsFolder = process.env.MIGRATIONS_DIR ?? "./drizzle";
+// Apply new migrations before taking traffic.
+await runMigrations(env.MIGRATIONS_DIR);
 
-// Apply new migrations before taking traffic. Nothing to do until the first `db:generate`.
-if (existsSync(`${migrationsFolder}/meta/_journal.json`)) {
-  await migrate(db(), { migrationsFolder });
-}
-
-serve({ fetch: app.fetch, port, hostname: "0.0.0.0" }, (info) => {
+// No hostname: Node listens on :: (IPv4 and IPv6), or 0.0.0.0 where IPv6 is off.
+serve({ fetch: app.fetch, port: env.PORT }, (info) => {
   console.log(`api listening on :${info.port}`);
 });

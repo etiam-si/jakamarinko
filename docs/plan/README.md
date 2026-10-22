@@ -83,7 +83,8 @@ Allowed: **adding your own lines**. Never reorder or reformat. On conflict, keep
 
 | File | What you may add |
 |---|---|
-| `apps/api/src/app.ts` | one `app.route("/<domain>", …)` line |
+| `apps/api/src/app.ts` | one import and one `.route("/<domain>", …)` line in the chain, above `health` (chained, so the typed client sees it) |
+| `apps/api/src/jobs/index.ts` | one import and one entry in `jobs` for your background job |
 | `packages/db/src/schema/index.ts` | one `export * from "./<domain>"` line |
 | `packages/api/src/index.ts` | one export line |
 | `apps/web/src/i18n/namespaces.ts` | one namespace name |
