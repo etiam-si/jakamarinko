@@ -1,13 +1,15 @@
-import { sql } from "drizzle-orm";
 import { Hono } from "hono";
-import type { Health } from "@jakamarinko/shared";
-import { db } from "./db";
+import { notFound, onError } from "./lib/errors";
+import { health } from "./routes/health";
 
 // Everything lives under /api: on the server Traefik sends jakamarinko.com/api/* here, the rest to web.
-export const app = new Hono().basePath("/api");
+// Routes are chained so AppType carries them all to the typed client in packages/api.
+export const app = new Hono()
+  .basePath("/api")
+  // One line per domain, added above health (which stays last): .route("/<domain>", <domain>)
+  .route("/health", health);
 
-// The deploy waits for this, so a broken database connection fails the deploy.
-app.get("/health", async (c) => {
-  await db().execute(sql`select 1`);
-  return c.json<Health>({ ok: true, service: "api" });
-});
+app.onError(onError);
+app.notFound(notFound);
+
+export type AppType = typeof app;

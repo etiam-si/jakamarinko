@@ -1,0 +1,24 @@
+# One local Postgres for every worktree; each worktree gets its own database jm_<branch> (scripts/worktree-env.sh).
+# Fixed project name, so `up` from any worktree finds the same container.
+#   docker compose -f dev/compose.yml up -d
+name: jm-dev
+
+services:
+  postgres:
+    image: postgres:18.6-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "127.0.0.1:${JM_PG_PORT:-54320}:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+      interval: 2s
+      timeout: 5s
+      retries: 15
+
+volumes:
+  pg_data:

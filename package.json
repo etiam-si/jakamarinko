@@ -1,15 +1,20 @@
 {
   "name": "jakamarinko",
   "private": true,
-  "workspaces": [
-    "apps/*",
-    "packages/*"
-  ],
+  "packageManager": "pnpm@12.14.0",
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
-    "dev:web": "npm run dev -w apps/web",
-    "dev:api": "npm run dev -w apps/api",
-    "typecheck": "npm run typecheck --workspaces --if-present",
-    "test": "npm run test --workspaces --if-present",
-    "build": "npm run build --workspaces --if-present"
+    "dev": "dotenv -e .env.local -- turbo run dev",
+    "build": "turbo run build",
+    "typecheck": "turbo run typecheck",
+    "test": "turbo run test",
+    "e2e": "dotenv -e .env.local -- turbo run e2e",
+    "db:generate": "turbo run db:generate"
+  },
+  "devDependencies": {
+    "dotenv-cli": "11.0.0",
+    "turbo": "2.11.10"
   }
 }

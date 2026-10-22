@@ -8,3 +8,7 @@ next-env.d.ts
 *.pem
 *.key
 .DS_Store
+.turbo/
+.emails/
+test-results/
+playwright-report/
