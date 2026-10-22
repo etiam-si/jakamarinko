@@ -29,8 +29,9 @@ export function ConsentBanner() {
           aria-label={t("banner.title")}
           className="fixed inset-x-0 bottom-0 z-40 mx-auto flex max-w-2xl flex-col gap-3 rounded-t-2xl bg-popover px-4 pt-4 pb-[max(1rem,env(safe-area-inset-bottom))] text-[0.8125rem] leading-snug text-popover-foreground shadow-[0_-12px_32px_-12px_rgb(18_26_24/0.25)] ring-1 ring-foreground/10 sm:inset-x-4 sm:bottom-4 sm:gap-4 sm:rounded-xl sm:p-5 sm:text-sm sm:shadow-lg"
         >
-          {/* Room for the lines the text takes with the web font, so the sheet doesn't grow when it arrives. */}
-          <p className="min-h-[4lh] text-pretty max-[359px]:min-h-[5lh] sm:min-h-0 [:lang(sl)_&]:min-h-[5lh] max-[359px]:[:lang(sl)_&]:min-h-[6lh] sm:[:lang(sl)_&]:min-h-0">
+          {/* Room for the lines the text takes with the web font (measured per width and language), so the sheet
+              doesn't grow when the font arrives. */}
+          <p className="min-h-[4lh] text-pretty max-[339px]:min-h-[5lh] min-[430px]:min-h-[3lh] sm:min-h-0 [:lang(sl)_&]:max-[389px]:min-h-[5lh] [:lang(sl)_&]:min-[430px]:min-h-[4lh] [:lang(sl)_&]:min-[500px]:min-h-[3lh] sm:[:lang(sl)_&]:min-h-0">
             {t("banner.text")}
           </p>
           <div className="grid grid-cols-2 gap-2 min-[360px]:grid-cols-[auto_1fr_1fr] sm:flex sm:justify-end">
