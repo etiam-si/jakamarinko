@@ -60,7 +60,7 @@ function ConsentSettings({ initial, onClose }: { initial: Consent; onClose: () =
 
   return (
     <Dialog open onOpenChange={(open) => !open && onClose()}>
-      <DialogContent>
+      <DialogContent className="max-h-[calc(100dvh-2rem)] overflow-y-auto overscroll-contain">
         <DialogHeader>
           <DialogTitle>{t("settings.title")}</DialogTitle>
           <DialogDescription>{t("settings.description")}</DialogDescription>
@@ -80,13 +80,13 @@ function ConsentSettings({ initial, onClose }: { initial: Consent; onClose: () =
           ))}
         </div>
         <DialogFooter>
-          <Button variant="outline" onClick={() => save(none)}>
+          <Button variant="outline" className="max-sm:h-11" onClick={() => save(none)}>
             {t("rejectAll")}
           </Button>
-          <Button variant="outline" onClick={() => save(choice)}>
+          <Button className="max-sm:h-11" onClick={() => save(choice)}>
             {t("settings.save")}
           </Button>
-          <Button variant="outline" onClick={() => save(all)}>
+          <Button variant="outline" className="max-sm:h-11" onClick={() => save(all)}>
             {t("acceptAll")}
           </Button>
         </DialogFooter>
