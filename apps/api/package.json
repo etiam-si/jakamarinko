@@ -16,14 +16,18 @@
     "@jakamarinko/api": "workspace:*",
     "@jakamarinko/auth": "workspace:*",
     "@jakamarinko/db": "workspace:*",
+    "@jakamarinko/email": "workspace:*",
     "@jakamarinko/types": "workspace:*",
     "drizzle-orm": "0.45.4",
     "hono": "4.13.13",
     "zod": "4.6.7"
   },
   "devDependencies": {
+    "@electric-sql/pglite": "0.5.10",
     "@types/node": "^24",
+    "@types/pg": "8.23.1",
     "esbuild": "0.28.2",
+    "pg": "8.23.1",
     "tsx": "4.23.15",
     "typescript": "5.9.3",
     "vitest": "5.0.5"
