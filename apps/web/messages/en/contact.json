@@ -1,0 +1,28 @@
+{
+  "meta": {
+    "title": "Contact Jaka Marinko",
+    "description": "Training, lab tests or working together: phone, email and Instagram."
+  },
+  "title": "Contact",
+  "text": "For training, lab tests or working together, write to me and I'll get back to you as soon as I can.",
+  "phone": {
+    "label": "Phone",
+    "value": "+386 64 146 508",
+    "href": "tel:+38664146508"
+  },
+  "email": {
+    "label": "Email",
+    "value": "jaka.marinko06@gmail.com",
+    "href": "mailto:jaka.marinko06@gmail.com"
+  },
+  "instagram": {
+    "label": "Instagram",
+    "value": "@marinkojaka",
+    "href": "https://www.instagram.com/marinkojaka"
+  },
+  "strava": {
+    "label": "Strava",
+    "value": "Jaka Marinko",
+    "href": "https://www.strava.com/athletes/82762066"
+  }
+}

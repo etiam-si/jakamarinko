@@ -1,0 +1,50 @@
+{
+  "meta": {
+    "title": "Lab tests: VO₂max, lactate profile, training zones",
+    "description": "VO₂max, lactate profile, fat and carbohydrate use, running economy and anthropometry. What each test measures, how to prepare and what it costs."
+  },
+  "hero": {
+    "title": "Lab testing",
+    "subtitle": "Know your numbers. A lab test shows where you really are and gives you training zones based on your own body, not on formulas."
+  },
+  "what": {
+    "title": "What is a lab test?",
+    "text": "You run or ride at increasing intensity while your body's response is measured: heart rate, the oxygen you use and, from a drop of blood, your lactate. The result is a precise picture of your endurance: your thresholds, your VO₂max and the zones you should train in."
+  },
+  "why": {
+    "title": "Why test?",
+    "zones": "Train at the right intensity, with zones from your own thresholds instead of age formulas.",
+    "progress": "See real progress: a retest shows exactly what has changed.",
+    "race": "Race smarter, knowing the pace or power you can hold."
+  },
+  "choose": {
+    "title": "Which test is right for me?",
+    "lactate": "Your first test, and you want training zones: lactate profile.",
+    "vo2max": "You want to know your aerobic ceiling: VO₂max test.",
+    "combined": "You want the most accurate zones: VO₂max + lactate.",
+    "fatCarb": "You train for long races: fat and carbohydrate use.",
+    "economy": "You're a runner looking for efficiency: running economy.",
+    "performance": "You want everything in one visit: Performance package."
+  },
+  "tests": {
+    "title": "Tests and prices",
+    "measures": "What it measures",
+    "preparation": "How to prepare",
+    "included": "What you get",
+    "duration": "Duration",
+    "contains": "Includes"
+  },
+  "prepare": {
+    "title": "How to prepare",
+    "text": "Your booking confirmation includes the preparation for your test. In short: come rested, with no hard training in the 24 hours before, and fasted for the fat and carbohydrate test and the Performance package."
+  },
+  "location": {
+    "title": "Where",
+    "text": "You get the address of the test in your booking confirmation."
+  },
+  "after": {
+    "title": "After the test",
+    "text": "You get your results explained and, from the lactate and VO₂max tests, your personal training zones.",
+    "offer": "Every test ends with an offer: {days} days of Plan for free, or your first month of Coaching at −{percent} %."
+  }
+}

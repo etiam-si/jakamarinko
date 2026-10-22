@@ -2,6 +2,13 @@
 export const namespaces = [
   "common",
   "legal",
+  "home",
+  "about",
+  "coaching",
+  "lab",
+  "packages",
+  "contact",
+  "footer",
 ] as const;
 
 export type Namespace = (typeof namespaces)[number];

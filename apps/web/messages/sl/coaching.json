@@ -1,0 +1,77 @@
+{
+  "meta": {
+    "title": "Trenerstvo za vzdržljivostne športnike",
+    "description": "Individualno in online trenerstvo za tek, kolesarstvo, tek na smučeh in turno smučanje, na podlagi tvojih laboratorijskih rezultatov in podatkov s treningov."
+  },
+  "hero": {
+    "title": "Trening, zgrajen okoli tebe.",
+    "subtitle": "Znanost, izkušnje in dosledno spremljanje napredka združeni v enem sistemu."
+  },
+  "services": {
+    "title": "Kaj vključuje trenerstvo",
+    "individual": {
+      "title": "Individualni coaching",
+      "text": "Načrt, prilagojen tvojemu cilju, življenjskemu ritmu in trenutni pripravljenosti."
+    },
+    "online": {
+      "title": "Online coaching",
+      "text": "Tedensko načrtovanje, sprotne korekcije in stalna komunikacija na daljavo."
+    },
+    "racePrep": {
+      "title": "Priprava na tekmovanja",
+      "text": "Periodizacija sezone, vrhunec forme in taktika za ključne starte."
+    },
+    "watchData": {
+      "title": "Analiza podatkov s športne ure",
+      "text": "Interpretacija podatkov o obremenitvi, srčnem utripu in regeneraciji z ure Garmin ali druge športne ure."
+    },
+    "progressReview": {
+      "title": "Pregled napredka",
+      "text": "Pregled treningov in dolgoročnih trendov napredka."
+    },
+    "mental": {
+      "title": "Psihološka priprava",
+      "text": "Delo z motivacijo, fokusom in obvladovanjem tekmovalnega pritiska."
+    },
+    "biomechanics": {
+      "title": "Biomehanika",
+      "text": "Analiza tehnike in gibalnih vzorcev za več učinkovitosti in manj poškodb."
+    },
+    "physiology": {
+      "title": "Fiziologija",
+      "text": "Trening cone, aerobni prag in razvoj vzdržljivosti na znanstveni podlagi."
+    }
+  },
+  "packages": {
+    "title": "Paketi",
+    "subtitle": "Tri ravni podpore. Izberi tisto, ki ustreza tvojemu cilju."
+  },
+  "faq": {
+    "title": "Vprašanja",
+    "labTestFirst": {
+      "question": "Ali potrebujem najprej laboratorijsko meritev?",
+      "answer": "Ni obvezna, je pa najboljši začetek. Trening cone iz tvoje laktatne meritve ali meritve VO₂max so natančnejše od vsake ocene, tvoj načrt pa temelji na njih."
+    },
+    "devices": {
+      "question": "Katero uro potrebujem?",
+      "answer": "Katerokoli uro ali kolesarski računalnik, ki zna izvoziti datoteke treningov (.FIT, .TCX ali .GPX), na primer Garmin, COROS, Polar, Suunto ali Wahoo. Treninge naložiš sam, posebna povezava ni potrebna."
+    },
+    "minimumTerm": {
+      "question": "Ali obstaja minimalno trajanje?",
+      "answer": "Paketa Coaching in Elite trajata najmanj 3 mesece. Paket Plan nima minimalnega trajanja."
+    },
+    "yearly": {
+      "question": "Ali lahko plačam za celo leto?",
+      "answer": "Da. Če plačaš celo leto vnaprej, dobiš 2 meseca brezplačno."
+    },
+    "messages": {
+      "question": "Kdo odgovarja na moja sporočila?",
+      "answer": "Tvoj trener. Na sporočila vedno odgovori človek: v paketu Plan v 72 urah, v paketu Coaching v 48 urah in v paketu Elite v 24 urah."
+    }
+  },
+  "cta": {
+    "title": "Ne veš, kateri paket je pravi zate?",
+    "text": "Piši mi s svojim ciljem in predlagal ti bom, kje začeti.",
+    "button": "Piši mi"
+  }
+}
