@@ -5,7 +5,15 @@ import { defineConfig, devices } from "@playwright/test";
 const webPort = process.env.WEB_PORT ?? "3000";
 const apiPort = process.env.API_PORT ?? "3001";
 const databaseUrl = process.env.DATABASE_URL ?? "postgres://postgres:postgres@localhost:54320/postgres";
-const env = { WEB_PORT: webPort, API_PORT: apiPort, API_URL: `http://localhost:${apiPort}`, DATABASE_URL: databaseUrl };
+// The head coach gets the contact form emails (T09); without one the api skips that email.
+const headCoachEmail = process.env.HEAD_COACH_EMAIL || "head-coach@example.com";
+const env = {
+  WEB_PORT: webPort,
+  API_PORT: apiPort,
+  API_URL: `http://localhost:${apiPort}`,
+  DATABASE_URL: databaseUrl,
+  HEAD_COACH_EMAIL: headCoachEmail,
+};
 // Readiness checks go to ::1: on WSL (mirrored networking) a connect to a closed 127.0.0.1 port hangs for minutes.
 const ready = (port: string, path: string) => `http://[::1]:${port}${path}`;
 

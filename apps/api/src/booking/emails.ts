@@ -40,3 +40,9 @@ export function sendCancelled(row: BookingRow, config: BookingConfig, reason?: s
   const props = { name: name(row), booking: emailBooking(row, config), reason, refund: row.booking.paidVia === "stripe", rebookUrl };
   return sendEmail({ ...to(row), template: "bookingCancelled", props });
 }
+
+// A coach moved the booking. The .ics keeps the booking's UID; seconds since 1970 always beat the last sequence sent.
+export function sendRescheduled(row: BookingRow, previousStart: Date, now: Date, config: BookingConfig) {
+  const props = { name: name(row), booking: emailBooking(row, config), previousStart, sequence: Math.floor(now.getTime() / 1000) };
+  return sendEmail({ ...to(row), template: "bookingRescheduled", props });
+}

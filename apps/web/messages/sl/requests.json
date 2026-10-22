@@ -1,0 +1,69 @@
+{
+  "form": {
+    "title": "Pošlji sporočilo",
+    "name": "Ime",
+    "email": "E-pošta",
+    "phone": "Telefon",
+    "optional": "neobvezno",
+    "topic": "Tema",
+    "topicPlaceholder": "Izberi temo",
+    "topics": {
+      "coaching": "Trenerstvo",
+      "lab_test": "Laboratorijska meritev",
+      "other": "Kaj drugega"
+    },
+    "message": "Sporočilo",
+    "packageLine": "Zanima me: {name}.",
+    "consent": "Glede tega sporočila me lahko kontaktirate po e-pošti ali telefonu.",
+    "privacy": "Kako ravnamo s tvojimi podatki",
+    "website": "Tega polja ne izpolnjuj",
+    "submit": "Pošlji sporočilo",
+    "sending": "Pošiljam …",
+    "errors": {
+      "name": "Vpiši svoje ime.",
+      "email": "Vpiši veljaven e-poštni naslov.",
+      "phone": "Vpiši veljavno telefonsko številko ali pusti polje prazno.",
+      "topic": "Izberi temo.",
+      "message": "Napiši sporočilo.",
+      "consent": "Strinjaj se, da te kontaktiramo, da ti lahko odgovorimo.",
+      "tooMany": "Iz tvoje povezave je v zadnji uri prišlo več sporočil. Poskusi znova kasneje ali pa pokliči oziroma piši neposredno.",
+      "generic": "Sporočila ni bilo mogoče poslati. Poskusi znova ali pa pokliči oziroma piši neposredno."
+    },
+    "success": {
+      "title": "Hvala, sporočilo je poslano",
+      "body": "Po e-pošti dobiš potrditev, odgovor pa v dveh delovnih dneh.",
+      "again": "Pošlji novo sporočilo"
+    }
+  },
+  "inbox": {
+    "title": "Povpraševanja",
+    "lead": "Vprašanja in prošnje, poslane prek kontaktnega obrazca.",
+    "filter": "Prikaži",
+    "all": "Vsa",
+    "statuses": {
+      "new": "Novo",
+      "answered": "Odgovorjeno",
+      "done": "Zaključeno"
+    },
+    "emptyTitle": "Ni povpraševanj",
+    "emptyBody": "Ko nekdo piše prek kontaktnega obrazca, njegovo sporočilo počaka tukaj, dokler ne odgovoriš.",
+    "emptyFilteredTitle": "Tu ni ničesar",
+    "emptyFilteredBody": "Ni povpraševanj s tem statusom.",
+    "back": "Vsa povpraševanja",
+    "received": "Prejeto {date}",
+    "topic": "Tema",
+    "email": "E-pošta",
+    "phone": "Telefon",
+    "language": "Jezik",
+    "languages": {
+      "en": "angleščina",
+      "sl": "slovenščina"
+    },
+    "message": "Sporočilo",
+    "reply": "Odgovori po e-pošti",
+    "replySubject": "Re: tvoje sporočilo Jaki Marinku",
+    "status": "Status",
+    "statusSaved": "Status spremenjen v: {status}",
+    "statusError": "Statusa ni bilo mogoče spremeniti. Poskusi znova."
+  }
+}

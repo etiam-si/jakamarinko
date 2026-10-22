@@ -19,6 +19,7 @@
     "@jakamarinko/email": "workspace:*",
     "@jakamarinko/types": "workspace:*",
     "drizzle-orm": "0.45.4",
+    "fflate": "0.8.3",
     "hono": "4.13.13",
     "zod": "4.6.7"
   },

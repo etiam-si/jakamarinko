@@ -164,6 +164,18 @@ export const CoachBooking = Booking.extend({
 });
 export type CoachBooking = z.infer<typeof CoachBooking>;
 
+// GET /api/booking/coach/locations: where availability can be.
+export const Location = z.object({ id: z.string(), name: z.string(), address: z.string(), isDefault: z.boolean() });
+export type Location = z.infer<typeof Location>;
+
+// GET /api/booking/coach/bookings/:id/slots?from&to: free times this booking can move to (its coach, its length).
+export const RescheduleSlotsQuery = z
+  .object({ from: LocalDate, to: LocalDate })
+  .refine((q) => days(q.from, q.to) >= 0 && days(q.from, q.to) <= maxSlotDays, {
+    path: ["to"],
+    message: `from..to must be 0 to ${maxSlotDays} days`,
+  });
+
 export const CoachCancelInput = z.object({ reason: z.string().trim().max(500).optional() });
 export const RescheduleInput = z.object({ start: Instant });
 export const OutcomeInput = z.object({ status: z.enum(["completed", "no_show"]) });

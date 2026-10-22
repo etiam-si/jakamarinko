@@ -56,6 +56,14 @@
     "refund": "If you paid online, the full amount will be refunded to your card within 5 to 10 days.",
     "rebook": "Book a new time"
   },
+  "bookingRescheduled": {
+    "subject": "Booking moved: {service}, {date}",
+    "preview": "Your booking has a new time",
+    "intro": "Your booking has been moved to a new time. Here are the new details.",
+    "previous": "Previous time: {when}.",
+    "calendar": "The updated calendar invite is attached; open it to move the event in your calendar.",
+    "manage": "Manage your booking"
+  },
   "contactReceived": {
     "subject": "New message from {name}",
     "preview": "New message from the contact form",
@@ -72,5 +80,14 @@
     "intro": "Thanks for your message. We'll reply within two working days.",
     "meanwhile": "In the meantime, you can look at the lab tests and coaching packages on the website.",
     "button": "Visit the website"
+  },
+  "accountDelete": {
+    "subject": "Confirm deleting your account",
+    "preview": "One more step to delete your account",
+    "intro": "You asked us to delete your Jaka Marinko account. When you confirm, we delete your profile, consents, health answers and sign-in details for good.",
+    "kept": "For accounting we must keep a record of past bookings (service, date, price, payment) for 10 years, with your name, email and phone removed.",
+    "button": "Delete my account",
+    "expires": "The link works for {minutes} minutes. Open it in the browser where you use your account.",
+    "ignore": "If you didn't ask for this, ignore this email. Your account stays as it is."
   }
 }
