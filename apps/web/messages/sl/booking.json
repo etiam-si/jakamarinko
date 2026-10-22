@@ -1,0 +1,124 @@
+{
+  "meta": {
+    "title": "Rezerviraj meritev ali trening",
+    "description": "Izberi meritev ali trening in termin, ki ti ustreza. Rezervacija v minuti, plačilo na kraju samem."
+  },
+  "title": "Rezervacija",
+  "steps": {
+    "label": "Koraki rezervacije",
+    "service": "Storitev",
+    "time": "Datum in ura",
+    "details": "Tvoji podatki",
+    "review": "Pregled"
+  },
+  "back": "Nazaj",
+  "continue": "Naprej",
+  "service": {
+    "heading": "Kaj želiš rezervirati?",
+    "minutes": "{count} min",
+    "change": "Spremeni",
+    "required": "Izberi, kaj želiš rezervirati."
+  },
+  "time": {
+    "heading": "Izberi datum in uro",
+    "timeZone": "Vse ure so po slovenskem času.",
+    "days": "Dan",
+    "times": "Ura, {date}",
+    "loading": "Iščem proste termine …",
+    "empty": "V naslednjih dveh mesecih ni prostih terminov. Pokliči ali piši, pa ga najdemo.",
+    "moreDays": "Pokaži več datumov",
+    "required": "Izberi uro.",
+    "slotTaken": "Ta termin je ravnokar rezerviral nekdo drug. Izberi drugega; tvoji podatki ostanejo shranjeni."
+  },
+  "details": {
+    "heading": "Tvoji podatki",
+    "name": "Ime in priimek",
+    "email": "E-pošta",
+    "phone": "Telefon",
+    "phoneHint": "Če te moramo na dan termina poklicati.",
+    "healthConsent": "Strinjam se, da se moji odgovori na zdravstvena vprašanja obdelujejo za varno izvedbo meritve, kot je opisano v <privacy>politiki zasebnosti</privacy>.",
+    "terms": "Sprejemam <terms>pogoje poslovanja</terms>.",
+    "errors": {
+      "name": "Vpiši ime.",
+      "email": "Vpiši veljaven e-poštni naslov.",
+      "phone": "Vpiši telefonsko številko.",
+      "health": "Odgovori na vsa zdravstvena vprašanja.",
+      "healthConsent": "Za nadaljevanje se strinjaj z obdelavo zdravstvenih odgovorov.",
+      "terms": "Za nadaljevanje sprejmi pogoje."
+    }
+  },
+  "health": {
+    "heading": "Zdravstvena vprašanja",
+    "intro": "Meritev pomeni velik napor. Vprašanja so iz standardnega vprašalnika PAR-Q+ in skrbijo, da je meritev varna.",
+    "yes": "Da",
+    "no": "Ne",
+    "questions": {
+      "heart_condition": "Ti je zdravnik kdaj povedal, da imaš bolezen srca ali visok krvni tlak?",
+      "chest_pain": "Čutiš bolečino v prsih v mirovanju, med vsakdanjimi opravili ali med telesno dejavnostjo?",
+      "dizziness": "Zaradi vrtoglavice izgubljaš ravnotežje ali si v zadnjih 12 mesecih izgubil zavest? (Odgovori ne, če je bila vrtoglavica posledica prehitrega dihanja, tudi med napornim treningom.)",
+      "chronic_condition": "So ti kdaj diagnosticirali drugo kronično bolezen (razen bolezni srca ali visokega krvnega tlaka)?",
+      "medication": "Trenutno jemlješ predpisana zdravila za kronično bolezen?",
+      "bone_joint": "Imaš zdaj ali si imel v zadnjih 12 mesecih težave s kostmi, sklepi ali mehkimi tkivi (mišice, vezi, kite), ki bi se ob večji telesni dejavnosti lahko poslabšale? (Odgovori ne, če te zdaj ne omejujejo.)",
+      "supervised_only": "Ti je zdravnik kdaj rekel, da smeš biti telesno dejaven samo pod zdravniškim nadzorom?"
+    },
+    "other": "Je še kaj o tvojem zdravju, kar bi morali vedeti? (neobvezno)",
+    "doctorNote": "Na vsaj eno vprašanje si odgovoril z da. Pred meritvijo se posvetuj z zdravnikom in preveri, ali je velik napor zate varen. Rezervacijo lahko vseeno opraviš zdaj."
+  },
+  "review": {
+    "heading": "Preveri in potrdi",
+    "service": "Storitev",
+    "when": "Kdaj",
+    "duration": "Trajanje",
+    "price": "Cena",
+    "name": "Ime",
+    "email": "E-pošta",
+    "phone": "Telefon",
+    "edit": "Uredi",
+    "payOnSite": "Plačaš na kraju samem, na dan termina.",
+    "confirm": "Potrdi rezervacijo",
+    "confirming": "Rezerviram …"
+  },
+  "unavailable": {
+    "title": "Rezervacija trenutno ne deluje",
+    "text": "Oprosti, pri nas je šlo nekaj narobe. Pokliči ali piši, pa te vpišemo ročno.",
+    "phone": "Telefon",
+    "email": "E-pošta"
+  },
+  "confirmed": {
+    "heading": "Rezervacija je potrjena",
+    "text": "Potrditev je na poti na {email}.",
+    "payOnSite": "Plačaš na kraju samem, na dan termina.",
+    "addToCalendar": "Dodaj v koledar",
+    "ics": "Prenesi (.ics)",
+    "google": "Google Koledar",
+    "preparation": "Kako se pripraviti",
+    "account": {
+      "title": "Vse rezervacije na enem mestu",
+      "text": "Z računom vidiš svoje rezervacije in po meritvi tudi rezultate. Prijaviš se s tem e-poštnim naslovom, brez gesla.",
+      "action": "Ustvari račun"
+    }
+  },
+  "manage": {
+    "meta": "Tvoja rezervacija",
+    "heading": "Tvoja rezervacija",
+    "where": "Kje",
+    "map": "Odpri na zemljevidu",
+    "statusLabel": "Stanje",
+    "status": {
+      "pending_payment": "Čaka na plačilo",
+      "confirmed": "Potrjena",
+      "cancelled": "Odpovedana",
+      "completed": "Opravljena",
+      "no_show": "Zamujena"
+    },
+    "cancel": "Odpovej rezervacijo",
+    "cancelConfirm": "Odpoveš to rezervacijo? Termin se vrne v koledar.",
+    "cancelYes": "Da, odpovej",
+    "cancelNo": "Obdrži",
+    "cancelling": "Odpovedujem …",
+    "cancelled": "Rezervacija je odpovedana. Poslali smo ti e-pošto.",
+    "tooLate": "Brezplačna odpoved je možna do 24 ur pred začetkom, zato je tukaj ni več mogoče odpovedati. Pokliči ali piši.",
+    "notFound": "Te rezervacije ne najdemo. Preveri, ali si odprl celotno povezavo iz e-pošte.",
+    "bookAgain": "Rezerviraj drug termin"
+  }
+}
