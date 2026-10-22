@@ -264,7 +264,7 @@ export type OneOff = {
 export const oneOffs: OneOff[] = [
   {
     id: "personal-training-10",
-    // placeholder price, set by us, not from product.md: 10 × 45 € less ~11 %
+    // launch price, set by us, not from product.md: 10 × 45 € less ~11 %
     priceCents: 40000,
     name: { en: "10 personal training sessions", sl: "Paket 10 osebnih treningov" },
     description: {
@@ -274,7 +274,7 @@ export const oneOffs: OneOff[] = [
   },
   {
     id: "race-preparation",
-    // placeholder price, set by us, not from product.md: ~4 months of Coaching, with two lactate tests
+    // launch price, set by us, not from product.md: ~4 months of Coaching, with two lactate tests
     priceCents: 49000,
     name: { en: "Race preparation", sl: "Priprava na tekmo" },
     description: {
