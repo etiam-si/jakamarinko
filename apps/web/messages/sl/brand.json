@@ -7,7 +7,7 @@
     "dark": "Temno",
     "sections": {
       "logo": "Logotip",
-      "logoNote": "Tri smeri za izbiro. Znak deluje samostojno vse do 16 px.",
+      "logoNote": "Celoten logotip in samostojen znak. Znak deluje vse do 16 px.",
       "colours": "Barve",
       "zones": "Trening cone",
       "charts": "Barve grafov",

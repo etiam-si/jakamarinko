@@ -5,11 +5,34 @@ The rules on one page. Live examples of everything: `/en/styleguide` (hidden fro
 **Feel:** serious endurance sport and lab science. Precise, calm, fast, credible. Nothing from the old Lovable site.
 
 ## Logo
-> **Pending:** three directions are in the T01 PR (`apps/web/public/brand/options/`). This section is finished once one is chosen.
+**The race bib.** The mark is a race number with four safety-pin holes and "JM": the object every endurance racer pins on. The wordmark is "JAKA / MARINKO" stacked in condensed heavy Archivo, with "ENDURANCE PERFORMANCE" knocked out of a strip exactly as wide as "MARINKO", like the line printed under a bib number.
 
-- Full logo: mark + "JAKA MARINKO" + sub-line "Endurance Performance". The sub-line is part of the name and stays in English in both languages.
-- The mark works alone (favicon, app icon, avatar, app bar on phones). Never use the wordmark without the mark, except in running text.
-- Use the `Logo` component; it follows the theme. Clear space around it: at least half the mark's height. Don't recolour, stretch, outline, shadow or put it on a photo.
+![Logo, light and dark, mark at 512 and 16 px](brand/screenshots/logo.png)
+
+- **Lockup:** the mark is as tall as the wordmark, with 30 % of that height between them. The sub-line is part of the name and stays in English in both languages.
+- **Mark alone** for favicons, app icons, avatars and the app bar on phones. It's built on a 32-unit grid (2 units per pixel at 16 px) and stays legible at 16 × 16; the pin holes may blur there, the "JM" doesn't.
+- **Colours:** one colour only. Graphite (`#121A18`) on light backgrounds, firn (`#F4F6F5`) on dark. The letters and the sub-line are cut out of the bib and the strip. Never orange, green or a gradient; never on a busy photo.
+- **Clear space:** at least half the mark's height on every side. **Minimum size:** full logo 32 px tall, mark 16 px.
+- Don't stretch, rotate, outline, add shadows, retype the name in a live font, or rearrange the lines.
+
+**In code:** the `Logo` component (`variant="full" | "mark"`, size it with `h-*`). It uses theme tokens, so it flips with dark mode. The wordmark is outlined, so it never waits for the web font.
+
+**Files** in `apps/web/public/brand/` (`-light` = for light backgrounds, `-dark` = for dark backgrounds):
+
+| File | Use |
+|---|---|
+| `logo-light.svg`, `logo-dark.svg` | full lockup (mark + wordmark) |
+| `wordmark-light.svg`, `wordmark-dark.svg` | name only, where the mark is already shown nearby |
+| `mark-light.svg`, `mark-dark.svg` | mark alone |
+| `icon.svg` | browser favicon; switches with the browser's light/dark setting |
+| `icons/favicon.ico` | 16, 32 and 48 px for older browsers |
+| `icons/apple-touch-icon.png` | 180 px, on firn |
+| `icons/icon-192.png`, `icons/icon-512.png`, `icons/icon-maskable-512.png` | PWA (`site.webmanifest`); the maskable one keeps the mark inside the safe zone |
+| `og-base.png` | 1200 × 630 Open Graph base: logo top left, zone colours along the bottom, free space for a page title |
+
+![Icons and Open Graph base](brand/screenshots/icons.png)
+
+The wordmark outlines (`components/brand/wordmark-paths.ts` and the SVGs) were made from Archivo's variable font with kerning: name at width 70 / weight 850, sub-line at width 85 / weight 700, tracked to fill the strip. To change them, re-outline from the font; never edit the path data by hand.
 
 ## Colour
 Tokens live in `apps/web/src/styles/theme.css` (light on `:root`, dark on `.dark`). Use Tailwind names (`bg-primary`, `text-muted-foreground`), never raw hex in components.

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { useFormatter, useTranslations } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { use } from "react";
-import { Logo, logoOptions } from "@/components/brand/logo";
+import { Logo } from "@/components/brand/logo";
 import { PhotoFrame } from "@/components/brand/photo-frame";
 import { PriceCard } from "@/components/brand/price-card";
 import { SectionHeading } from "@/components/brand/section-heading";
@@ -96,12 +96,13 @@ export default function Styleguide({ params }: Props) {
         <Both labels={labels}>
           {() => (
             <div className="flex flex-col gap-10">
-              {logoOptions.map((option) => (
-                <div key={option} className="flex flex-wrap items-center gap-8">
-                  <Logo option={option} className="text-base sm:text-2xl" />
-                  <Logo option={option} variant="mark" className="text-[0.4rem]" />
-                </div>
-              ))}
+              <Logo className="h-16 self-start sm:h-24" />
+              <Logo className="h-10 self-start" />
+              <div className="flex items-end gap-6">
+                {["h-4", "h-8", "h-16", "h-32"].map((size) => (
+                  <Logo key={size} variant="mark" className={size} />
+                ))}
+              </div>
             </div>
           )}
         </Both>,
