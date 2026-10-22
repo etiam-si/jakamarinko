@@ -1,6 +1,13 @@
 import { readdir, readFile } from "node:fs/promises";
 import path from "node:path";
 import { expect, test, type Page } from "@playwright/test";
+import { serializeConsent } from "../src/lib/consent";
+
+// A cookie choice is already made, so the cookie banner doesn't cover the sign-in and consent pages.
+test.beforeEach(async ({ context, baseURL }) => {
+  const value = encodeURIComponent(serializeConsent({ analytics: false, marketing: false }));
+  await context.addCookies([{ name: "jm_consent", value, url: baseURL! }]);
+});
 
 // The api runs from apps/api, so its dev email transport writes to apps/api/.emails.
 const outbox = path.join(__dirname, "../../api/.emails");
