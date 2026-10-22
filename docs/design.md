@@ -146,3 +146,9 @@ Fonts: Archivo (headings use `font-heading font-stretch-expanded`), Martian Mono
 - **Facts stay:** prices, what a test includes, how to prepare, where. Shorten words, never facts.
 - **Sticky Book bar** (`StickyBook`) on phones on the public pages (not on booking, legal or landing pages).
 - Copy rules from `CLAUDE.md` and [brand.md](brand.md) apply: no mention of AI, no promise of personal work a package doesn't include, EN and SL for every string.
+
+## Error pages, link previews and emails (T18, US-011)
+- **404 and error pages** (`components/errors/`): the race bib (`Bib`) carries the code (`404`, `DNF`), tilted −3°, next to an `h1`, one sentence and one primary action: Book a test on the 404, Try again on the error page, then outline buttons to Home, Lab tests and Contact. Public pages keep the header and footer around them (`(site)/not-found.tsx`, `(site)/error.tsx`).
+- **Link previews** (`app/og/[locale]/[page].png`, `components/site/og-image.tsx`): 1200×630, spruce panel with the light logo, a signal-orange eyebrow, the page title in Archivo Expanded 800, Jaka's photo on the right and the zone stripe along the bottom. Titles come from the page's messages; a new page adds one line to `ogPages`.
+- **Emails** (`packages/email/src/layout.tsx`): spruce header with `email-logo.png`, the zone stripe, a white card whose heading is the preview line, at most one spruce button (`Action`), booking details in a firn box with a spruce left rule, and the contact footer under the card. Tables and inline styles only; colours in `packages/email/src/theme.ts` mirror `theme.css`.
+- **Fonts** (`styles/fonts.ts`): self-hosted subsets of Archivo (wght 400–800, wdth 100–125) and Martian Mono (400–700). A weight or width outside those ranges, or a character outside the list there, needs a new subset.
