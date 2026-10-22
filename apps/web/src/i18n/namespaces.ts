@@ -12,6 +12,7 @@ export const namespaces = [
   "brand",
   "auth",
   "consent",
+  "app",
 ] as const;
 
 export type Namespace = (typeof namespaces)[number];

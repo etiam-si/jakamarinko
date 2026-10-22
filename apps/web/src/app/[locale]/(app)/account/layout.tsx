@@ -1,10 +1,18 @@
+import { setRequestLocale } from "next-intl/server";
 import type { Locale } from "@jakamarinko/types";
+import { AppShell } from "@/components/app-shell/app-shell";
 import { requireRole } from "@/lib/session";
 
 type Props = { children: React.ReactNode; params: Promise<{ locale: string }> };
 
-// Placeholder: the customer account shell comes with T10. Any signed-in user with health data consent.
+// The customer account. Any signed-in user with health data consent.
 export default async function AccountLayout({ children, params }: Props) {
-  await requireRole((await params).locale as Locale, "/account");
-  return children;
+  const locale = (await params).locale as Locale;
+  setRequestLocale(locale);
+  const session = await requireRole(locale, "/account");
+  return (
+    <AppShell area="account" session={session}>
+      {children}
+    </AppShell>
+  );
 }

@@ -1,6 +1,15 @@
-import { SignedIn } from "@/components/auth/signed-in";
+import { CalendarCheck } from "lucide-react";
+import { getTranslations } from "next-intl/server";
+import { EmptyState } from "@/components/app-shell/empty-state";
+import { PageHeader } from "@/components/app-shell/page-header";
 
-// Placeholder until T10 builds the coach area.
-export default function CoachPage() {
-  return <SignedIn />;
+// Empty state until T12 shows the day's bookings.
+export default async function TodayPage() {
+  const t = await getTranslations("app.pages.today");
+  return (
+    <>
+      <PageHeader title={t("title")} lead={t("lead")} />
+      <EmptyState icon={CalendarCheck} title={t("emptyTitle")} body={t("emptyBody")} />
+    </>
+  );
 }
