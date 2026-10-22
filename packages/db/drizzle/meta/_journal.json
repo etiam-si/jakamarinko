@@ -15,6 +15,13 @@
       "when": 1792655882393,
       "tag": "0001_sudden_valeria_richards",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1792659250500,
+      "tag": "0002_opposite_riptide",
+      "breakpoints": true
     }
   ]
 }
