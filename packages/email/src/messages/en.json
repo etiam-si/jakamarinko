@@ -72,5 +72,14 @@
     "intro": "Thanks for your message. We'll reply within two working days.",
     "meanwhile": "In the meantime, you can look at the lab tests and coaching packages on the website.",
     "button": "Visit the website"
+  },
+  "accountDelete": {
+    "subject": "Confirm deleting your account",
+    "preview": "One more step to delete your account",
+    "intro": "You asked us to delete your Jaka Marinko account. When you confirm, we delete your profile, consents, health answers and sign-in details for good.",
+    "kept": "For accounting we must keep a record of past bookings (service, date, price, payment) for 10 years, with your name, email and phone removed.",
+    "button": "Delete my account",
+    "expires": "The link works for {minutes} minutes. Open it in the browser where you use your account.",
+    "ignore": "If you didn't ask for this, ignore this email. Your account stays as it is."
   }
 }

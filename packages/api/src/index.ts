@@ -5,3 +5,4 @@ export * from "./health";
 export * from "./auth";
 export * from "./events";
 export * from "./booking";
+export * from "./account";

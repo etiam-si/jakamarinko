@@ -24,4 +24,5 @@ export const samples: { [N in TemplateName]: TemplateProps<N> } = {
     requestUrl: "https://jakamarinko.com/coach/requests/rq_sample",
   },
   contactAutoReply: { name: "Ana" },
+  accountDelete: { url: "https://jakamarinko.com/en/account/privacy/delete?token=sample", expiresInMinutes: 60 },
 };

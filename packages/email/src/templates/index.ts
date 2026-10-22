@@ -1,4 +1,5 @@
 import type { Template } from "../types";
+import { accountDelete } from "./account-delete";
 import { bookingCancelled } from "./booking-cancelled";
 import { bookingConfirmation } from "./booking-confirmation";
 import { bookingPreparation } from "./booking-preparation";
@@ -16,6 +17,7 @@ export const templates = {
   bookingCancelled,
   contactReceived,
   contactAutoReply,
+  accountDelete,
 };
 
 export type TemplateName = keyof typeof templates;

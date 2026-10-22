@@ -10,6 +10,7 @@ import type { EmailInput, RenderedEmail, SendResult, Transport } from "./types";
 export type { Attachment, EmailInput, RenderedEmail, SendResult, Transport } from "./types";
 export type { Booking, TemplateName, TemplateProps } from "./templates";
 export { consoleTransport, smtpTransport, templates, transportFromEnv };
+export { icsEvent } from "./ics";
 
 // Chosen once at start, so a production misconfig shows in the log right away.
 let transport: Transport = transportFromEnv();

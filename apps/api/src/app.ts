@@ -1,5 +1,6 @@
 import { Hono } from "hono";
 import { notFound, onError } from "./lib/errors";
+import { account } from "./routes/account";
 import { auth } from "./routes/auth";
 import { booking } from "./routes/booking";
 import { events } from "./routes/events";
@@ -13,6 +14,7 @@ export const app = new Hono()
   .route("/auth", auth)
   .route("/events", events)
   .route("/booking", booking)
+  .route("/account", account)
   .route("/health", health);
 
 app.onError(onError);
