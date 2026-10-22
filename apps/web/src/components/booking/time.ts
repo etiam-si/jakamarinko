@@ -39,3 +39,10 @@ export const formatDay = (day: string, locale: Locale) =>
   new Intl.DateTimeFormat(intlLocale[locale], { timeZone, weekday: "short", day: "numeric", month: "short" }).format(
     new Date(`${day}T12:00:00Z`),
   );
+
+// The same day in two lines for a day tile: "Mon" over "26 Oct" / "pon." over "26. okt.".
+export const dayParts = (day: string, locale: Locale) => {
+  const date = new Date(`${day}T12:00:00Z`);
+  const part = (options: Intl.DateTimeFormatOptions) => new Intl.DateTimeFormat(intlLocale[locale], { timeZone, ...options }).format(date);
+  return { weekday: part({ weekday: "short" }), date: part({ day: "numeric", month: "short" }) };
+};

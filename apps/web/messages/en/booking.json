@@ -9,7 +9,9 @@
     "service": "Service",
     "time": "Date and time",
     "details": "Your details",
-    "review": "Review"
+    "review": "Review",
+    "progress": "Step {current} of {total}",
+    "progressNamed": "Step {current} of {total}: {name}"
   },
   "back": "Back",
   "continue": "Continue",
@@ -17,7 +19,22 @@
     "heading": "What would you like to book?",
     "minutes": "{count} min",
     "change": "Change",
-    "required": "Choose what you'd like to book."
+    "required": "Choose what you'd like to book.",
+    "about": "about {count} min",
+    "badges": {
+      "lactate-profile": "Best first test",
+      "performance": "Best value"
+    },
+    "lines": {
+      "vo2max": "Your VO₂max and maximum heart rate.",
+      "lactate-profile": "Your two thresholds and personal training zones.",
+      "vo2max-lactate": "Thresholds, zones and VO₂max in one visit.",
+      "fat-carb": "How much fat and carbohydrate you burn at each intensity.",
+      "running-economy": "How much oxygen you need at each running speed.",
+      "anthropometry": "Height, body mass and body composition.",
+      "performance": "VO₂max, lactate, fat use and body composition, explained.",
+      "personal-training": "One-to-one training with Jaka on what you want to work on."
+    }
   },
   "time": {
     "heading": "Pick a date and time",
@@ -28,7 +45,12 @@
     "empty": "There are no free times in the next two months. Call or write and we'll find one.",
     "moreDays": "Show more dates",
     "required": "Choose a time.",
-    "slotTaken": "Someone has just booked that time. Please pick another one; your details are kept."
+    "slotTaken": "Someone has just booked that time. Please pick another one; your details are kept.",
+    "nextFree": "Next free: <b>{when}</b>",
+    "cancellation": "Free cancellation up to 24 hours before.",
+    "emptyTitle": "No free times online right now",
+    "call": "Call {phone}",
+    "write": "Send a message"
   },
   "details": {
     "heading": "Your details",
@@ -76,7 +98,8 @@
     "edit": "Edit",
     "payOnSite": "You pay on site, on the day.",
     "confirm": "Confirm booking",
-    "confirming": "Booking…"
+    "confirming": "Booking…",
+    "bring": "What to bring and how to prepare"
   },
   "unavailable": {
     "title": "Booking isn't working right now",
@@ -120,5 +143,7 @@
     "tooLate": "Free cancellation ends 24 hours before the start, so it can't be cancelled here any more. Please call or email.",
     "notFound": "We can't find this booking. Check that you opened the full link from your email.",
     "bookAgain": "Book another time"
-  }
+  },
+  "heading": "Book your test",
+  "lead": "Pick a time. Free cancellation up to 24 hours before."
 }

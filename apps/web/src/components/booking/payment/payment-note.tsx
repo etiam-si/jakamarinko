@@ -1,7 +1,8 @@
 "use client";
 
 import type { Service } from "@jakamarinko/api";
-import { useTranslations } from "next-intl";
+import { useFormatter, useTranslations } from "next-intl";
+import { eurFormat, euros } from "@/components/site/site";
 import { paysOnline, usePayments } from "./payment";
 
 // Under the review: how this booking is paid, and whether the price includes VAT.
@@ -19,9 +20,10 @@ export function PaymentNote({ service }: { service: Service }) {
   );
 }
 
-// The review's main button says where it leads.
+// The review's main button says where it leads, and what it costs.
 export function usePayLabel(service: Service, submitting: boolean) {
   const t = useTranslations("payments.review");
+  const format = useFormatter();
   if (!paysOnline(usePayments(), service)) return null;
-  return submitting ? t("paying") : t("pay");
+  return submitting ? t("paying") : t("pay", { price: format.number(euros(service.priceCents), eurFormat) });
 }

@@ -26,7 +26,7 @@ test("book, pay with the test card 4242, land on the confirmed page and get the 
   await page.getByRole("checkbox", { name: /I accept the/ }).check();
   await page.getByRole("button", { name: "Continue" }).click();
   await expect(page.getByTestId("payment-note")).toContainText("Stripe");
-  await page.getByRole("button", { name: "Continue to payment" }).click();
+  await page.getByRole("button", { name: /^Pay €\d+ and confirm$/ }).click();
 
   await page.waitForURL(/checkout\.stripe\.com/);
   await page.locator("#cardNumber").fill("4242 4242 4242 4242");
