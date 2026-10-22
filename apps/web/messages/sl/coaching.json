@@ -5,42 +5,45 @@
   },
   "hero": {
     "title": "Trening, zgrajen okoli tebe.",
-    "subtitle": "Znanost, izkušnje in dosledno spremljanje napredka združeni v enem sistemu."
+    "subtitle": "Načrt na podlagi tvojih številk, ki se vsak teden prilagodi tvojemu treningu.",
+    "primaryCta": "Poglej pakete",
+    "secondaryCta": "Začni z meritvijo"
   },
   "services": {
     "title": "Kaj vključuje trenerstvo",
     "individual": {
       "title": "Individualni coaching",
-      "text": "Načrt, prilagojen tvojemu cilju, življenjskemu ritmu in trenutni pripravljenosti."
+      "text": "Prilagojen tvojemu cilju, ritmu in pripravljenosti."
     },
     "online": {
       "title": "Online coaching",
-      "text": "Tedensko načrtovanje, sprotne korekcije in stalna komunikacija na daljavo."
+      "text": "Tedensko načrtovanje in korekcije, kjerkoli živiš."
     },
     "racePrep": {
       "title": "Priprava na tekmovanja",
-      "text": "Periodizacija sezone, vrhunec forme in taktika za ključne starte."
+      "text": "Periodizacija, vrhunec forme in taktika."
     },
     "watchData": {
       "title": "Analiza podatkov s športne ure",
-      "text": "Interpretacija podatkov o obremenitvi, srčnem utripu in regeneraciji z ure Garmin ali druge športne ure."
+      "text": "Obremenitev, utrip in regeneracija z ure."
     },
     "progressReview": {
       "title": "Pregled napredka",
-      "text": "Pregled treningov in dolgoročnih trendov napredka."
+      "text": "Dolgoročni trendi tvojega treninga."
     },
     "mental": {
       "title": "Psihološka priprava",
-      "text": "Delo z motivacijo, fokusom in obvladovanjem tekmovalnega pritiska."
+      "text": "Motivacija, fokus in tekmovalni pritisk."
     },
     "biomechanics": {
       "title": "Biomehanika",
-      "text": "Analiza tehnike in gibalnih vzorcev za več učinkovitosti in manj poškodb."
+      "text": "Tehnika za učinkovitost in manj poškodb."
     },
     "physiology": {
       "title": "Fiziologija",
-      "text": "Trening cone, aerobni prag in razvoj vzdržljivosti na znanstveni podlagi."
-    }
+      "text": "Cone in pragovi na znanstveni podlagi."
+    },
+    "cta": "Primerjaj pakete"
   },
   "packages": {
     "title": "Paketi",

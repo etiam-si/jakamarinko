@@ -4,12 +4,12 @@
     "description": "Laboratorijske meritve (VO₂max, laktatni profil) in trenerstvo za tekače, kolesarje in smučarje. Treniraj na podlagi podatkov, ne ugibanja."
   },
   "hero": {
-    "title": "Pametnejši trening. Večja zmogljivost. Boljši rezultati.",
-    "subtitle": "Treniraj na podlagi podatkov. Ne ugibanja.",
+    "title": "Treniraj na podlagi podatkov, ne ugibanja.",
+    "subtitle": "Laboratorijske meritve in trenerstvo za tekače, kolesarje in smučarje.",
     "primaryCta": "Rezerviraj meritev",
-    "secondaryCta": "Poglej pakete"
+    "secondaryCta": "Poglej trenerstvo",
+    "note": "Meritve od {price} €, z DDV."
   },
-  "intro": "Sem Jaka Marinko, vzdržljivostni športnik, študent Fakultete za šport in osebni trener. Vzdržljivostnim športnikom pomagam do hitrejšega in varnejšega napredka, z laboratorijskimi meritvami in treningom na podlagi njihovih lastnih podatkov.",
   "proof": {
     "title": "Preverjeno na najvišji mladinski ravni",
     "vo2max": {
@@ -27,38 +27,43 @@
     "champion": {
       "value": "4",
       "label": "športi z mladinskimi naslovi državnega prvaka"
-    }
+    },
+    "text": "Študent Fakultete za šport, osebni trener in reprezentant U20.",
+    "cta": "Več o Jaki"
   },
   "howItWorks": {
     "title": "Kako poteka",
     "test": {
       "title": "Meritev",
-      "text": "Laboratorijska meritev pokaže, kje si danes: VO₂max, laktatna pragova, srčni utrip."
+      "text": "VO₂max, pragova, srčni utrip: kje si danes."
     },
     "zones": {
       "title": "Cone",
-      "text": "Iz rezultatov nastanejo tvoje osebne trening cone za vsako intenzivnost."
+      "text": "Iz rezultatov nastanejo tvoje osebne trening cone."
     },
     "plan": {
       "title": "Načrt",
-      "text": "Treniraš po načrtu, ki upošteva tvoje cone, cilj in čas, ki ga imaš."
+      "text": "Načrt po tvojih conah, cilju in času, ki ga imaš."
     },
     "progress": {
       "title": "Napredek",
-      "text": "Tvoj trening se analizira vsak teden, ponovna meritev pa pokaže, kaj se je spremenilo."
-    }
+      "text": "Tedenska analiza, ponovna meritev pa pokaže, kaj se je spremenilo."
+    },
+    "cta": "Začni z laktatnim profilom"
   },
   "offers": {
     "title": "Kje začeti",
     "lab": {
       "title": "Laboratorijske meritve",
-      "text": "VO₂max, laktatni profil, poraba maščob in ogljikovih hidratov in več. Spoznaj svoje številke.",
-      "cta": "Poglej meritve"
+      "text": "VO₂max, laktatni profil, poraba maščob in ogljikovih hidratov in več.",
+      "cta": "Primerjaj meritve",
+      "price": "od {price} €"
     },
     "coaching": {
       "title": "Trenerstvo",
-      "text": "Načrt treninga po moji metodi in analiza vsakega treninga, od {price} € na mesec. Osebno trenerstvo v paketih Coaching in Elite.",
-      "cta": "Poglej pakete"
+      "text": "Načrt po moji metodi in analiza vsakega treninga. Osebno trenerstvo v paketih Coaching in Elite.",
+      "cta": "Poglej pakete",
+      "price": "od {price} € / mesec"
     }
   },
   "sports": {
@@ -66,7 +71,8 @@
   },
   "cta": {
     "title": "Želiš spoznati svoje številke?",
-    "text": "Rezerviraj meritev ali mi piši in odgovoril ti bom v najkrajšem času.",
-    "button": "Rezerviraj meritev"
+    "text": "Izberi meritev in termin na spletu. Imaš vprašanje? Piši mi.",
+    "button": "Rezerviraj meritev",
+    "secondary": "Piši mi"
   }
 }

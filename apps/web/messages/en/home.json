@@ -4,12 +4,12 @@
     "description": "Lab tests (VO₂max, lactate profile) and coaching for runners, cyclists and skiers. Train on data, not guesswork."
   },
   "hero": {
-    "title": "Smarter training. Higher performance. Better results.",
-    "subtitle": "Train on data, not guesswork.",
-    "primaryCta": "Book a lab test",
-    "secondaryCta": "See coaching packages"
+    "title": "Train on data, not guesswork.",
+    "subtitle": "Lab tests and coaching for runners, cyclists and skiers.",
+    "primaryCta": "Book a test",
+    "secondaryCta": "See coaching",
+    "note": "Lab tests from {price} €, VAT included."
   },
-  "intro": "I'm Jaka Marinko: an endurance athlete, a Faculty of Sport student and a personal trainer. I help endurance athletes improve faster and more safely, with lab testing and coaching built on their own numbers.",
   "proof": {
     "title": "Proven at the top junior level",
     "vo2max": {
@@ -27,38 +27,43 @@
     "champion": {
       "value": "4",
       "label": "sports with junior national titles"
-    }
+    },
+    "text": "Faculty of Sport student, personal trainer and U20 national team athlete.",
+    "cta": "More about Jaka"
   },
   "howItWorks": {
     "title": "How it works",
     "test": {
       "title": "Test",
-      "text": "A lab test shows where you are today: VO₂max, lactate thresholds, heart rate."
+      "text": "VO₂max, thresholds, heart rate: where you are today."
     },
     "zones": {
       "title": "Zones",
-      "text": "Your results become personal training zones for every intensity."
+      "text": "Your results become your personal training zones."
     },
     "plan": {
       "title": "Plan",
-      "text": "You train to a plan built on your zones, your goal and the time you have."
+      "text": "A plan built on your zones, goal and time."
     },
     "progress": {
       "title": "Progress",
-      "text": "Your training is analysed every week, and a retest shows what has changed."
-    }
+      "text": "Weekly analysis, and a retest shows what changed."
+    },
+    "cta": "Start with a lactate profile"
   },
   "offers": {
     "title": "Where to start",
     "lab": {
       "title": "Lab tests",
-      "text": "VO₂max, lactate profile, fat and carbohydrate use and more. Know your numbers.",
-      "cta": "See lab tests"
+      "text": "VO₂max, lactate profile, fat and carbohydrate use and more.",
+      "cta": "Compare tests",
+      "price": "from {price} €"
     },
     "coaching": {
       "title": "Coaching",
-      "text": "A training plan built on my method and analysis of every workout, from {price} € a month. Personal coaching from me in Coaching and Elite.",
-      "cta": "See packages"
+      "text": "A plan built on my method and analysis of every workout. Personal coaching from me in Coaching and Elite.",
+      "cta": "See packages",
+      "price": "from {price} € / month"
     }
   },
   "sports": {
@@ -66,7 +71,8 @@
   },
   "cta": {
     "title": "Ready to know your numbers?",
-    "text": "Book a test, or write to me and I'll get back to you as soon as I can.",
-    "button": "Book a test"
+    "text": "Pick a test and a time online. Questions first? Write to me.",
+    "button": "Book a test",
+    "secondary": "Write to me"
   }
 }

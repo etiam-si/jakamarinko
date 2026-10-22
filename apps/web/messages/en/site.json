@@ -26,5 +26,8 @@
       "caption": "U20 European Championships, mountain running",
       "alt": "Jaka Marinko in the Slovenian team vest at the front of the field in a mountain running race"
     }
+  },
+  "sticky": {
+    "from": "Lab tests from {price} €"
   }
 }

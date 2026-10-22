@@ -3,8 +3,8 @@
     "title": "Contact Jaka Marinko",
     "description": "Training, lab tests or working together: phone, email and Instagram."
   },
-  "title": "Contact",
-  "text": "For training, lab tests or working together, write to me and I'll get back to you as soon as I can.",
+  "title": "Let's talk about your goal",
+  "text": "Call, email or send a message below. I'll get back to you as soon as I can.",
   "phone": {
     "label": "Phone",
     "value": "+386 64 146 508",
@@ -24,5 +24,9 @@
     "label": "Strava",
     "value": "Jaka Marinko",
     "href": "https://www.strava.com/athletes/82762066"
+  },
+  "book": {
+    "title": "Know which test you want?",
+    "text": "Book it online. No message needed."
   }
 }
