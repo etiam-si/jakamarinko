@@ -3,6 +3,7 @@ import { bookingCancelled } from "./booking-cancelled";
 import { bookingConfirmation } from "./booking-confirmation";
 import { bookingPreparation } from "./booking-preparation";
 import { bookingReminder } from "./booking-reminder";
+import { bookingRescheduled } from "./booking-rescheduled";
 import { contactAutoReply, contactReceived } from "./contact";
 import { magicLink } from "./magic-link";
 
@@ -14,6 +15,7 @@ export const templates = {
   bookingPreparation,
   bookingReminder,
   bookingCancelled,
+  bookingRescheduled,
   contactReceived,
   contactAutoReply,
 };

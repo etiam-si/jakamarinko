@@ -56,6 +56,14 @@
     "refund": "Če je bilo plačilo opravljeno prek spleta, ti celoten znesek vrnemo na kartico v 5 do 10 dneh.",
     "rebook": "Rezerviraj nov termin"
   },
+  "bookingRescheduled": {
+    "subject": "Rezervacija prestavljena: {service}, {date}",
+    "preview": "Tvoja rezervacija ima nov termin",
+    "intro": "Tvojo rezervacijo smo prestavili na nov termin. Tu so novi podatki.",
+    "previous": "Prejšnji termin: {when}.",
+    "calendar": "Posodobljeno povabilo za koledar je v prilogi; odpri ga in dogodek se v koledarju prestavi.",
+    "manage": "Uredi rezervacijo"
+  },
   "contactReceived": {
     "subject": "Novo sporočilo: {name}",
     "preview": "Novo sporočilo s kontaktnega obrazca",

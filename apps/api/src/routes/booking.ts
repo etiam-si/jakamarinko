@@ -1,4 +1,4 @@
-import { and, eq, gte, lt } from "drizzle-orm";
+import { and, desc, eq, gte, lt } from "drizzle-orm";
 import { Hono } from "hono";
 import { z } from "zod";
 import {
@@ -8,9 +8,11 @@ import {
   CoachQuery,
   CreateBookingInput,
   ExceptionInput,
+  type Location,
   ManageQuery,
   OutcomeInput,
   RescheduleInput,
+  RescheduleSlotsQuery,
   ServicesQuery,
   SlotsQuery,
   type Availability,
@@ -40,7 +42,7 @@ import { activeCoachIds, coachSlots } from "../booking/calendar";
 import { bookable, serviceView } from "../booking/catalog";
 import { assertCoachAccess, ownCoachId, targetCoach } from "../booking/coach";
 import { bookingConfig } from "../booking/config";
-import { sendCancelled, sendConfirmed } from "../booking/emails";
+import { sendCancelled, sendConfirmed, sendRescheduled } from "../booking/emails";
 import { addDays, zoned } from "../booking/time";
 import { requireRole, requireSession } from "../lib/auth";
 import { ApiError } from "../lib/errors";
@@ -99,6 +101,10 @@ const exceptionOwner = (id: string) =>
 
 // A coach's calendar: availability, exceptions and bookings. Customers and guests never reach these.
 const coach = new Hono()
+  .get("/locations", staff, async (c) => {
+    const rows = await db().select().from(locations).orderBy(desc(locations.isDefault), locations.name);
+    return c.json<Location[]>(rows.map((r) => ({ id: r.id, name: r.name, address: r.address, isDefault: r.isDefault })));
+  })
   .get("/availability", staff, validate("query", CoachQuery), async (c) => {
     const coachId = await targetCoach(c.get("user"), c.req.valid("query").coachId);
     const rows = await db().select().from(availability).where(eq(availability.coachId, coachId)).orderBy(availability.weekday, availability.start);
@@ -181,6 +187,17 @@ const coach = new Hono()
     await sendCancelled(cancelled, config, reason);
     return c.json<CoachBooking>(coachView(cancelled, await ownCoachId(user), now, config));
   })
+  .get("/bookings/:id/slots", staff, validate("param", IdParam), validate("query", RescheduleSlotsQuery), async (c) => {
+    const { booking: b } = await findBooking(c.req.valid("param").id);
+    await assertCoachAccess(c.get("user"), b.coachId);
+    const { from, to } = c.req.valid("query");
+    const durationMin = (b.endAt.getTime() - b.startAt.getTime()) / 60_000;
+    const options = { now: new Date(), config: bookingConfig(), durationMin, noticeMin: 0, excludeBookingId: b.id };
+    const slots = await coachSlots(db(), b.coachId, from, to, options);
+    return c.json<Slot[]>(
+      slots.map((s) => ({ start: s.start.toISOString(), end: s.end.toISOString(), coachId: b.coachId, locationId: s.locationId })),
+    );
+  })
   .post("/bookings/:id/reschedule", staff, validate("param", IdParam), validate("json", RescheduleInput), async (c) => {
     const row = await findBooking(c.req.valid("param").id);
     const user = c.get("user");
@@ -188,8 +205,7 @@ const coach = new Hono()
     const config = bookingConfig();
     const now = new Date();
     const moved = await rescheduleBooking(row, new Date(c.req.valid("json").start), now, config);
-    // A new confirmation with the new time and .ics, until there is a "rescheduled" template.
-    if (moved.booking.status === "confirmed") await sendConfirmed(moved, config);
+    if (moved.booking.status === "confirmed") await sendRescheduled(moved, row.booking.startAt, now, config);
     return c.json<CoachBooking>(coachView(moved, await ownCoachId(user), now, config));
   })
   .post("/bookings/:id/outcome", staff, validate("param", IdParam), validate("json", OutcomeInput), async (c) => {

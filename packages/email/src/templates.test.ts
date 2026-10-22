@@ -43,6 +43,16 @@ test("the confirmation carries the calendar invite", async () => {
   expect(attachments).toEqual([expect.objectContaining({ filename: "booking.ics", contentType: expect.stringContaining("text/calendar") })]);
 });
 
+test("the rescheduled email shows both times and moves the calendar event", async () => {
+  const { text, attachments } = await renderTemplate("bookingRescheduled", "en", samples.bookingRescheduled);
+  expect(text).toContain("Tuesday 3 November, 09:00");
+  expect(text).toContain("Previous time: Monday 2 November, 16:00");
+  const ics = attachments![0]!.content;
+  expect(ics).toContain("UID:bk_sample@jakamarinko.com\r\n");
+  expect(ics).toContain("SEQUENCE:1\r\n");
+  expect(ics).toContain("DTSTART;TZID=Europe/Ljubljana:20261103T090000\r\n");
+});
+
 test("preparation asks for fasting only for the fat and carbohydrate test", async () => {
   const fasted = await renderTemplate("bookingPreparation", "en", { ...samples.bookingPreparation, fasted: true });
   const fed = await renderTemplate("bookingPreparation", "en", { ...samples.bookingPreparation, fasted: false });

@@ -3,7 +3,9 @@
 import { Link } from "@react-email/components";
 import type { Locale } from "@jakamarinko/types";
 import { formatWhen, messagesFor } from "../i18n";
+import { icsEvent } from "../ics";
 import { Details } from "../layout";
+import type { Attachment } from "../types";
 
 // What every booking email knows about the booking. Times are instants; they are shown in Ljubljana time.
 export type Booking = {
@@ -36,4 +38,21 @@ export function BookingDetails({ booking, locale }: { booking: Booking; locale: 
       ]}
     />
   );
+}
+
+// The calendar invite for a booking. The UID is the booking's, so a later invite with a higher sequence moves it.
+export function bookingIcs(booking: Booking, sequence?: number): Attachment {
+  return {
+    filename: "booking.ics",
+    contentType: "text/calendar; charset=utf-8; method=PUBLISH",
+    content: icsEvent({
+      uid: booking.id,
+      start: booking.start,
+      end: booking.end,
+      summary: `${booking.serviceName}, Jaka Marinko`,
+      location: `${booking.location.name}, ${booking.location.address}`,
+      url: booking.manageUrl,
+      sequence,
+    }),
+  };
 }

@@ -30,3 +30,8 @@ test("text is escaped and long lines fold without splitting characters", () => {
   const unfolded = ics.replace(/\r\n /g, "");
   expect(unfolded).toContain(`LOCATION:${"č".repeat(60)}\r\n`);
 });
+
+test("a sequence is written only when given, so the first invite stays at 0", () => {
+  expect(icsEvent(event)).not.toContain("SEQUENCE");
+  expect(icsEvent({ ...event, sequence: 3 })).toContain("SEQUENCE:3\r\n");
+});
