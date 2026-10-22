@@ -1,0 +1,76 @@
+{
+  "layout": {
+    "tagline": "Endurance Performance",
+    "contact": "Vprašanja? Piši na {email} ali pokliči {phone}.",
+    "unsubscribe": "Odjava"
+  },
+  "common": {
+    "greeting": "Živjo, {name}!",
+    "greetingNoName": "Živjo!",
+    "service": "Storitev",
+    "when": "Kdaj",
+    "where": "Kje",
+    "map": "Odpri zemljevid",
+    "signoff": "Se vidiva,",
+    "signature": "Jaka"
+  },
+  "magicLink": {
+    "subject": "Tvoja povezava za prijavo",
+    "preview": "Prijava v tvoj račun Jaka Marinko",
+    "intro": "Za prijavo klikni spodnji gumb. Povezava deluje enkrat in poteče čez {minutes} minut.",
+    "button": "Prijava",
+    "ignore": "Če povezave ne potrebuješ, lahko sporočilo prezreš."
+  },
+  "bookingConfirmation": {
+    "subject": "Rezervacija potrjena: {service}, {date}",
+    "preview": "Tvoja rezervacija je potrjena",
+    "intro": "Tvoja rezervacija je potrjena. Povabilo za koledar je v prilogi.",
+    "payOnSite": "Plačaš na kraju meritve, s kartico ali gotovino.",
+    "paid": "Plačilo smo prejeli.",
+    "manage": "Uredi rezervacijo",
+    "prepNote": "Poslali ti bomo kratko sporočilo, kako se pripraviti."
+  },
+  "bookingPreparation": {
+    "subject": "Kako se pripraviti na meritev: {service}",
+    "preview": "Nekaj stvari pred meritvijo",
+    "intro": "Tvoja meritev ({service}) bo {date}. Za natančne rezultate:",
+    "noHardTraining": "24 ur pred meritvijo ne treniraj težko. Lahkotno gibanje je v redu.",
+    "fasted": "Pridi na tešče: 10 ur pred meritvijo ne jej ničesar. Voda je v redu.",
+    "meal": "2 do 3 ure pred meritvijo pojej lahek obrok in normalno pij.",
+    "sleep": "Noč prej se dobro naspi, na dan meritve pa izpusti kavo.",
+    "bringTitle": "Kaj prinesti",
+    "bring": "Športna oblačila in copate, v katerih treniraš, brisačo in bidon z vodo.",
+    "questions": "V primeru bolezni ali poškodbe nam sporoči in meritev prestavimo."
+  },
+  "bookingReminder": {
+    "subject": "Jutri: {service} ob {time}",
+    "preview": "Opomnik za jutrišnjo rezervacijo",
+    "intro": "Opomnik: tvoja rezervacija je jutri.",
+    "reschedule": "Ne moreš priti? Spremeni ali odpovej rezervacijo"
+  },
+  "bookingCancelled": {
+    "subject": "Rezervacija odpovedana: {service}, {date}",
+    "preview": "Tvoja rezervacija je odpovedana",
+    "intro": "Tvoja rezervacija je odpovedana.",
+    "reason": "Razlog: {reason}",
+    "refund": "Če je bilo plačilo opravljeno prek spleta, ti celoten znesek vrnemo na kartico v 5 do 10 dneh.",
+    "rebook": "Rezerviraj nov termin"
+  },
+  "contactReceived": {
+    "subject": "Novo sporočilo: {name}",
+    "preview": "Novo sporočilo s kontaktnega obrazca",
+    "intro": "Nekdo je poslal sporočilo prek kontaktnega obrazca.",
+    "name": "Ime",
+    "email": "E-pošta",
+    "phone": "Telefon",
+    "message": "Sporočilo",
+    "open": "Odpri med zahtevki"
+  },
+  "contactAutoReply": {
+    "subject": "Tvoje sporočilo smo prejeli",
+    "preview": "Hvala za tvoje sporočilo",
+    "intro": "Hvala za sporočilo. Odgovorili ti bomo v dveh delovnih dneh.",
+    "meanwhile": "Medtem si lahko na spletni strani ogledaš laboratorijske meritve in pakete coachinga.",
+    "button": "Na spletno stran"
+  }
+}
