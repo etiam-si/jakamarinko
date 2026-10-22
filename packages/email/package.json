@@ -7,17 +7,27 @@
   },
   "scripts": {
     "typecheck": "tsc --noEmit",
-    "test": "vitest run"
+    "test": "vitest run",
+    "preview": "tsx src/preview.ts"
   },
   "dependencies": {
     "@jakamarinko/types": "workspace:*",
+    "@react-email/components": "1.0.12",
+    "nodemailer": "10.0.13",
     "react": "19.3.1",
-    "react-dom": "19.3.1"
+    "react-dom": "19.3.1",
+    "zod": "4.6.7"
   },
   "devDependencies": {
+    "@types/mailparser": "3.9.0",
     "@types/node": "^24",
+    "@types/nodemailer": "8.0.2",
     "@types/react": "19.3.0",
     "@types/react-dom": "19.3.0",
+    "@types/smtp-server": "3.5.13",
+    "mailparser": "3.9.36",
+    "smtp-server": "3.19.16",
+    "tsx": "4.23.15",
     "typescript": "5.9.3",
     "vitest": "5.0.5"
   }

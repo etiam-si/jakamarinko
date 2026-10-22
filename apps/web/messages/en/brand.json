@@ -1,0 +1,89 @@
+{
+  "styleguide": {
+    "metaTitle": "Styleguide",
+    "title": "Styleguide",
+    "lead": "Every token and component of the Jaka Marinko brand, in light and dark.",
+    "light": "Light",
+    "dark": "Dark",
+    "sections": {
+      "logo": "Logo",
+      "logoNote": "The full logo and the mark alone. The mark works down to 16 px.",
+      "colours": "Colours",
+      "zones": "Training zones",
+      "charts": "Chart series",
+      "type": "Type",
+      "primitives": "Interface",
+      "brand": "Brand components",
+      "photos": "Photos",
+      "photosNote": "Our photos are small: show them at most 384 px wide, never full-bleed. Tinted when several sit together."
+    },
+    "type": {
+      "display": "Measure, then train.",
+      "heading": "Your zones, from your own lab numbers",
+      "body": "A lactate profile shows where your easy pace ends and where hard really starts. Your plan is built on those two points.",
+      "small": "Results are in your account within minutes of the test.",
+      "label": "Lactate · mmol/L",
+      "tabular": "Tabular figures for times, paces and lab values",
+      "proportional": "Proportional",
+      "tabularLabel": "Tabular"
+    },
+    "samples": {
+      "button": "Book a test",
+      "secondary": "See prices",
+      "outline": "Ask a question",
+      "ghost": "Cancel",
+      "destructive": "Cancel booking",
+      "link": "How the test works",
+      "emailLabel": "Email",
+      "emailPlaceholder": "you@example.com",
+      "messageLabel": "Message",
+      "messagePlaceholder": "What are you training for?",
+      "consent": "I agree to the terms",
+      "cardTitle": "Next booking",
+      "cardDescription": "Lactate profile · Tue 4 Nov, 9:00",
+      "cardBody": "Come rested, no hard training the day before. Bring running shoes and your heart rate strap."
+    },
+    "heading": {
+      "eyebrow": "Lab tests",
+      "title": "Know your numbers before you train harder",
+      "lead": "VO₂max, lactate profile and running economy, measured and explained."
+    },
+    "stats": {
+      "vo2max": "VO₂max",
+      "redbull": "Red Bull 400 Planica, fastest junior",
+      "smarna": "Šmarna gora climb, age 19",
+      "redbullValue": "5th"
+    },
+    "zones": {
+      "label": "Heart rate zones · running",
+      "z1": "Recovery",
+      "z2": "Endurance",
+      "z3": "Tempo",
+      "z4": "Threshold",
+      "z5": "VO₂max",
+      "unit": "bpm"
+    },
+    "prices": {
+      "lactate": "Lactate profile",
+      "lactateDescription": "Step test on the treadmill or bike, with your LT1, LT2 and zones.",
+      "performance": "Performance package",
+      "performanceDescription": "The full picture in one visit.",
+      "performanceFeatures": {
+        "vo2max": "VO₂max",
+        "lactate": "Lactate profile",
+        "fat": "Fat and carbohydrate use",
+        "anthropometry": "Anthropometry",
+        "zones": "Your training zones, explained"
+      },
+      "popular": "Most complete",
+      "book": "Book"
+    },
+    "photos": {
+      "skimo": "Ski mountaineering",
+      "trail": "Mountain running",
+      "finish": "World Championships U20, finish",
+      "redbull": "Red Bull 400 Planica",
+      "alt": "Jaka Marinko racing"
+    }
+  }
+}

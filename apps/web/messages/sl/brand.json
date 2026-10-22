@@ -1,0 +1,89 @@
+{
+  "styleguide": {
+    "metaTitle": "Slogovni vodnik",
+    "title": "Slogovni vodnik",
+    "lead": "Vse barve, pisave in komponente znamke Jaka Marinko, v svetli in temni različici.",
+    "light": "Svetlo",
+    "dark": "Temno",
+    "sections": {
+      "logo": "Logotip",
+      "logoNote": "Celoten logotip in samostojen znak. Znak deluje vse do 16 px.",
+      "colours": "Barve",
+      "zones": "Trening cone",
+      "charts": "Barve grafov",
+      "type": "Pisava",
+      "primitives": "Vmesnik",
+      "brand": "Komponente znamke",
+      "photos": "Fotografije",
+      "photosNote": "Naše fotografije so majhne: največ 384 px široko, nikoli čez ves zaslon. Kadar jih je več skupaj, so obarvane."
+    },
+    "type": {
+      "display": "Najprej izmeri, nato treniraj.",
+      "heading": "Tvoje cone, iz tvojih laboratorijskih vrednosti",
+      "body": "Laktatni profil pokaže, kje se konča lahek tempo in kje se zares začne naporno. Tvoj načrt temelji na teh dveh točkah.",
+      "small": "Rezultati so v tvojem računu le nekaj minut po meritvi.",
+      "label": "Laktat · mmol/L",
+      "tabular": "Tabelarične številke za čase, tempo in laboratorijske vrednosti",
+      "proportional": "Proporcionalno",
+      "tabularLabel": "Tabelarično"
+    },
+    "samples": {
+      "button": "Rezerviraj meritev",
+      "secondary": "Poglej cene",
+      "outline": "Postavi vprašanje",
+      "ghost": "Prekliči",
+      "destructive": "Prekliči rezervacijo",
+      "link": "Kako poteka meritev",
+      "emailLabel": "E-pošta",
+      "emailPlaceholder": "ti@primer.si",
+      "messageLabel": "Sporočilo",
+      "messagePlaceholder": "Za kaj treniraš?",
+      "consent": "Strinjam se s pogoji",
+      "cardTitle": "Naslednja rezervacija",
+      "cardDescription": "Laktatni profil · tor 4. nov, 9.00",
+      "cardBody": "Pridi spočit, dan prej brez napornega treninga. Prinesi tekaške copate in pas za srčni utrip."
+    },
+    "heading": {
+      "eyebrow": "Laboratorijske meritve",
+      "title": "Spoznaj svoje številke, preden treniraš močneje",
+      "lead": "VO₂max, laktatni profil in ekonomičnost teka, izmerjeni in razloženi."
+    },
+    "stats": {
+      "vo2max": "VO₂max",
+      "redbull": "Red Bull 400 Planica, najhitrejši mladinec",
+      "smarna": "Vzpon na Šmarno goro, 19 let",
+      "redbullValue": "5."
+    },
+    "zones": {
+      "label": "Cone srčnega utripa · tek",
+      "z1": "Regeneracijska",
+      "z2": "Aerobna",
+      "z3": "Tempo",
+      "z4": "Pražna",
+      "z5": "VO₂max",
+      "unit": "u/min"
+    },
+    "prices": {
+      "lactate": "Laktatni profil",
+      "lactateDescription": "Stopnjevani test na tekaški preprogi ali kolesu, z LT1, LT2 in conami.",
+      "performance": "Performance paket",
+      "performanceDescription": "Celotna slika v enem obisku.",
+      "performanceFeatures": {
+        "vo2max": "VO₂max",
+        "lactate": "Laktatni profil",
+        "fat": "Poraba maščob in ogljikovih hidratov",
+        "anthropometry": "Antropometrija",
+        "zones": "Tvoje trening cone, z razlago"
+      },
+      "popular": "Najbolj celovit",
+      "book": "Rezerviraj"
+    },
+    "photos": {
+      "skimo": "Turno smučanje",
+      "trail": "Gorski tek",
+      "finish": "Svetovno prvenstvo U20, cilj",
+      "redbull": "Red Bull 400 Planica",
+      "alt": "Jaka Marinko na tekmi"
+    }
+  }
+}

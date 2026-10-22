@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Jaka Marinko — Endurance Performance",
-    "description": "Endurance coaching and lab testing."
+    "description": "Endurance coaching and lab testing: VO₂max, lactate profile and training zones."
   },
   "home": {
     "title": "Jaka Marinko",
@@ -12,5 +12,53 @@
     "label": "Language",
     "en": "English",
     "sl": "Slovenščina"
+  },
+  "brand": {
+    "name": "Jaka Marinko",
+    "tagline": "Endurance Performance"
+  },
+  "nav": {
+    "label": "Main menu",
+    "home": "Home",
+    "about": "About",
+    "coaching": "Coaching",
+    "lab": "Lab tests",
+    "contact": "Contact",
+    "account": "My account",
+    "signIn": "Sign in",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
+  },
+  "actions": {
+    "bookTest": "Book a test",
+    "book": "Book",
+    "bookItem": "Book {name}",
+    "choosePackage": "Choose {name}",
+    "contact": "Get in touch",
+    "learnMore": "Learn more",
+    "seeTests": "See lab tests",
+    "seePackages": "See packages"
+  },
+  "units": {
+    "price": "{price} €",
+    "perMonth": "{price} € / month",
+    "perYear": "{price} € / year",
+    "vatIncluded": "All prices include VAT.",
+    "minutes": "{count} min",
+    "aboutMinutes": "about {count} min",
+    "months": "{count, plural, one {# month} other {# months}}",
+    "weeks": "{count, plural, one {# week} other {# weeks}}",
+    "percentOff": "−{percent} %",
+    "vo2max": "ml/kg/min",
+    "heartRate": "bpm",
+    "lactate": "mmol/L"
+  },
+  "sports": {
+    "road_running": "Road running",
+    "trail_running": "Mountain running",
+    "road_cycling": "Road cycling",
+    "mountain_biking": "Mountain biking",
+    "cross_country_skiing": "Cross-country skiing",
+    "ski_touring": "Ski mountaineering"
   }
 }

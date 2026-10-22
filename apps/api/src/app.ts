@@ -1,5 +1,7 @@
 import { Hono } from "hono";
 import { notFound, onError } from "./lib/errors";
+import { auth } from "./routes/auth";
+import { events } from "./routes/events";
 import { health } from "./routes/health";
 
 // Everything lives under /api: on the server Traefik sends jakamarinko.com/api/* here, the rest to web.
@@ -7,6 +9,8 @@ import { health } from "./routes/health";
 export const app = new Hono()
   .basePath("/api")
   // One line per domain, added above health (which stays last): .route("/<domain>", <domain>)
+  .route("/auth", auth)
+  .route("/events", events)
   .route("/health", health);
 
 app.onError(onError);
