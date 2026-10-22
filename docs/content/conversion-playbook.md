@@ -105,7 +105,7 @@ Paid ads go to **1 → 2 → 3**. Segments 4–5 get campaigns at their season. 
 **Why ★1:**
 - It names the pain every amateur knows (intensity is a guess) and promises an outcome they own ("your own zones").
 - It is true of every test and every package, at 7 words.
-- The current line ("data, not guesswork") moves to the subline, so the brand line stays.
+- The current line ("data, not guesswork") stays in the meta description, the footer and Instagram. The subline carries the entry price instead.
 
 ### Lab tests (`/lab`)
 | | EN | SL |
@@ -226,14 +226,14 @@ Shared rules for every page:
 - **One primary CTA** (`data-cta="primary"`) in the first viewport. Every section ends in a CTA.
 - **Trust line** under every primary CTA on lab pages: "VAT included · Free cancellation up to 24 h · Book online in a minute".
 - **Price** before the first FAQ, always "VAT included".
-- **Short:** `h1` ≤ 10 words, subline ≤ 20 words, no paragraph over 45 words. If a section needs more, it is two sections or a FAQ.
+- **Short:** `h1` ≤ 10 words, subline **one sentence** of ≤ 20 words (US-010 wins over any two-sentence draft), no paragraph over 45 words. If a section needs more, it is two sections or a FAQ.
 
 ### 4.1 Home `/`
 | # | Section | Content | CTA |
 |---|---|---|---|
-| 0 | **Hero** | h1 ★ "Stop guessing. Train in your own zones." · subline "Lab tests and coaching for runners, cyclists and skiers. Train on data, not guesswork." · note "Lactate profile 90 €, VAT included. Free cancellation up to 24 h before." · photo Red Bull 400 | **Primary:** "Book a lactate test" → `/booking?service=lactate-profile` · **Secondary:** "See all tests" → `/lab` |
+| 0 | **Hero** | h1 ★ "Stop guessing. Train in your own zones." · subline "Lab tests and coaching for runners, cyclists and skiers, starting with a {price} € lactate profile." · note "Lactate profile 90 €, VAT included. Free cancellation up to 24 h before." · photo Red Bull 400 | **Primary:** "Book a lactate test" → `/booking?service=lactate-profile` · **Secondary:** "See all tests" → `/lab` |
 | 1 | **Proof** (existing 4 stats) | VO₂max 80 · 5th Red Bull 400, fastest junior · U20 national team · 4 sports with junior titles · "More about Jaka" | "Book a lactate test" |
-| 2 | **What you get** *(new)* | A sample result: a lactate curve with LT1/LT2 and a 5-zone table (heart rate and pace). Caption "Jaka's own lactate profile" ❓. Three bullets: "Two thresholds" · "Your zones" · "Explained". | "Book a lactate test" |
+| 2 | **What you get** *(new)* | A sample result: a lactate curve with LT1/LT2 and a 5-zone table (heart rate and pace). Caption "An example lactate profile: two thresholds, five zones." (an illustration; swap in Jaka's own data if he gives it ❓). Three bullets: "Two thresholds" · "Your zones" · "Explained". | "Book a lactate test" |
 | 3 | **How it works** (existing 4 steps) | Test → Zones → Plan → Progress | "Start with a lactate profile" (existing) |
 | 4 | **Where to start** (offers) | Lab card: "Best first test: lactate profile 90 €" and "Performance package 250 € (360 € separately)". Coaching card: "from 25 € / month". | "Book a lactate test" / "See coaching" |
 | 5 | **FAQ** (4) | fit, whatYouGet, duration, cancel | "Book a lactate test" |
@@ -244,9 +244,9 @@ Disciplines: move them into the proof section as one line of chips; don't give t
 ### 4.2 Lab tests `/lab`
 | # | Section | Content | CTA |
 |---|---|---|---|
-| 0 | **Hero** | h1 ★ "Your watch estimates. The lab measures." · subline "Your thresholds, VO₂max and training zones, measured and explained. Lactate profile 90 €." · trust line | **Primary:** "Book a lactate test" → `/booking?service=lactate-profile` · **Secondary:** "Which test is right for me?" (anchor) |
+| 0 | **Hero** | h1 ★ "Your watch estimates. The lab measures." · subline "Your thresholds, VO₂max and training zones, measured and explained, with the lactate profile at 90 €." · trust line | **Primary:** "Book a lactate test" → `/booking?service=lactate-profile` · **Secondary:** "Which test is right for me?" (anchor) |
 | 1 | **Proof** (compact) | 3 stats (VO₂max 80, U20 national team, Faculty of Sport) + "Tests run by Jaka Marinko" ❓ (true only while he is the only coach) | "Book a lactate test" |
-| 2 | **Which test?** (existing chooser, 6 rows) | Each row links to `/booking?service=<id>` | per row |
+| 2 | **Which test?** (existing chooser, 6 rows) | Each row links to that test's card on the page (price + its own Book button → `/booking?service=<id>`) | per card |
 | 3 | **Tests and prices** | Order as in §5.1: **Performance** (badge "Best value", "360 € separately · save 110 €") → Long-distance → Runner → VO₂max + lactate → **Lactate profile** ("Best first test") → singles → "Come back" row (Season pack, Lactate retest). Each card: price, "about N min", 3 bullets, Book button. | per card |
 | 4 | **What happens** (existing 3 steps) | + one line: "Hard for the last few minutes, and you can stop at any time." | "Book a lactate test" |
 | 5 | **After the test** | What you get, plus the post-test offer line (only if Plan/Coaching can start now ❓) | "Book a lactate test" |
@@ -260,7 +260,7 @@ Cut the "Why test?" block. Its three ideas live in the hero, the chooser and the
 
 | # | Section | Content | CTA |
 |---|---|---|---|
-| 0 | **Hero** | h1 ★ "Your plan, built on your numbers, adjusted every week." · subline "Three packages from 25 € a month. Coaching adds Jaka's comments and a lab test every 3 months." | **Primary:** "Tell me your goal" → `/contact?package=coaching` · **Secondary:** "Start with a lactate test" → `/booking?service=lactate-profile` |
+| 0 | **Hero** | h1 ★ "Your plan, built on your numbers, adjusted every week." · subline "Three packages from 25 € a month, and Coaching adds Jaka's comments and a lab test every 3 months." | **Primary:** "Tell me your goal" → `/contact?package=coaching` · **Secondary:** "Start with a lactate test" → `/booking?service=lactate-profile` |
 | 1 | **Proof** | Jaka's stats + the **Šmarna gora chart** ("progress measured in seconds": 15:11 → 12:33). It's the best proof that he measures progress. | "Tell me your goal" |
 | 2 | **Packages** | Plan · **Coaching (Recommended)** · Elite. Under Coaching: "Includes a lactate test every 3 months (90 € each)". Show the yearly price ("2 months free"). | per card → `/contact?package=<id>` |
 | 3 | **How it works** | Test → zones → plan → every workout analysed → retest | "Start with a lactate test" |
@@ -273,7 +273,7 @@ The 8-card "services" grid becomes one line of chips under the packages, or is c
 ### 4.4 Contact `/contact`
 | # | Section | Content | CTA |
 |---|---|---|---|
-| 0 | **Hero + form side by side** (form first on mobile) | h1 ★ "Tell me your goal. I'll suggest where to start." · subline "Lab tests, coaching or race preparation. I reply within two working days." | **Primary:** "Send message" (form) · **Secondary:** "Know which test you want? Book it online" → `/booking` |
+| 0 | **Hero + form side by side** (form first on mobile) | h1 ★ "Tell me your goal. I'll suggest where to start." · subline "Lab tests, coaching or race preparation: I reply within two working days." | **Primary:** "Send message" (form) · **Secondary:** "Know which test you want? Book it online" → `/booking` |
 | 1 | **Form** | Name · Email · Topic (prefilled from `?package=`) · Message, with a placeholder: "Your goal, race date and how many hours a week you can train." · phone optional (already) · consent | |
 | 2 | **Direct lines** | Phone, email, Instagram (existing) | |
 | 3 | **Proof** (one line) | "VO₂max 80 · U20 national team · Faculty of Sport" | |
@@ -288,8 +288,8 @@ Block order (set in `components/landing/pages.ts`). Proof sits within the first 
 |---|---|---|---|---|
 | `lactate-test` | hero → proof → points → price → faq → cta | landing.faq.fit, .whatYouGetLactate, .duration, .preparation, .cancel, .blood, .noCoach | "Book a lactate test" → `/booking?service=lactate-profile` | "90 €" beside the CTA in the hero; price card with the trust line |
 | `performance` | hero → price → points → proof → faq → cta | .fit, .whatYouGetPerformance, .duration, .fasted, .cancel, .where | "Book the Performance package" → `/booking?service=performance` | "250 €" big, "360 € if booked separately" right under it |
-| `coaching` | hero → points → proof → price → faq → cta | coaching.faq.coachingFit, .whoWrites, .coachingTime, .coachingStart, .coachingCancel, .labTestFirst | "Tell me your goal" → `/contact?package=coaching` | "119 € / month · lactate test every 3 months included · min. 3 months" |
-| `race-preparation` | hero → points → price → proof → faq → cta | landing.faq.raceWhen, .raceWhatYouGet, .raceFit, .raceStart, .raceCancel ❓ | "Send your race date" → `/contact?package=race-preparation` | "490 €, paid once. Two lab tests included." |
+| `coaching` | hero → points → proof → price → faq → cta | coaching.faq.coachingFit, .whoWrites, .coachingTime, .coachingStart, .labTestFirst (+ .coachingCancel once decided ❓) | "Tell me your goal" → `/contact?package=coaching` | "119 € / month · lactate test every 3 months included · min. 3 months" |
+| `race-preparation` | hero → points → price → proof → faq → cta | landing.faq.raceWhen, .raceWhatYouGet, .raceFit, .raceStart, coaching.faq.devices (+ .raceCancel once decided ❓) | "Send your race date" → `/contact?package=race-preparation` | "490 €, paid once. Two lab tests included." |
 
 Hook, lead and close for each LP are in Appendix A.
 
@@ -298,7 +298,7 @@ Used by the pages above. Keys go into `landing.json` → `faq` (lab ones) and `c
 
 | Key | EN | SL |
 |---|---|---|
-| `fit` | **Am I fit enough for a test?** Yes. The test starts easy and gets a little harder every few minutes, and you can stop at any time. It shows where you are today, at any level. Zones are just as useful for newer athletes: they show how easy your easy days should be. | **Je moja forma dovolj dobra za meritev?** Da. Meritev se začne zlahka in se vsakih nekaj minut malo stopnjuje, ustaviš pa se lahko kadarkoli. Pokaže, kje si danes, na katerikoli ravni. Tudi manj izkušenim cone povedo, kako lahki naj bodo lahki treningi. |
+| `fit` | **Am I fit enough for a test?** Yes. The test starts easy and gets a little harder every few minutes, and you can stop at any time. It shows where you are today, at any level. Zones help newer athletes too: they show how easy easy days should be. | **Je moja forma dovolj dobra za meritev?** Da. Meritev se začne zlahka in se vsakih nekaj minut malo stopnjuje, ustaviš pa se lahko kadarkoli. Pokaže, kje si danes, na katerikoli ravni. Tudi manj izkušenim cone povedo, kako lahki naj bodo lahki treningi. |
 | `blood` | **Does the blood sample hurt?** Hardly. A small prick in your fingertip or earlobe, and a drop of blood after each step. Only the lactate tests need it. | **Ali odvzem krvi boli?** Komaj kaj. Majhen vbod v prst ali ušesno mečico in kapljica krvi po vsaki stopnji. Potreben je samo pri laktatnih meritvah. |
 | `duration` | **How long does it take?** The lactate profile takes about an hour, the Performance package about two. Each test's time is shown with its price. | **Koliko časa traja?** Laktatni profil traja približno uro, Performance paket približno dve. Trajanje vsake meritve je navedeno ob ceni. |
 | `whatYouGet` | **What do I get?** Your results explained and, from the lactate and VO₂max tests, your personal training zones with heart rate and pace or power for each. | **Kaj dobim?** Razlago rezultatov, pri laktatni meritvi in meritvi VO₂max pa tudi osebne trening cone s srčnim utripom in tempom ali močjo za vsako. |
@@ -309,7 +309,8 @@ Used by the pages above. Keys go into `landing.json` → `faq` (lab ones) and `c
 | `cancel` | **Can I cancel or move my test?** Yes, free up to 24 hours before, with the link in your confirmation email. If you paid by card, you get the full amount back. To move it, cancel and book a new time. | **Lahko meritev odpovem ali prestavim?** Da, brezplačno do 24 ur prej, prek povezave v potrditvenem e-sporočilu. Če je bila plačana s kartico, ti vrnemo celoten znesek. Za prestavitev odpovej termin in rezerviraj novega. |
 | `payment` (online on) | **How do I pay?** By card when you book, on Stripe's secure payment page. The price includes VAT. | **Kako plačam?** S kartico ob rezervaciji, na varni plačilni strani Stripe. Cena vključuje DDV. |
 | `payment` (online off) | **How do I pay?** On site, on the day. The price includes VAT. | **Kako plačam?** Na kraju samem, na dan meritve. Cena vključuje DDV. |
-| `where` | (existing; ❓ add the town once decided) | (existing) |
+| | *How to show `payment`: the pages are static and the answer depends on the runtime payments flag. Render this one FAQ item on the client with the existing `usePayments()` hook (the one the booking review uses). Once the owner turns payments on for good, it can be the static "online" text.* | |
+| `where` | **Where is the test?** At Spodnje Pirnice 19N, Medvode. The exact directions come with your confirmation. | **Kje je meritev?** V Spodnjih Pirničah 19N, Medvode. Navodila za pot dobiš v potrditvi. |
 | `sport` ❓ | **Can I test running or cycling?** Runners test running and cyclists test on the bike. *(Jaka: treadmill? own bike on a trainer? how is it chosen?)* | **Lahko meritev opravim v teku ali na kolesu?** Tekači tečejo, kolesarji kolesarijo. *(Jaka: tekoča preproga? lastno kolo na trenažerju?)* |
 | `retest` | **How often should I retest?** Every 2–3 months while you train, or before a new season, so your zones keep up with your fitness. Coaching includes a lactate test every 3 months. | **Kako pogosto naj meritev ponovim?** Vsake 2–3 mesece med treningom ali pred novo sezono, da cone sledijo tvoji formi. Paket Coaching vključuje laktatni test vsake 3 mesece. |
 | `noCoach` | **Can I use the results without a coach?** Yes. You get your zones and what they mean for your training, ready to use with any plan or watch. | **Lahko rezultate uporabljam brez trenerja?** Da. Dobiš svoje cone in razlago, kaj pomenijo za trening, pripravljene za katerikoli načrt ali uro. |
@@ -417,7 +418,7 @@ Format: one sentence, first name + initial, sport, race or goal. Put them under 
 Urgency stays honest: show the **next free time** and "**N free times this week**" from the slots API. Never a timer, never an invented number.
 
 ### Which ad landing pages to run first
-1. **`/lp/lactate-test`, Meta (Instagram + Facebook), in Slovenian, ages 25–55, runners and cyclists.** Radius: around the lab ❓ (60–90 min drive). Creatives: Jaka photos plus hooks 1, 3 (runners), 4 (cyclists) and 9. Optimise for `booking_paid` once there are enough events; until then for `booking_started`.
+1. **`/lp/lactate-test`, Meta (Instagram + Facebook), in Slovenian, ages 25–55, runners and cyclists.** Radius: 60–90 min drive around the lab in Medvode (Spodnje Pirnice), which covers Ljubljana, Gorenjska and Notranjska. Creatives: Jaka photos plus hooks 1, 3 (runners), 4 (cyclists) and 9. Optimise for `booking_paid` once there are enough events; until then for `booking_started`.
 2. **`/lp/performance`, retargeting** visitors of `/lab` and the lactate LP (with consent), plus triathletes and trail runners. Hook ★1 (the anchor).
 3. **`/lp/race-preparation`** in the seasonal windows above.
 4. **`/lp/coaching`** only after there are 3+ testimonials. Until then, coaching sells through the post-test offer and email.
@@ -458,7 +459,7 @@ Current flow: service → time → details (name, email, phone, 7 PAR-Q question
 | # | Who | Decision |
 |---|---|---|
 | 1 | Owner | Turn online payment on (`PAYMENTS_ENABLED=true`, Stripe keys, Apple/Google Pay). |
-| 2 | Owner | Publish the lab's town or area on the site, Google Business Profile and ads (the biggest unanswered objection is "where?"). |
+| 2 | Owner | **Decided:** the lab is at Spodnje Pirnice 19N, Medvode. Put it on the Google Business Profile too. |
 | 3 | Owner | Confirm the bundle prices in §5.1: Runner 180 €, Long-distance 180 €, Season pack 350 €, Lactate retest 70 € within 4 months. Choose how the season-pack retests are delivered (codes or booked by Jaka). |
 | 4 | Owner | Founding athletes −30 % for life, first 20: launch it, with a real counter? |
 | 5 | Owner | Can Plan / Coaching start today? If not, take the post-test offer off the pages until they can. |
@@ -514,7 +515,7 @@ Only changed or new keys. Existing keys not listed stay as they are. Where a str
 // en
 "hero": {
   "title": "Stop guessing. Train in your own zones.",
-  "subtitle": "Lab tests and coaching for runners, cyclists and skiers. Train on data, not guesswork.",
+  "subtitle": "Lab tests and coaching for runners, cyclists and skiers, starting with a {price} € lactate profile.",
   "primaryCta": "Book a lactate test",
   "secondaryCta": "See all tests",
   "note": "Lactate profile {price} €, VAT included. Free cancellation up to 24 hours before."
@@ -536,7 +537,7 @@ Only changed or new keys. Existing keys not listed stay as they are. Where a str
 // sl
 "hero": {
   "title": "Dovolj ugibanja. Treniraj v svojih conah.",
-  "subtitle": "Meritve in trenerstvo za tekače, kolesarje in smučarje. Treniraj na podlagi podatkov, ne ugibanja.",
+  "subtitle": "Meritve in trenerstvo za tekače, kolesarje in smučarje, za začetek laktatni profil za {price} €.",
   "primaryCta": "Rezerviraj laktatni test",
   "secondaryCta": "Vse meritve",
   "note": "Laktatni profil {price} €, z DDV. Brezplačna odpoved do 24 ur prej."
@@ -563,7 +564,7 @@ Only changed or new keys. Existing keys not listed stay as they are. Where a str
 // en
 "hero": {
   "title": "Your watch estimates. The lab measures.",
-  "subtitle": "Your thresholds, VO₂max and training zones, measured and explained. Lactate profile {price} €.",
+  "subtitle": "Your thresholds, VO₂max and training zones, measured and explained, with the lactate profile at {price} €.",
   "primaryCta": "Book a lactate test",
   "secondaryCta": "Which test is right for me?",
   "trust": "VAT included · Free cancellation up to 24 h · Book online in a minute"
@@ -576,7 +577,7 @@ Only changed or new keys. Existing keys not listed stay as they are. Where a str
 // sl
 "hero": {
   "title": "Ura ocenjuje. Laboratorij meri.",
-  "subtitle": "Tvoja pragova, VO₂max in trening cone, izmerjeni in razloženi. Laktatni profil {price} €.",
+  "subtitle": "Tvoja pragova, VO₂max in trening cone, izmerjeni in razloženi, z laktatnim profilom že za {price} €.",
   "primaryCta": "Rezerviraj laktatni test",
   "secondaryCta": "Katera meritev je prava zame?",
   "trust": "Z DDV · Brezplačna odpoved do 24 ur prej · Rezervacija na spletu v minuti"
@@ -593,7 +594,7 @@ Only changed or new keys. Existing keys not listed stay as they are. Where a str
 // en
 "hero": {
   "title": "Your plan, built on your numbers, adjusted every week.",
-  "subtitle": "Three packages from 25 € a month. Coaching adds Jaka's comments and a lab test every 3 months.",
+  "subtitle": "Three packages from 25 € a month, and Coaching adds Jaka's comments and a lab test every 3 months.",
   "primaryCta": "Tell me your goal",
   "secondaryCta": "Start with a lactate test"
 },
@@ -608,7 +609,7 @@ Only changed or new keys. Existing keys not listed stay as they are. Where a str
 // sl
 "hero": {
   "title": "Načrt po tvojih številkah, prilagojen vsak teden.",
-  "subtitle": "Trije paketi od 25 € na mesec. Coaching doda Jakove komentarje in meritev vsake 3 mesece.",
+  "subtitle": "Trije paketi od 25 € na mesec, Coaching pa doda Jakove komentarje in meritev vsake 3 mesece.",
   "primaryCta": "Napiši svoj cilj",
   "secondaryCta": "Začni z laktatnim testom"
 },
@@ -627,43 +628,43 @@ New FAQ keys under `coaching.faq`: `whoWrites`, `coachingFit`, `coachingTime`, `
 ```jsonc
 // en  (pages.<slug>)
 "lactate-test": {
-  "hero": { "title": "Your training zones from a drop of blood.", "lead": "Both thresholds, the heart rate for every zone, and your results explained. 90 €." },
+  "hero": { "title": "Your training zones from a drop of blood.", "lead": "Both thresholds, the heart rate for every zone and your results explained, for 90 €." },
   "cta": "Book a lactate test",
   "close": { "title": "Know your thresholds before your next block.", "text": "Pick a time online in a minute. Free cancellation up to 24 hours before." }
 },
 "performance": {
-  "hero": { "title": "Four tests, one visit. 250 € instead of 360 €.", "lead": "VO₂max, lactate profile, fuel use and body composition, with your zones. 360 € if booked separately." },
+  "hero": { "title": "Four tests, one visit. 250 € instead of 360 €.", "lead": "VO₂max, lactate profile, fuel use and body composition with your zones, 360 € if booked separately." },
   "cta": "Book the Performance package",
   "close": { "title": "The full picture in one visit.", "text": "Book online and get the preparation by email. Free cancellation up to 24 hours before." }
 },
 "coaching": {
-  "hero": { "title": "Coaching with Jaka, retested every 3 months.", "lead": "A plan that adapts every week, Jaka's comments on your weeks and a monthly call. 119 € a month." },
+  "hero": { "title": "Coaching with Jaka, retested every 3 months.", "lead": "A plan that adapts every week, Jaka's comments on your weeks and a monthly call, for 119 € a month." },
   "cta": "Tell me your goal",
   "close": { "title": "Start with your goal.", "text": "Tell us what you're training for. We reply within two working days." }
 },
 "race-preparation": {
-  "hero": { "title": "Pick your race. We plan back from race day.", "lead": "A 12–16-week block for one race, with a lab test at the start and end. 490 €, paid once." },
+  "hero": { "title": "Pick your race. We plan back from race day.", "lead": "A 12–16-week block for one race with a lab test at the start and end, 490 € paid once." },
   "cta": "Send your race date",
   "close": { "title": "Which race is next?", "text": "Send the date. We reply within two working days and plan back from it." }
 }
 // sl
 "lactate-test": {
-  "hero": { "title": "Tvoje trening cone iz kapljice krvi.", "lead": "Oba pragova, srčni utrip za vsako cono in razlaga rezultatov. 90 €." },
+  "hero": { "title": "Tvoje trening cone iz kapljice krvi.", "lead": "Oba pragova, srčni utrip za vsako cono in razlaga rezultatov, za 90 €." },
   "cta": "Rezerviraj laktatni test",
   "close": { "title": "Spoznaj svoja pragova pred naslednjim blokom.", "text": "Termin izbereš na spletu v minuti. Brezplačna odpoved do 24 ur prej." }
 },
 "performance": {
-  "hero": { "title": "Štiri meritve, en obisk. 250 € namesto 360 €.", "lead": "VO₂max, laktatni profil, poraba goriva in telesna sestava, s tvojimi conami. Posamično 360 €." },
+  "hero": { "title": "Štiri meritve, en obisk. 250 € namesto 360 €.", "lead": "VO₂max, laktatni profil, poraba goriva in telesna sestava s tvojimi conami, posamično 360 €." },
   "cta": "Rezerviraj Performance paket",
   "close": { "title": "Celotna slika v enem obisku.", "text": "Rezerviraj na spletu, navodila za pripravo dobiš po e-pošti. Brezplačna odpoved do 24 ur prej." }
 },
 "coaching": {
-  "hero": { "title": "Coaching z Jakom in meritvijo vsake 3 mesece.", "lead": "Načrt, ki se prilagaja vsak teden, Jakovi komentarji na tvoje tedne in pogovor vsak mesec. 119 € na mesec." },
+  "hero": { "title": "Coaching z Jakom in meritvijo vsake 3 mesece.", "lead": "Načrt, ki se prilagaja vsak teden, Jakovi komentarji na tvoje tedne in pogovor vsak mesec, za 119 € na mesec." },
   "cta": "Napiši svoj cilj",
   "close": { "title": "Začni s svojim ciljem.", "text": "Napiši, za kaj treniraš. Odgovorimo v dveh delovnih dneh." }
 },
 "race-preparation": {
-  "hero": { "title": "Izberi tekmo. Pripravo načrtujemo od starta nazaj.", "lead": "12–16-tedenski blok za eno tekmo, z meritvijo na začetku in na koncu. 490 €, plačaš enkrat." },
+  "hero": { "title": "Izberi tekmo. Pripravo načrtujemo od starta nazaj.", "lead": "12–16-tedenski blok za eno tekmo z meritvijo na začetku in na koncu, za 490 € z enkratnim plačilom." },
   "cta": "Pošlji datum tekme",
   "close": { "title": "Katera tekma je naslednja?", "text": "Pošlji datum. Odgovorimo v dveh delovnih dneh in načrtujemo nazaj od njega." }
 }
@@ -673,12 +674,12 @@ Better: build the prices in the leads from the catalog with `{price}` instead of
 ### `contact.json`, `requests.json`, `site.json`, `booking.json`
 ```jsonc
 // en
-"contact": { "title": "Tell me your goal. I'll suggest where to start.", "text": "Lab tests, coaching or race preparation. I reply within two working days." },
+"contact": { "title": "Tell me your goal. I'll suggest where to start.", "text": "Lab tests, coaching or race preparation: I reply within two working days." },
 "requests.form.messagePlaceholder": "Your goal, race date and how many hours a week you can train.",
 "site.sticky": { "from": "Lactate profile {price} €", "button": "Book" },
 "booking": { "title": "Book your test", "subtitle": "Pick a time. Free cancellation up to 24 hours before.", "time": { "nextFree": "Next free: {date}", "cancelNote": "Free cancellation up to 24 hours before." }, "review": { "payAndConfirm": "Pay {price} € and confirm" } }
 // sl
-"contact": { "title": "Napiši mi svoj cilj. Predlagal ti bom, kje začeti.", "text": "Meritve, trenerstvo ali priprava na tekmo. Odgovorim v dveh delovnih dneh." },
+"contact": { "title": "Napiši mi svoj cilj. Predlagal ti bom, kje začeti.", "text": "Meritve, trenerstvo ali priprava na tekmo: odgovorim v dveh delovnih dneh." },
 "requests.form.messagePlaceholder": "Tvoj cilj, datum tekme in koliko ur na teden lahko treniraš.",
 "site.sticky": { "from": "Laktatni profil {price} €", "button": "Rezerviraj" },
 "booking": { "title": "Rezerviraj meritev", "subtitle": "Izberi termin. Brezplačna odpoved do 24 ur prej.", "time": { "nextFree": "Prvi prosti termin: {date}", "cancelNote": "Brezplačna odpoved do 24 ur prej." }, "review": { "payAndConfirm": "Plačaj {price} € in potrdi" } }
