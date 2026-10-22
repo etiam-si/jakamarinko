@@ -1,34 +1,47 @@
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import { Logo } from "@/components/brand/logo";
-import { LocaleSwitcher } from "@/components/i18n/locale-switcher";
+import { LanguageMenu } from "@/components/i18n/language-menu";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
+import { headerAccount } from "./account";
+import { AccountMenu } from "./account-menu";
+import { HeaderBar } from "./header-bar";
 import { MobileMenu } from "./mobile-menu";
 import { NavLinks } from "./nav-links";
 
-export function Header() {
-  const t = useTranslations("common");
+// Logo, the main pages (centred, from lg up), then language, account and "Book a test". Below lg the pages, language
+// and account also live in the menu; phones get "Book a test" from the sticky bar at the bottom (StickyBook).
+// Who is signed in is read on the server, so the right account entry is there from the first paint.
+export async function Header() {
+  const t = await getTranslations("common");
+  const account = await headerAccount();
   return (
-    <header className="sticky top-0 z-40 border-b border-border bg-background/90 backdrop-blur supports-[backdrop-filter]:bg-background/75">
-      <div className="mx-auto flex h-16 max-w-6xl items-center gap-4 px-4 md:px-8">
-        <Link href="/" aria-label={t("nav.home")} className="shrink-0 rounded-sm">
-          <Logo variant="mark" className="h-9 sm:hidden" />
-          <Logo className="hidden h-9 sm:block" />
+    <HeaderBar>
+      <div className="flex shrink-0 lg:flex-1">
+        <Link
+          href="/"
+          aria-label={t("nav.home")}
+          className="-ml-1 flex h-11 shrink-0 items-center rounded-md px-1 outline-none focus-visible:ring-[3px] focus-visible:ring-ring/30"
+        >
+          <span className="flex origin-left transition-transform duration-300 ease-out group-data-[scrolled=true]/header:scale-[0.92] motion-reduce:transition-none">
+            <Logo variant="mark" className="h-9 sm:hidden" />
+            <Logo className="hidden h-9 sm:block" />
+          </span>
         </Link>
-        <nav aria-label={t("nav.label")} className="ml-auto hidden md:block">
-          <NavLinks className="flex items-center gap-1" />
-        </nav>
-        <div className="ml-auto flex items-center gap-2 md:ml-2">
-          <div className="hidden md:block">
-            <LocaleSwitcher />
-          </div>
-          {/* Phones get the sticky bar at the bottom instead (StickyBook). */}
-          <Button asChild className="hidden md:inline-flex">
-            <Link href="/booking">{t("actions.bookTest")}</Link>
-          </Button>
-          <MobileMenu />
-        </div>
       </div>
-    </header>
+      <nav aria-label={t("nav.label")} className="hidden lg:block">
+        <NavLinks />
+      </nav>
+      <div className="ml-auto flex items-center gap-1 lg:ml-0 lg:flex-1 lg:justify-end">
+        <div className="hidden md:block">
+          <LanguageMenu />
+        </div>
+        <AccountMenu account={account} />
+        <Button asChild className="ml-2 hidden md:inline-flex">
+          <Link href="/booking">{t("actions.bookTest")}</Link>
+        </Button>
+        <MobileMenu account={account} />
+      </div>
+    </HeaderBar>
   );
 }

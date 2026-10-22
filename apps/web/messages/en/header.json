@@ -1,0 +1,17 @@
+{
+  "language": {
+    "label": "Language"
+  },
+  "account": {
+    "menu": "Account menu",
+    "signIn": "Sign in",
+    "myAccount": "My account",
+    "myBookings": "My bookings",
+    "coachArea": "Coach area",
+    "signOut": "Sign out"
+  },
+  "menu": {
+    "account": "Your account",
+    "signInHint": "See and manage your bookings."
+  }
+}
