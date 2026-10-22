@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { eurFormat, euros } from "@/components/site/site";
 import type { Details } from "./details-step";
 import { anyYes } from "./health";
+import { PaymentNote, usePayLabel } from "./payment/payment-note";
 import { formatWhen } from "./time";
 import type { Picked } from "./time-step";
 
@@ -37,6 +38,7 @@ export function ReviewStep({
     ["email", details.email.trim(), "details"],
     ["phone", details.phone.trim(), "details"],
   ] as const;
+  const payLabel = usePayLabel(service, submitting);
 
   return (
     <div className="flex flex-col gap-6">
@@ -61,13 +63,13 @@ export function ReviewStep({
       {service.kind === "lab_test" && anyYes(details.health) && (
         <p className="rounded-md border border-amber-500/50 bg-amber-500/10 p-4">{t("health.doctorNote")}</p>
       )}
-      <p>{t("review.payOnSite")}</p>
+      <PaymentNote service={service} />
       <div className="flex flex-wrap gap-3">
         <Button type="button" variant="outline" size="lg" onClick={() => onEdit("details")}>
           {t("back")}
         </Button>
         <Button type="button" size="lg" disabled={submitting} onClick={onConfirm}>
-          {submitting ? t("review.confirming") : t("review.confirm")}
+          {payLabel ?? (submitting ? t("review.confirming") : t("review.confirm"))}
         </Button>
       </div>
     </div>

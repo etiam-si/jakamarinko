@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { paymentsConfig } from "../payments/config";
 
 const Env = z.object({
   // The site's public origin, for links in emails (same variable as auth). Dev: this worktree's web server.
@@ -17,7 +18,8 @@ export function bookingConfig(source: NodeJS.ProcessEnv = process.env) {
   const e = Env.parse(Object.fromEntries(Object.entries(source).filter(([, v]) => v !== "")));
   return {
     siteUrl: (e.BETTER_AUTH_URL ?? `http://localhost:${e.WEB_PORT}`).replace(/\/$/, ""),
-    paymentsEnabled: e.PAYMENTS_ENABLED === "true",
+    // On only with the Stripe keys too (T13); otherwise a booking would wait for a payment nobody can make.
+    paymentsEnabled: paymentsConfig(source).enabled,
     bufferMin: e.BOOKING_BUFFER_MIN,
     noticeMin: e.BOOKING_NOTICE_HOURS * 60,
     horizonDays: e.BOOKING_HORIZON_DAYS,
