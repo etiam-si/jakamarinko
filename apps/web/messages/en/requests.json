@@ -1,0 +1,69 @@
+{
+  "form": {
+    "title": "Send a message",
+    "name": "Name",
+    "email": "Email",
+    "phone": "Phone",
+    "optional": "optional",
+    "topic": "Topic",
+    "topicPlaceholder": "Choose a topic",
+    "topics": {
+      "coaching": "Coaching",
+      "lab_test": "Lab test",
+      "other": "Something else"
+    },
+    "message": "Message",
+    "packageLine": "I'm interested in: {name}.",
+    "consent": "You may contact me by email or phone about this message.",
+    "privacy": "How we handle your data",
+    "website": "Leave this field empty",
+    "submit": "Send message",
+    "sending": "Sending…",
+    "errors": {
+      "name": "Please enter your name.",
+      "email": "Please enter a valid email address.",
+      "phone": "Please enter a valid phone number, or leave it empty.",
+      "topic": "Please choose a topic.",
+      "message": "Please write a message.",
+      "consent": "Please agree to be contacted, so we can reply.",
+      "tooMany": "You've sent several messages in the last hour. Please try again later, or call or email directly.",
+      "generic": "Your message couldn't be sent. Please try again, or call or email directly."
+    },
+    "success": {
+      "title": "Thanks, your message is on its way",
+      "body": "You'll get a confirmation by email, and a reply within two working days.",
+      "again": "Send another message"
+    }
+  },
+  "inbox": {
+    "title": "Requests",
+    "lead": "Questions and requests sent through the contact form.",
+    "filter": "Show",
+    "all": "All",
+    "statuses": {
+      "new": "New",
+      "answered": "Answered",
+      "done": "Done"
+    },
+    "emptyTitle": "No requests",
+    "emptyBody": "When someone writes through the contact form, their message waits here until you answer it.",
+    "emptyFilteredTitle": "Nothing here",
+    "emptyFilteredBody": "No requests with this status.",
+    "back": "All requests",
+    "received": "Received {date}",
+    "topic": "Topic",
+    "email": "Email",
+    "phone": "Phone",
+    "language": "Language",
+    "languages": {
+      "en": "English",
+      "sl": "Slovenian"
+    },
+    "message": "Message",
+    "reply": "Reply by email",
+    "replySubject": "Re: your message to Jaka Marinko",
+    "status": "Status",
+    "statusSaved": "Status changed to {status}",
+    "statusError": "The status couldn't be changed. Please try again."
+  }
+}

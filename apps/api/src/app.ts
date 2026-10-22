@@ -4,6 +4,7 @@ import { auth } from "./routes/auth";
 import { booking } from "./routes/booking";
 import { events } from "./routes/events";
 import { health } from "./routes/health";
+import { contactRequests } from "./routes/requests";
 
 // Everything lives under /api: on the server Traefik sends jakamarinko.com/api/* here, the rest to web.
 // Routes are chained so AppType carries them all to the typed client in packages/api.
@@ -13,6 +14,7 @@ export const app = new Hono()
   .route("/auth", auth)
   .route("/events", events)
   .route("/booking", booking)
+  .route("/requests", contactRequests)
   .route("/health", health);
 
 app.onError(onError);

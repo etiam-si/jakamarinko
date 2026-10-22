@@ -4,6 +4,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { use } from "react";
 import { PhotoFrame } from "@/components/brand/photo-frame";
 import { SectionHeading } from "@/components/brand/section-heading";
+import { ContactForm } from "@/components/contact/contact-form";
 import { Section } from "@/components/site/section";
 import { pageMetadata, photos } from "@/components/site/site";
 
@@ -48,7 +49,7 @@ export default function Contact({ params }: Props) {
               </div>
             ))}
           </dl>
-          {/* T09 puts the contact form here. */}
+          <ContactForm />
         </div>
         <PhotoFrame
           src={photos.europeans}
