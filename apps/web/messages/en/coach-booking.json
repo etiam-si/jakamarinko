@@ -1,0 +1,145 @@
+{
+  "status": {
+    "pending_payment": "Awaiting payment",
+    "confirmed": "Confirmed",
+    "cancelled": "Cancelled",
+    "completed": "Completed",
+    "no_show": "No-show"
+  },
+  "noCalendar": {
+    "title": "You have no calendar yet",
+    "body": "Only coaches with a calendar can be booked. Pick a coach's calendar in the menu, or ask the owner to add yours."
+  },
+  "loadError": "This didn't load. Check your connection and try again.",
+  "retry": "Try again",
+  "loading": "Loading…",
+  "errors": {
+    "slot_taken": "That time was just taken. Pick another one.",
+    "not_active": "This booking is no longer active. Reload to see its status.",
+    "not_started": "You can mark it once the booking has started.",
+    "forbidden": "This isn't your calendar.",
+    "generic": "That didn't work. Try again."
+  },
+  "today": {
+    "today": "Today",
+    "tomorrow": "Tomorrow",
+    "empty": "Nothing booked.",
+    "allBookings": "All bookings"
+  },
+  "card": {
+    "call": "Call",
+    "email": "Email",
+    "details": "Details",
+    "healthFlag": "Health: check answers",
+    "move": "Move",
+    "cancel": "Cancel",
+    "completed": "Completed",
+    "noShow": "No-show",
+    "minutes": "{minutes} min"
+  },
+  "details": {
+    "title": "Booking",
+    "when": "When",
+    "where": "Where",
+    "contact": "Contact",
+    "cancelReason": "Cancellation reason",
+    "account": "Has an account",
+    "guest": "Booked as a guest",
+    "close": "Close"
+  },
+  "health": {
+    "title": "Health questionnaire",
+    "flagged": "At least one question was answered yes. Read the answers before the test.",
+    "clear": "No question was answered yes.",
+    "hidden": "Only the coach of this booking sees the answers.",
+    "none": "No answers to show.",
+    "yes": "Yes",
+    "no": "No"
+  },
+  "cancel": {
+    "title": "Cancel this booking?",
+    "body": "{name} gets an email that the booking is cancelled, with a link to book a new time.",
+    "reason": "Reason (optional)",
+    "reasonHint": "It goes into the email.",
+    "confirm": "Cancel booking",
+    "back": "Keep it",
+    "done": "Booking cancelled. {name} has been emailed."
+  },
+  "reschedule": {
+    "title": "Move this booking",
+    "body": "Pick a free time. {name} gets an email with the new time and an updated calendar invite.",
+    "previousWeek": "Previous week",
+    "nextWeek": "Next week",
+    "noSlots": "No free times this week.",
+    "confirm": "Move to {when}",
+    "pick": "Pick a time",
+    "back": "Back",
+    "done": "Booking moved. {name} has been emailed."
+  },
+  "outcome": {
+    "completed": "Marked as completed.",
+    "no_show": "Marked as a no-show."
+  },
+  "bookings": {
+    "view": "View",
+    "week": "Week",
+    "list": "List",
+    "previousWeek": "Previous week",
+    "nextWeek": "Next week",
+    "thisWeek": "This week",
+    "status": "Status",
+    "service": "Service",
+    "all": "All",
+    "active": "Active",
+    "period": "Period",
+    "upcoming": "Next 90 days",
+    "past": "Last 90 days",
+    "empty": "No bookings match.",
+    "count": "{count, plural, one {# booking} other {# bookings}}"
+  },
+  "settings": {
+    "availabilityTitle": "Availability",
+    "availabilityBody": "Your weekly hours, holidays and extra days. Customers can book only inside them.",
+    "open": "Edit availability"
+  },
+  "availability": {
+    "title": "Availability",
+    "lead": "When customers can book you. Times are Ljubljana time.",
+    "back": "Settings",
+    "weekTitle": "Weekly hours",
+    "weekBody": "Every week repeats these hours. A day without hours can't be booked.",
+    "closed": "Not bookable",
+    "from": "From",
+    "to": "To",
+    "location": "Location",
+    "add": "Add hours",
+    "save": "Save",
+    "remove": "Remove",
+    "saved": "Saved.",
+    "exceptionsTitle": "Holidays and extra days",
+    "exceptionsBody": "Close days you're away, or open hours on a day you normally don't work. Pick a day or a range in the calendar.",
+    "picked": "Selected",
+    "pickDays": "Pick a day or a range in the calendar.",
+    "kind": "What happens",
+    "kindClosed": "Closed all day",
+    "kindOpen": "Extra hours",
+    "note": "Note (only you see it)",
+    "addException": "Add",
+    "upcoming": "Coming up",
+    "noExceptions": "No holidays or extra days.",
+    "closedRange": "Closed",
+    "openRange": "Extra hours {start}–{end}",
+    "legendClosed": "Closed",
+    "legendOpen": "Extra hours",
+    "added": "Added."
+  },
+  "weekdays": {
+    "1": "Monday",
+    "2": "Tuesday",
+    "3": "Wednesday",
+    "4": "Thursday",
+    "5": "Friday",
+    "6": "Saturday",
+    "7": "Sunday"
+  }
+}
