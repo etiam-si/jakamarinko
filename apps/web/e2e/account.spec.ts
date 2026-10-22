@@ -27,7 +27,9 @@ async function linkFrom(needle: string, since = "") {
       const files = (await readdir(outbox).catch(() => [])).filter((f) => f.endsWith(".html") && f >= since).sort().reverse();
       for (const file of files) {
         const html = await readFile(path.join(outbox, file), "utf8");
-        if (html.includes(needle)) return (link = /href="([^"]+)"/.exec(html)?.[1]?.replaceAll("&amp;", "&"));
+        // The link that carries the needle: branded emails also link their logo.
+        const hrefs = [...html.matchAll(/href="([^"]+)"/g)].map((m) => m[1]!.replaceAll("&amp;", "&"));
+        if (html.includes(needle)) return (link = hrefs.find((h) => h.includes(needle)) ?? hrefs[0]);
       }
     })
     .toBeTruthy();

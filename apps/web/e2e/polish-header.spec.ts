@@ -39,7 +39,10 @@ async function emailsTo(email: string) {
 async function magicLink(email: string) {
   let link: string | undefined;
   await expect
-    .poll(async () => (link = /href="([^"]+)"/.exec((await emailsTo(email))[0] ?? "")?.[1]?.replaceAll("&amp;", "&")))
+    .poll(async () => {
+      const hrefs = [...((await emailsTo(email))[0] ?? "").matchAll(/href="([^"]+)"/g)].map((m) => m[1]!.replaceAll("&amp;", "&"));
+      return (link = hrefs.find((h) => h.includes("token=")));
+    })
     .toBeTruthy();
   return link!;
 }
@@ -518,7 +521,8 @@ test.describe("cookie sheet", () => {
     const intersects = (a: { x: number; y: number; width: number; height: number }, b: typeof a) =>
       a.x < b.x + b.width && b.x < a.x + a.width && a.y < b.y + b.height && b.y < a.y + a.height;
     const h1 = (await page.getByRole("heading", { level: 1 }).boundingBox())!;
-    const book = (await page.getByRole("main").getByRole("link", { name: /^Book a test/ }).first().boundingBox())!;
+    // The hero's primary call to action: the first link into the booking.
+    const book = (await page.getByRole("main").locator('a[href*="/booking"]').first().boundingBox())!;
     expect(intersects(box, h1)).toBe(false);
     expect(intersects(box, book)).toBe(false);
 
@@ -583,7 +587,7 @@ test.describe("booking", () => {
           await page.goto(`/${locale}/booking`);
         });
         await quality(page, width, at("service"));
-        await page.getByRole("radio", { name: /Lactate|Laktat/ }).check({ force: true });
+        await page.locator('input[name="service"][value="lactate-profile"]').check({ force: true });
         await page.getByRole("button", { name: t.next }).click();
         await expect(page.locator('input[name="time"]').first()).toBeAttached();
         await quality(page, width, at("time"));
