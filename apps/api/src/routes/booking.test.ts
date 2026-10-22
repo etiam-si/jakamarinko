@@ -340,7 +340,52 @@ describe("coach", () => {
     const res = await send("POST", `/coach/bookings/${booking.id}/reschedule`, { start: "2026-11-02T15:30:00.000Z" });
     expect(res.status).toBe(200);
     expect(CoachBooking.parse(await res.json()).start).toBe("2026-11-02T15:30:00.000Z");
-    expect(outbox[0]!.attachments?.[0]?.content).toContain("DTSTART;TZID=Europe/Ljubljana:20261102T163000");
+    expect(outbox).toHaveLength(1);
+    expect(outbox[0]!.subject).toBe("Booking moved: VO₂max test, Monday 2 November");
+    expect(outbox[0]!.text).toContain("Previous time: Monday 2 November, 16:00");
+    const ics = outbox[0]!.attachments![0]!.content;
+    expect(ics).toContain("DTSTART;TZID=Europe/Ljubljana:20261102T163000");
+    expect(ics).toContain(`UID:${booking.id}@jakamarinko.com`);
+    expect(ics).toMatch(/SEQUENCE:[1-9]\d*\r\n/);
+  });
+
+  test("reschedule slots: the booking's coach and length, ignoring the notice and the booking itself", async () => {
+    const { booking } = await book({ service: "vo2max" });
+    vi.setSystemTime(new Date("2026-11-02T13:00:00Z")); // Monday 14:00, two hours before
+    const path = `/coach/bookings/${booking.id}/slots?from=2026-11-02&to=2026-11-02`;
+    as(people.maja);
+    expect((await send("GET", path)).status).toBe(403);
+    as(people.jaka);
+    const free = Slot.array().parse(await (await send("GET", path)).json());
+    expect(free[0]).toEqual({ start: monday16, end: "2026-11-02T15:45:00.000Z", coachId: ids.jakaCoachId, locationId: ids.labId });
+    expect((await send("GET", `/coach/bookings/${booking.id}/slots?from=2026-11-02&to=2027-02-02`)).status).toBe(400);
+  });
+
+  test("locations are listed for staff, the default first", async () => {
+    expect((await send("GET", "/coach/locations")).status).toBe(401);
+    as(people.maja);
+    expect(await (await send("GET", "/coach/locations")).json()).toEqual([
+      { id: ids.labId, name: "Lab", address: "Testna 1, Ljubljana", isDefault: true },
+    ]);
+  });
+
+  test("health answers: a head coach looking at another coach's booking sees only the flag", async () => {
+    as(people.maja);
+    await send("POST", "/coach/availability", { weekday: 2, start: "08:00", end: "12:00", locationId: ids.labId });
+    as(null);
+    const { booking } = await book({
+      service: "vo2max",
+      coachId: ids.majaCoachId,
+      start: "2026-11-03T07:00:00.000Z",
+      healthAnswers: { chest_pain: true },
+      healthConsent: true,
+    });
+    const list = async () =>
+      CoachBooking.array().parse(await (await send("GET", `/coach/bookings?coachId=${ids.majaCoachId}&from=2026-11-03&to=2026-11-03`)).json());
+    as(people.maja);
+    expect((await list())[0]).toMatchObject({ id: booking.id, healthAnswers: { chest_pain: true } });
+    as(people.jaka);
+    expect((await list())[0]).toMatchObject({ id: booking.id, healthFlag: true, healthAnswers: null });
   });
 
   test("completed and no-show only after the start", async () => {

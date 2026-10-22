@@ -1,0 +1,145 @@
+{
+  "status": {
+    "pending_payment": "Čaka na plačilo",
+    "confirmed": "Potrjeno",
+    "cancelled": "Odpovedano",
+    "completed": "Opravljeno",
+    "no_show": "Neudeležba"
+  },
+  "noCalendar": {
+    "title": "Še nimaš koledarja",
+    "body": "Rezervirati je mogoče le trenerje s koledarjem. V meniju izberi koledar drugega trenerja ali prosi lastnika, naj doda tvojega."
+  },
+  "loadError": "Nalaganje ni uspelo. Preveri povezavo in poskusi znova.",
+  "retry": "Poskusi znova",
+  "loading": "Nalagam …",
+  "errors": {
+    "slot_taken": "Ta termin je bil pravkar zaseden. Izberi drugega.",
+    "not_active": "Ta rezervacija ni več aktivna. Osveži stran za njen status.",
+    "not_started": "Označiš jo lahko, ko se termin začne.",
+    "forbidden": "To ni tvoj koledar.",
+    "generic": "Ni uspelo. Poskusi znova."
+  },
+  "today": {
+    "today": "Danes",
+    "tomorrow": "Jutri",
+    "empty": "Ni rezervacij.",
+    "allBookings": "Vse rezervacije"
+  },
+  "card": {
+    "call": "Pokliči",
+    "email": "E-pošta",
+    "details": "Podrobnosti",
+    "healthFlag": "Zdravje: preveri odgovore",
+    "move": "Prestavi",
+    "cancel": "Odpovej",
+    "completed": "Opravljeno",
+    "noShow": "Neudeležba",
+    "minutes": "{minutes} min"
+  },
+  "details": {
+    "title": "Rezervacija",
+    "when": "Kdaj",
+    "where": "Kje",
+    "contact": "Kontakt",
+    "cancelReason": "Razlog za odpoved",
+    "account": "Ima račun",
+    "guest": "Rezervacija kot gost",
+    "close": "Zapri"
+  },
+  "health": {
+    "title": "Zdravstveni vprašalnik",
+    "flagged": "Vsaj na eno vprašanje je odgovor da. Pred meritvijo preberi odgovore.",
+    "clear": "Na nobeno vprašanje ni odgovora da.",
+    "hidden": "Odgovore vidi le trener te rezervacije.",
+    "none": "Ni odgovorov za prikaz.",
+    "yes": "Da",
+    "no": "Ne"
+  },
+  "cancel": {
+    "title": "Odpoveš to rezervacijo?",
+    "body": "Stranka ({name}) dobi e-pošto, da je rezervacija odpovedana, s povezavo za nov termin.",
+    "reason": "Razlog (neobvezno)",
+    "reasonHint": "Zapisan bo v e-pošti.",
+    "confirm": "Odpovej rezervacijo",
+    "back": "Obdrži",
+    "done": "Rezervacija odpovedana. Stranka je dobila e-pošto."
+  },
+  "reschedule": {
+    "title": "Prestavi rezervacijo",
+    "body": "Izberi prost termin. Stranka ({name}) dobi e-pošto z novim terminom in posodobljenim povabilom za koledar.",
+    "previousWeek": "Prejšnji teden",
+    "nextWeek": "Naslednji teden",
+    "noSlots": "Ta teden ni prostih terminov.",
+    "confirm": "Prestavi na {when}",
+    "pick": "Izberi termin",
+    "back": "Nazaj",
+    "done": "Rezervacija prestavljena. Stranka je dobila e-pošto."
+  },
+  "outcome": {
+    "completed": "Označeno kot opravljeno.",
+    "no_show": "Označeno kot neudeležba."
+  },
+  "bookings": {
+    "view": "Pogled",
+    "week": "Teden",
+    "list": "Seznam",
+    "previousWeek": "Prejšnji teden",
+    "nextWeek": "Naslednji teden",
+    "thisWeek": "Ta teden",
+    "status": "Status",
+    "service": "Storitev",
+    "all": "Vse",
+    "active": "Aktivne",
+    "period": "Obdobje",
+    "upcoming": "Naslednjih 90 dni",
+    "past": "Zadnjih 90 dni",
+    "empty": "Ni ustreznih rezervacij.",
+    "count": "{count, plural, one {# rezervacija} two {# rezervaciji} few {# rezervacije} other {# rezervacij}}"
+  },
+  "settings": {
+    "availabilityTitle": "Razpoložljivost",
+    "availabilityBody": "Tvoje tedenske ure, dopusti in dodatni dnevi. Stranke lahko rezervirajo le znotraj njih.",
+    "open": "Uredi razpoložljivost"
+  },
+  "availability": {
+    "title": "Razpoložljivost",
+    "lead": "Kdaj te stranke lahko rezervirajo. Časi so po ljubljanskem času.",
+    "back": "Nastavitve",
+    "weekTitle": "Tedenske ure",
+    "weekBody": "Te ure se ponavljajo vsak teden. Dneva brez ur ni mogoče rezervirati.",
+    "closed": "Ni mogoče rezervirati",
+    "from": "Od",
+    "to": "Do",
+    "location": "Lokacija",
+    "add": "Dodaj ure",
+    "save": "Shrani",
+    "remove": "Odstrani",
+    "saved": "Shranjeno.",
+    "exceptionsTitle": "Dopusti in dodatni dnevi",
+    "exceptionsBody": "Zapri dneve, ko te ni, ali odpri ure na dan, ko običajno ne delaš. V koledarju izberi dan ali obdobje.",
+    "picked": "Izbrano",
+    "pickDays": "V koledarju izberi dan ali obdobje.",
+    "kind": "Kaj se zgodi",
+    "kindClosed": "Zaprto cel dan",
+    "kindOpen": "Dodatne ure",
+    "note": "Opomba (vidiš jo le ti)",
+    "addException": "Dodaj",
+    "upcoming": "Prihaja",
+    "noExceptions": "Ni dopustov ali dodatnih dni.",
+    "closedRange": "Zaprto",
+    "openRange": "Dodatne ure {start}–{end}",
+    "legendClosed": "Zaprto",
+    "legendOpen": "Dodatne ure",
+    "added": "Dodano."
+  },
+  "weekdays": {
+    "1": "Ponedeljek",
+    "2": "Torek",
+    "3": "Sreda",
+    "4": "Četrtek",
+    "5": "Petek",
+    "6": "Sobota",
+    "7": "Nedelja"
+  }
+}

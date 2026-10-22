@@ -16,6 +16,7 @@ export const samples: { [N in TemplateName]: TemplateProps<N> } = {
   bookingPreparation: { name: "Ana", booking, fasted: true },
   bookingReminder: { name: "Ana", booking },
   bookingCancelled: { name: "Ana", booking, reason: "Coach is ill", refund: true, rebookUrl: "https://jakamarinko.com/booking" },
+  bookingRescheduled: { name: "Ana", booking, previousStart: new Date("2026-11-02T15:00:00Z"), sequence: 1 },
   contactReceived: {
     name: "Ana Novak",
     email: "ana@example.com",
@@ -24,4 +25,5 @@ export const samples: { [N in TemplateName]: TemplateProps<N> } = {
     requestUrl: "https://jakamarinko.com/coach/requests/rq_sample",
   },
   contactAutoReply: { name: "Ana" },
+  accountDelete: { url: "https://jakamarinko.com/en/account/privacy/delete?token=sample", expiresInMinutes: 60 },
 };

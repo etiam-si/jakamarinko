@@ -1,6 +1,16 @@
 import { timeZone } from "./i18n";
 
-type Event = { uid: string; start: Date; end: Date; summary: string; location: string; description?: string; url?: string };
+// sequence: raise it when the same event changes (a reschedule), so calendars update it instead of adding a copy.
+type Event = {
+  uid: string;
+  start: Date;
+  end: Date;
+  summary: string;
+  location: string;
+  description?: string;
+  url?: string;
+  sequence?: number;
+};
 
 // One iCalendar event in Ljubljana local time, with the zone's rules inline (Apple Calendar needs them).
 export function icsEvent(event: Event, now = new Date()): string {
@@ -14,6 +24,7 @@ export function icsEvent(event: Event, now = new Date()): string {
     "BEGIN:VEVENT",
     `UID:${event.uid}@jakamarinko.com`,
     `DTSTAMP:${utc(now)}`,
+    ...(event.sequence ? [`SEQUENCE:${event.sequence}`] : []),
     `DTSTART;TZID=${timeZone}:${local(event.start)}`,
     `DTEND;TZID=${timeZone}:${local(event.end)}`,
     `SUMMARY:${escape(event.summary)}`,
