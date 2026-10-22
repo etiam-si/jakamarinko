@@ -33,7 +33,7 @@ export function OverviewBlock({ id, title, state, action, wide, children }: Prop
         wide && "md:col-span-2",
       )}
     >
-      <header className="flex items-baseline justify-between gap-3">
+      <header className="flex min-h-5 items-center justify-between gap-3">
         <h2 id={headingId} className="font-mono text-xs tracking-wider text-muted-foreground uppercase">
           {title}
         </h2>
@@ -42,9 +42,9 @@ export function OverviewBlock({ id, title, state, action, wide, children }: Prop
       {state.kind === "loading" ? (
         <div className="flex flex-col gap-3">
           <span className="sr-only">{state.label}</span>
-          <div aria-hidden className="h-6 w-2/3 animate-pulse rounded bg-muted" />
-          <div aria-hidden className="h-4 w-1/2 animate-pulse rounded bg-muted" />
-          <div aria-hidden className="h-4 w-1/3 animate-pulse rounded bg-muted" />
+          <div aria-hidden className="h-6 w-2/3 animate-pulse rounded bg-muted motion-reduce:animate-none" />
+          <div aria-hidden className="h-4 w-1/2 animate-pulse rounded bg-muted motion-reduce:animate-none" />
+          <div aria-hidden className="h-4 w-1/3 animate-pulse rounded bg-muted motion-reduce:animate-none" />
         </div>
       ) : (
         <>

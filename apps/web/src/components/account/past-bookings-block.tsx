@@ -13,7 +13,7 @@ export default async function PastBookingsBlock() {
   const locale = (await getLocale()) as Locale;
   const past = splitBookings(await getMyBookings(locale), new Date()).past.slice(0, 3);
   const all = (
-    <Link href="/account/bookings" className="text-sm underline underline-offset-4">
+    <Link href="/account/bookings" className="-my-3 inline-flex min-h-11 items-center text-sm font-medium text-primary underline-offset-4 hover:underline">
       {t("all")}
     </Link>
   );

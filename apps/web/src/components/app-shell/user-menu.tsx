@@ -2,6 +2,7 @@
 
 import { ArrowLeftRight, Check, LogOut } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
+import { BibAvatar } from "@/components/brand/bib-avatar";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -15,17 +16,10 @@ import {
 import { Link, usePathname, useRouter } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import { authClient } from "@/lib/auth-client";
+import { initials } from "@/lib/initials";
 import { type Area, areaHome } from "@/lib/nav";
 
 type Props = { name: string; email: string; switchTo?: Area; compact?: boolean };
-
-const initials = (name: string) =>
-  name
-    .split(/[\s@.]+/)
-    .filter(Boolean)
-    .slice(0, 2)
-    .map((part) => part[0]!.toUpperCase())
-    .join("");
 
 // Who is signed in, the language, the switch between coach and customer view (staff only), sign out.
 export function UserMenu({ name, email, switchTo, compact }: Props) {
@@ -44,13 +38,8 @@ export function UserMenu({ name, email, switchTo, compact }: Props) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" aria-label={t("label")} className={compact ? "size-9 p-0" : "h-12 w-full justify-start gap-3 px-2"}>
-          <span
-            aria-hidden
-            className="flex size-8 shrink-0 items-center justify-center rounded-full bg-primary font-mono text-xs text-primary-foreground"
-          >
-            {initials(name || email)}
-          </span>
+        <Button variant="ghost" aria-label={t("label")} className={compact ? "size-11 p-0" : "h-14 w-full justify-start gap-3 px-2"}>
+          <BibAvatar initials={initials(name, email)} />
           {!compact && (
             <span className="flex min-w-0 flex-col items-start text-left">
               <span className="w-full truncate text-sm font-medium">{name || email}</span>
@@ -65,7 +54,7 @@ export function UserMenu({ name, email, switchTo, compact }: Props) {
         <DropdownMenuGroup aria-label={tLocale("label")}>
           <DropdownMenuLabel className="text-xs text-muted-foreground">{tLocale("label")}</DropdownMenuLabel>
           {routing.locales.map((l) => (
-            <DropdownMenuItem key={l} asChild>
+            <DropdownMenuItem key={l} asChild className="min-h-11">
               <Link href={pathname} locale={l} hrefLang={l} aria-current={l === locale ? "true" : undefined}>
                 {tLocale(l)}
                 {l === locale && <Check aria-hidden className="ml-auto" />}
@@ -75,14 +64,14 @@ export function UserMenu({ name, email, switchTo, compact }: Props) {
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         {switchTo && (
-          <DropdownMenuItem asChild>
+          <DropdownMenuItem asChild className="min-h-11">
             <Link href={areaHome[switchTo]}>
               <ArrowLeftRight aria-hidden />
               {t(switchTo === "coach" ? "toCoach" : "toAccount")}
             </Link>
           </DropdownMenuItem>
         )}
-        <DropdownMenuItem onSelect={signOut}>
+        <DropdownMenuItem onSelect={signOut} className="min-h-11">
           <LogOut aria-hidden />
           {t("signOut")}
         </DropdownMenuItem>

@@ -14,7 +14,9 @@
     "settings": "Nastavitve",
     "myBookings": "Moje rezervacije",
     "profile": "Profil",
-    "privacy": "Zasebnost"
+    "privacy": "Zasebnost",
+    "overview": "Pregled",
+    "website": "Nazaj na spletno stran"
   },
   "userMenu": {
     "label": "Meni računa",

@@ -48,7 +48,7 @@ export function CancelBooking({ booking }: { booking: AccountBooking }) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="destructive-outline" size="sm">
+        <Button variant="destructive-outline" className="h-11">
           {t("cancel")}
         </Button>
       </DialogTrigger>
@@ -60,9 +60,9 @@ export function CancelBooking({ booking }: { booking: AccountBooking }) {
         {error && <FieldError role="alert">{error}</FieldError>}
         <DialogFooter>
           <DialogClose asChild>
-            <Button variant="outline">{t("keep")}</Button>
+            <Button variant="outline" className="max-sm:h-11">{t("keep")}</Button>
           </DialogClose>
-          <Button variant="destructive" onClick={cancel} loading={pending}>
+          <Button variant="destructive" className="max-sm:h-11" onClick={cancel} loading={pending}>
             {t("cancelConfirm")}
           </Button>
         </DialogFooter>

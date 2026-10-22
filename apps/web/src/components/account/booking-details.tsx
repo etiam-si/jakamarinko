@@ -1,4 +1,4 @@
-import { CalendarPlus, MapPin } from "lucide-react";
+import { CalendarPlus, Check, MapPin } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import type { AccountBooking } from "@jakamarinko/api";
 import type { Locale } from "@jakamarinko/types";
@@ -23,7 +23,12 @@ export function BookingWhenWhere({ booking }: { booking: AccountBooking }) {
         <dt className="text-xs text-muted-foreground">{t("where")}</dt>
         <dd>
           {location.name}, {location.address}{" "}
-          <a href={mapsUrl(location.address)} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 underline underline-offset-4">
+          <a
+            href={mapsUrl(location.address)}
+            target="_blank"
+            rel="noreferrer"
+            className="-my-2.5 inline-flex min-h-11 items-center gap-1 font-medium text-primary underline-offset-4 hover:underline"
+          >
             <MapPin aria-hidden className="size-3.5" />
             {t("map")}
           </a>
@@ -52,9 +57,12 @@ export function Preparation({ steps }: { steps: string[] }) {
   return (
     <div className="flex flex-col gap-2">
       <h3 className="text-sm font-semibold">{t("prepare")}</h3>
-      <ul className="flex list-disc flex-col gap-1 pl-5 text-sm text-pretty">
+      <ul className="flex flex-col gap-2 text-sm text-pretty">
         {steps.map((step) => (
-          <li key={step}>{step}</li>
+          <li key={step} className="flex items-start gap-2.5">
+            <Check aria-hidden className="mt-0.5 size-4 shrink-0 text-primary" />
+            {step}
+          </li>
         ))}
       </ul>
     </div>
@@ -65,7 +73,7 @@ export function AddToCalendar({ id }: { id: string }) {
   const t = useTranslations("account.booking");
   const locale = useLocale() as Locale;
   return (
-    <Button variant="outline" size="sm" asChild>
+    <Button variant="outline" asChild className="h-11">
       <a href={calendarUrl(id, locale)} download>
         <CalendarPlus aria-hidden />
         {t("addToCalendar")}
