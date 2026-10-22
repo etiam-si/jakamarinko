@@ -117,7 +117,7 @@
     "preparation": "Kako se pripraviti",
     "account": {
       "title": "Vse rezervacije na enem mestu",
-      "text": "Z računom vidiš svoje rezervacije in po meritvi tudi rezultate. Prijaviš se s tem e-poštnim naslovom, brez gesla.",
+      "text": "Z računom vidiš svoje rezervacije in po meritvi tudi rezultate. Povezavo za prijavo pošljemo na {email}, brez gesla.",
       "action": "Ustvari račun"
     }
   },

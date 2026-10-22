@@ -117,7 +117,7 @@
     "preparation": "How to prepare",
     "account": {
       "title": "Keep your bookings in one place",
-      "text": "With an account you see your bookings and, after the test, your results. Sign in with this email; no password needed.",
+      "text": "With an account you see your bookings and, after the test, your results. We email a sign-in link to {email}, no password needed.",
       "action": "Create an account"
     }
   },

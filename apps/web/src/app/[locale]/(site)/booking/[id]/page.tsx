@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Check } from "lucide-react";
 import { headers } from "next/headers";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Booking } from "@jakamarinko/api";
@@ -6,6 +7,7 @@ import { labTests, locales } from "@jakamarinko/types";
 import { SectionHeading } from "@/components/brand/section-heading";
 import { AddToCalendar } from "@/components/booking/add-to-calendar";
 import { CancelBooking } from "@/components/booking/cancel-booking";
+import { CreateAccount } from "@/components/booking/create-account";
 import { PaidNote } from "@/components/booking/payment/paid-note";
 import { PaidTracker } from "@/components/booking/payment/paid-tracker";
 import { PendingPayment } from "@/components/booking/payment/pending-payment";
@@ -78,10 +80,15 @@ export default async function ManageBookingPage({ params, searchParams }: Props)
 
   return (
     <main>
-      <Section className="flex max-w-2xl flex-col gap-8 pt-10 md:pt-16">
-        <div className="flex flex-col gap-3">
+      <Section className="flex max-w-2xl flex-col gap-8 pt-8 pb-14 md:pt-14 md:pb-20">
+        <div className="flex flex-col gap-4">
+          {justBooked && (
+            <span className="flex size-14 items-center justify-center rounded-2xl bg-primary text-primary-foreground shadow-md duration-500 animate-in fade-in-0 zoom-in-75 motion-reduce:animate-none">
+              <Check aria-hidden className="size-7" strokeWidth={2.5} />
+            </span>
+          )}
           <SectionHeading as="h1" title={justBooked ? t("confirmed.heading") : t("manage.heading")} />
-          {justBooked && <p className="text-lg">{t("confirmed.text", { email: booking.email })}</p>}
+          {justBooked && <p className="text-lg text-pretty text-muted-foreground">{t("confirmed.text", { email: booking.email })}</p>}
         </div>
 
         <dl className="flex flex-col divide-y divide-border overflow-hidden rounded-xl border bg-card shadow-sm">
@@ -93,7 +100,12 @@ export default async function ManageBookingPage({ params, searchParams }: Props)
               <span key="l" className="flex flex-col">
                 <span>{booking.location.name}</span>
                 <span>{booking.location.address}</span>
-                <a href={map} target="_blank" rel="noopener" className="text-sm text-primary underline-offset-4 hover:underline">
+                <a
+                  href={map}
+                  target="_blank"
+                  rel="noopener"
+                  className="-my-2 inline-flex min-h-11 items-center self-start text-sm text-primary underline-offset-4 hover:underline"
+                >
                   {t("manage.map")}
                 </a>
               </span>,
@@ -117,15 +129,22 @@ export default async function ManageBookingPage({ params, searchParams }: Props)
         {active && <AddToCalendar event={event} />}
 
         {active && preparation.length > 0 && (
-          <div className="flex flex-col gap-2">
-            <h2 className="font-semibold">{t("confirmed.preparation")}</h2>
-            <ul className="flex list-disc flex-col gap-1 pl-5 marker:text-muted-foreground">
+          <section aria-labelledby="preparation" className="flex flex-col gap-3">
+            <h2 id="preparation" className="font-semibold">
+              {t("confirmed.preparation")}
+            </h2>
+            <ul className="flex flex-col gap-2.5">
               {preparation.map((p) => (
-                <li key={p}>{p}</li>
+                <li key={p} className="flex items-start gap-3 text-pretty">
+                  <Check aria-hidden className="mt-1 size-4 shrink-0 text-primary" />
+                  {p}
+                </li>
               ))}
             </ul>
-          </div>
+          </section>
         )}
+
+        {!session && active && <CreateAccount email={booking.email} />}
 
         {active && <CancelBooking id={booking.id} token={token} cancellable={booking.cancellable} />}
         {booking.status === "cancelled" && (
@@ -133,16 +152,6 @@ export default async function ManageBookingPage({ params, searchParams }: Props)
             <p role="status">{t("manage.cancelled")}</p>
             <Link href={{ pathname: "/booking", query: { service: booking.service } }} className={buttonVariants({ size: "lg", className: "self-start" })}>
               {t("manage.bookAgain")}
-            </Link>
-          </div>
-        )}
-
-        {!session && active && (
-          <div className="flex flex-col items-start gap-3 rounded-xl border bg-card p-6 shadow-sm">
-            <h2 className="text-lg font-semibold">{t("confirmed.account.title")}</h2>
-            <p>{t("confirmed.account.text")}</p>
-            <Link href={{ pathname: "/sign-in", query: { next: "/account" } }} className={buttonVariants({ size: "lg" })}>
-              {t("confirmed.account.action")}
             </Link>
           </div>
         )}

@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "cn";
-import { MailCheck } from "lucide-react";
+import { ExternalLink, MailCheck } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 import { z } from "zod";
@@ -10,6 +10,7 @@ import { Field, FieldError } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { authClient } from "@/lib/auth-client";
+import { webmail } from "./webmail";
 
 type Props = { google: boolean; next?: string; error?: "linkExpired" | "generic" };
 
@@ -128,6 +129,7 @@ function Sent({ email, resend, onDifferentEmail }: { email: string; resend: () =
   const [now, setNow] = useState(() => Date.now());
   const [state, setState] = useState<"idle" | "sending" | "sent" | "failed">("idle");
   const left = Math.max(0, Math.ceil((until - now) / 1000));
+  const inbox = webmail(email);
   // Keyboards and screen readers continue from the new heading, not from the form that just went away.
   const heading = useRef<HTMLHeadingElement>(null);
   useEffect(() => heading.current?.focus(), []);
@@ -174,6 +176,14 @@ function Sent({ email, resend, onDifferentEmail }: { email: string; resend: () =
         {state === "sent" ? t("resent") : state === "failed" ? t("errors.generic") : t("spamHint")}
       </p>
       <div className="flex flex-col gap-2">
+        {inbox && (
+          <Button asChild size="lg" className="w-full">
+            <a href={inbox.url} target="_blank" rel="noopener noreferrer">
+              {t("openMail", { provider: inbox.name })}
+              <ExternalLink aria-hidden />
+            </a>
+          </Button>
+        )}
         <Button variant="outline" size="lg" className="w-full tabular-nums" disabled={left > 0} loading={state === "sending"} onClick={again}>
           {left > 0 ? t("resendIn", { seconds: left }) : t("resend")}
         </Button>
