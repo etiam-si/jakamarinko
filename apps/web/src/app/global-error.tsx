@@ -2,7 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import { NextIntlClientProvider } from "next-intl";
-import { ErrorView } from "@/components/errors/error-view";
+import { LazyErrorView as ErrorView } from "@/components/errors/lazy-error-view";
 import { fontVariables } from "@/styles/fonts";
 import en from "../../messages/en/errors.json";
 import sl from "../../messages/sl/errors.json";

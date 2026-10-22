@@ -1,21 +1,21 @@
-// zod/mini: this runs on every page, and the full zod would double the script a visitor downloads.
-import { z } from "zod/mini";
 import { readCookie, writeCookie } from "./cookie";
 
 // Bump when categories or tags change in a way the visitor should agree to again: older choices then show the banner.
 export const CONSENT_VERSION = 1;
-const COOKIE = "jm_consent";
+export const CONSENT_COOKIE = "jm_consent";
 
-const Stored = z.object({ v: z.number(), analytics: z.boolean(), marketing: z.boolean() });
-export type Consent = Omit<z.infer<typeof Stored>, "v">;
+export type Consent = { analytics: boolean; marketing: boolean };
 
-// null = no valid choice for the current version, so the banner shows.
+// null = no valid choice for the current version, so the banner shows. Checked by hand, not with zod: this runs on
+// every page, and zod alone would add a quarter to the script every visitor downloads.
 export function parseConsent(raw: string | undefined): Consent | null {
   if (!raw) return null;
   try {
-    const stored = Stored.safeParse(JSON.parse(raw));
-    if (!stored.success || stored.data.v !== CONSENT_VERSION) return null;
-    return { analytics: stored.data.analytics, marketing: stored.data.marketing };
+    const stored: unknown = JSON.parse(raw);
+    if (typeof stored !== "object" || stored === null) return null;
+    const { v, analytics, marketing } = stored as Record<string, unknown>;
+    if (v !== CONSENT_VERSION || typeof analytics !== "boolean" || typeof marketing !== "boolean") return null;
+    return { analytics, marketing };
   } catch {
     return null;
   }
@@ -27,7 +27,7 @@ export const serializeConsent = (consent: Consent) => JSON.stringify({ v: CONSEN
 let lastRaw: string | undefined;
 let last: Consent | null = null;
 export function readConsent(): Consent | null {
-  const raw = readCookie(COOKIE, document.cookie);
+  const raw = readCookie(CONSENT_COOKIE, document.cookie);
   if (raw !== lastRaw) [lastRaw, last] = [raw, parseConsent(raw)];
   return last;
 }
@@ -43,7 +43,7 @@ export function subscribeConsent(listener: () => void) {
 // Kept six months, then we ask again.
 export function saveConsent(consent: Consent) {
   const before = readConsent();
-  writeCookie(COOKIE, serializeConsent(consent), 180);
+  writeCookie(CONSENT_COOKIE, serializeConsent(consent), 180);
   const marketingWithdrawn = before?.marketing && !consent.marketing;
   if (marketingWithdrawn) clearMarketingCookies();
   // Loaded scripts can't be unloaded: on withdrawal start the page fresh.

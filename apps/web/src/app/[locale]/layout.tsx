@@ -4,7 +4,7 @@ import { hasLocale } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { BRAND_NAME } from "@/components/brand/logo";
 import { Consent } from "@/components/consent/consent";
-import { Providers } from "@/components/providers/providers";
+import { ConsentScript } from "@/components/consent/consent-script";
 import { siteUrl, socialMetadata } from "@/components/site/site";
 import { ClientMessages } from "@/i18n/client-messages";
 import { routing } from "@/i18n/routing";
@@ -47,13 +47,15 @@ export default async function LocaleLayout({ children, params }: Props) {
   setRequestLocale(locale);
 
   return (
-    <html lang={locale} className={fontVariables}>
+    // ConsentScript sets data-consent on <html> before React hydrates it.
+    <html lang={locale} className={fontVariables} suppressHydrationWarning>
+      <head>
+        <ConsentScript />
+      </head>
       <body className="min-h-dvh antialiased">
         <ClientMessages locale={locale} messages={[]}>
-          <Providers>
-            {children}
-            <Consent />
-          </Providers>
+          {children}
+          <Consent />
         </ClientMessages>
       </body>
     </html>

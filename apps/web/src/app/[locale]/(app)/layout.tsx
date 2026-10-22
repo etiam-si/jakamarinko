@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { use } from "react";
+import { Providers } from "@/components/providers/providers";
 import { Toaster } from "@/components/ui/sonner";
 import { ClientMessages } from "@/i18n/client-messages";
 
@@ -12,7 +13,7 @@ const appMessages = ["app", "auth", "account", "booking", "coach-booking", "paym
 export default function AppLayout({ children, params }: { children: React.ReactNode; params: Promise<{ locale: string }> }) {
   return (
     <ClientMessages locale={use(params).locale} messages={appMessages}>
-      {children}
+      <Providers>{children}</Providers>
       {/* Only the signed-in areas show toasts, so public pages skip their script. */}
       <Toaster />
     </ClientMessages>

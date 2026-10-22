@@ -1,17 +1,35 @@
 "use client";
 
-import { useQuery } from "@tanstack/react-query";
 import Script from "next/script";
+import { useEffect, useState } from "react";
 import { TagsConfig } from "@jakamarinko/api";
 import { api } from "@/lib/api";
 import { setGoogleAds } from "@/lib/track";
 import { useConsent } from "./use-consent";
 
-// The ids come from the api at runtime; with none set, nothing loads.
-async function fetchConfig() {
-  const res = await api.events.config.$get();
-  const config = TagsConfig.parse(await res.json());
-  setGoogleAds(config.googleAds);
+// The ids come from the api at runtime; with none set, nothing loads. Asked once per tab; a failure loads nothing.
+let request: Promise<TagsConfig | null> | undefined;
+function fetchConfig() {
+  request ??= api.events.config
+    .$get()
+    .then(async (res) => {
+      const config = TagsConfig.parse(await res.json());
+      setGoogleAds(config.googleAds);
+      return config;
+    })
+    .catch(() => null);
+  return request;
+}
+
+function useTagsConfig() {
+  const [config, setConfig] = useState<TagsConfig | null>(null);
+  useEffect(() => {
+    let live = true;
+    void fetchConfig().then((c) => live && setConfig(c));
+    return () => {
+      live = false;
+    };
+  }, []);
   return config;
 }
 
@@ -24,7 +42,7 @@ const googleTag = (ids: string[]) =>
 
 export function Tags() {
   const consent = useConsent();
-  const { data: config } = useQuery({ queryKey: ["tags-config"], queryFn: fetchConfig, staleTime: Infinity, retry: false });
+  const config = useTagsConfig();
   if (!config || consent === undefined) return null;
   const marketing = consent?.marketing === true;
   const google = [config.googleTagId, config.googleAds?.id].filter((id): id is string => !!id);
