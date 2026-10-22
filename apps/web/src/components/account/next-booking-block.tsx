@@ -24,7 +24,7 @@ export default async function NextBookingBlock() {
             <p className="max-w-xl text-pretty text-muted-foreground">{t("emptyBody")}</p>
           </div>
           <Button asChild>
-            <Link href="/lab">
+            <Link href="/booking">
               {t("book")}
               <ArrowRight aria-hidden />
             </Link>

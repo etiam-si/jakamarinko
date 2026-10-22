@@ -1,17 +1,18 @@
 "use client";
 
 import { cn } from "cn";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { CalendarCheck, CalendarX2, ChevronLeft, ChevronRight, HeartPulse, Sun } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import type { CoachBooking } from "@jakamarinko/api";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
+import { StatCard } from "@/components/ui/stat-card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { isActive } from "./booking-actions";
 import { BookingCard, BookingDetails, HealthFlag, StatusBadge } from "./booking-card";
 import { useBookings } from "./data";
-import { services, useServiceName, useWhen } from "./format";
+import { services, useCustomerName, useServiceName, useWhen } from "./format";
 import { NoticeProvider } from "./notice";
 import { QueryState } from "./query-state";
 import { addDays, localDate, weekStart } from "./time";
@@ -42,8 +43,9 @@ export function BookingsView({ coachId }: { coachId?: string }) {
 
   return (
     <NoticeProvider>
-      <div className="flex flex-col gap-4">
-        <div role="group" aria-label={t("view")} className="inline-flex self-start rounded-md border p-0.5">
+      {bookings.data && <Stats bookings={bookings.data} today={today} />}
+      <div className="flex flex-col gap-4 rounded-xl border bg-card p-4 shadow-sm">
+        <div role="group" aria-label={t("view")} className="inline-flex self-start rounded-lg border bg-muted/50 p-1">
           {(["week", "list"] as const).map((v) => (
             <Button key={v} size="sm" variant={view === v ? "secondary" : "ghost"} aria-pressed={view === v} onClick={() => setView(v)}>
               {t(v)}
@@ -84,13 +86,27 @@ export function BookingsView({ coachId }: { coachId?: string }) {
         <section aria-label={t("list")} className="flex flex-col gap-3">
           <p className="text-sm text-muted-foreground">{t("count", { count: shown.length })}</p>
           {shown.length === 0 ? (
-            <p className="rounded-lg border border-dashed p-4 text-muted-foreground">{t("empty")}</p>
+            <p className="rounded-xl border border-dashed p-6 text-center text-muted-foreground">{t("empty")}</p>
           ) : (
             <ListByDay bookings={shown} />
           )}
         </section>
       )}
     </NoticeProvider>
+  );
+}
+
+// What needs attention in the loaded period, before any filter.
+function Stats({ bookings, today }: { bookings: CoachBooking[]; today: string }) {
+  const t = useTranslations("coach-booking.stats");
+  const active = bookings.filter(isActive);
+  return (
+    <div className="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4">
+      <StatCard label={t("bookings")} value={active.length} hint={t("range")} icon={CalendarCheck} tone="primary" />
+      <StatCard label={t("today")} value={active.filter((b) => localDate(new Date(b.start)) === today).length} icon={Sun} />
+      <StatCard label={t("flagged")} value={active.filter((b) => b.healthFlag).length} icon={HeartPulse} tone="signal" />
+      <StatCard label={t("cancelled")} value={bookings.filter((b) => b.status === "cancelled").length} icon={CalendarX2} />
+    </div>
   );
 }
 
@@ -173,7 +189,7 @@ function Week({ week, today, bookings }: { week: string; today: string; bookings
           <section
             key={day}
             aria-label={when.day(day)}
-            className={cn("flex min-w-0 flex-col gap-2 rounded-lg border bg-card p-2", day === today && "border-primary")}
+            className={cn("flex min-w-0 flex-col gap-2 rounded-xl border bg-card p-2 shadow-sm", day === today && "border-primary ring-1 ring-primary")}
           >
             <h2 className={cn("px-1 text-sm font-medium", day === today ? "text-primary" : "text-muted-foreground")}>{when.short(day)}</h2>
             {list.length === 0 ? (
@@ -191,18 +207,19 @@ function Week({ week, today, bookings }: { week: string; today: string; bookings
 
 function WeekItem({ booking, onOpen }: { booking: CoachBooking; onOpen: () => void }) {
   const when = useWhen();
+  const customerName = useCustomerName();
   const serviceName = useServiceName();
   return (
     <button
       type="button"
       onClick={onOpen}
       className={cn(
-        "flex flex-col items-start gap-1 rounded-md bg-secondary/70 p-2 text-left text-sm transition-colors hover:bg-secondary",
+        "flex flex-col items-start gap-1 rounded-lg bg-secondary/70 p-2 text-left text-sm transition-colors hover:bg-secondary focus-visible:ring-[3px] focus-visible:ring-ring/30 focus-visible:outline-none",
         !isActive(booking) && "opacity-60",
       )}
     >
       <span className="font-mono text-xs font-semibold tabular-nums">{when.time(booking.start)}</span>
-      <span className="w-full truncate font-medium">{booking.name}</span>
+      <span className="w-full truncate font-medium">{customerName(booking)}</span>
       <span className="w-full truncate text-xs text-muted-foreground">{serviceName(booking.service)}</span>
       <span className="flex flex-wrap gap-1 empty:hidden">
         <StatusBadge booking={booking} />

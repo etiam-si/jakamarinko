@@ -2,21 +2,23 @@
 
 import { cn } from "cn";
 import { useTranslations } from "next-intl";
+import { roleAllows } from "@jakamarinko/api";
+import type { Role } from "@jakamarinko/types";
 import { Link, usePathname } from "@/i18n/navigation";
 import { activeEntry, type Area, nav } from "@/lib/nav";
 
-// The menu of one area. `onNavigate` lets the mobile sheet close itself.
-export function NavList({ area, onNavigate }: { area: Area; onNavigate?: () => void }) {
+// The menu of one area, without entries above the user's role. `onNavigate` lets the mobile sheet close itself.
+export function NavList({ area, role, onNavigate }: { area: Area; role: Role; onNavigate?: () => void }) {
   const t = useTranslations();
   const pathname = usePathname();
-  const entries = nav.filter((e) => e.area === area);
+  const entries = nav.filter((e) => e.area === area && (!e.role || roleAllows(role, [e.role])));
   const active = activeEntry(entries, pathname);
 
   return (
     <nav aria-label={t("app.nav.label")}>
       <ul className="flex flex-col gap-0.5">
         {entries.map(({ href, label, icon: Icon, soon }) => {
-          const item = "flex h-10 items-center gap-3 rounded-md px-3 text-sm";
+          const item = "flex h-10 items-center gap-3 rounded-lg px-3 text-sm";
           return (
             <li key={href}>
               {soon ? (

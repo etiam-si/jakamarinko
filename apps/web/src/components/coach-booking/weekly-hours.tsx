@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import { useState } from "react";
 import type { Availability, Location } from "@jakamarinko/api";
 import { Button } from "@/components/ui/button";
+import { FieldError } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -35,20 +36,20 @@ export function WeeklyHours({ coachId }: { coachId?: string }) {
   const drop = (key: string) => setDrafts((d) => d.filter((x) => x.key !== key));
 
   return (
-    <div className="flex flex-col divide-y rounded-lg border bg-card">
+    <div className="flex flex-col divide-y overflow-hidden rounded-xl border bg-card shadow-sm">
       {weekdays.map((weekday) => {
         const saved = availability.data.filter((a) => a.weekday === weekday).map(toDraft);
         const rows = [...saved, ...drafts.filter((d) => d.weekday === weekday)];
         const name = t(`weekdays.${weekday}`);
         return (
           <section key={weekday} aria-label={name} className="flex flex-col gap-3 p-4 md:flex-row md:items-start md:gap-6">
-            <h3 className="w-28 shrink-0 pt-1.5 font-medium">{name}</h3>
+            <h3 className="w-28 shrink-0 pt-2 font-semibold">{name}</h3>
             <div className="flex flex-1 flex-col gap-3">
-              {rows.length === 0 && <p className="pt-1.5 text-sm text-muted-foreground">{t("availability.closed")}</p>}
+              {rows.length === 0 && <p className="pt-2 text-sm text-muted-foreground">{t("availability.closed")}</p>}
               {rows.map((row) => (
                 <HoursRow key={row.key} row={row} day={name} coachId={coachId} locations={locations.data} onDone={() => drop(row.key)} />
               ))}
-              <Button size="sm" variant="ghost" className="self-start" onClick={() => add(weekday)} disabled={!fallback}>
+              <Button size="sm" variant="outline" className="self-start" onClick={() => add(weekday)} disabled={!fallback}>
                 <Plus aria-hidden />
                 {t("availability.add")}
               </Button>
@@ -97,7 +98,7 @@ function HoursRow({ row, day, coachId, locations, onDone }: RowProps) {
   const error = save.error ?? remove.error;
   return (
     <form onSubmit={submit} className="flex flex-wrap items-end gap-2" aria-label={`${day} ${value.start}–${value.end}`}>
-      <div className="flex flex-col gap-1">
+      <div className="flex flex-col gap-1.5">
         <Label htmlFor={`${id}-start`} className="text-xs text-muted-foreground">
           {t("from")}
         </Label>
@@ -110,7 +111,7 @@ function HoursRow({ row, day, coachId, locations, onDone }: RowProps) {
           onChange={(e) => setValue({ ...value, start: e.target.value })}
         />
       </div>
-      <div className="flex flex-col gap-1">
+      <div className="flex flex-col gap-1.5">
         <Label htmlFor={`${id}-end`} className="text-xs text-muted-foreground">
           {t("to")}
         </Label>
@@ -125,7 +126,7 @@ function HoursRow({ row, day, coachId, locations, onDone }: RowProps) {
         />
       </div>
       {locations.length > 1 && (
-        <div className="flex min-w-40 flex-1 flex-col gap-1">
+        <div className="flex min-w-40 flex-1 flex-col gap-1.5">
           <Label htmlFor={`${id}-location`} className="text-xs text-muted-foreground">
             {t("location")}
           </Label>
@@ -145,18 +146,18 @@ function HoursRow({ row, day, coachId, locations, onDone }: RowProps) {
       )}
       <div className="flex gap-1">
         {dirty && (
-          <Button type="submit" size="sm" disabled={invalid || save.isPending}>
+          <Button type="submit" size="icon" className="w-auto px-4" disabled={invalid} loading={save.isPending}>
             {t("save")}
           </Button>
         )}
-        <Button type="button" size="icon-sm" variant="ghost" aria-label={t("remove")} disabled={remove.isPending} onClick={del}>
+        <Button type="button" size="icon" variant="ghost" aria-label={t("remove")} disabled={remove.isPending} onClick={del}>
           <Trash2 aria-hidden />
         </Button>
       </div>
       {error && (
-        <p role="alert" className="basis-full text-sm text-destructive">
+        <FieldError role="alert" className="basis-full">
           {errorText(error)}
-        </p>
+        </FieldError>
       )}
     </form>
   );

@@ -20,7 +20,7 @@ export default async function ConsentPage({ params, searchParams }: Props) {
   const t = await getTranslations("auth.consent");
   return (
     <>
-      <h1 className="text-3xl font-semibold tracking-tight">{t("title")}</h1>
+      <h1 className="font-heading text-2xl font-bold tracking-tight font-stretch-expanded">{t("title")}</h1>
       <ConsentForm next={next} />
     </>
   );

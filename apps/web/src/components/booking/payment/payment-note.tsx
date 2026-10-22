@@ -10,7 +10,7 @@ export function PaymentNote({ service }: { service: Service }) {
   const info = usePayments();
   const online = paysOnline(info, service);
   return (
-    <div className="flex flex-col gap-1">
+    <div className="flex flex-col gap-1 rounded-lg bg-muted px-4 py-3 text-sm">
       <p data-testid="payment-note">{online ? t("payOnline", { minutes: info!.holdMin }) : t("payOnSite")}</p>
       {service.priceCents > 0 && (
         <p className="text-sm text-muted-foreground">{info?.pricesIncludeVat === false ? t("vatExcluded") : t("vatIncluded")}</p>

@@ -1,8 +1,8 @@
 import { expect, test } from "vitest";
 import { showCoachSwitcher } from "./coaches";
 
-const jaka = { id: "1", name: "Jaka" };
-const ana = { id: "2", name: "Ana" };
+const jaka = { id: "1", name: "Jaka", own: true };
+const ana = { id: "2", name: "Ana", own: false };
 
 test("only head coach and owner get the switcher, and only with more than one coach", () => {
   expect(showCoachSwitcher("head_coach", [jaka, ana])).toBe(true);

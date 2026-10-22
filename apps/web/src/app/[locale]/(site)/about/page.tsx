@@ -1,3 +1,4 @@
+import { ArrowRight, Check } from "lucide-react";
 import type { Metadata } from "next";
 import { useTranslations } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
@@ -20,7 +21,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return pageMetadata(locale, "/about", { title: t("title"), description: t("description") });
 }
 
-const bio = ["p1", "p2", "p3", "p4", "p5", "p6", "p7"] as const;
+const bio = ["p1", "p2"] as const;
 const achievements = ["champion", "nationalTeam", "worldXc", "europeanMountain", "worldMountain", "worldSkimo", "vo2max", "redBull"] as const;
 const gallery = [
   { key: "skimo", position: "50% 30%" },
@@ -51,22 +52,34 @@ export default function About({ params }: Props) {
               <p key={p}>{t(`bio.${p}`)}</p>
             ))}
           </div>
+          <div className="flex flex-col gap-3 sm:flex-row">
+            <Button asChild size="lg">
+              <Link href="/booking">
+                {common("actions.bookTest")}
+                <ArrowRight aria-hidden />
+              </Link>
+            </Button>
+            <Button asChild size="lg" variant="outline">
+              <Link href="/coaching">{t("hero.secondaryCta")}</Link>
+            </Button>
+          </div>
         </div>
         <PhotoFrame
           src={photos.trail}
           alt={site("photos.trail.alt")}
           caption={site("photos.trail.caption")}
           position="62% 75%"
-          className="mx-auto md:w-80 lg:w-96"
+          className="mx-auto w-64 sm:w-72 md:w-80 lg:w-96"
         />
       </Section>
 
-      <Section className="grid gap-10 border-t border-border md:grid-cols-2">
+      <Section tinted className="grid gap-10 md:grid-cols-2">
         <div className="flex flex-col gap-6">
           <h2 className="font-heading text-2xl font-bold tracking-tight font-stretch-expanded md:text-3xl">{t("achievements.title")}</h2>
-          <ul className="flex flex-col divide-y divide-border">
+          <ul className="flex flex-col divide-y overflow-hidden rounded-xl border bg-card shadow-sm">
             {achievements.map((key) => (
-              <li key={key} className="py-3">
+              <li key={key} className="flex gap-3 px-4 py-3 text-sm">
+                <Check aria-hidden className="mt-0.5 size-4 shrink-0 text-primary" />
                 {t(`achievements.${key}`)}
               </li>
             ))}
@@ -92,7 +105,7 @@ export default function About({ params }: Props) {
 
       <Section className="flex flex-col gap-8">
         <SectionHeading title={t("smarnaGora.title")} lead={t("smarnaGora.subtitle")} />
-        <figure className="flex flex-col gap-3 rounded-lg bg-card p-4 ring-1 ring-border md:p-6">
+        <figure className="flex flex-col gap-3 rounded-xl border bg-card p-4 shadow-sm md:p-6">
           <figcaption className="font-mono text-xs tracking-wider text-muted-foreground uppercase">{t("smarnaGora.timeAxis")}</figcaption>
           <SmarnaGoraChart climbs={climbs} goal={goal} labels={{ age: t("smarnaGora.ageAxis"), time: t("smarnaGora.timeAxis") }} />
           <table className="sr-only">
@@ -136,9 +149,14 @@ export default function About({ params }: Props) {
         title={home("cta.title")}
         text={home("cta.text")}
         action={
-          <Button asChild size="lg" variant="secondary" className="h-11 shrink-0 px-5 text-base">
-            <Link href="/lab">{home("cta.button")}</Link>
-          </Button>
+          <>
+            <Button asChild size="lg" variant="secondary">
+              <Link href="/booking">{home("cta.button")}</Link>
+            </Button>
+            <Button asChild size="lg" variant="ghost" className="text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground">
+              <Link href="/contact">{home("cta.secondary")}</Link>
+            </Button>
+          </>
         }
       />
     </main>

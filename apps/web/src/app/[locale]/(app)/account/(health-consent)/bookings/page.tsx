@@ -15,7 +15,7 @@ type Props = { params: Promise<{ locale: string }> };
 
 function BookingItem({ booking, upcoming }: { booking: AccountBooking; upcoming: boolean }) {
   return (
-    <li className="flex flex-col gap-4 rounded-lg border bg-card p-5" data-booking={booking.id}>
+    <li className="flex flex-col gap-4 rounded-xl border bg-card p-5 shadow-sm" data-booking={booking.id}>
       <div className="flex flex-wrap items-center gap-2">
         <h3 className="text-lg font-semibold">{booking.serviceName}</h3>
         <StatusBadge status={booking.status} />
@@ -48,7 +48,7 @@ export default async function MyBookingsPage({ params }: Props) {
         <PageHeader title={t("title")} lead={t("lead")} />
         <EmptyState icon={CalendarDays} title={t("emptyTitle")} body={t("emptyBody")}>
           <Button asChild>
-            <Link href="/lab">{tb("book")}</Link>
+            <Link href="/booking">{tb("book")}</Link>
           </Button>
         </EmptyState>
       </>
@@ -57,7 +57,15 @@ export default async function MyBookingsPage({ params }: Props) {
 
   return (
     <>
-      <PageHeader title={t("title")} lead={t("lead")} />
+      <PageHeader
+        title={t("title")}
+        lead={t("lead")}
+        action={
+          <Button asChild>
+            <Link href="/booking">{tb("book")}</Link>
+          </Button>
+        }
+      />
       <section aria-labelledby="upcoming" className="flex flex-col gap-3">
         <h2 id="upcoming" className="font-mono text-xs tracking-wider text-muted-foreground uppercase">
           {tb("upcoming")}

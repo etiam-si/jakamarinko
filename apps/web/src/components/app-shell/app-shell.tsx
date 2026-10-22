@@ -13,8 +13,8 @@ import { UserMenu } from "./user-menu";
 export async function AppShell({ area, session, children }: { area: Area; session: Me; children: React.ReactNode }) {
   const t = await getTranslations("app");
   const { user } = session;
-  const coaches = area === "coach" ? await getCoaches(session) : [];
-  const switcher = showCoachSwitcher(user.role, coaches) && <CoachSwitcher coaches={coaches} self={user.id} />;
+  const coaches = area === "coach" ? await getCoaches() : [];
+  const switcher = showCoachSwitcher(user.role, coaches) && <CoachSwitcher coaches={coaches} />;
   // Staff are customers too: they can switch to their own account and back.
   const switchTo: Area | undefined = isStaff(user.role) ? (area === "coach" ? "account" : "coach") : undefined;
   const menu = { name: user.name, email: user.email, switchTo };
@@ -31,13 +31,13 @@ export async function AppShell({ area, session, children }: { area: Area; sessio
           {areaName}
         </p>
         {switcher}
-        <NavList area={area} />
+        <NavList area={area} role={user.role} />
         <div className="mt-auto border-t pt-3">
           <UserMenu {...menu} />
         </div>
       </aside>
       <header className="sticky top-0 z-40 flex h-14 items-center gap-2 border-b bg-background/95 px-2 backdrop-blur lg:hidden">
-        <MobileNav area={area}>{switcher}</MobileNav>
+        <MobileNav area={area} role={user.role}>{switcher}</MobileNav>
         <Link href={areaHome[area]} aria-label={areaName}>
           <Logo variant="mark" className="h-8" />
         </Link>

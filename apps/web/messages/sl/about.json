@@ -6,13 +6,8 @@
   "title": "O meni",
   "intro": "Vzdržljivostni športnik, študent Fakultete za šport in osebni trener.",
   "bio": {
-    "p1": "Sem Jaka Marinko, vzdržljivostni športnik, študent Fakultete za šport in osebni trener, specializiran za pripravo športnikov v vzdržljivostnih disciplinah.",
-    "p2": "Že od otroštva je šport del mojega vsakdana. Leta tekmovanja na najvišji mladinski ravni so mi dala izkušnje, ki jih danes združujem z najnovejšim znanjem športne znanosti, da lahko drugim pomagam do hitrejšega in varnejšega napredka.",
-    "p3": "Kot večkratni mladinski državni prvak v turnem smučanju, teku na smučeh, teku na smučarskih rolkah in gorskem teku sem spoznal, kaj je potrebno za doseganje vrhunskih rezultatov.",
-    "p4": "Moja izmerjena maksimalna poraba kisika (VO₂max) znaša 80 ml/kg/min.",
-    "p5": "Posebej ponosen sem na 5. mesto na Red Bull 400 Planica, kjer sem kot mladinec dosegel najhitrejši čas v mladinski konkurenci.",
-    "p6": "Danes svoje praktične izkušnje dopolnjujem s študijem na Fakulteti za šport, kjer poglabljam znanje iz fiziologije, biomehanike, metodike treninga in športne psihologije.",
-    "p7": "Verjamem, da najboljši rezultati niso posledica naključja, temveč premišljenega načrtovanja, doslednosti in individualnega pristopa."
+    "p1": "Šport je del mojega življenja že od otroštva. Leta tekmovanja na najvišji mladinski ravni so mi dala izkušnje, ki jih danes združujem s športno znanostjo.",
+    "p2": "Na Fakulteti za šport poglabljam znanje iz fiziologije, biomehanike, metodike treninga in športne psihologije. Rezultati pridejo iz načrtovanja, doslednosti in individualnega pristopa."
   },
   "qualifications": {
     "title": "Izobrazba in licence",
@@ -51,5 +46,8 @@
       "18": "12:38",
       "19": "12:33"
     }
+  },
+  "hero": {
+    "secondaryCta": "Treniraj z mano"
   }
 }

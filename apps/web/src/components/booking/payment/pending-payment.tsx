@@ -1,8 +1,10 @@
 "use client";
 
+import { Loader2 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
+import { FieldError } from "@/components/ui/field";
 import { useRouter } from "@/i18n/navigation";
 import { checkoutUrl, usePayments } from "./payment";
 
@@ -38,17 +40,18 @@ export function PendingPayment({ id, token, returned }: { id: string; token?: st
 
   if (returned) {
     return (
-      <p role="status" className="rounded-md bg-muted p-4">
+      <p role="status" className="flex items-center gap-2 rounded-lg bg-muted p-4">
+        <Loader2 aria-hidden className="size-4 shrink-0 animate-spin" />
         {slow ? t("slow") : t("confirming")}
       </p>
     );
   }
-  if (state === "expired") return <p className="rounded-md bg-muted p-4">{t("expired")}</p>;
+  if (state === "expired") return <p className="rounded-lg bg-muted p-4">{t("expired")}</p>;
   return (
-    <div className="flex flex-col items-start gap-3 rounded-md border border-amber-500/50 bg-amber-500/10 p-4">
+    <div className="flex flex-col items-start gap-4 rounded-xl border border-warning/30 bg-warning/10 p-5">
       <p>{t("text", { minutes: info?.holdMin ?? 15 })}</p>
-      {state === "failed" && <p role="alert">{t("failed")}</p>}
-      <Button size="lg" disabled={state === "opening"} onClick={pay}>
+      {state === "failed" && <FieldError role="alert">{t("failed")}</FieldError>}
+      <Button size="lg" className="w-full sm:w-auto" loading={state === "opening"} onClick={pay}>
         {state === "opening" ? t("opening") : t("pay")}
       </Button>
     </div>

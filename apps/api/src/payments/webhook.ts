@@ -6,6 +6,7 @@ import { findBooking } from "../booking/bookings";
 import type { Q } from "../booking/calendar";
 import type { BookingConfig } from "../booking/config";
 import { sendCancelled, sendConfirmed } from "../booking/emails";
+import { reportBookingPaid } from "../conversions/record";
 import { refund } from "./refunds";
 import { trackServer } from "./track";
 
@@ -55,6 +56,7 @@ async function followUp(outcome: Outcome, config: BookingConfig) {
     await sendConfirmed(row, config);
     const value = (outcome.amountCents ?? 0) / 100;
     await trackServer("booking_paid", { service: row.service, value, currency: "EUR" }, config, row.booking.locale);
+    await reportBookingPaid(row.booking.id);
   } else if (outcome.kind === "late") {
     console.warn(`booking ${row.booking.id} was paid after its hold expired; refunding`);
     await refund(row, "late_payment");

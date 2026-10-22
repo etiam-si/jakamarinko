@@ -22,8 +22,9 @@ export function Header() {
           <div className="hidden md:block">
             <LocaleSwitcher />
           </div>
-          <Button asChild size="lg" className="px-4">
-            <Link href="/lab">{t("actions.bookTest")}</Link>
+          {/* Phones get the sticky bar at the bottom instead (StickyBook). */}
+          <Button asChild className="hidden md:inline-flex">
+            <Link href="/booking">{t("actions.bookTest")}</Link>
           </Button>
           <MobileMenu />
         </div>

@@ -34,10 +34,21 @@ export default async function RequestPage({ params }: Props) {
         {t("back")}
       </Link>
       <div className="flex flex-col gap-3">
-        <PageHeader title={request.name} lead={t("received", { date: received })} />
+        <PageHeader
+          title={request.name}
+          lead={t("received", { date: received })}
+          action={
+            <Button asChild>
+              <a href={mailto}>
+                <Mail aria-hidden />
+                {t("reply")}
+              </a>
+            </Button>
+          }
+        />
         <StatusBadge status={request.status} label={t(`statuses.${request.status}`)} />
       </div>
-      <dl className="grid max-w-2xl gap-x-6 gap-y-2 sm:grid-cols-[auto_1fr]">
+      <dl className="grid max-w-2xl gap-x-6 gap-y-2 rounded-xl border bg-card p-5 shadow-sm sm:grid-cols-[auto_1fr]">
         {details.map(([label, value]) => (
           <div key={label} className="contents">
             <dt className="text-sm text-muted-foreground">{label}</dt>
@@ -49,17 +60,9 @@ export default async function RequestPage({ params }: Props) {
         <h2 id="request-message" className="text-sm text-muted-foreground">
           {t("message")}
         </h2>
-        <p className="rounded-lg border bg-card p-4 break-words whitespace-pre-wrap">{request.message}</p>
+        <p className="rounded-xl border bg-card p-5 break-words whitespace-pre-wrap shadow-sm">{request.message}</p>
       </section>
-      <div className="flex flex-wrap items-end gap-6">
-        <Button asChild size="lg">
-          <a href={mailto}>
-            <Mail aria-hidden />
-            {t("reply")}
-          </a>
-        </Button>
-        <RequestStatusSelect id={request.id} status={request.status} />
-      </div>
+      <RequestStatusSelect id={request.id} status={request.status} />
     </>
   );
 }

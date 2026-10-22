@@ -1,0 +1,53 @@
+{
+  "settingsTitle": "Google Koledar",
+  "settingsBody": "Rezervacije se vpišejo v tvoj Google Koledar, zasedeni termini v njem pa niso na voljo za rezervacijo.",
+  "title": "Google Koledar",
+  "lead": "Rezervacije in zasebne obveznosti v enem koledarju.",
+  "loading": "Nalagam …",
+  "loadError": "Ni se naložilo. Preveri povezavo in poskusi znova.",
+  "retry": "Poskusi znova",
+  "off": {
+    "title": "Sinhronizacija koledarja še ni nastavljena",
+    "body": "Strežnik še nima Googlovih ključev. Rezervacije delujejo kot običajno; prosi lastnika, naj nastavi sinhronizacijo koledarja."
+  },
+  "noCalendar": {
+    "title": "Še nimaš koledarja",
+    "body": "Google Koledar lahko povežejo le trenerji s koledarjem. Prosi lastnika, naj ti ga doda."
+  },
+  "intro": {
+    "title": "Poveži Google Koledar",
+    "body": "Vsaka potrjena rezervacija se pojavi v tvojem koledarju, ob premiku ali odpovedi pa se premakne ali izgine. Zasedeni termini v tvojem koledarju v 5 minutah niso več na voljo za rezervacijo.",
+    "privacy": "Dogodek pokaže le ime stranke in storitev: nikoli e-pošte, telefona ali odgovorov o zdravju.",
+    "connect": "Poveži Google Koledar"
+  },
+  "connected": {
+    "title": "Povezano",
+    "account": "Račun: {account}",
+    "syncedAt": "Zasedenost nazadnje prebrana {time}",
+    "notSynced": "Zasedenost se bere",
+    "calendar": "Rezervacije gredo v",
+    "calendarHint": "Zasedenost se bere iz tega in tvojega glavnega koledarja.",
+    "saved": "Shranjeno. Nove rezervacije gredo v {name}.",
+    "calendarsError": "Tvoji koledarji se niso naložili. Poskusi kasneje.",
+    "disconnect": "Prekini povezavo",
+    "disconnected": "Povezava z Google Koledarjem je prekinjena.",
+    "disconnectNote": "Prekinitev izbriše naš dostop. Dogodki, ki so že v koledarju, ostanejo."
+  },
+  "reconnect": {
+    "title": "Ponovno poveži koledar",
+    "body": "Google nam ne dovoli več dostopa do tvojega koledarja, zato se rezervacije trenutno ne sinhronizirajo. Rezervacije še vedno delujejo; ponovno poveži, da se vse uskladi.",
+    "action": "Ponovno poveži"
+  },
+  "result": {
+    "connected": "Google Koledar je povezan.",
+    "denied": "Dostopa nisi dovolil, zato ni bilo nič povezano.",
+    "scope": "Na Googlovem zaslonu dovoli obe dovoljenji za koledar, sicer sinhronizacija ne deluje.",
+    "failed": "Povezava ni uspela. Poskusi znova."
+  },
+  "errors": {
+    "calendar_off": "Sinhronizacija koledarja na strežniku ni nastavljena.",
+    "needs_reconnect": "Najprej ponovno poveži koledar.",
+    "google_unavailable": "Google Koledar se ni odzval. Poskusi čez minuto.",
+    "generic": "Ni uspelo. Poskusi znova."
+  }
+}

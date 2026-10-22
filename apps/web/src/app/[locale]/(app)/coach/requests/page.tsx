@@ -5,6 +5,7 @@ import { RequestStatus } from "@jakamarinko/api";
 import { EmptyState } from "@/components/app-shell/empty-state";
 import { PageHeader } from "@/components/app-shell/page-header";
 import { StatusBadge } from "@/components/contact/status-badge";
+import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
 import { listRequests } from "./fetch";
 
@@ -29,7 +30,7 @@ export default async function RequestsPage({ searchParams }: Props) {
             href={{ pathname: "/coach/requests", query: s ? { status: s } : {} }}
             aria-current={s === status ? "page" : undefined}
             className={cn(
-              "rounded-full border px-3 py-1 text-sm transition-colors hover:bg-accent",
+              "inline-flex h-9 items-center rounded-full border bg-card px-4 text-sm font-medium transition-colors hover:bg-muted",
               s === status && "border-primary bg-primary text-primary-foreground hover:bg-primary",
             )}
           >
@@ -42,12 +43,18 @@ export default async function RequestsPage({ searchParams }: Props) {
           icon={Inbox}
           title={status ? t("emptyFilteredTitle") : t("emptyTitle")}
           body={status ? t("emptyFilteredBody") : t("emptyBody")}
-        />
+        >
+          {status && (
+            <Button asChild variant="outline">
+              <Link href="/coach/requests">{t("all")}</Link>
+            </Button>
+          )}
+        </EmptyState>
       ) : (
-        <ul className="flex flex-col divide-y rounded-lg border bg-card">
+        <ul className="flex flex-col divide-y overflow-hidden rounded-xl border bg-card shadow-sm">
           {rows.map((r) => (
             <li key={r.id}>
-              <Link href={`/coach/requests/${r.id}`} className="flex flex-col gap-1 p-4 transition-colors hover:bg-accent/50">
+              <Link href={`/coach/requests/${r.id}`} className="flex flex-col gap-1 p-4 transition-colors hover:bg-muted/40">
                 <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
                   <span className={cn("font-medium", r.status === "new" && "font-semibold")}>{r.name}</span>
                   <StatusBadge status={r.status} label={t(`statuses.${r.status}`)} />

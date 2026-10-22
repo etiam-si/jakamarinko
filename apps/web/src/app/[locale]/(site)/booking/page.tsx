@@ -39,12 +39,14 @@ export default async function BookingPage({ params }: Props) {
 
   return (
     <main>
-      <Section className="flex max-w-2xl flex-col gap-10 pt-10 md:pt-16">
+      <Section className="flex max-w-3xl flex-col gap-6 pt-8 md:gap-8 md:pt-14">
         <SectionHeading as="h1" title={t("title")} />
         {list?.length ? (
-          <Suspense>
-            <BookingFlow services={list} prefill={prefill} />
-          </Suspense>
+          <div className="rounded-2xl border bg-card p-4 shadow-sm sm:p-8">
+            <Suspense>
+              <BookingFlow services={list} prefill={prefill} />
+            </Suspense>
+          </div>
         ) : (
           <Unavailable />
         )}

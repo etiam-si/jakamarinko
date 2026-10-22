@@ -26,15 +26,15 @@ export function PriceCard({
   return (
     <article
       className={cn(
-        "flex flex-col gap-5 rounded-lg bg-card p-6 text-card-foreground ring-1 ring-border",
-        featured && "ring-2 ring-primary",
+        "flex flex-col gap-5 rounded-xl border bg-card p-6 text-card-foreground shadow-sm",
+        featured && "border-primary shadow-md ring-1 ring-primary",
         className,
       )}
     >
       <header className="flex items-start justify-between gap-3">
         <h3 className="font-heading text-lg font-bold font-stretch-expanded">{name}</h3>
         {badge && (
-          <span className="flex shrink-0 items-center gap-1.5 rounded-sm whitespace-nowrap bg-secondary px-2 py-1 font-mono text-[0.65rem] tracking-wider text-secondary-foreground uppercase">
+          <span className="flex shrink-0 items-center gap-1.5 rounded-full border border-primary/20 whitespace-nowrap bg-primary/10 px-2.5 py-1 font-mono text-[0.65rem] tracking-wider text-primary uppercase">
             <span aria-hidden className="size-1.5 rounded-full bg-signal" />
             {badge}
           </span>

@@ -3,9 +3,11 @@
 import { useQuery } from "@tanstack/react-query";
 import type { Service } from "@jakamarinko/api";
 import type { Locale } from "@jakamarinko/types";
+import { Loader2 } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { FieldError, FormActions } from "@/components/ui/field";
 import { api } from "@/lib/api";
 import { Choice } from "./choice";
 import { addDays, formatDate, formatDay, formatTime, localDay, slotsByDay } from "./time";
@@ -53,15 +55,20 @@ export function TimeStep({
 
   return (
     <div className="flex flex-col gap-6">
-      <p className="flex flex-wrap items-baseline justify-between gap-2 rounded-md bg-muted px-4 py-3">
-        <span className="font-medium">{service.name}</span>
+      <p className="flex flex-wrap items-center justify-between gap-2 rounded-lg bg-muted px-4 py-3">
+        <span className="font-semibold">{service.name}</span>
         <Button type="button" variant="link" className="h-auto p-0" onClick={onChangeService}>
           {t("service.change")}
         </Button>
       </p>
       <p className="text-sm text-muted-foreground">{t("time.timeZone")}</p>
 
-      {slots.isPending && <p role="status">{t("time.loading")}</p>}
+      {slots.isPending && (
+        <p role="status" className="flex items-center gap-2 text-muted-foreground">
+          <Loader2 aria-hidden className="size-4 animate-spin" />
+          {t("time.loading")}
+        </p>
+      )}
       {slots.isError && <Unavailable />}
       {slots.isSuccess && days.length === 0 && <p role="status">{t("time.empty")}</p>}
 
@@ -76,7 +83,7 @@ export function TimeStep({
           }}
         >
           <fieldset className="flex flex-col gap-2">
-            <legend className="mb-2 font-medium">{t("time.days")}</legend>
+            <legend className="mb-2 font-semibold">{t("time.days")}</legend>
             <div className="grid grid-cols-3 gap-2 sm:grid-cols-4">
               {(allDays ? days : days.slice(0, firstDays)).map((d) => (
                 <Choice key={d} name="day" value={d} checked={d === shownDay} onChange={setDay} className="text-sm">
@@ -92,8 +99,8 @@ export function TimeStep({
           </fieldset>
 
           <fieldset className="flex flex-col gap-2" aria-describedby={error ? "time-error" : undefined}>
-            <legend className="mb-2 font-medium">{t("time.times", { date: formatDate(times[0]!.start, locale) })}</legend>
-            <div className="grid grid-cols-4 gap-2 sm:grid-cols-6">
+            <legend className="mb-2 font-semibold">{t("time.times", { date: formatDate(times[0]!.start, locale) })}</legend>
+            <div className="grid grid-cols-3 gap-2 min-[400px]:grid-cols-4 sm:grid-cols-6">
               {times.map((s) => (
                 <Choice
                   key={s.start}
@@ -112,13 +119,15 @@ export function TimeStep({
             </div>
           </fieldset>
           {error && (
-            <p id="time-error" role="alert" className="text-sm text-destructive">
+            <FieldError id="time-error" role="alert">
               {t("time.required")}
-            </p>
+            </FieldError>
           )}
-          <Button type="submit" size="lg" className="self-start">
-            {t("continue")}
-          </Button>
+          <FormActions>
+            <Button type="submit" size="lg">
+              {t("continue")}
+            </Button>
+          </FormActions>
         </form>
       )}
     </div>

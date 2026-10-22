@@ -3,6 +3,7 @@ import { useLocale, useTranslations } from "next-intl";
 import type { AccountBooking } from "@jakamarinko/api";
 import type { Locale } from "@jakamarinko/types";
 import { Button } from "@/components/ui/button";
+import { StatusBadge as Badge, type StatusTone } from "@/components/ui/status-badge";
 import { calendarUrl, formatDay, formatTime, mapsUrl } from "./format";
 
 // When and where of one booking, with its status. Works in server and client components.
@@ -32,10 +33,17 @@ export function BookingWhenWhere({ booking }: { booking: AccountBooking }) {
   );
 }
 
+const tones: Record<AccountBooking["status"], StatusTone> = {
+  confirmed: "success",
+  pending_payment: "warning",
+  cancelled: "neutral",
+  completed: "neutral",
+  no_show: "error",
+};
+
 export function StatusBadge({ status }: { status: AccountBooking["status"] }) {
   const t = useTranslations("account.status");
-  const tone = status === "confirmed" ? "bg-primary/10 text-primary" : status === "pending_payment" ? "bg-signal/15 text-foreground" : "bg-muted text-muted-foreground";
-  return <span className={`rounded-full px-2 py-0.5 font-mono text-[11px] tracking-wide uppercase ${tone}`}>{t(status)}</span>;
+  return <Badge tone={tones[status]}>{t(status)}</Badge>;
 }
 
 export function Preparation({ steps }: { steps: string[] }) {

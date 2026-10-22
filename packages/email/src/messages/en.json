@@ -71,6 +71,12 @@
     "name": "Name",
     "email": "Email",
     "phone": "Phone",
+    "topic": "Topic",
+    "topics": {
+      "coaching": "Coaching",
+      "lab_test": "Lab test",
+      "other": "Something else"
+    },
     "message": "Message",
     "open": "Open in requests"
   },

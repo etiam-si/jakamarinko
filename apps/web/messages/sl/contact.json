@@ -3,8 +3,8 @@
     "title": "Kontakt: Jaka Marinko",
     "description": "Trening, meritve ali sodelovanje: telefon, e-pošta in Instagram."
   },
-  "title": "Kontakt",
-  "text": "Za trening, meritve ali sodelovanje — piši mi in odgovoril ti bom v najkrajšem času.",
+  "title": "Pogovoriva se o tvojem cilju",
+  "text": "Pokliči, piši ali pošlji sporočilo spodaj. Odgovoril ti bom v najkrajšem času.",
   "phone": {
     "label": "Telefon",
     "value": "+386 64 146 508",
@@ -24,5 +24,9 @@
     "label": "Strava",
     "value": "Jaka Marinko",
     "href": "https://www.strava.com/athletes/82762066"
+  },
+  "book": {
+    "title": "Že veš, katero meritev želiš?",
+    "text": "Rezerviraj jo na spletu. Sporočilo ni potrebno."
   }
 }

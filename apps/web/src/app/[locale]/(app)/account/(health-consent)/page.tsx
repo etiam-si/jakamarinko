@@ -2,6 +2,8 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Suspense } from "react";
 import { PageHeader } from "@/components/app-shell/page-header";
 import { OverviewBlock } from "@/components/account/overview-block";
+import { Button } from "@/components/ui/button";
+import { Link } from "@/i18n/navigation";
 import { getSession } from "@/lib/session";
 import { type OverviewBlockEntry, overviewBlocks } from "@/lib/overview-blocks";
 
@@ -19,7 +21,15 @@ export default async function AccountPage({ params }: Props) {
   const t = await getTranslations();
   return (
     <>
-      <PageHeader title={t("app.pages.overview.title")} lead={t("auth.account.signedInAs", { email: session?.user.email ?? "" })} />
+      <PageHeader
+        title={t("app.pages.overview.title")}
+        lead={t("auth.account.signedInAs", { email: session?.user.email ?? "" })}
+        action={
+          <Button asChild>
+            <Link href="/booking">{t("common.actions.bookTest")}</Link>
+          </Button>
+        }
+      />
       <div className="grid gap-4 md:grid-cols-2">
         {overviewBlocks.map((entry) => (
           <Suspense

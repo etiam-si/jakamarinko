@@ -1,0 +1,53 @@
+{
+  "settingsTitle": "Google Calendar",
+  "settingsBody": "Bookings go into your Google Calendar, and your busy times there block booking slots.",
+  "title": "Google Calendar",
+  "lead": "Keep bookings and your private life in one calendar.",
+  "loading": "Loading…",
+  "loadError": "This didn't load. Check your connection and try again.",
+  "retry": "Try again",
+  "off": {
+    "title": "Calendar sync isn't set up yet",
+    "body": "The server has no Google keys yet. Bookings work as usual; ask the owner to set up calendar sync."
+  },
+  "noCalendar": {
+    "title": "You have no calendar yet",
+    "body": "Only coaches with a calendar can connect Google Calendar. Ask the owner to add yours."
+  },
+  "intro": {
+    "title": "Connect Google Calendar",
+    "body": "Every confirmed booking appears in your calendar, and moves or disappears when it is moved or cancelled. Busy times in your calendar block those times for booking, within 5 minutes.",
+    "privacy": "The event shows the customer's first name and the service only: never their email, phone or health answers.",
+    "connect": "Connect Google Calendar"
+  },
+  "connected": {
+    "title": "Connected",
+    "account": "Account: {account}",
+    "syncedAt": "Busy times last read {time}",
+    "notSynced": "Busy times are being read",
+    "calendar": "Bookings go to",
+    "calendarHint": "Your busy times are read from this calendar and your main one.",
+    "saved": "Saved. New bookings go to {name}.",
+    "calendarsError": "Your calendars didn't load. Try again later.",
+    "disconnect": "Disconnect",
+    "disconnected": "Google Calendar disconnected.",
+    "disconnectNote": "Disconnecting deletes our access. Events already in your calendar stay there."
+  },
+  "reconnect": {
+    "title": "Connect your calendar again",
+    "body": "Google no longer lets us reach your calendar, so bookings aren't synced right now. Booking still works; connect again to catch up.",
+    "action": "Reconnect"
+  },
+  "result": {
+    "connected": "Google Calendar connected.",
+    "denied": "You didn't allow access, so nothing was connected.",
+    "scope": "Allow both calendar permissions on Google's screen, or sync can't work.",
+    "failed": "Connecting didn't work. Try again."
+  },
+  "errors": {
+    "calendar_off": "Calendar sync isn't set up on the server.",
+    "needs_reconnect": "Connect your calendar again first.",
+    "google_unavailable": "Google Calendar didn't answer. Try again in a minute.",
+    "generic": "That didn't work. Try again."
+  }
+}

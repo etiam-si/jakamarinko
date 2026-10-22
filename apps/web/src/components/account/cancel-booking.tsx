@@ -5,6 +5,7 @@ import { useState } from "react";
 import { ApiErrorBody, type AccountBooking } from "@jakamarinko/api";
 import type { Locale } from "@jakamarinko/types";
 import { Button } from "@/components/ui/button";
+import { FieldError } from "@/components/ui/field";
 import {
   Dialog,
   DialogClose,
@@ -47,7 +48,7 @@ export function CancelBooking({ booking }: { booking: AccountBooking }) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="ghost" size="sm">
+        <Button variant="destructive-outline" size="sm">
           {t("cancel")}
         </Button>
       </DialogTrigger>
@@ -56,16 +57,12 @@ export function CancelBooking({ booking }: { booking: AccountBooking }) {
           <DialogTitle>{t("cancelTitle")}</DialogTitle>
           <DialogDescription>{t("cancelBody", { service: booking.serviceName, date })}</DialogDescription>
         </DialogHeader>
-        {error && (
-          <p role="alert" className="text-sm text-destructive">
-            {error}
-          </p>
-        )}
+        {error && <FieldError role="alert">{error}</FieldError>}
         <DialogFooter>
           <DialogClose asChild>
             <Button variant="outline">{t("keep")}</Button>
           </DialogClose>
-          <Button variant="destructive" onClick={cancel} disabled={pending}>
+          <Button variant="destructive" onClick={cancel} loading={pending}>
             {t("cancelConfirm")}
           </Button>
         </DialogFooter>

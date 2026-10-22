@@ -8,6 +8,7 @@ import { enGB, sl } from "react-day-picker/locale";
 import type { AvailabilityException } from "@jakamarinko/api";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
+import { FieldError } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useErrorText } from "./booking-actions";
@@ -82,7 +83,7 @@ export function Exceptions({ coachId }: { coachId?: string }) {
             closed: "[&>button]:line-through [&>button]:decoration-destructive [&>button]:decoration-2",
             open: "[&>button]:underline [&>button]:decoration-primary [&>button]:decoration-2 [&>button]:underline-offset-4",
           }}
-          className="self-start rounded-lg border [--cell-size:--spacing(10)]"
+          className="self-start rounded-xl border bg-card shadow-sm [--cell-size:--spacing(10)]"
         />
         <p className="flex gap-4 text-xs text-muted-foreground">
           <span className="line-through decoration-destructive decoration-2">{t("legendClosed")}</span>
@@ -91,14 +92,17 @@ export function Exceptions({ coachId }: { coachId?: string }) {
       </div>
 
       <div className="flex flex-col gap-6">
-        <form onSubmit={submit} className="flex flex-col gap-4 rounded-lg border bg-card p-4">
+        <form onSubmit={submit} className="flex flex-col gap-5 rounded-xl border bg-card p-5 shadow-sm">
           <p aria-live="polite" className="font-medium">
             {picked ? `${t("picked")}: ${picked}` : <span className="font-normal text-muted-foreground">{t("pickDays")}</span>}
           </p>
           <fieldset className="flex flex-col gap-2">
             <legend className="mb-2 text-sm font-medium">{t("kind")}</legend>
             {(["closed", "open"] as const).map((k) => (
-              <label key={k} className="flex items-center gap-2 text-sm">
+              <label
+                key={k}
+                className="flex min-h-11 cursor-pointer items-center gap-2 rounded-lg border border-input px-3 text-sm has-checked:border-primary has-checked:bg-primary/10 has-[:focus-visible]:ring-[3px] has-[:focus-visible]:ring-ring/20"
+              >
                 <input type="radio" name="kind" value={k} checked={kind === k} onChange={() => setKind(k)} className="size-4 accent-primary" />
                 {k === "closed" ? t("kindClosed") : t("kindOpen")}
               </label>
@@ -107,7 +111,7 @@ export function Exceptions({ coachId }: { coachId?: string }) {
           {kind === "open" && (
             <div className="flex gap-2">
               {(["start", "end"] as const).map((field) => (
-                <div key={field} className="flex flex-col gap-1">
+                <div key={field} className="flex flex-col gap-1.5">
                   <Label htmlFor={`exception-${field}`} className="text-xs text-muted-foreground">
                     {field === "start" ? t("from") : t("to")}
                   </Label>
@@ -123,18 +127,14 @@ export function Exceptions({ coachId }: { coachId?: string }) {
               ))}
             </div>
           )}
-          <div className="flex flex-col gap-1">
+          <div className="flex flex-col gap-1.5">
             <Label htmlFor="exception-note" className="text-xs text-muted-foreground">
               {t("note")}
             </Label>
             <Input id="exception-note" maxLength={200} value={note} onChange={(e) => setNote(e.target.value)} />
           </div>
-          {add.error && (
-            <p role="alert" className="text-sm text-destructive">
-              {errorText(add.error)}
-            </p>
-          )}
-          <Button type="submit" className="self-start" disabled={invalid || add.isPending}>
+          {add.error && <FieldError role="alert">{errorText(add.error)}</FieldError>}
+          <Button type="submit" className="w-full sm:w-auto sm:self-end" disabled={invalid} loading={add.isPending}>
             {t("addException")}
           </Button>
         </form>
@@ -146,7 +146,7 @@ export function Exceptions({ coachId }: { coachId?: string }) {
           {upcoming.length === 0 ? (
             <p className="text-sm text-muted-foreground">{t("noExceptions")}</p>
           ) : (
-            <ul className="flex flex-col divide-y rounded-lg border bg-card">
+            <ul className="flex flex-col divide-y overflow-hidden rounded-xl border bg-card shadow-sm">
               {upcoming.map((e) => {
                 const days = e.startDate === e.endDate ? when.day(e.startDate) : `${when.short(e.startDate)} – ${when.short(e.endDate)}`;
                 const what = e.kind === "closed" ? t("closedRange") : t("openRange", { start: e.start ?? "", end: e.end ?? "" });

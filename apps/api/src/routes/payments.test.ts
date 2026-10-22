@@ -256,6 +256,34 @@ describe("webhook", () => {
     expect((await database.select().from(stripeEvents)).map((e) => e.id).sort()).toEqual(["evt_1", "evt_2"]);
   });
 
+  test("with marketing consent, the paid booking goes to Meta once, with the event id the browser uses", async () => {
+    vi.stubEnv("META_PIXEL_ID", "123");
+    vi.stubEnv("META_CAPI_TOKEN", "secret");
+    const meta: { data: { event_id: string; event_name: string }[] }[] = [];
+    vi.stubGlobal("fetch", async (url: string, init: RequestInit) => {
+      if (url.startsWith("https://graph.facebook.com/")) meta.push(JSON.parse(String(init.body)));
+      return new Response("{}");
+    });
+    const consent = `jm_consent=${encodeURIComponent(JSON.stringify({ v: 1, analytics: false, marketing: true }))}`;
+    const res = await call(
+      "POST",
+      "/booking",
+      { service: "performance", coachId: ids.jakaCoachId, start: monday16, name: "Ana Novak", email: "ana@example.com", phone: "+386 41 000 000", locale: "sl" },
+      { cookie: consent, "user-agent": "Mozilla/5.0 test", "cf-connecting-ip": "203.0.113.9" },
+    );
+    const created = CreatedBooking.parse(await res.json());
+    expect(meta).toEqual([]);
+
+    const token = new URL(created.manageUrl).searchParams.get("token")!;
+    await checkoutUrl(created.booking.id, token);
+    const session = fake.pay((await bookingRow(created.booking.id)).stripeCheckoutSessionId!);
+    await webhook({ id: "evt_meta_1", type: "checkout.session.completed", object: session });
+    await webhook({ id: "evt_meta_2", type: "checkout.session.async_payment_succeeded", object: session });
+
+    expect(meta).toHaveLength(1);
+    expect(meta[0]!.data[0]).toMatchObject({ event_name: "Purchase", event_id: `booking_paid-${created.booking.id}` });
+  });
+
   test("a forged webhook (bad or missing signature) is a 400 and changes nothing", async () => {
     const { booking, token } = await book();
     await checkoutUrl(booking.id, token);

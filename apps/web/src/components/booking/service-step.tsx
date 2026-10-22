@@ -4,6 +4,7 @@ import type { Service } from "@jakamarinko/api";
 import { useFormatter, useTranslations } from "next-intl";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { FieldError, FormActions } from "@/components/ui/field";
 import { eurFormat, euros } from "@/components/site/site";
 import { Choice } from "./choice";
 
@@ -23,25 +24,28 @@ export function ServiceStep({ services, initial, onContinue }: { services: Servi
         else setError(true);
       }}
     >
-      <fieldset className="flex flex-col gap-2" aria-describedby={error ? "service-error" : undefined}>
+      <fieldset className="flex flex-col gap-3" aria-describedby={error ? "service-error" : undefined}>
         <legend className="sr-only">{t("service.heading")}</legend>
         {services.map((s) => (
           <Choice key={s.id} name="service" value={s.id} checked={picked === s.id} onChange={setPicked} className="justify-between gap-4 p-4 text-left">
-            <span className="font-medium">{s.name}</span>
-            <span className="shrink-0 text-sm">
-              {t("service.minutes", { count: s.durationMin })} · {format.number(euros(s.priceCents), eurFormat)}
+            <span className="flex min-w-0 flex-col gap-0.5">
+              <span className="font-semibold">{s.name}</span>
+              <span className="text-sm opacity-80">{t("service.minutes", { count: s.durationMin })}</span>
             </span>
+            <span className="shrink-0 font-heading text-lg font-bold tabular-nums">{format.number(euros(s.priceCents), eurFormat)}</span>
           </Choice>
         ))}
       </fieldset>
       {error && (
-        <p id="service-error" role="alert" className="text-sm text-destructive">
+        <FieldError id="service-error" role="alert">
           {t("service.required")}
-        </p>
+        </FieldError>
       )}
-      <Button type="submit" size="lg" className="self-start">
-        {t("continue")}
-      </Button>
+      <FormActions>
+        <Button type="submit" size="lg">
+          {t("continue")}
+        </Button>
+      </FormActions>
     </form>
   );
 }

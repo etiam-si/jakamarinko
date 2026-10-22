@@ -5,7 +5,7 @@ export function Unavailable() {
   const t = useTranslations("booking.unavailable");
   const contact = useTranslations("contact");
   return (
-    <div role="alert" className="flex flex-col gap-3 rounded-lg border border-destructive/40 bg-destructive/5 p-5">
+    <div role="alert" className="flex flex-col gap-3 rounded-xl border border-destructive/30 bg-destructive/5 p-5">
       <h2 className="text-lg font-semibold">{t("title")}</h2>
       <p>{t("text")}</p>
       <dl className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-1">

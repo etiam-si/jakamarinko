@@ -1,11 +1,13 @@
 "use client";
 
+import { CircleCheck } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { CreateRequestInput, type RequestTopic } from "@jakamarinko/api";
 import { type Locale, oneOffs, packages } from "@jakamarinko/types";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Field, FieldError, FormActions } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -57,15 +59,22 @@ export function ContactForm() {
     setPending(false);
     if (res?.status === 429) return setFailure("tooMany");
     if (!res?.ok) return setFailure("generic");
-    track("contact_sent", { topic: parsed.data.topic });
+    // The api reports the same event to Meta under this id (with consent), so it is counted once.
+    const body = (await res.json().catch(() => ({}))) as { eventId?: string };
+    track("contact_sent", { topic: parsed.data.topic }, body.eventId);
     setSent(true);
   }
 
   if (sent) {
     return (
-      <div className="flex flex-col items-start gap-3 rounded-lg border bg-card p-6" role="status">
-        <h2 className="text-xl font-semibold">{t("success.title")}</h2>
-        <p className="text-muted-foreground">{t("success.body")}</p>
+      <div className="flex flex-col items-start gap-4 rounded-xl border bg-card p-6 shadow-sm md:p-8" role="status">
+        <span className="flex size-12 items-center justify-center rounded-full bg-success/10 text-success">
+          <CircleCheck aria-hidden className="size-6" />
+        </span>
+        <div className="flex flex-col gap-1.5">
+          <h2 className="font-heading text-xl font-bold font-stretch-expanded">{t("success.title")}</h2>
+          <p className="text-pretty text-muted-foreground">{t("success.body")}</p>
+        </div>
         <Button
           variant="outline"
           onClick={() => {
@@ -80,40 +89,41 @@ export function ContactForm() {
   }
 
   const error = (field: Field) =>
-    errors[field] && (
-      <p id={`contact-${field}-error`} className="text-sm text-destructive">
-        {t(`errors.${field}`)}
-      </p>
-    );
+    errors[field] && <FieldError id={`contact-${field}-error`}>{t(`errors.${field}`)}</FieldError>;
   const invalid = (field: Field) => ({
     "aria-invalid": !!errors[field],
     "aria-describedby": errors[field] ? `contact-${field}-error` : undefined,
   });
 
   return (
-    <form className="flex flex-col gap-5" onSubmit={submit} noValidate aria-labelledby="contact-form-title">
-      <h2 id="contact-form-title" className="font-heading text-2xl font-bold font-stretch-expanded">
+    <form
+      className="flex flex-col gap-5 rounded-xl border bg-card p-5 shadow-sm sm:p-8"
+      onSubmit={submit}
+      noValidate
+      aria-labelledby="contact-form-title"
+    >
+      <h2 id="contact-form-title" className="font-heading text-xl font-bold font-stretch-expanded md:text-2xl">
         {t("title")}
       </h2>
       <div className="grid gap-5 sm:grid-cols-2">
-        <div className="flex flex-col gap-2">
+        <Field>
           <Label htmlFor="contact-name">{t("name")}</Label>
           <Input id="contact-name" autoComplete="name" value={values.name} onChange={set("name")} {...invalid("name")} />
           {error("name")}
-        </div>
-        <div className="flex flex-col gap-2">
+        </Field>
+        <Field>
           <Label htmlFor="contact-email">{t("email")}</Label>
           <Input id="contact-email" type="email" autoComplete="email" value={values.email} onChange={set("email")} {...invalid("email")} />
           {error("email")}
-        </div>
-        <div className="flex flex-col gap-2">
+        </Field>
+        <Field>
           <Label htmlFor="contact-phone">
             {t("phone")} <span className="font-normal text-muted-foreground">({t("optional")})</span>
           </Label>
           <Input id="contact-phone" type="tel" autoComplete="tel" value={values.phone} onChange={set("phone")} {...invalid("phone")} />
           {error("phone")}
-        </div>
-        <div className="flex flex-col gap-2">
+        </Field>
+        <Field>
           <Label htmlFor="contact-topic">{t("topic")}</Label>
           <Select value={topic} onValueChange={(v) => setTopic(v as RequestTopic)}>
             <SelectTrigger id="contact-topic" className="w-full" {...invalid("topic")}>
@@ -128,13 +138,13 @@ export function ContactForm() {
             </SelectContent>
           </Select>
           {error("topic")}
-        </div>
+        </Field>
       </div>
-      <div className="flex flex-col gap-2">
+      <Field>
         <Label htmlFor="contact-message">{t("message")}</Label>
         <Textarea id="contact-message" rows={6} className="min-h-36" value={values.message} onChange={set("message")} {...invalid("message")} />
         {error("message")}
-      </div>
+      </Field>
       {/* Honeypot: hidden from people and screen readers, bots fill it in. */}
       <div aria-hidden className="absolute -left-[9999px] h-px w-px overflow-hidden">
         <label htmlFor="contact-website">{t("website")}</label>
@@ -142,9 +152,9 @@ export function ContactForm() {
       </div>
       <div className="flex flex-col gap-2">
         <div className="flex gap-3">
-          <Checkbox id="contact-consent" checked={consent} onCheckedChange={(v) => setConsent(v === true)} {...invalid("consent")} />
+          <Checkbox id="contact-consent" className="mt-0.5" checked={consent} onCheckedChange={(v) => setConsent(v === true)} {...invalid("consent")} />
           <div className="flex flex-col gap-1">
-            <Label htmlFor="contact-consent" className="leading-snug">
+            <Label htmlFor="contact-consent" className="font-normal">
               {t("consent")}
             </Label>
             <Link href="/legal/privacy" className="text-sm text-muted-foreground underline underline-offset-4">
@@ -154,14 +164,12 @@ export function ContactForm() {
         </div>
         {error("consent")}
       </div>
-      <Button type="submit" size="lg" disabled={pending} className="self-start">
-        {pending ? t("sending") : t("submit")}
-      </Button>
-      {failure && (
-        <p className="text-sm text-destructive" role="alert">
-          {t(`errors.${failure}`)}
-        </p>
-      )}
+      {failure && <FieldError role="alert">{t(`errors.${failure}`)}</FieldError>}
+      <FormActions>
+        <Button type="submit" size="lg" loading={pending}>
+          {pending ? t("sending") : t("submit")}
+        </Button>
+      </FormActions>
     </form>
   );
 }
