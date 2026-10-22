@@ -1,0 +1,22 @@
+{
+  "review": {
+    "payOnline": "V naslednjem koraku plačaš s kartico na varni plačilni strani Stripe. Termin ti držimo {minutes} minut.",
+    "payOnSite": "Plačaš na kraju samem, na dan termina.",
+    "vatIncluded": "Cena vključuje DDV.",
+    "vatExcluded": "Ceni se prišteje DDV.",
+    "pay": "Na plačilo",
+    "paying": "Odpiram plačilo …"
+  },
+  "pending": {
+    "text": "Rezervacija še ni plačana. Termin ti držimo {minutes} minut od rezervacije, potem se sprosti.",
+    "pay": "Plačaj zdaj",
+    "opening": "Odpiram plačilo …",
+    "expired": "Čas za plačilo je potekel. Prosimo, rezerviraj ponovno.",
+    "failed": "Plačila trenutno ni mogoče odpreti. Poskusi znova čez nekaj trenutkov.",
+    "confirming": "Hvala, plačilo potrjujemo. Stran se osveži sama.",
+    "slow": "Potrjevanje traja dlje kot običajno. Ko bo končano, dobiš e-pošto; stran lahko zapreš."
+  },
+  "paid": {
+    "text": "Plačano prek spleta. Če odpoveš vsaj 24 ur pred začetkom, ti celoten znesek vrnemo na kartico."
+  }
+}

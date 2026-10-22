@@ -61,9 +61,9 @@ const openUserMenu = (page: Page) => page.getByRole("button", { name: "Account m
 
 test("signed out, both areas send you to sign in with a return URL", async ({ page }) => {
   await page.goto("/en/coach/bookings");
-  await expect(page).toHaveURL(/\/en\/sign-in\?next=%2Fcoach$/);
+  await expect(page).toHaveURL(/\/en\/sign-in\?next=%2Fcoach%2Fbookings$/);
   await page.goto("/sl/account/privacy");
-  await expect(page).toHaveURL(/\/sl\/sign-in\?next=%2Faccount$/);
+  await expect(page).toHaveURL(/\/sl\/sign-in\?next=%2Faccount%2Fprivacy$/);
 });
 
 test("a customer gets their account and a 404 in the coach area", async ({ page }) => {

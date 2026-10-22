@@ -12,7 +12,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { isActive } from "./booking-actions";
 import { BookingCard, BookingDetails, HealthFlag, StatusBadge } from "./booking-card";
 import { useBookings } from "./data";
-import { services, useServiceName, useWhen } from "./format";
+import { services, useCustomerName, useServiceName, useWhen } from "./format";
 import { NoticeProvider } from "./notice";
 import { QueryState } from "./query-state";
 import { addDays, localDate, weekStart } from "./time";
@@ -207,6 +207,7 @@ function Week({ week, today, bookings }: { week: string; today: string; bookings
 
 function WeekItem({ booking, onOpen }: { booking: CoachBooking; onOpen: () => void }) {
   const when = useWhen();
+  const customerName = useCustomerName();
   const serviceName = useServiceName();
   return (
     <button
@@ -218,7 +219,7 @@ function WeekItem({ booking, onOpen }: { booking: CoachBooking; onOpen: () => vo
       )}
     >
       <span className="font-mono text-xs font-semibold tabular-nums">{when.time(booking.start)}</span>
-      <span className="w-full truncate font-medium">{booking.name}</span>
+      <span className="w-full truncate font-medium">{customerName(booking)}</span>
       <span className="w-full truncate text-xs text-muted-foreground">{serviceName(booking.service)}</span>
       <span className="flex flex-wrap gap-1 empty:hidden">
         <StatusBadge booking={booking} />

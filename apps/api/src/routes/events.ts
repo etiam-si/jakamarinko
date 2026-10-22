@@ -8,6 +8,9 @@ const TagsEnv = z.object({
   UMAMI_WEBSITE_ID: z.string().min(1).optional(),
   META_PIXEL_ID: z.string().min(1).optional(),
   GOOGLE_TAG_ID: z.string().min(1).optional(),
+  GOOGLE_ADS_ID: z.string().min(1).optional(),
+  GOOGLE_ADS_LABEL_BOOKING_PAID: z.string().min(1).optional(),
+  GOOGLE_ADS_LABEL_CONTACT_SENT: z.string().min(1).optional(),
 });
 
 export function tagsConfig(source: Record<string, string | undefined> = process.env): TagsConfig {
@@ -16,6 +19,9 @@ export function tagsConfig(source: Record<string, string | undefined> = process.
     umami: e.UMAMI_URL && e.UMAMI_WEBSITE_ID ? { src: `${e.UMAMI_URL.replace(/\/$/, "")}/script.js`, websiteId: e.UMAMI_WEBSITE_ID } : null,
     metaPixelId: e.META_PIXEL_ID ?? null,
     googleTagId: e.GOOGLE_TAG_ID ?? null,
+    googleAds: e.GOOGLE_ADS_ID
+      ? { id: e.GOOGLE_ADS_ID, labels: { booking_paid: e.GOOGLE_ADS_LABEL_BOOKING_PAID, contact_sent: e.GOOGLE_ADS_LABEL_CONTACT_SENT } }
+      : null,
   };
 }
 

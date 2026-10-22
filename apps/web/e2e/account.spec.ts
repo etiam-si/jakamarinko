@@ -201,6 +201,53 @@ test("a guest booking joins the account: overview, bookings, profile, privacy, t
   await shot(page, "1440-en-account-fresh.png", info.outputPath.bind(info));
 });
 
+test("after withdrawing health data consent, privacy and export still work; the other pages ask for it again", async ({ page }) => {
+  await signIn(page, unique("withdrawn"));
+  await page.goto("/en/account/privacy");
+  await page.locator('[data-consent="health_data"]').getByRole("button", { name: "Withdraw" }).click();
+  await page.getByRole("dialog").getByRole("button", { name: "Withdraw consent" }).click();
+  await expect(page.locator('[data-consent="health_data"]').getByText("Not given")).toBeVisible();
+
+  // A fresh load of the privacy page: no detour to the consent step.
+  await page.goto("/en/account/privacy");
+  await expect(page).toHaveURL(/\/en\/account\/privacy$/);
+  await expect(heading(page)).toHaveText("Privacy");
+  const download = page.waitForEvent("download");
+  await page.getByRole("link", { name: "Download my data" }).click();
+  expect((await download).suggestedFilename()).toMatch(/^jakamarinko-data-\d{4}-\d{2}-\d{2}\.zip$/);
+  await page.goto("/en/account/privacy/delete?token=x");
+  await expect(heading(page)).toHaveText("Delete your account");
+
+  // The rest of the account still needs the consent, also when reached from the privacy page's menu.
+  await page.goto("/en/account/privacy");
+  await page.getByRole("link", { name: "My bookings" }).first().click();
+  await expect(page).toHaveURL(/\/en\/consent\?next=%2Faccount%2Fbookings$/);
+  await page.goto("/en/account/profile");
+  await expect(page).toHaveURL(/\/en\/consent\?next=%2Faccount%2Fprofile$/);
+});
+
+test("a deletion link opened while signed out survives the sign-in, token included", async ({ page }) => {
+  const email = unique("signedout");
+  await signIn(page, email);
+  const since = fileStamp();
+  expect((await page.request.post("/api/account/delete")).ok()).toBe(true);
+  const link = await linkFrom("/account/privacy/delete?token=", since);
+  const path = new URL(link).pathname + new URL(link).search;
+
+  await page.context().clearCookies({ name: "better-auth.session_token" });
+  await page.goto(link);
+  await expect(page).toHaveURL(`/en/sign-in?next=${encodeURIComponent(path.replace(/^\/en/, ""))}`);
+  await page.locator("#email").fill(email);
+  const sent = fileStamp();
+  await page.locator("form button[type=submit]").click();
+  await expect(page.getByRole("status")).toContainText(email);
+  await page.goto(await linkFrom(email, sent));
+  await expect(page).toHaveURL(path);
+  await expect(heading(page)).toHaveText("Delete your account");
+  await page.getByRole("button", { name: "Delete my account for good" }).click();
+  await expect(page.getByRole("heading", { name: "Your account is deleted" })).toBeVisible();
+});
+
 test.describe("on a phone", () => {
   test.use({ viewport: { width: 375, height: 812 } });
 

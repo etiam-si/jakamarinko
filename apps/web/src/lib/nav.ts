@@ -1,10 +1,11 @@
-import { CalendarCheck, CalendarDays, Inbox, type LucideIcon, Settings, ShieldCheck, UserRound, Users } from "lucide-react";
+import type { Role } from "@jakamarinko/types";
+import { BarChart3, CalendarCheck, CalendarDays, Inbox, type LucideIcon, Settings, ShieldCheck, UserRound, Users } from "lucide-react";
 
 export type Area = "coach" | "account";
 
 // One menu entry. `label` is a full message key, so a feature keeps its label in its own namespace.
-// `soon`: shown greyed out with "Soon", not a link yet.
-export type NavEntry = { area: Area; href: string; label: string; icon: LucideIcon; soon?: boolean };
+// `soon`: shown greyed out with "Soon", not a link yet. `role`: only for that role and up (owner ⊇ head_coach ⊇ coach).
+export type NavEntry = { area: Area; href: string; label: string; icon: LucideIcon; soon?: boolean; role?: Role };
 
 // Every page in the signed-in areas, in menu order. A feature adds its page with one line here.
 export const nav: NavEntry[] = [
@@ -13,6 +14,7 @@ export const nav: NavEntry[] = [
   { area: "coach", href: "/coach/requests", label: "app.nav.requests", icon: Inbox },
   { area: "coach", href: "/coach/athletes", label: "app.nav.athletes", icon: Users, soon: true },
   { area: "coach", href: "/coach/settings", label: "app.nav.settings", icon: Settings },
+  { area: "coach", href: "/coach/ad-sources", label: "landing.report.nav", icon: BarChart3, role: "owner" },
   { area: "account", href: "/account/bookings", label: "app.nav.myBookings", icon: CalendarDays },
   { area: "account", href: "/account/profile", label: "app.nav.profile", icon: UserRound },
   { area: "account", href: "/account/privacy", label: "app.nav.privacy", icon: ShieldCheck },

@@ -10,7 +10,7 @@ import { FieldError } from "@/components/ui/field";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { ApiFailure, useCancel, useOutcome, useReschedule, useRescheduleSlots } from "./data";
-import { useWhen } from "./format";
+import { useCustomerName, useWhen } from "./format";
 import { useNotice } from "./notice";
 import { addDays, localDate, weekStart } from "./time";
 
@@ -69,6 +69,7 @@ export function BookingActions({ booking, now = new Date() }: { booking: CoachBo
 
 function CancelDialog({ booking, onClose }: { booking: CoachBooking; onClose: () => void }) {
   const t = useTranslations("coach-booking.cancel");
+  const customerName = useCustomerName();
   const [reason, setReason] = useState("");
   const cancel = useCancel();
   const notice = useNotice();
@@ -80,7 +81,7 @@ function CancelDialog({ booking, onClose }: { booking: CoachBooking; onClose: ()
       { id: booking.id, reason: reason.trim() || undefined },
       {
         onSuccess: () => {
-          notice(t("done", { name: booking.name }));
+          notice(t("done", { name: customerName(booking) }));
           onClose();
         },
       },
@@ -93,7 +94,7 @@ function CancelDialog({ booking, onClose }: { booking: CoachBooking; onClose: ()
         <form onSubmit={submit} className="flex flex-col gap-5">
           <DialogHeader>
             <DialogTitle>{t("title")}</DialogTitle>
-            <DialogDescription>{t("body", { name: booking.name })}</DialogDescription>
+            <DialogDescription>{t("body", { name: customerName(booking) })}</DialogDescription>
           </DialogHeader>
           <div className="flex flex-col gap-2">
             <Label htmlFor="cancel-reason">{t("reason")}</Label>
@@ -120,6 +121,7 @@ function CancelDialog({ booking, onClose }: { booking: CoachBooking; onClose: ()
 // One week of free times at a time, starting with the booking's own week (or this week, if that is past).
 function RescheduleDialog({ booking, onClose }: { booking: CoachBooking; onClose: () => void }) {
   const t = useTranslations("coach-booking.reschedule");
+  const customerName = useCustomerName();
   const when = useWhen();
   const thisWeek = weekStart(localDate(new Date()));
   const [week, setWeek] = useState(() => {
@@ -150,7 +152,7 @@ function RescheduleDialog({ booking, onClose }: { booking: CoachBooking; onClose
       { id: booking.id, start: picked },
       {
         onSuccess: () => {
-          notice(t("done", { name: booking.name }));
+          notice(t("done", { name: customerName(booking) }));
           onClose();
         },
         onError: () => {
@@ -166,7 +168,7 @@ function RescheduleDialog({ booking, onClose }: { booking: CoachBooking; onClose
       <DialogContent showCloseButton={false} className="max-h-[90dvh] grid-rows-[auto_auto_minmax(0,1fr)_auto] overflow-hidden">
         <DialogHeader>
           <DialogTitle>{t("title")}</DialogTitle>
-          <DialogDescription>{t("body", { name: booking.name })}</DialogDescription>
+          <DialogDescription>{t("body", { name: customerName(booking) })}</DialogDescription>
         </DialogHeader>
         <div className="flex items-center justify-between gap-2">
           <Button size="icon-sm" variant="outline" aria-label={t("previousWeek")} disabled={week <= thisWeek} onClick={() => move(-1)}>

@@ -59,7 +59,9 @@ export function ContactForm() {
     setPending(false);
     if (res?.status === 429) return setFailure("tooMany");
     if (!res?.ok) return setFailure("generic");
-    track("contact_sent", { topic: parsed.data.topic });
+    // The api reports the same event to Meta under this id (with consent), so it is counted once.
+    const body = (await res.json().catch(() => ({}))) as { eventId?: string };
+    track("contact_sent", { topic: parsed.data.topic }, body.eventId);
     setSent(true);
   }
 

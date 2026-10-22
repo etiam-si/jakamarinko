@@ -15,17 +15,19 @@ import {
   RescheduleSlotsQuery,
   ServicesQuery,
   SlotsQuery,
+  roleAllows,
   type Availability,
   type AvailabilityException,
   type Booking,
   type CoachBooking,
+  type CoachSummary,
   type CreatedBooking,
   type Service,
   type Slot,
 } from "@jakamarinko/api";
 import { getSessionUser, type SessionUser } from "@jakamarinko/auth";
 import { db } from "@jakamarinko/db";
-import { availability, availabilityExceptions, bookings, locations, serviceTypes } from "@jakamarinko/db/schema";
+import { availability, availabilityExceptions, bookings, coaches, locations, serviceTypes, users } from "@jakamarinko/db/schema";
 import {
   cancelBooking,
   cancellable,
@@ -39,12 +41,15 @@ import {
   rescheduleBooking,
 } from "../booking/bookings";
 import { activeCoachIds, coachSlots } from "../booking/calendar";
+import { freshenBusy } from "../calendar/busy";
 import { bookable, serviceView } from "../booking/catalog";
 import { assertCoachAccess, ownCoachId, targetCoach } from "../booking/coach";
 import { bookingConfig } from "../booking/config";
 import { sendCancelled, sendConfirmed, sendRescheduled } from "../booking/emails";
+import { recordConversion, reportBookingPaid } from "../conversions/record";
 import { addDays, zoned } from "../booking/time";
 import { requireRole, requireSession } from "../lib/auth";
+import { settleCancelled } from "../payments/refunds";
 import { ApiError } from "../lib/errors";
 import { validate } from "../lib/validate";
 
@@ -101,6 +106,18 @@ const exceptionOwner = (id: string) =>
 
 // A coach's calendar: availability, exceptions and bookings. Customers and guests never reach these.
 const coach = new Hono()
+  // Whose calendar the switcher offers: a coach only their own, head coach and owner every active coach. Own first.
+  .get("/coaches", staff, async (c) => {
+    const user = c.get("user");
+    const rows = await db()
+      .select({ id: coaches.id, userId: coaches.userId, name: users.name, email: users.email })
+      .from(coaches)
+      .innerJoin(users, eq(users.id, coaches.userId))
+      .where(roleAllows(user.role, ["head_coach"]) ? eq(coaches.active, true) : eq(coaches.userId, user.id))
+      .orderBy(users.name);
+    const list = rows.map((r) => ({ id: r.id, name: r.name || r.email, own: r.userId === user.id }));
+    return c.json<CoachSummary[]>([...list.filter((r) => r.own), ...list.filter((r) => !r.own)]);
+  })
   .get("/locations", staff, async (c) => {
     const rows = await db().select().from(locations).orderBy(desc(locations.isDefault), locations.name);
     return c.json<Location[]>(rows.map((r) => ({ id: r.id, name: r.name, address: r.address, isDefault: r.isDefault })));
@@ -184,6 +201,7 @@ const coach = new Hono()
     const config = bookingConfig();
     const now = new Date();
     const cancelled = await cancelBooking(row, now, reason);
+    await settleCancelled(row, "coach", now, config);
     await sendCancelled(cancelled, config, reason);
     return c.json<CoachBooking>(coachView(cancelled, await ownCoachId(user), now, config));
   })
@@ -193,6 +211,7 @@ const coach = new Hono()
     const { from, to } = c.req.valid("query");
     const durationMin = (b.endAt.getTime() - b.startAt.getTime()) / 60_000;
     const options = { now: new Date(), config: bookingConfig(), durationMin, noticeMin: 0, excludeBookingId: b.id };
+    await freshenBusy([b.coachId]);
     const slots = await coachSlots(db(), b.coachId, from, to, options);
     return c.json<Slot[]>(
       slots.map((s) => ({ start: s.start.toISOString(), end: s.end.toISOString(), coachId: b.coachId, locationId: s.locationId })),
@@ -235,8 +254,10 @@ export const booking = new Hono()
     const { durationMin } = await activeService(service);
     const config = bookingConfig();
     const now = new Date();
+    const coachIds = await activeCoachIds(db());
+    await freshenBusy(coachIds);
     const perCoach = await Promise.all(
-      (await activeCoachIds(db())).map(async (coachId) =>
+      coachIds.map(async (coachId) =>
         (await coachSlots(db(), coachId, from, to, { now, config, durationMin })).map((s) => ({ ...s, coachId })),
       ),
     );
@@ -250,7 +271,12 @@ export const booking = new Hono()
     const config = bookingConfig();
     const now = new Date();
     const row = await createBooking(c.req.valid("json"), user, now, config);
-    if (row.booking.status === "confirmed") await sendConfirmed(row, config);
+    // The Purchase goes to Meta once the booking is paid (T13's webhook), or now when it is confirmed straight away.
+    await recordConversion(c, "booking_paid", { bookingId: row.booking.id });
+    if (row.booking.status === "confirmed") {
+      await sendConfirmed(row, config);
+      await reportBookingPaid(row.booking.id);
+    }
     return c.json<CreatedBooking>({ booking: customerView(row, now, config), manageUrl: manageUrl(row.booking, config) }, 201);
   })
   .get("/mine", requireSession, async (c) => {
@@ -279,6 +305,7 @@ export const booking = new Hono()
     }
     if (!cancellable(row, now, config)) throw new ApiError(409, "too_late", `Free cancellation ends ${config.cancelMin / 60} hours before`);
     const cancelled = await cancelBooking(row, now);
+    await settleCancelled(row, "customer", now, config);
     await sendCancelled(cancelled, config);
     return c.json<Booking>(customerView(cancelled, now, config));
   });
