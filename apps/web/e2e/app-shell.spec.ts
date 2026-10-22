@@ -90,7 +90,8 @@ test("a coach reaches both areas and switches language and view from the user me
   await signInAs(page, "coach");
   await page.goto("/en/coach");
   await expect(heading(page)).toHaveText("Today");
-  await expect(page.getByText("Nothing booked for today")).toBeVisible();
+  // No coaches row for this user: Today (T12) says there is no calendar instead of listing bookings.
+  await expect(page.getByText("You have no calendar yet")).toBeVisible();
 
   const menu = page.getByRole("navigation", { name: "Menu" });
   await expect(menu.getByRole("link")).toHaveText(["Today", "Bookings", "Requests", "Settings"]);

@@ -15,6 +15,7 @@ export const namespaces = [
   "app",
   "site",
   "requests",
+  "coach-booking",
 ] as const;
 
 export type Namespace = (typeof namespaces)[number];
