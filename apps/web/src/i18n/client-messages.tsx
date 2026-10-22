@@ -2,8 +2,9 @@ import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { pickMessages } from "./pick-messages";
 
-// What every page's client components need: the header, the footer, the cookie banner and the error page.
-export const baseClientMessages = ["common", "consent", "errors.error"];
+// What every page's client components need: the header (its own namespace once T18's header lands; a path that
+// doesn't exist is skipped), the footer, the cookie banner and the error page.
+export const baseClientMessages = ["common", "header", "consent", "errors.error"];
 
 // Client components only see the messages handed to the nearest provider, and a nested provider replaces the
 // one above it. So each part of the app wraps its children in one of these with the namespaces (or "ns.key"

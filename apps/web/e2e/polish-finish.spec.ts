@@ -165,17 +165,19 @@ test.describe("structured data", () => {
     });
   }
 
-  const withFaq = ["/coaching", ...landingPages.filter((p) => p.blocks.includes("faq")).map((p) => `/lp/${p.slug}`)];
+  // Every page in P: the FAQPage questions are exactly the questions shown (the FAQ is <details> rows), and a page
+  // without a FAQ has no FAQPage. The coaching page and every landing page with a faq block must have one.
+  const mustHaveFaq = ["/coaching", ...landingPages.filter((p) => p.blocks.includes("faq")).map((p) => `/lp/${p.slug}`)];
   for (const locale of locales) {
     test(`/${locale}: FAQPage questions are exactly the FAQ on the page`, async ({ page }) => {
-      for (const path of withFaq) {
+      for (const path of paths) {
         await page.goto(`/${locale}${path}`);
         const faq = (await jsonLd(page)).filter((n) => n["@type"] === "FAQPage");
-        expect(faq, path).toHaveLength(1);
-        const questions = (faq[0]!.mainEntity as { name: string; acceptedAnswer: { text: string } }[]).map((q) => q.name);
-        const visible = (await page.locator("details > summary").allInnerTexts()).map((t) => t.trim());
+        const questions = faq.flatMap((f) => (f.mainEntity as { name: string }[]).map((q) => q.name));
+        const visible = (await page.locator("main details > summary").allInnerTexts()).map((t) => t.trim());
         expect(questions, path).toEqual(visible);
-        expect(questions.length, path).toBeGreaterThan(0);
+        expect(faq.length, path).toBeLessThanOrEqual(1);
+        if (mustHaveFaq.includes(path)) expect(questions.length, path).toBeGreaterThan(0);
       }
     });
   }
