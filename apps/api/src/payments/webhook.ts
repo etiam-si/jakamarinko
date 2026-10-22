@@ -8,6 +8,7 @@ import type { BookingConfig } from "../booking/config";
 import { sendCancelled, sendConfirmed } from "../booking/emails";
 import { reportBookingPaid } from "../conversions/record";
 import { refund } from "./refunds";
+import { activateGift } from "../offers/gifts";
 import { trackServer } from "./track";
 
 type Session = Stripe.Checkout.Session;
@@ -85,4 +86,8 @@ export async function handleEvent(event: Stripe.Event, now: Date, config: Bookin
     }
   });
   await followUp(outcome, config);
+  // A gift voucher bought online (offers): switched on once, whatever the replays.
+  if (event.type === "checkout.session.completed" || event.type === "checkout.session.async_payment_succeeded") {
+    await activateGift(event.data.object, config);
+  }
 }

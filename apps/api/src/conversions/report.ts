@@ -1,7 +1,7 @@
 import { and, desc, eq, gte, inArray, lt, sql } from "drizzle-orm";
 import type { ConversionReport, ConversionReportQuery } from "@jakamarinko/api";
 import { db } from "@jakamarinko/db";
-import { bookings, serviceTypes } from "@jakamarinko/db/schema";
+import { bookings, offerRedemptions, serviceTypes } from "@jakamarinko/db/schema";
 import { addDays, zoned } from "../booking/time";
 
 // Bookings that count: not cancelled and not waiting for payment.
@@ -12,11 +12,13 @@ const counted = ["confirmed", "completed", "no_show"] as const;
 export async function conversionReport({ from, to }: ConversionReportQuery): Promise<ConversionReport> {
   const source = sql<string | null>`${bookings.utm}->>'utm_source'`;
   const campaign = sql<string | null>`${bookings.utm}->>'utm_campaign'`;
-  const revenue = sql<number>`coalesce(sum(${serviceTypes.priceCents}), 0)::int`;
+  // What was paid: the price less any offer code or discount.
+  const revenue = sql<number>`coalesce(sum(coalesce(${offerRedemptions.paidCents}, ${serviceTypes.priceCents})), 0)::int`;
   const rows = await db()
     .select({ source, campaign, bookings: sql<number>`count(*)::int`, revenueCents: revenue })
     .from(bookings)
     .innerJoin(serviceTypes, eq(serviceTypes.id, bookings.serviceTypeId))
+    .leftJoin(offerRedemptions, eq(offerRedemptions.bookingId, bookings.id))
     .where(
       and(
         inArray(bookings.status, [...counted]),

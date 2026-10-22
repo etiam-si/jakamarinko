@@ -2,6 +2,7 @@ import { sendEmail, type Booking as EmailBooking } from "@jakamarinko/email";
 import { catalogItem, needsFasting, serviceName } from "./catalog";
 import type { BookingConfig } from "./config";
 import { manageUrl, type BookingRow } from "./bookings";
+import { seasonRetest } from "../offers/rewards";
 
 function emailBooking(row: BookingRow, config: BookingConfig): EmailBooking {
   const b = row.booking;
@@ -22,7 +23,10 @@ const name = (row: BookingRow) => row.booking.customerName;
 export async function sendConfirmed(row: BookingRow, config: BookingConfig) {
   const booking = emailBooking(row, config);
   const payOnSite = row.booking.paidVia === "none";
-  const results = [await sendEmail({ ...to(row), template: "bookingConfirmation", props: { name: name(row), booking, payOnSite } })];
+  const priceCents = row.paidCents ?? row.listCents;
+  const retest = await seasonRetest(row, config);
+  const props = { name: name(row), booking, payOnSite, priceCents, retest };
+  const results = [await sendEmail({ ...to(row), template: "bookingConfirmation", props })];
   if (catalogItem(row.service).kind === "lab_test") {
     const fasted = needsFasting(row.service);
     results.push(await sendEmail({ ...to(row), template: "bookingPreparation", props: { name: name(row), booking, fasted } }));

@@ -61,6 +61,8 @@ export const CreateBookingInput = z
     // The customer agreed to the processing of their health data; required with healthAnswers.
     healthConsent: z.boolean().optional(),
     utm: Attribution.optional(),
+    // An offer code from the review step (offers); case-insensitive.
+    code: z.string().trim().max(40).optional(),
   })
   .refine((b) => !b.healthAnswers || b.healthConsent === true, {
     path: ["healthConsent"],
@@ -85,6 +87,8 @@ export const Booking = z.object({
   locale: z.enum(locales),
   // Free cancellation is still possible (until 24 h before).
   cancellable: z.boolean(),
+  // What the booking costs, after an offer code or the founding discount.
+  priceCents: z.number(),
 });
 export type Booking = z.infer<typeof Booking>;
 
