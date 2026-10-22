@@ -1,0 +1,27 @@
+{
+  "banner": {
+    "title": "Cookies",
+    "text": "We use necessary cookies to run this site. With your permission we also use marketing cookies from Meta and Google to see which ads bring visitors. Our visit statistics are anonymous and use no cookies.",
+    "settings": "Settings"
+  },
+  "acceptAll": "Accept all",
+  "rejectAll": "Reject all",
+  "settings": {
+    "title": "Cookie settings",
+    "description": "Choose what we may use. You can change it anytime under “Cookie settings” at the bottom of the page.",
+    "save": "Save choice"
+  },
+  "necessary": {
+    "label": "Necessary",
+    "description": "Language, sign-in, this choice and the link you came from. Always on."
+  },
+  "analytics": {
+    "label": "Analytics",
+    "description": "Anonymous visit statistics, without cookies or personal data."
+  },
+  "marketing": {
+    "label": "Marketing",
+    "description": "Meta and Google measure which ads bring visitors. They set their own cookies."
+  },
+  "link": "Cookie settings"
+}

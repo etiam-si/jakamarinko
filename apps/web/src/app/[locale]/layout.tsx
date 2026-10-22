@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { Consent } from "@/components/consent/consent";
 import { Providers } from "@/components/providers/providers";
 import { Toaster } from "@/components/ui/sonner";
 import { routing } from "@/i18n/routing";
@@ -30,6 +31,7 @@ export default async function LocaleLayout({ children, params }: Props) {
         <NextIntlClientProvider>
           <Providers>
             {children}
+            <Consent />
             <Toaster />
           </Providers>
         </NextIntlClientProvider>

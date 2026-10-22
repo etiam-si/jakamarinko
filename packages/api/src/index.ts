@@ -2,3 +2,4 @@
 export * from "./error";
 export * from "./client";
 export * from "./health";
+export * from "./events";
