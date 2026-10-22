@@ -1,5 +1,5 @@
 import type { Role } from "@jakamarinko/types";
-import { BarChart3, CalendarCheck, CalendarDays, Inbox, type LucideIcon, Settings, ShieldCheck, UserRound, Users } from "lucide-react";
+import { BarChart3, CalendarCheck, CalendarDays, Inbox, type LucideIcon, Settings, ShieldCheck, TicketPercent, UserRound, Users } from "lucide-react";
 
 export type Area = "coach" | "account";
 
@@ -15,6 +15,7 @@ export const nav: NavEntry[] = [
   { area: "coach", href: "/coach/athletes", label: "app.nav.athletes", icon: Users, soon: true },
   { area: "coach", href: "/coach/settings", label: "app.nav.settings", icon: Settings },
   { area: "coach", href: "/coach/ad-sources", label: "landing.report.nav", icon: BarChart3, role: "owner" },
+  { area: "coach", href: "/coach/offers", label: "offers.nav", icon: TicketPercent, role: "head_coach" },
   { area: "account", href: "/account/bookings", label: "app.nav.myBookings", icon: CalendarDays },
   { area: "account", href: "/account/profile", label: "app.nav.profile", icon: UserRound },
   { area: "account", href: "/account/privacy", label: "app.nav.privacy", icon: ShieldCheck },

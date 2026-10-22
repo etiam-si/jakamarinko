@@ -7,6 +7,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { use } from "react";
 import { SectionHeading } from "@/components/brand/section-heading";
 import { CtaBand, Section } from "@/components/site/section";
+import { FoundingCounter } from "@/components/offers/founding-counter";
 import { bookingHref, eurFormat, euros, pageMetadata } from "@/components/site/site";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
@@ -105,6 +106,7 @@ export default function Lab({ params }: Props) {
     <main>
       <Section className="flex flex-col gap-8 pt-10 md:pt-16">
         <SectionHeading as="h1" eyebrow={common("nav.lab")} title={t("hero.title")} lead={t("hero.subtitle")} />
+        <FoundingCounter />
         <div className="flex flex-col gap-3 sm:flex-row">
           <Button asChild size="lg">
             <Link href="/booking">

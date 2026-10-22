@@ -5,6 +5,7 @@ import type { Locale } from "@jakamarinko/types";
 import { useFormatter, useLocale, useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { FormActions } from "@/components/ui/field";
+import { OfferCodeField } from "@/components/offers/offer-code-field";
 import { eurFormat, euros } from "@/components/site/site";
 import type { Details } from "./details-step";
 import { anyYes } from "./health";
@@ -17,6 +18,8 @@ export function ReviewStep({
   slot,
   details,
   submitting,
+  code,
+  onCode,
   onEdit,
   onConfirm,
 }: {
@@ -24,6 +27,8 @@ export function ReviewStep({
   slot: Picked;
   details: Details;
   submitting: boolean;
+  code: string;
+  onCode: (code: string) => void;
   onEdit: (step: "service" | "time" | "details") => void;
   onConfirm: () => void;
 }) {
@@ -64,6 +69,7 @@ export function ReviewStep({
       {service.kind === "lab_test" && anyYes(details.health) && (
         <p className="rounded-lg border border-warning/30 bg-warning/10 p-4 text-sm">{t("health.doctorNote")}</p>
       )}
+      <OfferCodeField service={service} email={details.email} code={code} onCode={onCode} />
       <PaymentNote service={service} />
       <FormActions>
         <Button type="button" variant="outline" size="lg" onClick={() => onEdit("details")}>

@@ -31,9 +31,13 @@ export const giftValue = (row: Pick<CodeRow, "discountType" | "value" | "service
 export async function voucherView(row: CodeRow, locale: Locale): Promise<GiftVoucher> {
   const { amountCents, service } = giftValue(row);
   const used = row.maxUses !== null && (await usesOf(db(), row.id)) >= row.maxUses;
+  const [price] = service
+    ? await db().select({ cents: serviceTypes.priceCents }).from(serviceTypes).where(eq(serviceTypes.catalogId, service))
+    : [];
   return {
     code: row.code,
     amountCents,
+    valueCents: amountCents ?? price?.cents ?? 0,
     service,
     serviceName: service ? serviceName(service, locale) : null,
     recipientName: row.recipientName,

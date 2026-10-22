@@ -1,0 +1,184 @@
+{
+  "nav": "Offers",
+  "code": {
+    "label": "Offer or voucher code",
+    "hint": "Have a code? Enter it here.",
+    "apply": "Apply",
+    "applying": "Checking…",
+    "remove": "Remove",
+    "applied": "Code {code} applied.",
+    "yourPrice": "Your price",
+    "was": "Was",
+    "nothingToPay": "Nothing to pay.",
+    "founding": "Founding athlete: {percent} % off, for life.",
+    "foundingWins": "Your founding discount saves more than this code, so it stays on.",
+    "errors": {
+      "code_unknown": "We don't know this code. Check it and try again.",
+      "code_expired": "This code has expired.",
+      "code_used_up": "This code has already been used.",
+      "code_not_for_service": "This code isn't valid for this test.",
+      "code_not_for_you": "This code isn't valid for this email address.",
+      "retest_not_eligible": "This code can't be used here.",
+      "failed": "The code can't be checked right now. Please try again."
+    },
+    "retest": {
+      "title": "The retest is for returning athletes",
+      "text": "The lactate retest is for athletes who did a test with a lactate profile with us in the last 4 months (120 days). We can't find one for {email}. Book the full lactate profile instead; your next retest is then at the lower price.",
+      "action": "Book the lactate profile"
+    }
+  },
+  "paid": {
+    "nothingToPay": "There is nothing to pay.",
+    "payOnSite": "You pay {price} on site, on the day."
+  },
+  "referral": {
+    "title": "Invite a friend",
+    "text": "Your friend gets {amount} off their first test. Once they've done it, you get a {amount} credit for your next booking.",
+    "link": "Your personal link",
+    "copy": "Copy link",
+    "copied": "Copied",
+    "share": "Share",
+    "shareText": "Book your first test at Jaka Marinko's lab with {amount} off:",
+    "credits": "Your credits",
+    "credit": "{amount} credit",
+    "used": "Used",
+    "validUntil": "Valid until {date}",
+    "noCredits": "No credits yet."
+  },
+  "founding": {
+    "left": "{left} of {places} founding places left",
+    "offer": "Founding athletes get {percent} % off every booking, for life."
+  },
+  "invite": {
+    "meta": "An invitation",
+    "title": "A friend invited you",
+    "text": "Book your first test through this link and get {amount} off. The code is already filled in.",
+    "book": "Book your lactate profile",
+    "other": "Choose another test"
+  },
+  "gift": {
+    "meta": "Gift voucher",
+    "title": "Gift voucher",
+    "for": "For {name}",
+    "worth": "Worth {amount}",
+    "service": "For one {service}",
+    "codeLabel": "Voucher code",
+    "validUntil": "Valid until {date}",
+    "book": "Book with this voucher",
+    "print": "Print",
+    "used": "This voucher has been used.",
+    "howTo": "Pick a time online; the voucher code is filled in at the last step. Valid for every test and session at the lab.",
+    "notFound": "We can't find this voucher. Check the link, or get in touch.",
+    "paid": "Thank you! The voucher is also on its way to your inbox."
+  },
+  "buyGift": {
+    "meta": "Gift a lab test",
+    "title": "Give a test as a gift",
+    "lead": "Endurance athletes are hard to buy for. A lab test is the gift they'll use: valid for 12 months, for any test at the lab.",
+    "contact": "To buy a gift voucher, get in touch with Jaka and he'll prepare one for you.",
+    "contactAction": "Get in touch",
+    "service": "Test",
+    "buyerEmail": "Your email",
+    "buyerHint": "We send the voucher here, ready to print or forward.",
+    "recipient": "For (optional)",
+    "pay": "Continue to payment",
+    "paying": "Opening payment…",
+    "failed": "Payment can't be opened right now. Please try again in a moment."
+  },
+  "coach": {
+    "title": "Offers",
+    "lead": "Free tests, discount codes, gift vouchers and the founding offer, with how they're used.",
+    "freeTest": {
+      "title": "Give a free test",
+      "lead": "We email them a single-use code for this test, with a link that fills it in.",
+      "name": "Name",
+      "email": "Email",
+      "service": "Test",
+      "language": "Email language",
+      "submit": "Send the free test",
+      "sent": "Free test sent to {email}.",
+      "failed": "The free test couldn't be sent. Please try again."
+    },
+    "newCode": {
+      "title": "New discount code",
+      "code": "Code",
+      "codeHint": "Letters, digits and dashes. Leave it empty to make one up.",
+      "type": "Discount",
+      "types": {
+        "free": "Free (100 %)",
+        "percent": "Percent off",
+        "fixed": "Euro off"
+      },
+      "percent": "Percent off",
+      "euros": "Euro off",
+      "services": "Valid for",
+      "allServices": "Every test and session",
+      "maxUses": "Max uses",
+      "maxUsesHint": "Empty for no limit.",
+      "expires": "Valid until",
+      "email": "Only for this email",
+      "note": "Internal note",
+      "submit": "Create code",
+      "created": "Code {code} created.",
+      "taken": "This code already exists. Choose another one.",
+      "invalid": "Check the fields: {fields}.",
+      "failed": "The code couldn't be created. Please try again."
+    },
+    "gift": {
+      "title": "Gift voucher",
+      "lead": "A voucher with its own page to print or forward.",
+      "kind": "Value",
+      "amount": "Amount in euro",
+      "byService": "One test",
+      "byAmount": "An amount",
+      "recipient": "For (optional)",
+      "submit": "Create voucher",
+      "created": "Voucher {code} created.",
+      "open": "Open the voucher page",
+      "failed": "The voucher couldn't be created. Please try again."
+    },
+    "founding": {
+      "title": "Founding athletes",
+      "status": "{taken} of {places} places taken",
+      "on": "The offer is on: the next completed customers get {percent} % off for life, and the site shows the places left.",
+      "off": "The offer is off: no new founding athletes, and the site shows no counter. Those who have it keep it.",
+      "switchOff": "Switch the offer off",
+      "switchOn": "Switch the offer on",
+      "failed": "That didn't work. Please try again."
+    },
+    "report": {
+      "title": "Usage",
+      "from": "From",
+      "to": "To",
+      "show": "Show",
+      "uses": "Uses",
+      "revenue": "Paid",
+      "discount": "Discounts",
+      "foundingRow": "Founding discount",
+      "code": "Code",
+      "kind": "Kind",
+      "value": "Discount",
+      "limits": "Limits",
+      "allUses": "{uses} of {max}",
+      "unlimited": "{uses} used",
+      "until": "until {date}",
+      "onlyFor": "only {email}",
+      "inactive": "Off",
+      "switchOff": "Switch off",
+      "switchOn": "Switch on",
+      "empty": "No codes yet.",
+      "note": "Uses, paid and discounts count bookings made in the range that aren't cancelled.",
+      "kinds": {
+        "promo": "Code",
+        "free_test": "Free test",
+        "referral": "Referral",
+        "credit": "Referral credit",
+        "season_retest": "Season retest",
+        "gift": "Gift voucher"
+      },
+      "free": "Free",
+      "percentOff": "{value} % off",
+      "eurosOff": "{amount} off"
+    }
+  }
+}

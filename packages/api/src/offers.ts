@@ -104,6 +104,8 @@ export type GiftCheckout = z.infer<typeof GiftCheckout>;
 export const GiftVoucher = z.object({
   code: z.string(),
   amountCents: z.number().nullable(),
+  // What it is worth in euro cents: the amount, or the price of the service today.
+  valueCents: z.number(),
   service: z.string().nullable(),
   serviceName: z.string().nullable(),
   recipientName: z.string().nullable(),

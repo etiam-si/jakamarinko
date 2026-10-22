@@ -12,6 +12,7 @@ import { CtaBand, Section } from "@/components/site/section";
 import { bookingHref, euros, pageMetadata, photos } from "@/components/site/site";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
+import { FoundingCounter } from "@/components/offers/founding-counter";
 
 type Props = { params: Promise<{ locale: string }> };
 
@@ -74,6 +75,7 @@ export default function Home({ params }: Props) {
             <Check aria-hidden className="size-4 text-primary" />
             {t("hero.note", { price: price(cheapestTest) })}
           </p>
+          <FoundingCounter />
         </div>
         <PhotoFrame
           src={photos.redBull}
