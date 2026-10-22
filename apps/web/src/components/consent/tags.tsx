@@ -2,18 +2,19 @@
 
 import Script from "next/script";
 import { useEffect, useState } from "react";
-import { TagsConfig } from "@jakamarinko/api";
-import { api } from "@/lib/api";
-import { setGoogleAds } from "@/lib/track";
+import type { TagsConfig } from "@jakamarinko/api";
+import { setGoogleAds } from "@/lib/google-ads";
 import { useConsent } from "./use-consent";
 
 // The ids come from the api at runtime; with none set, nothing loads. Asked once per tab; a failure loads nothing.
+// Plain fetch and the contract's type, not the api client and its zod schemas: this runs on every page, and those
+// would cost a phone a long task for an answer our own api builds (apps/api/src/routes/events.ts).
 let request: Promise<TagsConfig | null> | undefined;
 function fetchConfig() {
-  request ??= api.events.config
-    .$get()
+  request ??= fetch("/api/events/config")
     .then(async (res) => {
-      const config = TagsConfig.parse(await res.json());
+      if (!res.ok) return null;
+      const config = (await res.json()) as TagsConfig;
       setGoogleAds(config.googleAds);
       return config;
     })

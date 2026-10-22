@@ -6,9 +6,9 @@ import { ConsentBanner } from "./consent-banner";
 import { useConsent } from "./use-consent";
 
 // The tags and the ad source wait until the page has loaded and the browser is idle (like next/script's lazyOnload):
-// they bring the api schemas, which nothing on screen needs.
+// nothing on screen needs them.
 const Tags = dynamic(() => import("./tags").then((m) => m.Tags), { ssr: false });
-const utm = () => import("@/lib/utm");
+const utm = () => import("@/lib/utm-capture");
 
 function afterLoad(run: () => void) {
   const idle = () => ("requestIdleCallback" in window ? requestIdleCallback(run, { timeout: 3000 }) : setTimeout(run, 200));
