@@ -146,12 +146,14 @@ export function BookingFlow({
   }
 
   const index = steps.indexOf(step);
-  // Which way the step changed, so the new one slides in from the side it comes from.
+  // Which way the step last changed, so the new one slides in from the side it comes from. Nothing moves on the
+  // first render: the page arrives still.
   const lastIndex = useRef(index);
-  const forward = index >= lastIndex.current;
-  useEffect(() => {
+  const entrance = useRef<"none" | "forward" | "back">("none");
+  if (index !== lastIndex.current) {
+    entrance.current = index > lastIndex.current ? "forward" : "back";
     lastIndex.current = index;
-  }, [index]);
+  }
 
   return (
     <div className="flex flex-col gap-8">
@@ -196,8 +198,10 @@ export function BookingFlow({
         key={step}
         aria-labelledby="booking-step"
         className={cn(
-          "flex flex-col gap-6 duration-300 ease-out animate-in fade-in-0 motion-reduce:animate-none",
-          forward ? "slide-in-from-right-3" : "slide-in-from-left-3",
+          "flex flex-col gap-6",
+          entrance.current !== "none" && "duration-300 ease-out animate-in fade-in-0 motion-reduce:animate-none",
+          entrance.current === "forward" && "slide-in-from-right-3",
+          entrance.current === "back" && "slide-in-from-left-3",
         )}
       >
         <h2 id="booking-step" ref={heading} tabIndex={-1} className="font-heading text-xl font-bold tracking-tight font-stretch-expanded outline-none md:text-2xl">

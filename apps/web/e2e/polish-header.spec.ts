@@ -198,7 +198,7 @@ async function noErrors(page: Page, what: string, run: () => Promise<void>) {
 // axe again at 1440.
 async function quality(page: Page, width: number, what: string) {
   // Judge the page at rest, not halfway through a step's entrance.
-  await page.evaluate(() => Promise.all(document.getAnimations().filter((a) => a.effect?.getTiming().iterations !== Infinity).map((a) => a.finished)));
+  await page.evaluate(() => Promise.allSettled(document.getAnimations().filter((a) => a.effect?.getTiming().iterations !== Infinity).map((a) => a.finished)));
   await noSidewaysScroll(page, what);
   if (tapWidths.includes(width)) await tapTargets(page, what);
   if (width === 390) {
