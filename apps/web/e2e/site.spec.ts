@@ -87,10 +87,12 @@ for (const locale of ["en", "sl"] as const) {
 test("the language switch keeps the page", async ({ page }) => {
   for (const { path } of pages) {
     await page.goto(`/en${path}`);
-    await page.getByRole("link", { name: "Slovenščina" }).click();
+    await page.getByRole("button", { name: "Language" }).click();
+    await page.getByRole("menuitem", { name: "Slovenščina" }).click();
     await expect(page).toHaveURL(`/sl${path}`);
     await expect(page.locator("html")).toHaveAttribute("lang", "sl");
-    await page.getByRole("link", { name: "English" }).click();
+    await page.getByRole("button", { name: "Jezik" }).click();
+    await page.getByRole("menuitem", { name: "English" }).click();
     await expect(page).toHaveURL(`/en${path}`);
   }
 });

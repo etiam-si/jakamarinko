@@ -29,6 +29,17 @@ export function MobileMenu({ account }: { account: HeaderAccount | null }) {
 
   // Closes when the page changes underneath (back button) and when the window grows past the phone layout.
   useEffect(close, [pathname]);
+  // The page behind stays put while the menu is open: Radix blocks the scroll events, this also locks the page
+  // itself (a rubber-band swipe on iOS, the scrollbar on a desktop).
+  useEffect(() => {
+    if (!open) return;
+    const html = document.documentElement;
+    const before = html.style.overflow;
+    html.style.overflow = "hidden";
+    return () => {
+      html.style.overflow = before;
+    };
+  }, [open]);
   useEffect(() => {
     const wide = window.matchMedia("(min-width: 1024px)");
     const onChange = () => wide.matches && close();
@@ -53,6 +64,7 @@ export function MobileMenu({ account }: { account: HeaderAccount | null }) {
       <Dialog.Portal>
         <Dialog.Content
           aria-describedby={undefined}
+          aria-modal="true"
           className={cn(styles.panel, "fixed inset-0 z-50 flex flex-col bg-primary-deep outline-none")}
         >
           <div className="dark flex min-h-0 flex-1 flex-col bg-[radial-gradient(90%_55%_at_100%_0%,color-mix(in_oklab,var(--primary)_16%,transparent),transparent_70%)] pt-[env(safe-area-inset-top)] text-foreground">

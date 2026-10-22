@@ -113,9 +113,9 @@ export default async function ManageBookingPage({ params, searchParams }: Props)
             [t("review.name"), booking.name],
             [t("manage.statusLabel"), <span key="st" data-testid="booking-status">{t(`manage.status.${booking.status}`)}</span>],
           ].map(([label, value], i) => (
-            <div key={i} className="grid grid-cols-[5.5rem_1fr] items-baseline gap-3 px-4 py-3 sm:grid-cols-[7rem_1fr]">
+            <div key={i} className="grid grid-cols-[5.5rem_minmax(0,1fr)] items-baseline gap-3 px-4 py-3 sm:grid-cols-[7rem_minmax(0,1fr)]">
               <dt className="text-sm text-muted-foreground">{label}</dt>
-              <dd className="font-medium break-words">{value}</dd>
+              <dd className="min-w-0 font-medium wrap-anywhere">{value}</dd>
             </div>
           ))}
         </dl>

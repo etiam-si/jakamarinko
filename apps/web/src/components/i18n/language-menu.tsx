@@ -32,7 +32,7 @@ export function LanguageMenu({ full = false, className }: { full?: boolean; clas
           variant="ghost"
           aria-label={label}
           data-locale-switch
-          className={cn("group h-10 gap-1.5 px-2.5 has-[>svg]:px-2.5", full && "h-11 w-full justify-between gap-2 px-3 has-[>svg]:px-3", className)}
+          className={cn("group h-11 gap-1.5 px-2.5 has-[>svg]:px-2.5", full && "h-11 w-full justify-between gap-2 px-3 has-[>svg]:px-3", className)}
         >
           <Globe aria-hidden className="text-muted-foreground" />
           {full ? (

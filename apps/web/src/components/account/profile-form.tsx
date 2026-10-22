@@ -98,7 +98,7 @@ export function ProfileForm({ profile }: { profile: Profile }) {
         <p role="status" className="text-center text-sm font-medium text-success empty:hidden sm:text-right">
           {status === "saved" && t("saved")}
         </p>
-        <Button type="submit" loading={status === "saving"}>
+        <Button type="submit" className="max-md:h-11" loading={status === "saving"}>
           {status === "saving" ? t("saving") : t("save")}
         </Button>
       </FormActions>

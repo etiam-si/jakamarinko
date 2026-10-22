@@ -19,7 +19,8 @@ test.describe("any other browser", () => {
     await expect(page).toHaveURL(/\/en$/);
     await expect(page.getByRole("heading", { level: 1 })).toHaveText("Train on data, not guesswork.");
 
-    await page.getByRole("link", { name: "Slovenščina" }).click();
+    await page.getByRole("button", { name: "Language" }).click();
+    await page.getByRole("menuitem", { name: "Slovenščina" }).click();
     await expect(page).toHaveURL(/\/sl$/);
     await expect(page.getByRole("heading", { level: 1 })).toHaveText("Treniraj na podlagi podatkov, ne ugibanja.");
 

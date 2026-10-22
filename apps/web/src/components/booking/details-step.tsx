@@ -120,7 +120,7 @@ export function DetailsStep({
                 className="mt-0.5"
                 {...described("healthConsent")}
               />
-              <Label htmlFor="healthConsent" className="leading-snug font-normal">
+              <Label htmlFor="healthConsent" className="-my-3.5 py-3.5 leading-snug font-normal">
                 <span>{t.rich("details.healthConsent", { privacy: link("/legal/privacy") })}</span>
               </Label>
             </div>
@@ -130,7 +130,7 @@ export function DetailsStep({
         <div className="flex flex-col gap-2">
           <div className="flex items-start gap-3">
             <Checkbox id="terms" checked={d.terms} onCheckedChange={(c) => set({ terms: c === true })} className="mt-0.5" {...described("terms")} />
-            <Label htmlFor="terms" className="leading-snug font-normal">
+            <Label htmlFor="terms" className="-my-3.5 py-3.5 leading-snug font-normal">
               <span>{t.rich("details.terms", { terms: link("/legal/terms") })}</span>
             </Label>
           </div>

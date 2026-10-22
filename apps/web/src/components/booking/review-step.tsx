@@ -48,10 +48,10 @@ export function ReviewStep({
     <div className="flex flex-col gap-6">
       <dl className="flex flex-col divide-y divide-border overflow-hidden rounded-xl border bg-card shadow-sm">
         {rows.map(([key, value, edit]) => (
-          <div key={key} className="grid grid-cols-[5.5rem_1fr] items-baseline gap-3 px-4 py-3 sm:grid-cols-[7rem_1fr]">
+          <div key={key} className="grid grid-cols-[5.5rem_minmax(0,1fr)] items-baseline gap-3 px-4 py-3 sm:grid-cols-[7rem_minmax(0,1fr)]">
             <dt className="text-sm text-muted-foreground">{t(`review.${key}`)}</dt>
             <dd className="flex items-baseline justify-between gap-3">
-              <span className="font-medium break-words" data-testid={`review-${key}`}>
+              <span className="min-w-0 font-medium wrap-anywhere" data-testid={`review-${key}`}>
                 {value}
               </span>
               {edit && (

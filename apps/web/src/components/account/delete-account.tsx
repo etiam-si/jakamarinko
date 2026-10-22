@@ -38,7 +38,7 @@ export function DeleteAccount({ email }: { email: string }) {
   }
   return (
     <div className="flex flex-col items-start gap-3">
-      <Button variant="destructive-outline" onClick={request} loading={state === "sending"}>
+      <Button variant="destructive-outline" className="max-md:h-11" onClick={request} loading={state === "sending"}>
         {state === "sending" ? t("sending") : t("button")}
       </Button>
       {error && <FieldError role="alert">{error}</FieldError>}
@@ -70,7 +70,7 @@ export function ConfirmDelete({ token }: { token: string }) {
       <div role="status" className="flex flex-col items-start gap-3">
         <h2 className="text-xl font-semibold">{t("doneTitle")}</h2>
         <p className="max-w-xl text-pretty text-muted-foreground">{t("doneBody")}</p>
-        <Button asChild>
+        <Button asChild className="max-md:h-11">
           {/* A full load: the shell around this page belongs to the deleted session. */}
           <a href={`/${locale}`}>{t("home")}</a>
         </Button>
@@ -81,10 +81,10 @@ export function ConfirmDelete({ token }: { token: string }) {
     <div className="flex flex-col items-start gap-4">
       <p className="max-w-xl text-pretty">{t("body")}</p>
       <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
-        <Button variant="destructive" onClick={confirm} loading={state === "deleting"}>
+        <Button variant="destructive" className="max-md:h-11" onClick={confirm} loading={state === "deleting"}>
           {state === "deleting" ? t("deleting") : t("button")}
         </Button>
-        <Button variant="outline" asChild>
+        <Button variant="outline" asChild className="max-md:h-11">
           <Link href="/account/privacy">{t("back")}</Link>
         </Button>
       </div>
