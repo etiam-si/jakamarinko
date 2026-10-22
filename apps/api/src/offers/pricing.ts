@@ -5,7 +5,6 @@ import type { Q } from "../booking/calendar";
 import { bookable } from "../booking/catalog";
 import { ApiError } from "../lib/errors";
 import { normalizeCode, saving, usesOf, type CodeRow } from "./codes";
-import { foundingEnabled } from "./founding";
 
 export type Price = {
   listCents: number;
@@ -54,8 +53,9 @@ export async function retestEligible(q: Q, email: string | undefined, now: Date)
   return !!found;
 }
 
+// For life: switching the offer off stops new places, not the discount of those who have one.
 async function isFounding(q: Q, email: string | undefined) {
-  if (!email || !(await foundingEnabled(q))) return false;
+  if (!email) return false;
   const [row] = await q.select({ email: foundingAthletes.email }).from(foundingAthletes).where(eq(foundingAthletes.email, email.toLowerCase()));
   return !!row;
 }
