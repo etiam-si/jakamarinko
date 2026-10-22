@@ -7,6 +7,7 @@ import { bookingReminder } from "./booking-reminder";
 import { bookingRescheduled } from "./booking-rescheduled";
 import { contactAutoReply, contactReceived } from "./contact";
 import { magicLink } from "./magic-link";
+import { giftVoucher, offerFreeTest, referralCredit } from "./offers";
 
 export type { Booking } from "./booking";
 
@@ -20,6 +21,9 @@ export const templates = {
   contactReceived,
   contactAutoReply,
   accountDelete,
+  offerFreeTest,
+  referralCredit,
+  giftVoucher,
 };
 
 export type TemplateName = keyof typeof templates;

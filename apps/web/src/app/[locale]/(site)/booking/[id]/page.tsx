@@ -16,6 +16,7 @@ import { buttonVariants } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
 import { api } from "@/lib/api";
 import { getSession } from "@/lib/session";
+import { PayOnSite } from "@/components/offers/pay-on-site";
 
 type Props = {
   params: Promise<{ locale: string; id: string }>;
@@ -109,7 +110,7 @@ export default async function ManageBookingPage({ params, searchParams }: Props)
         </dl>
 
         {booking.status === "confirmed" && booking.paidVia === "none" && (
-          <p className="rounded-lg bg-muted px-4 py-3 text-sm">{t("confirmed.payOnSite")}</p>
+          <p className="rounded-lg bg-muted px-4 py-3 text-sm"><PayOnSite priceCents={booking.priceCents} /></p>
         )}
         {active && booking.paidVia === "stripe" && <PaidNote />}
         {active && booking.paidVia === "stripe" && paid === "1" && <PaidTracker id={booking.id} service={booking.service} />}

@@ -95,5 +95,34 @@
     "button": "Izbriši moj račun",
     "expires": "Povezava velja {minutes} minut. Odpri jo v brskalniku, v katerem uporabljaš svoj račun.",
     "ignore": "Če te zahteve ne prepoznaš, sporočilo prezri. Tvoj račun ostane, kot je."
+  },
+  "offerFreeTest": {
+    "subject": "Brezplačna meritev za tebe: {service}",
+    "preview": "Tvoja koda za brezplačno meritev: {service}",
+    "intro": "Podarjena ti je brezplačna meritev: {service}. Izberi termin, ki ti ustreza; koda je že vpisana.",
+    "book": "Rezerviraj meritev",
+    "code": "Tvoja koda",
+    "validUntil": "Velja do",
+    "howTo": "Kodo lahko vpišeš tudi sam v zadnjem koraku rezervacije. Velja enkrat, za ta e-poštni naslov."
+  },
+  "referralCredit": {
+    "subject": "{amount} dobroimetja za tvojo naslednjo meritev",
+    "preview": "Prijatelj je opravil meritev pri nas: tu je tvojih {amount}",
+    "intro": "Prijatelj, ki si ga povabil, je opravil meritev pri nas. Hvala! Tu je tvoje dobroimetje v višini {amount}: kodo vpiši v zadnjem koraku naslednje rezervacije.",
+    "code": "Tvoja koda",
+    "book": "Rezerviraj meritev"
+  },
+  "giftVoucher": {
+    "subject": "Tvoj darilni bon: {value}",
+    "preview": "Tvoj darilni bon je pripravljen za tisk ali posredovanje",
+    "intro": "Hvala! Tvoj darilni bon za {value} je pripravljen. Odpri ga, da ga natisneš ali posreduješ povezavo.",
+    "code": "Koda bona",
+    "open": "Odpri bon"
+  },
+  "bookingOffers": {
+    "payOnSiteAmount": "Plačaš na kraju meritve: {price}, s kartico ali gotovino.",
+    "nothingToPay": "Ničesar ti ni treba plačati.",
+    "retestIntro": "Tvoj sezonski paket vključuje dva ponovna laktatna testa. Vsakega rezerviraj s svojo kodo do {date}:",
+    "retestBook": "Rezerviraj ponovni test"
   }
 }

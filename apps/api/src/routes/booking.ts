@@ -47,6 +47,7 @@ import { assertCoachAccess, ownCoachId, targetCoach } from "../booking/coach";
 import { bookingConfig } from "../booking/config";
 import { sendCancelled, sendConfirmed, sendRescheduled } from "../booking/emails";
 import { recordConversion, reportBookingPaid } from "../conversions/record";
+import { bookingCompleted } from "../offers/rewards";
 import { addDays, zoned } from "../booking/time";
 import { requireRole, requireSession } from "../lib/auth";
 import { settleCancelled } from "../payments/refunds";
@@ -235,6 +236,7 @@ const coach = new Hono()
     if (row.booking.status !== "confirmed") throw new ApiError(409, "not_active", "Only a confirmed booking has an outcome");
     if (row.booking.startAt > now) throw new ApiError(409, "not_started", "The booking hasn't started yet");
     await db().update(bookings).set({ status: c.req.valid("json").status }).where(eq(bookings.id, row.booking.id));
+    if (c.req.valid("json").status === "completed") await bookingCompleted(row.booking.id, bookingConfig());
     return c.json<CoachBooking>(coachView(await findBooking(row.booking.id), await ownCoachId(user), now, bookingConfig()));
   });
 

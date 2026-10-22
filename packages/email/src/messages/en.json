@@ -95,5 +95,34 @@
     "button": "Delete my account",
     "expires": "The link works for {minutes} minutes. Open it in the browser where you use your account.",
     "ignore": "If you didn't ask for this, ignore this email. Your account stays as it is."
+  },
+  "offerFreeTest": {
+    "subject": "A free {service} for you",
+    "preview": "Your code for a free {service}",
+    "intro": "You've been given a free {service}. Pick a time that suits you; the code is already filled in.",
+    "book": "Book your test",
+    "code": "Your code",
+    "validUntil": "Valid until",
+    "howTo": "You can also enter the code yourself in the last step of the booking. It works once, for this email address."
+  },
+  "referralCredit": {
+    "subject": "{amount} credit for your next test",
+    "preview": "A friend tested with us: here's your {amount} credit",
+    "intro": "A friend you invited has done their test with us. Thank you! Here is your {amount} credit: enter the code in the last step of your next booking.",
+    "code": "Your code",
+    "book": "Book a test"
+  },
+  "giftVoucher": {
+    "subject": "Your gift voucher: {value}",
+    "preview": "Your gift voucher is ready to print or forward",
+    "intro": "Thank you! Your gift voucher for {value} is ready. Open it to print it or forward the link.",
+    "code": "Voucher code",
+    "open": "Open the voucher"
+  },
+  "bookingOffers": {
+    "payOnSiteAmount": "You pay {price} on site, by card or cash.",
+    "nothingToPay": "There is nothing to pay.",
+    "retestIntro": "Your season pack includes two lactate retests. Book each one with its own code by {date}:",
+    "retestBook": "Book a retest"
   }
 }

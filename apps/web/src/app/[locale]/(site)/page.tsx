@@ -19,6 +19,7 @@ import { Steps } from "@/components/site/steps";
 import { TestimonialsSection } from "@/components/site/testimonials-section";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
+import { FoundingCounter } from "@/components/offers/founding-counter";
 
 type Props = { params: Promise<{ locale: string }> };
 
@@ -105,6 +106,7 @@ export default function Home({ params }: Props) {
             <Check aria-hidden className="mt-0.5 size-4 shrink-0 text-primary" />
             {t("hero.note", { price: price(lactate.priceCents) })}
           </p>
+          <FoundingCounter />
         </div>
         <PhotoFrame
           src={photos.redBull}
