@@ -66,7 +66,8 @@ test("magic link sign-in, consent step, then sign out", async ({ page }) => {
   const me = await (await page.request.get("/api/auth/me")).json();
   expect(me).toMatchObject({ user: { email, role: "customer", locale: "en" }, consents: { health_data: true, marketing: false } });
 
-  await page.getByRole("button", { name: "Sign out" }).click();
+  await page.getByRole("button", { name: "Account menu" }).click();
+  await page.getByRole("menuitem", { name: "Sign out" }).click();
   await expect(page).toHaveURL(/\/en\/sign-in$/);
   await page.goto("/en/account");
   await expect(page).toHaveURL(/\/en\/sign-in\?next=%2Faccount$/);

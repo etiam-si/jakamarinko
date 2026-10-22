@@ -7,12 +7,15 @@ const archivo = Archivo({
   axes: ["wdth"],
   variable: "--font-archivo",
   display: "swap",
+  // No preload: it held back the first paint on mobile (Lighthouse, T08); the metric-matched fallback keeps CLS at 0.
+  preload: false,
 });
 
 const martian = Martian_Mono({
   subsets: ["latin", "latin-ext"],
   variable: "--font-martian",
   display: "swap",
+  preload: false,
 });
 
 export const fontVariables = `${archivo.variable} ${martian.variable}`;

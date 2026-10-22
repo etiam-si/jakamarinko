@@ -1,3 +1,5 @@
+// Automatic JSX runtime even when another package's tsconfig compiles this file (tsx in apps/api).
+/** @jsxRuntime automatic @jsxImportSource react */
 import { fill, formatWhen, messagesFor } from "../i18n";
 import { Layout, P } from "../layout";
 import { theme } from "../theme";
