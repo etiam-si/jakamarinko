@@ -57,6 +57,8 @@ test.describe("per-page messages", () => {
   }
 
   test("no page in P is missing a message its client components need", async ({ page }) => {
+    // Every page in both languages, each until its scripts have run.
+    test.setTimeout(180_000);
     const missing: string[] = [];
     page.on("console", (m) => {
       if (m.type() === "error" && /MISSING_MESSAGE|INSUFFICIENT_PATH/.test(m.text())) missing.push(`${page.url()}: ${m.text()}`);
@@ -104,6 +106,7 @@ const pngSize = (body: Buffer) => ({ width: body.readUInt32BE(16), height: body.
 
 test.describe("link previews", () => {
   test("every page in P has Open Graph and X tags with its own 1200×630 image, and a unique title", async ({ page, request, baseURL }) => {
+    test.setTimeout(180_000);
     const titles = new Map<string, string>();
     const images = new Set<string>();
     for (const locale of locales) {
@@ -170,6 +173,7 @@ test.describe("structured data", () => {
   const mustHaveFaq = ["/coaching", ...landingPages.filter((p) => p.blocks.includes("faq")).map((p) => `/lp/${p.slug}`)];
   for (const locale of locales) {
     test(`/${locale}: FAQPage questions are exactly the FAQ on the page`, async ({ page }) => {
+      test.setTimeout(120_000);
       for (const path of paths) {
         await page.goto(`/${locale}${path}`);
         const faq = (await jsonLd(page)).filter((n) => n["@type"] === "FAQPage");
