@@ -12,6 +12,7 @@ export function PhotoFrame({
   aspect = "portrait",
   treatment = "natural",
   position = "center",
+  eager = false,
   className,
 }: {
   src: string;
@@ -20,16 +21,20 @@ export function PhotoFrame({
   aspect?: keyof typeof aspects;
   treatment?: "natural" | "tinted";
   position?: string;
+  // The photo above the fold: loads first instead of lazily, so it doesn't hold up the largest paint.
+  eager?: boolean;
   className?: string;
 }) {
   return (
     <figure className={cn("flex w-full max-w-sm flex-col gap-2", className)}>
-      <div className={cn("relative overflow-hidden rounded-md bg-muted", aspects[aspect])}>
+      <div className={cn("relative overflow-hidden rounded-xl bg-muted", aspects[aspect])}>
         <Image
           src={src}
           alt={alt}
           fill
           sizes="(min-width: 640px) 24rem, 100vw"
+          loading={eager ? "eager" : undefined}
+          fetchPriority={eager ? "high" : undefined}
           className={cn("object-cover", treatment === "tinted" && "contrast-110 grayscale")}
           style={{ objectPosition: position }}
         />

@@ -80,6 +80,7 @@ export default function Home({ params }: Props) {
           alt={site("photos.redBull.alt")}
           caption={site("photos.redBull.caption")}
           position="55% 30%"
+          eager
           className="mx-auto w-64 sm:w-72 md:w-80 lg:w-96"
         />
       </Section>

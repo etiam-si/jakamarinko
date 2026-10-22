@@ -6,6 +6,7 @@ import { useTranslations } from "next-intl";
 import { useState } from "react";
 import type { CoachBooking } from "@jakamarinko/api";
 import { Button } from "@/components/ui/button";
+import { StatusBadge as Badge, type StatusTone } from "@/components/ui/status-badge";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { BookingActions, isActive } from "./booking-actions";
 import { useServiceName, useWhen } from "./format";
@@ -17,26 +18,26 @@ export function HealthFlag({ booking }: { booking: CoachBooking }) {
   const t = useTranslations("coach-booking.card");
   if (!booking.healthFlag) return null;
   return (
-    <span className="inline-flex items-center gap-1 rounded-sm bg-signal/15 px-1.5 py-0.5 text-xs font-medium text-foreground">
+    <span className="inline-flex h-6 items-center gap-1 rounded-full border border-signal/30 bg-signal/15 px-2.5 text-xs font-semibold text-foreground">
       <HeartPulse aria-hidden className="size-3.5 text-signal" />
       {t("healthFlag")}
     </span>
   );
 }
 
+const tones: Record<CoachBooking["status"], StatusTone> = {
+  confirmed: "success",
+  pending_payment: "warning",
+  cancelled: "neutral",
+  completed: "success",
+  no_show: "error",
+};
+
+// Confirmed is the normal case and shows nothing; every other status gets a badge.
 export function StatusBadge({ booking }: { booking: CoachBooking }) {
   const t = useTranslations("coach-booking.status");
   if (booking.status === "confirmed") return null;
-  return (
-    <span
-      className={cn(
-        "rounded-sm px-1.5 py-0.5 font-mono text-[10px] tracking-wider uppercase",
-        isActive(booking) ? "bg-zone-3/30" : "bg-muted text-muted-foreground",
-      )}
-    >
-      {t(booking.status)}
-    </span>
-  );
+  return <Badge tone={tones[booking.status]}>{t(booking.status)}</Badge>;
 }
 
 // One booking as a card: time, who, what and where, then call, email, details and the actions.
@@ -49,7 +50,7 @@ export function BookingCard({ booking, now }: { booking: CoachBooking; now?: Dat
   return (
     <article
       aria-label={`${when.time(booking.start)} ${booking.name}`}
-      className={cn("flex flex-col gap-3 rounded-lg border bg-card p-4", !isActive(booking) && "opacity-75")}
+      className={cn("flex flex-col gap-3 rounded-xl border bg-card p-4 shadow-sm", !isActive(booking) && "opacity-75")}
     >
       <div className="flex gap-4">
         <div className="flex w-12 shrink-0 flex-col font-mono tabular-nums">
@@ -149,7 +150,7 @@ function HealthAnswers({ booking }: { booking: CoachBooking }) {
   const t = useTranslations("coach-booking.health");
   const answers = booking.healthAnswers && Object.entries(booking.healthAnswers);
   return (
-    <section aria-labelledby={`health-${booking.id}`} className="flex flex-col gap-2 rounded-md bg-muted/60 p-3">
+    <section aria-labelledby={`health-${booking.id}`} className="flex flex-col gap-2 rounded-lg bg-muted/60 p-3">
       <h3 id={`health-${booking.id}`} className="flex items-center gap-1.5 font-medium">
         <HeartPulse aria-hidden className={cn("size-4", booking.healthFlag ? "text-signal" : "text-muted-foreground")} />
         {t("title")}

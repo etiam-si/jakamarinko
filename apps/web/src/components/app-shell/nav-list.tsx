@@ -16,7 +16,7 @@ export function NavList({ area, onNavigate }: { area: Area; onNavigate?: () => v
     <nav aria-label={t("app.nav.label")}>
       <ul className="flex flex-col gap-0.5">
         {entries.map(({ href, label, icon: Icon, soon }) => {
-          const item = "flex h-10 items-center gap-3 rounded-md px-3 text-sm";
+          const item = "flex h-10 items-center gap-3 rounded-lg px-3 text-sm";
           return (
             <li key={href}>
               {soon ? (

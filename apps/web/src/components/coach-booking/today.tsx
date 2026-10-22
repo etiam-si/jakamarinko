@@ -35,7 +35,7 @@ export function Today({ coachId }: { coachId?: string }) {
               <span className="text-sm text-muted-foreground">{when.day(date)}</span>
             </h2>
             {list.length === 0 ? (
-              <p className="rounded-lg border border-dashed p-4 text-muted-foreground">{t("empty")}</p>
+              <p className="rounded-xl border border-dashed p-6 text-center text-muted-foreground">{t("empty")}</p>
             ) : (
               <div className="grid gap-3 md:grid-cols-2">
                 {list.map((b) => (

@@ -141,5 +141,12 @@
     "5": "Friday",
     "6": "Saturday",
     "7": "Sunday"
+  },
+  "stats": {
+    "bookings": "Bookings",
+    "today": "Today",
+    "flagged": "Health flags",
+    "cancelled": "Cancelled",
+    "range": "In the period shown"
   }
 }
