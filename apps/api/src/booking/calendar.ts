@@ -23,20 +23,19 @@ type Options = {
 // Free slots of one coach between two Ljubljana dates (both included).
 export async function coachSlots(q: Q, coachId: string, from: string, to: string, o: Options) {
   const { config } = o;
-  const [rules, exceptionRows, [lab]] = await Promise.all([
-    q.select().from(availability).where(eq(availability.coachId, coachId)),
-    q
-      .select()
-      .from(availabilityExceptions)
-      .where(
-        and(
-          eq(availabilityExceptions.coachId, coachId),
-          lte(availabilityExceptions.startDate, to),
-          gte(availabilityExceptions.endDate, from),
-        ),
+  // One after the other: inside a transaction they share a single connection.
+  const rules = await q.select().from(availability).where(eq(availability.coachId, coachId));
+  const exceptionRows = await q
+    .select()
+    .from(availabilityExceptions)
+    .where(
+      and(
+        eq(availabilityExceptions.coachId, coachId),
+        lte(availabilityExceptions.startDate, to),
+        gte(availabilityExceptions.endDate, from),
       ),
-    q.select({ id: locations.id }).from(locations).where(eq(locations.isDefault, true)),
-  ]);
+    );
+  const [lab] = await q.select({ id: locations.id }).from(locations).where(eq(locations.isDefault, true));
 
   const pad = config.bufferMin * 60_000;
   const busy = await q

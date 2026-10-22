@@ -115,7 +115,7 @@ export async function createBooking(input: CreateBookingInput, user: SessionUser
         endAt: slot.end,
         status: confirmed ? "confirmed" : "pending_payment",
         paidVia: "none",
-        utm: input.utm ? Object.fromEntries(Object.entries(input.utm).filter(([, v]) => v !== undefined)) as Record<string, string> : null,
+        utm: (input.utm as Record<string, string> | undefined) ?? null,
         locale: input.locale,
         healthAnswers: input.healthAnswers ?? null,
         healthConsentAt: input.healthAnswers ? now : null,
