@@ -89,7 +89,7 @@ describe("prices match the docs", () => {
     expect(product).toContain("Paying a year up front: 2 months free.");
     for (const p of packages) expect(p.yearlyPriceCents).toBe(p.priceCents * 10);
 
-    const session = Number(product.match(/one session \(e\.g\. (\d+) €\)/)![1]) * 100;
+    const session = Number(product.match(/one session (\d+) €/)![1]) * 100;
     expect(sessions.find((s) => s.id === "personal-training")!.priceCents).toBe(session);
   });
 
