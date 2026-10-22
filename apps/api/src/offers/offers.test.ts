@@ -488,9 +488,9 @@ describe("gift vouchers", () => {
     // Not shown before it's paid.
     expect((await call("GET", `/offers/gift/${row!.code}`)).status).toBe(404);
 
-    const paid = { id: row!.stripeCheckoutSessionId, payment_status: "paid", customer_email: "buyer@example.com", metadata: { gift_code_id: row!.id, locale: "en" } };
-    expect(await activateGift(paid as Stripe.Checkout.Session, bookingConfig())).toBe(true);
-    await activateGift(paid as Stripe.Checkout.Session, bookingConfig());
+    const paid = { id: row!.stripeCheckoutSessionId, payment_status: "paid", customer_email: "buyer@example.com", metadata: { gift_code_id: row!.id, locale: "en" } } as unknown as Stripe.Checkout.Session;
+    expect(await activateGift(paid, bookingConfig())).toBe(true);
+    await activateGift(paid, bookingConfig());
     expect(outbox.map((e) => e.subject)).toEqual(["Your gift voucher: €90"]);
     expect((await call("GET", `/offers/gift/${row!.code}`)).status).toBe(200);
   });
