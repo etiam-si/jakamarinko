@@ -1,10 +1,18 @@
+import { setRequestLocale } from "next-intl/server";
 import type { Locale } from "@jakamarinko/types";
+import { AppShell } from "@/components/app-shell/app-shell";
 import { requireRole } from "@/lib/session";
 
 type Props = { children: React.ReactNode; params: Promise<{ locale: string }> };
 
-// Placeholder: the coach area shell comes with T10. Coaches and up (owner ⊇ head_coach ⊇ coach).
+// The coach area. Coaches and up (owner ⊇ head_coach ⊇ coach); everyone else gets a 404.
 export default async function CoachLayout({ children, params }: Props) {
-  await requireRole((await params).locale as Locale, "/coach", "coach");
-  return children;
+  const locale = (await params).locale as Locale;
+  setRequestLocale(locale);
+  const session = await requireRole(locale, "/coach", "coach");
+  return (
+    <AppShell area="coach" session={session}>
+      {children}
+    </AppShell>
+  );
 }

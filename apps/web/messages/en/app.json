@@ -1,0 +1,76 @@
+{
+  "areas": {
+    "coach": "Coach",
+    "account": "My account"
+  },
+  "nav": {
+    "label": "Menu",
+    "openMenu": "Open menu",
+    "soon": "Soon",
+    "today": "Today",
+    "bookings": "Bookings",
+    "requests": "Requests",
+    "athletes": "Athletes",
+    "settings": "Settings",
+    "myBookings": "My bookings",
+    "profile": "Profile",
+    "privacy": "Privacy"
+  },
+  "userMenu": {
+    "label": "Account menu",
+    "toCoach": "Switch to coach view",
+    "toAccount": "Switch to my account",
+    "signOut": "Sign out"
+  },
+  "coachSwitcher": {
+    "label": "Calendar of",
+    "you": "{name} (you)"
+  },
+  "pages": {
+    "overview": {
+      "title": "My account"
+    },
+    "today": {
+      "title": "Today",
+      "lead": "Your tests and sessions for today, in order.",
+      "emptyTitle": "Nothing booked for today",
+      "emptyBody": "When someone books a test or a session for today, it shows up here with the time, the athlete and what to prepare."
+    },
+    "bookings": {
+      "title": "Bookings",
+      "lead": "Every booking, upcoming and past, and the hours you can be booked.",
+      "emptyTitle": "No bookings yet",
+      "emptyBody": "Bookings from the website land here. You'll be able to set your hours, and move or cancel a booking from this page."
+    },
+    "requests": {
+      "title": "Requests",
+      "lead": "Questions and requests sent through the contact form.",
+      "emptyTitle": "No requests",
+      "emptyBody": "When someone writes through the contact form, their message waits here until you answer it."
+    },
+    "settings": {
+      "title": "Settings",
+      "lead": "How your coach area works for you.",
+      "emptyTitle": "Nothing to set up yet",
+      "emptyBody": "Calendar sync and your other preferences will be set up here."
+    },
+    "myBookings": {
+      "title": "My bookings",
+      "lead": "Your lab tests and coaching sessions.",
+      "emptyTitle": "You have no bookings yet",
+      "emptyBody": "Once you book a lab test or a session, you'll find the date, the place and how to prepare here."
+    },
+    "profile": {
+      "title": "Profile",
+      "lead": "Your name, email and the language we write to you in.",
+      "emptyTitle": "Your profile is on its way",
+      "emptyBody": "Soon you'll be able to change your name and language here. Until then, write to us if something needs changing."
+    },
+    "privacy": {
+      "title": "Privacy",
+      "lead": "What you've agreed to, and your data.",
+      "emptyTitle": "Your privacy settings are on their way",
+      "emptyBody": "Soon you'll be able to change your consents, download your data or delete your account here. Until then, write to us and we'll do it for you."
+    }
+  }
+}
