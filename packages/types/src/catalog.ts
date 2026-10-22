@@ -253,10 +253,10 @@ export const sessions: Session[] = [
   },
 ];
 
-// Bought once, not booked into a slot. A null price is not set yet: docs/product.md gives none.
+// Bought once, not booked into a slot.
 export type OneOff = {
   id: "personal-training-10" | "race-preparation";
-  priceCents: number | null;
+  priceCents: number;
   name: Localized;
   description: Localized;
 };
@@ -264,7 +264,8 @@ export type OneOff = {
 export const oneOffs: OneOff[] = [
   {
     id: "personal-training-10",
-    priceCents: null, // TODO(price): "a pack of 10 at a discount" in docs/product.md, no number yet
+    // placeholder price, set by us, not from product.md: 10 × 45 € less ~11 %
+    priceCents: 40000,
     name: { en: "10 personal training sessions", sl: "Paket 10 osebnih treningov" },
     description: {
       en: "Ten one-to-one sessions at a lower price per session.",
@@ -273,7 +274,8 @@ export const oneOffs: OneOff[] = [
   },
   {
     id: "race-preparation",
-    priceCents: null, // TODO(price): "paid once" in docs/product.md, no number yet
+    // placeholder price, set by us, not from product.md: ~4 months of Coaching, with two lactate tests
+    priceCents: 49000,
     name: { en: "Race preparation", sl: "Priprava na tekmo" },
     description: {
       en: "A 12–16-week training block for one race, with a lab test at the start and at the end to measure your progress. Paid once.",

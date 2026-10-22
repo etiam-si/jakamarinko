@@ -43,7 +43,7 @@
     "price": "{price} €",
     "perMonth": "{price} € / month",
     "perYear": "{price} € / year",
-    "priceOnRequest": "Price on request",
+    "vatIncluded": "All prices include VAT.",
     "minutes": "{count} min",
     "aboutMinutes": "about {count} min",
     "months": "{count, plural, one {# month} other {# months}}",

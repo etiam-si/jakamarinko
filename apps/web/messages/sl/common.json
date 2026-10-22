@@ -43,7 +43,7 @@
     "price": "{price} €",
     "perMonth": "{price} € / mesec",
     "perYear": "{price} € / leto",
-    "priceOnRequest": "Cena po dogovoru",
+    "vatIncluded": "Vse cene vključujejo DDV.",
     "minutes": "{count} min",
     "aboutMinutes": "približno {count} min",
     "months": "{count, plural, one {# mesec} two {# meseca} few {# mesece} other {# mesecev}}",

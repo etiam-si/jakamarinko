@@ -34,17 +34,13 @@ describe("every item", () => {
     expect(new Set(items.map((i) => i.id)).size).toBe(items.length);
   });
 
-  test("every set price is a positive integer number of cents", () => {
+  test("every price is a positive integer number of cents", () => {
     for (const item of items) {
-      if (item.priceCents === null) continue;
       expect(Number.isInteger(item.priceCents) && item.priceCents > 0, item.id).toBe(true);
     }
     for (const p of packages) expect(Number.isInteger(p.yearlyPriceCents) && p.yearlyPriceCents > 0).toBe(true);
   });
 
-  test("only the items docs/product.md gives no number for are without a price", () => {
-    expect(items.filter((i) => i.priceCents === null).map((i) => i.id)).toEqual(["personal-training-10", "race-preparation"]);
-  });
 
   test("bookable durations are positive whole minutes", () => {
     for (const s of [...labTests, ...sessions]) expect(Number.isInteger(s.durationMin) && s.durationMin > 0).toBe(true);
