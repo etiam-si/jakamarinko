@@ -1,4 +1,4 @@
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ExternalLink } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { BRAND_LINE, Logo } from "@/components/brand/logo";
 import { ConsentSettingsLink } from "@/components/consent/consent-settings-link";
@@ -73,10 +73,11 @@ export function Footer() {
                 {contact("email.value")}
               </a>,
               <a key="maps" href={labMapsUrl} target="_blank" rel="noopener" className={`${linkClass} flex-col items-start justify-center py-1`}>
-                <span>
-                  {labAddress}, {location("town")}
+                <span>{labAddress}</span>
+                <span className="flex items-center gap-1 text-xs text-foreground/70">
+                  {location("maps")}
+                  <ExternalLink aria-hidden className="size-3" />
                 </span>
-                <span className="text-xs text-foreground/70">{location("maps")} ↗</span>
               </a>,
             ],
             "col-span-2 sm:col-span-1",

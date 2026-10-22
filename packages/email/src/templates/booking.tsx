@@ -5,6 +5,7 @@ import type { Locale } from "@jakamarinko/types";
 import { formatWhen, messagesFor } from "../i18n";
 import { icsEvent } from "../ics";
 import { Details } from "../layout";
+import { theme } from "../theme";
 import type { Attachment } from "../types";
 
 // What every booking email knows about the booking. Times are instants; they are shown in Ljubljana time.
@@ -32,7 +33,7 @@ export function BookingDetails({ booking, locale }: { booking: Booking; locale: 
             <br />
             {booking.location.address}
             <br />
-            <Link href={map} style={{ fontSize: 13 }}>{m.map}</Link>
+            <Link href={map} style={{ fontSize: 14, color: theme.accent, textDecoration: "underline" }}>{m.map}</Link>
           </>,
         ],
       ]}

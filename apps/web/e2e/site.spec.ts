@@ -63,7 +63,9 @@ for (const locale of ["en", "sl"] as const) {
         for (const lang of ["en", "sl"]) {
           await expect(page.locator(`link[rel="alternate"][hreflang="${lang}"]`)).toHaveAttribute("href", `https://jakamarinko.com/${lang}${path}`);
         }
-        await expect(page.locator('meta[property="og:image"]')).toHaveAttribute("content", /opengraph-image/);
+        // The page's own preview image (app/og, US-011).
+        const og = `https://jakamarinko.com/og/${locale}/${path.slice(1) || "home"}.png`;
+        await expect(page.locator('meta[property="og:image"]')).toHaveAttribute("content", og);
       }
     });
 

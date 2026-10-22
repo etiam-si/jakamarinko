@@ -32,6 +32,17 @@ export function pageMetadata(locale: string, path: string, meta: { title: string
     title: meta.title,
     description: meta.description,
     alternates: { canonical: url(locale, path), languages: languages(path) },
+    ...socialMetadata(locale, path, meta),
+  };
+}
+
+// The page's preview image (app/og): "" is home, /legal/privacy is privacy, /lp/coaching is lp-coaching.
+export const ogKey = (path: string) => path.replace(/^\/(legal\/)?/, "").replaceAll("/", "-") || "home";
+
+// Link previews (Open Graph and X) for one page in one language, with its own 1200×630 image.
+export function socialMetadata(locale: string, path: string, meta: { title: string; description: string }): Metadata {
+  const image = { url: `${siteUrl}/og/${locale}/${ogKey(path)}.png`, width: 1200, height: 630, alt: meta.title };
+  return {
     openGraph: {
       type: "website",
       siteName: BRAND_NAME,
@@ -39,7 +50,10 @@ export function pageMetadata(locale: string, path: string, meta: { title: string
       description: meta.description,
       url: url(locale, path),
       locale: locale === "sl" ? "sl_SI" : "en_GB",
+      alternateLocale: locale === "sl" ? "en_GB" : "sl_SI",
+      images: [image],
     },
+    twitter: { card: "summary_large_image", title: meta.title, description: meta.description, images: [image] },
   };
 }
 
@@ -56,8 +70,8 @@ export const eurFormat = { style: "currency", currency: "EUR", maximumFractionDi
 
 // The lab. The same string goes into the structured data (JSON-LD); the maps link is a plain search URL (no embedded
 // map: faster, and nothing loads from Google until someone taps it).
-export const labAddress = "Spodnje Pirnice 19N";
-export const labMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${labAddress}, 1215 Medvode, Slovenia`)}`;
+export const labAddress = "Spodnje Pirnice 19N, 1215 Medvode";
+export const labMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${labAddress}, Slovenia`)}`;
 
 // Dev, e2e and screenshot builds: show the designed placeholders for photos we still need (PhotoSlot) and the sample
 // testimonials. Off in production, where every slot falls back to a real photo or the section adapts.
