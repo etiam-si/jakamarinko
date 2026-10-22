@@ -5,6 +5,7 @@ import { bookings, calendarConnections, calendarEvents, coaches, users } from "@
 import { findBookings, type BookingRow } from "../booking/bookings";
 import { serviceName } from "../booking/catalog";
 import { loggable } from "../lib/errors";
+import { inBackground, inOrder } from "./background";
 import { calendarConfig } from "./config";
 import { connectionOf, withGoogle } from "./connection";
 import { deleteEvent, GoogleError, insertEvent, patchEvent, type EventBody } from "./google";
@@ -38,7 +39,10 @@ async function coachLocale(coachId: string) {
 
 // Brings the booking's Google event in line with the booking: confirmed → created or moved, cancelled → deleted.
 // Does nothing without a working connection. Throws GoogleError when Google fails; the caller decides what to do.
-export async function syncBooking(bookingId: string) {
+// One sync per booking at a time: a move made while the first push is still out lands after it.
+export const syncBooking = (bookingId: string) => inOrder(`booking:${bookingId}`, () => pushBooking(bookingId));
+
+async function pushBooking(bookingId: string) {
   const config = calendarConfig();
   if (!config) return;
   const [row] = await findBookings(eq(bookings.id, bookingId));
@@ -70,8 +74,10 @@ export async function syncBooking(bookingId: string) {
 // Called right after a booking changes. Runs in the background and never fails the booking: whatever doesn't get
 // through now, the calendar-sync job picks up within 5 minutes.
 export function syncSoon(bookingId: string) {
-  void syncBooking(bookingId).catch((err: unknown) =>
-    console.error(`calendar sync of booking ${bookingId} failed: ${err instanceof GoogleError ? err.message : loggable(err)}`),
+  inBackground(
+    syncBooking(bookingId).catch((err: unknown) =>
+      console.error(`calendar sync of booking ${bookingId} failed: ${err instanceof GoogleError ? err.message : loggable(err)}`),
+    ),
   );
 }
 

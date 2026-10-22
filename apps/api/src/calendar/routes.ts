@@ -16,6 +16,7 @@ import { ownCoachId } from "../booking/coach";
 import { requireRole } from "../lib/auth";
 import { ApiError } from "../lib/errors";
 import { validate } from "../lib/validate";
+import { inBackground } from "./background";
 import { calendarConfig, type CalendarConfig } from "./config";
 import { connectionOf, withGoogle, type Connection } from "./connection";
 import { decrypt, encrypt, signState, verifyState } from "./crypto";
@@ -72,7 +73,7 @@ const statusView = (conn: Connection | undefined, available: boolean): CalendarS
 const CallbackQuery = z.object({ code: z.string().optional(), state: z.string().optional(), error: z.string().optional() });
 
 // Busy times and pending bookings right after a change, in the background.
-const syncNow = () => void syncCalendars().catch(() => {});
+const syncNow = () => inBackground(syncCalendars().catch(() => {}));
 
 export const calendar = new Hono()
   .get("/", staff, async (c) => {
