@@ -1,0 +1,107 @@
+{
+  "blocks": {
+    "points": "Kaj dobiš",
+    "price": "Cena",
+    "faq": "Vprašanja"
+  },
+  "faq": {
+    "preparation": {
+      "question": "Kako se pripravim?",
+      "answer": "Pridi spočit, 24 ur prej brez napornega treninga. 2–3 ure prej pojej lahek obrok in prinesi športno opremo."
+    },
+    "fasted": {
+      "question": "Ali pridem na tešče?",
+      "answer": "Da. Analiza porabe maščob in OH zahteva 8 ur brez hrane, samo voda."
+    },
+    "afterwards": {
+      "question": "Kaj sledi po meritvi?",
+      "answer": "Dobiš razlago rezultatov in svoje osebne trening cone."
+    },
+    "where": {
+      "question": "Kje je meritev?",
+      "answer": "V Sloveniji. Naslov dobiš v potrditvi rezervacije."
+    }
+  },
+  "pages": {
+    "lactate-test": {
+      "meta": {
+        "title": "Laktatni test: tvoje trening cone",
+        "description": "Spoznaj svoj aerobni in anaerobni prag ter treniraj v conah iz svojega laktata v krvi."
+      },
+      "hero": {
+        "eyebrow": "Laktatni profil",
+        "title": "Treniraj v svojih conah, ne v conah formule.",
+        "lead": "En test ti da oba pragova in srčni utrip za vsako cono."
+      },
+      "points": {
+        "one": { "title": "Dva pragova", "text": "LT1 in LT2, s srčnim utripom in tempom ali močjo pri vsakem." },
+        "two": { "title": "Tvoje cone", "text": "Trening cone iz tvojega laktata v krvi." },
+        "three": { "title": "Z razlago", "text": "Rezultati v preprostih besedah, da veš, kaj narediti naprej." }
+      },
+      "cta": "Rezerviraj laktatni test",
+      "close": {
+        "title": "Spoznaj svoja pragova pred naslednjim blokom.",
+        "text": "Termin izbereš na spletu v minuti."
+      }
+    },
+    "performance": {
+      "meta": {
+        "title": "Performance paket: celovita laboratorijska meritev",
+        "description": "VO₂max, laktatni profil, poraba maščob in OH ter telesna sestava v enem obisku, s tvojimi trening conami."
+      },
+      "hero": {
+        "eyebrow": "Performance paket",
+        "title": "Celoten profil tvoje vzdržljivosti v enem obisku.",
+        "lead": "VO₂max, laktatna pragova, poraba goriva in telesna sestava, s tvojimi conami."
+      },
+      "points": {
+        "one": { "title": "Tvoj motor", "text": "VO₂max in maksimalni srčni utrip." },
+        "two": { "title": "Tvoja pragova", "text": "LT1, LT2 in tvoje osebne trening cone." },
+        "three": { "title": "Tvoje gorivo", "text": "Poraba maščob in OH pri vsaki intenzivnosti." }
+      },
+      "cta": "Rezerviraj Performance paket",
+      "close": {
+        "title": "Celotna slika v enem obisku.",
+        "text": "Rezerviraj na spletu, navodila za pripravo dobiš po e-pošti."
+      }
+    },
+    "coaching": {
+      "meta": {
+        "title": "Coaching z Jakom Marinkom",
+        "description": "Načrt treninga, ki se prilagodi vsak teden, Jakovi osebni komentarji in laktatni test vsake 3 mesece."
+      },
+      "hero": {
+        "eyebrow": "Coaching",
+        "title": "Načrt, zgrajen na tvojih številkah.",
+        "lead": "Prilagojen vsak teden, z Jakovimi komentarji in laktatnim testom vsake 3 mesece."
+      },
+      "points": {
+        "one": { "title": "Načrt, ki se prilagaja", "text": "Po Jakovi metodi, vsak teden prilagojen tvojemu treningu." },
+        "two": { "title": "Jakovi komentarji", "text": "Osebni komentarji na tvoje trening tedne." },
+        "three": { "title": "Test vsake 3 mesece", "text": "Laktatni test je vključen, da so tvoje cone vedno aktualne." }
+      },
+      "cta": "Izberi Coaching",
+      "close": {
+        "title": "Začni s svojim ciljem.",
+        "text": "Napiši, za kaj treniraš, in oglasili se bomo."
+      }
+    }
+  },
+  "report": {
+    "nav": "Viri oglasov",
+    "title": "Viri oglasov",
+    "lead": "Rezervacije in prihodki glede na to, od kod so prišle stranke.",
+    "from": "Od",
+    "to": "Do",
+    "show": "Prikaži",
+    "source": "Vir",
+    "campaign": "Kampanja",
+    "bookings": "Rezervacije",
+    "revenue": "Prihodki",
+    "total": "Skupaj",
+    "unknown": "Neznano",
+    "emptyTitle": "V tem obdobju ni rezervacij",
+    "emptyBody": "Izberi drugo obdobje.",
+    "note": "Po dnevu, ko je bila rezervacija narejena. Odpovedane in neplačane rezervacije se ne štejejo, prihodek je cena vsake rezervacije. Vir je znan samo pri obiskovalcih, ki so dovolili marketinške piškotke."
+  }
+}

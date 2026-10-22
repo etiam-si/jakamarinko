@@ -1,0 +1,107 @@
+{
+  "blocks": {
+    "points": "What you get",
+    "price": "Price",
+    "faq": "Questions"
+  },
+  "faq": {
+    "preparation": {
+      "question": "How do I prepare?",
+      "answer": "Come rested, with no hard training in the 24 hours before. Eat a light meal 2–3 hours before and bring your training kit."
+    },
+    "fasted": {
+      "question": "Do I come fasted?",
+      "answer": "Yes. The fat and carbohydrate test needs 8 hours without food, water only."
+    },
+    "afterwards": {
+      "question": "What happens after the test?",
+      "answer": "You get your results explained and your personal training zones."
+    },
+    "where": {
+      "question": "Where is the test?",
+      "answer": "In Slovenia. The address comes with your booking confirmation."
+    }
+  },
+  "pages": {
+    "lactate-test": {
+      "meta": {
+        "title": "Lactate test: your own training zones",
+        "description": "Find your aerobic and anaerobic thresholds and train in zones from your own blood lactate."
+      },
+      "hero": {
+        "eyebrow": "Lactate profile",
+        "title": "Train in your zones, not a formula's.",
+        "lead": "One test gives you both thresholds and the heart rate for every zone."
+      },
+      "points": {
+        "one": { "title": "Two thresholds", "text": "LT1 and LT2, with heart rate and pace or power at each." },
+        "two": { "title": "Your zones", "text": "Training zones from your own blood lactate." },
+        "three": { "title": "Explained", "text": "Your results in plain words, so you know what to do next." }
+      },
+      "cta": "Book a lactate test",
+      "close": {
+        "title": "Know your thresholds before your next block.",
+        "text": "Pick a time online in a minute."
+      }
+    },
+    "performance": {
+      "meta": {
+        "title": "Performance package: the full lab test",
+        "description": "VO₂max, lactate profile, fat and carbohydrate use and body composition in one visit, with your training zones."
+      },
+      "hero": {
+        "eyebrow": "Performance package",
+        "title": "Your whole endurance profile in one visit.",
+        "lead": "VO₂max, lactate thresholds, fuel use and body composition, with your zones."
+      },
+      "points": {
+        "one": { "title": "Your engine", "text": "VO₂max and maximum heart rate." },
+        "two": { "title": "Your thresholds", "text": "LT1, LT2 and your personal training zones." },
+        "three": { "title": "Your fuel", "text": "Fat and carbohydrate use at every intensity." }
+      },
+      "cta": "Book the Performance package",
+      "close": {
+        "title": "The full picture in one visit.",
+        "text": "Book online and get the preparation by email."
+      }
+    },
+    "coaching": {
+      "meta": {
+        "title": "Coaching with Jaka Marinko",
+        "description": "A training plan that adapts every week, Jaka's personal comments and a lactate test every 3 months."
+      },
+      "hero": {
+        "eyebrow": "Coaching",
+        "title": "A plan built on your numbers.",
+        "lead": "Adapted every week, with Jaka's comments and a lactate test every 3 months."
+      },
+      "points": {
+        "one": { "title": "A plan that adapts", "text": "Built on Jaka's method, adjusted to your training every week." },
+        "two": { "title": "Jaka's comments", "text": "Personal comments on your training weeks." },
+        "three": { "title": "Tested every 3 months", "text": "A lactate test is included, so your zones stay current." }
+      },
+      "cta": "Choose Coaching",
+      "close": {
+        "title": "Start with your goal.",
+        "text": "Tell us what you're training for and we'll get back to you."
+      }
+    }
+  },
+  "report": {
+    "nav": "Ad sources",
+    "title": "Ad sources",
+    "lead": "Bookings and revenue by where customers came from.",
+    "from": "From",
+    "to": "To",
+    "show": "Show",
+    "source": "Source",
+    "campaign": "Campaign",
+    "bookings": "Bookings",
+    "revenue": "Revenue",
+    "total": "Total",
+    "unknown": "Unknown",
+    "emptyTitle": "No bookings in this period",
+    "emptyBody": "Pick another date range.",
+    "note": "By the day the booking was made. Cancelled and unpaid bookings don't count; revenue is the price of each booking. The source is known only for visitors who allowed marketing cookies."
+  }
+}

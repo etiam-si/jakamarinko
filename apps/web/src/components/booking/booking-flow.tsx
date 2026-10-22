@@ -108,8 +108,11 @@ export function BookingFlow({ services, prefill }: { services: Service[]; prefil
       }
       if (status !== 201) throw new Error(`booking failed: ${status}`);
       const { booking, manageUrl } = await res.json();
-      // T13 moves this to after the payment.
-      track("booking_paid", { service: service.id, value: service.priceCents / 100, currency: "EUR" });
+      // Confirmed now = paid on site. A booking waiting for online payment is tracked after the payment (T13).
+      // The event id is the one the api reports to Meta, so the two copies count once.
+      if (booking.status === "confirmed") {
+        track("booking_paid", { service: service.id, value: service.priceCents / 100, currency: "EUR" }, `booking_paid-${booking.id}`);
+      }
       const token = new URL(manageUrl).searchParams.get("token") ?? "";
       router.replace({ pathname: `/booking/${booking.id}`, query: { token, confirmed: "1" } });
     } catch {

@@ -1,4 +1,4 @@
-import type { EventProps, TrackEvent } from "@jakamarinko/api";
+import { type EventProps, metaEventNames, type TagsConfig, type TrackEvent } from "@jakamarinko/api";
 import { readConsent } from "./consent";
 
 declare global {
@@ -9,22 +9,26 @@ declare global {
   }
 }
 
-const metaEvents: Record<TrackEvent, string> = {
-  booking_started: "InitiateCheckout",
-  booking_paid: "Purchase",
-  package_started: "Subscribe",
-  contact_sent: "Contact",
-  lead_signup: "Lead",
-};
+// Set by the tags once their config is loaded: which events count as Google Ads conversions.
+let googleAds: TagsConfig["googleAds"] = null;
+export const setGoogleAds = (config: TagsConfig["googleAds"]) => (googleAds = config);
 
 // Every conversion goes through here. A tag that isn't loaded (no id, no consent) is skipped.
-// Returns the event id, so a server-side copy (T14) can be deduplicated by Meta.
-export function track(event: TrackEvent, props: EventProps = {}): string {
-  const eventId = crypto.randomUUID();
+// `eventId`: the id the api reports the same event with (Meta Conversions API, T14), so Meta counts it once.
+export function track(event: TrackEvent, props: EventProps = {}, eventId: string = crypto.randomUUID()): string {
   window.umami?.track(event, props);
   if (readConsent()?.marketing) {
-    window.fbq?.("track", metaEvents[event], props, { eventID: eventId });
+    window.fbq?.("track", metaEventNames[event], props, { eventID: eventId });
     window.gtag?.("event", event, props);
+    const label = googleAds?.labels[event];
+    if (label) {
+      window.gtag?.("event", "conversion", {
+        send_to: `${googleAds!.id}/${label}`,
+        value: props.value,
+        currency: props.currency,
+        transaction_id: eventId,
+      });
+    }
   }
   return eventId;
 }

@@ -5,6 +5,7 @@ import { auth } from "./routes/auth";
 import { booking } from "./routes/booking";
 import { events } from "./routes/events";
 import { health } from "./routes/health";
+import { conversions } from "./conversions/routes";
 import { contactRequests } from "./routes/requests";
 
 // Everything lives under /api: on the server Traefik sends jakamarinko.com/api/* here, the rest to web.
@@ -17,6 +18,7 @@ export const app = new Hono()
   .route("/booking", booking)
   .route("/requests", contactRequests)
   .route("/account", account)
+  .route("/conversions", conversions)
   .route("/health", health);
 
 app.onError(onError);
