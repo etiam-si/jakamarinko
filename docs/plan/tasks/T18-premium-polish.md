@@ -199,6 +199,22 @@ The two new spec files are:
 - **Tests:** `polish-site.spec.ts` "conversion".
 - **Regression risk:** `site.spec.ts` (heading and CTA assertions), `landing.spec.ts`, `smoke.spec.ts`.
 
+### US-011: Speed, finishing touches, SEO (finishing-touches)
+**Description:** As the owner, I want the site to load fast on phones, look finished everywhere a customer can land (errors, emails, link previews, search results), and be understood by Google, so that paid and organic traffic converts.
+
+**Acceptance criteria:**
+- [e2e] **Per-page messages:** on `/en` and `/en/lab`, the server-rendered HTML contains no message keys from namespaces the page doesn't use. For example, `/en` contains none of the coach-only, account-only or legal-only strings: assert 3 specific strings from `coach-booking.json`, `account.json` and `legal.json` are absent from the HTML.
+- [measured] **Lighthouse 12, mobile preset, 5 runs, medians:** `/en` and `/en/lab` Performance ≥ 90, LCP ≤ 2.5 s, CLS ≤ 0.05, TBT ≤ 200 ms. If 90 isn't reached, the PR shows the remaining breakdown and what blocks it.
+- [e2e] **404 page:** `/en/does-not-exist` returns 404 and shows a designed page with an `h1`, a primary CTA to `/en/booking` and links to home, lab and contact; the same in SL. A thrown server error renders the designed error page with a retry button (verify via a test-only route or `error.tsx` unit test).
+- [vitest] **Branded emails:** the email templates (`packages/email`) for magic link, booking confirmation, reminder, rescheduled and cancelled render with the brand header, the primary button and the footer. Text stays EN/SL. A snapshot of the rendered HTML includes the logo `img` with `alt`, and a button `a` with inline `background-color` (email-client-safe). The plain-text part is still present.
+- [e2e] **Link previews:** every page in **P** has `og:title`, `og:description`, `og:image` (absolute URL, responds 200, `image/png` or `image/jpeg`, 1200×630) and `twitter:card=summary_large_image`. Titles are unique per page and locale.
+- [e2e] **Structured data:** `/en` has JSON-LD that parses as JSON and includes `@type` `Person` (Jaka) and `LocalBusiness` or `SportsActivityLocation`. `/en/lab` has `Service` or `Offer` entries with `price` and `priceCurrency` `EUR` matching the catalog. Pages with a FAQ have `FAQPage` whose questions equal the visible FAQ questions.
+- [e2e] **Icons:** `/favicon.ico`, `/apple-touch-icon.png` (180×180) and the web manifest respond 200. `<meta name="theme-color">` is present; the manifest has `name`, `short_name` and icons 192 and 512.
+
+**Verification:**
+- **Tests:** `apps/web/e2e/polish-finish.spec.ts` and Vitest in `packages/email`.
+- **Regression risk:** i18n loading on every page; all e2e specs that read text.
+
 ## 4. Functional requirements
 
 - **FR-1:** The header shows one language control (US-001) that keeps the path and query.
