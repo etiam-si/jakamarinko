@@ -1,6 +1,7 @@
 import { and, eq, gt, gte, inArray, lt, lte, ne } from "drizzle-orm";
 import { db } from "@jakamarinko/db";
 import { availability, availabilityExceptions, bookings, coaches, locations } from "@jakamarinko/db/schema";
+import { googleBusy } from "../calendar/busy";
 import type { BookingConfig } from "./config";
 import { freeSlots, type Exception } from "./slots";
 import { addDays, zoned } from "./time";
@@ -50,6 +51,9 @@ export async function coachSlots(q: Q, coachId: string, from: string, to: string
         o.excludeBookingId ? ne(bookings.id, o.excludeBookingId) : undefined,
       ),
     );
+
+  // Busy times from the coach's Google Calendar (T16) block slots like bookings do.
+  busy.push(...(await googleBusy(q, coachId, o.excludeBookingId)));
 
   const exceptions = exceptionRows.flatMap((e): Exception[] => {
     if (e.kind === "closed") return [{ kind: "closed", startDate: e.startDate, endDate: e.endDate, start: e.start, end: e.end }];

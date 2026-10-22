@@ -39,6 +39,7 @@ import {
   rescheduleBooking,
 } from "../booking/bookings";
 import { activeCoachIds, coachSlots } from "../booking/calendar";
+import { freshenBusy } from "../calendar/busy";
 import { bookable, serviceView } from "../booking/catalog";
 import { assertCoachAccess, ownCoachId, targetCoach } from "../booking/coach";
 import { bookingConfig } from "../booking/config";
@@ -195,6 +196,7 @@ const coach = new Hono()
     const { from, to } = c.req.valid("query");
     const durationMin = (b.endAt.getTime() - b.startAt.getTime()) / 60_000;
     const options = { now: new Date(), config: bookingConfig(), durationMin, noticeMin: 0, excludeBookingId: b.id };
+    await freshenBusy([b.coachId]);
     const slots = await coachSlots(db(), b.coachId, from, to, options);
     return c.json<Slot[]>(
       slots.map((s) => ({ start: s.start.toISOString(), end: s.end.toISOString(), coachId: b.coachId, locationId: s.locationId })),
@@ -237,8 +239,10 @@ export const booking = new Hono()
     const { durationMin } = await activeService(service);
     const config = bookingConfig();
     const now = new Date();
+    const coachIds = await activeCoachIds(db());
+    await freshenBusy(coachIds);
     const perCoach = await Promise.all(
-      (await activeCoachIds(db())).map(async (coachId) =>
+      coachIds.map(async (coachId) =>
         (await coachSlots(db(), coachId, from, to, { now, config, durationMin })).map((s) => ({ ...s, coachId })),
       ),
     );
