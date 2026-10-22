@@ -175,6 +175,30 @@ The two new spec files are:
   - The PR shows the table.
 - [e2e] No new JS dependency over 15 kB gzipped is added to the public pages' client bundle (state the sizes of any added library in the PR).
 
+### US-010: Built for conversion: hooks, one clear action, objections answered (premium-site; booking friction: customer-login)
+**Description:** As the owner, I want every public page built to turn a visitor into a booking, so that ad money and organic visits pay back. The strategy, hooks and exact EN/SL copy are in `docs/content/conversion-playbook.md` (CRO research). Pages implement its top-pick hook and section order.
+
+**Acceptance criteria:**
+- [e2e] On every page in **P** except legal and sign-in, at 390×844 and 1440×900, the first viewport (with the cookie banner dismissed) contains:
+  - the `h1`;
+  - exactly one primary CTA (a link or button with `data-cta="primary"`) that is fully visible;
+  - its `href` goes to `/{locale}/booking` (with `?service=` where the page is about one service) or, on `coaching`, to the playbook's coaching CTA target.
+- [e2e] Each page's `h1` text equals the playbook's top-pick hook for that page and locale (the test reads the expected strings from the message files that the playbook copy was pasted into; it asserts they are not empty and differ between EN and SL).
+- [e2e] Hero `h1` ≤ 10 words. The subline under it is one sentence of ≤ 20 words.
+- [e2e] No paragraph (`main p`) on public pages exceeds 45 words, so there are no walls of text.
+- [e2e] Every `section` in `main` on home, lab, coaching and each `/lp/` page contains or is immediately followed by a CTA link (`data-cta`), so every section ends in an action.
+- [e2e] `lab` and every `/lp/` page show:
+  - the price, as text matching `€`, before the first FAQ;
+  - a FAQ with ≥ 5 questions (`details`/`summary` or an accordion with `aria-expanded`) that includes the playbook's objection questions (preparation, "am I fit enough", how long, what I get, cancellation).
+- [e2e] Proof (achievements or results from `docs/content/`) appears within the first two sections after the hero on home and lab.
+- [e2e] At ≤ 430 px, the sticky mobile CTA bar is visible after scrolling past the hero, links to booking, and never covers the focused input on forms (it hides while an input has focus).
+- [e2e] No customer-visible text on any page in **P** matches `/\bAI\b|artificial intelligence|umetn[a-z]* inteligenc/i` (honesty rule).
+- [e2e] Urgency is honest: no countdown timers and no "only N left" text unless N comes from the slots API.
+
+**Verification:**
+- **Tests:** `polish-site.spec.ts` "conversion".
+- **Regression risk:** `site.spec.ts` (heading and CTA assertions), `landing.spec.ts`, `smoke.spec.ts`.
+
 ## 4. Functional requirements
 
 - **FR-1:** The header shows one language control (US-001) that keeps the path and query.
@@ -185,6 +209,7 @@ The two new spec files are:
 - **FR-6:** Public pages get premium visuals and scroll-reveal motion, built from shared components in `components/ui/` and documented in `docs/design.md` (US-007).
 - **FR-7:** All motion is disabled under `prefers-reduced-motion: reduce`.
 - **FR-8:** The booking flow has a step progress indicator and animated step changes (US-008).
+- **FR-10:** Public pages follow `docs/content/conversion-playbook.md`: the top-pick hook, one primary CTA above the fold, short copy, objections answered, honest proof and urgency (US-010).
 - **FR-9:** No page overflows horizontally, and tap targets, inputs and text meet the US-005 minimums at every width in W.
 
 ## 5. Non-goals
@@ -255,6 +280,14 @@ The two new spec files are:
 - [ ] axe zero at 390/1440 × EN/SL, banner open and dismissed
 - [ ] No console errors, no text < 12 px, no blurry images
 - [ ] Cookie sheet ≤ 40% of the viewport and clear of the hero `h1` and CTA
+
+**Conversion (US-010)**
+- [ ] One primary CTA in the first viewport at 390 and 1440 px on every non-legal page
+- [ ] Playbook hooks in the `h1` (EN and SL), ≤ 10 words; the subline ≤ 20 words
+- [ ] No paragraph > 45 words; every section ends in a CTA
+- [ ] Price before the FAQ; ≥ 5 objection FAQs on lab and `/lp/`
+- [ ] Proof within the first two sections; sticky CTA behaves on forms
+- [ ] No AI wording; no fake urgency
 
 **Motion (US-007, US-008)**
 - [ ] `data-reveal` sections animate in; nothing animated under reduced motion
