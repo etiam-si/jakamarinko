@@ -13,9 +13,12 @@ const SeedEnv = z.object({
 });
 
 // The people and place the app can't work without. Safe to run on every start: it never creates duplicates.
-// A variable that isn't set skips its part.
-export async function seed(source: NodeJS.ProcessEnv = process.env) {
+// A variable that isn't set skips its part with a warning, so the api still starts while the server .env is incomplete.
+export async function seed(source: NodeJS.ProcessEnv = process.env, log: Pick<Console, "warn"> = console) {
   const env = SeedEnv.parse(source);
+  for (const name of ["OWNER_EMAIL", "HEAD_COACH_EMAIL", "LAB_ADDRESS"] as const) {
+    if (!env[name]) log.warn(`seed: ${name} is not set, skipping it`);
+  }
 
   if (env.HEAD_COACH_EMAIL) {
     const userId = await upsertUser(env.HEAD_COACH_EMAIL, "head_coach");
