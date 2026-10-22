@@ -4,6 +4,8 @@ import { theme } from "../theme";
 import type { Template } from "../types";
 import type { Booking } from "./booking";
 
+// TODO(jaka): confirm the bookingPreparation texts in messages/{en,sl}.json: 24 h without hard training,
+// 10 hours fasted for the fat/carb test, a light meal 2 to 3 h before other tests, no coffee, what to bring.
 // fasted: the fat and carbohydrate test needs an empty stomach; every other test wants a light meal.
 export type BookingPreparationProps = { name: string; booking: Booking; fasted: boolean };
 

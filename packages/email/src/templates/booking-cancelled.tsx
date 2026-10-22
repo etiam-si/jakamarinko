@@ -3,6 +3,7 @@ import { Action, Layout, P } from "../layout";
 import type { Template } from "../types";
 import { type Booking, BookingDetails } from "./booking";
 
+// TODO(jaka): confirm the refund wording in messages/{en,sl}.json (bookingCancelled.refund, "5 to 10 days").
 // refund: the customer paid online and gets the money back (T13 decides when).
 export type BookingCancelledProps = { name: string; booking: Booking; reason?: string; refund: boolean; rebookUrl: string };
 
