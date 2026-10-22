@@ -1,0 +1,16 @@
+{
+  "notFound": {
+    "meta": "Strani ni mogoče najti",
+    "number": "404",
+    "title": "Ta stran je zašla s proge",
+    "text": "Povezava je morda stara ali pa se je stran preselila. Tekma pa še teče: nadaljuj na eni od teh strani.",
+    "linksLabel": "Priljubljene strani"
+  },
+  "error": {
+    "number": "DNF",
+    "title": "Pri nas je šlo nekaj narobe",
+    "text": "Poskusi znova čez trenutek. Če se ponavlja, nam piši in bomo uredili.",
+    "retry": "Poskusi znova",
+    "home": "Nazaj na začetno stran"
+  }
+}
