@@ -45,7 +45,14 @@
     "preparation": "Kako se pripraviti",
     "included": "Kaj dobiš",
     "duration": "Trajanje",
-    "contains": "Vključuje"
+    "contains": "Vključuje",
+    "prep": {
+      "fed": "Pridi spočit",
+      "fasted": "Pridi spočit in na tešče",
+      "none": "Priprava ni potrebna",
+      "title": "Kako se pripraviš",
+      "fastedNote": "Meritev porabe maščob in ogljikovih hidratov ter Performance: pridi na tešče, 8 ur prej nič hrane, samo voda."
+    }
   },
   "prepare": {
     "title": "Kako se pripraviti",
@@ -59,5 +66,32 @@
     "title": "Po meritvi",
     "text": "Dobiš razlago rezultatov, pri laktatni meritvi in meritvi VO₂max pa tudi svoje osebne trening cone.",
     "offer": "Vsaka meritev se konča s ponudbo: {days} dni paketa Plan brezplačno ali prvi mesec paketa Coaching s {percent} % popusta."
+  },
+  "curve": {
+    "x": "Hitrost ali moč",
+    "y": "Laktat"
+  },
+  "faq": {
+    "title": "Preden rezerviraš",
+    "prepare": {
+      "question": "Kako se pripravim?",
+      "answer": "Pridi spočit, brez napornega treninga 24 ur prej. 2–3 ure prej pojej lahek obrok, za meritev porabe maščob in ogljikovih hidratov ter paket Performance pa pridi na tešče. Navodila dobiš z rezervacijo."
+    },
+    "fit": {
+      "question": "Sem dovolj pripravljen za meritev?",
+      "answer": "Da. Vsaka meritev se začne lahko in se postopno stopnjuje, ustaviš pa se, ko ne moreš več. Rezultati so tvoji, na katerikoli ravni. Če si bolan ali poškodovan, meritev prestavi."
+    },
+    "duration": {
+      "question": "Koliko časa traja?",
+      "answer": "Od {min} do {max} minut, odvisno od meritve. Čas je naveden pri vsaki meritvi zgoraj."
+    },
+    "results": {
+      "question": "Kaj dobim?",
+      "answer": "Razlago rezultatov ob koncu meritve, iz laktatnega profila in meritve VO₂max pa tudi svoje osebne trening cone."
+    },
+    "cancel": {
+      "question": "Lahko odpovem ali prestavim?",
+      "answer": "Da, brezplačno do 24 ur pred začetkom. Pozneje pokliči ali piši."
+    }
   }
 }

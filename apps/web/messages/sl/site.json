@@ -29,5 +29,20 @@
   },
   "sticky": {
     "from": "Meritve od {price} €"
+  },
+  "shots": {
+    "label": "Fotografija sledi",
+    "labHero": "Športnik med meritvijo na tekoči preprogi, z masko, ob njem Jaka, ki spremlja zaslon. Stranski pogled, hladna laboratorijska svetloba, pokončno 4:5.",
+    "labSample": "Bližnji posnetek odvzema kapljice krvi za laktat med meritvijo: roke v rokavicah, analizator zabrisan v ozadju. Plitva globinska ostrina, 3:2.",
+    "coachingHero": "Jaka in športnik ob prenosniku pregledujeta načrt in trening cone, oba v športni opremi. Čez ramo, topla notranja svetloba, pokončno 4:5.",
+    "aboutPortrait": "Jaka do pasu, v trening majici na gorski poti v mehki večerni svetlobi, gleda v objektiv. Pokončno 4:5.",
+    "contactLab": "Prostor za meritve, urejen in prazen: tekoča preproga, kolo in analizator, dnevna svetloba, posneto od vrat. Pokončno 4:5."
+  },
+  "testimonials": {
+    "title": "Kaj pravijo športniki",
+    "sample": "Vzorec",
+    "sampleName": "Vzorčni športnik",
+    "resultsTitle": "Rezultati",
+    "resultsCta": "Več o Jaki"
   }
 }

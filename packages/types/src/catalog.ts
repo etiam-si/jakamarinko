@@ -46,7 +46,8 @@ export type Session = {
   description: Localized;
 };
 
-const restedAndFed: LocalizedList = {
+// The two standard preparations; the site shows which one a test needs and lists them once.
+export const restedAndFed: LocalizedList = {
   en: [
     "No hard or long training in the 24 hours before the test.",
     "Eat a light meal 2–3 hours before and drink as usual.",
@@ -61,7 +62,7 @@ const restedAndFed: LocalizedList = {
   ],
 };
 
-const restedAndFasted: LocalizedList = {
+export const restedAndFasted: LocalizedList = {
   en: [
     "No hard or long training in the 24 hours before the test.",
     "Come fasted: nothing to eat for at least 8 hours before, water only.",

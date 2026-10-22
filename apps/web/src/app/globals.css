@@ -58,6 +58,12 @@
     }
 }
 @layer base {
+  /* Chromium's hinted advances open odd gaps around t and f in Archivo ("t hresholds"); unhinted geometry keeps
+     the spacing the font was drawn with. */
+  body {
+    text-rendering: geometricPrecision;
+    -webkit-font-smoothing: antialiased;
+  }
   /* Headlines break into even lines; paragraphs avoid a lone last word. */
   h1, h2, h3 {
     text-wrap: balance;

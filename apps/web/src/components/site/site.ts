@@ -49,6 +49,10 @@ export const bookingHref = (service: ServiceId) => ({ pathname: "/booking", quer
 export const euros = (cents: number) => cents / 100;
 export const eurFormat = { style: "currency", currency: "EUR", maximumFractionDigits: 2, minimumFractionDigits: 0 } as const;
 
+// Dev, e2e and screenshot builds: show the designed placeholders for photos we still need (PhotoSlot) and the sample
+// testimonials. Off in production, where every slot falls back to a real photo or the section adapts.
+export const showPlaceholders = process.env.NEXT_PUBLIC_SHOW_PLACEHOLDERS === "true";
+
 export const photos = {
   redBull: "/brand/photos/jaka-redbull-400.png",
   trail: "/brand/photos/jaka-gorski-tek.jpg",

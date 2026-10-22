@@ -29,5 +29,20 @@
   },
   "sticky": {
     "from": "Lab tests from {price} €"
+  },
+  "shots": {
+    "label": "Photo to come",
+    "labHero": "An athlete mid-test on the treadmill, mask on, with Jaka beside them reading the screen. Side view, cool lab light, 4:5 portrait.",
+    "labSample": "Close-up of a fingertip lactate sample during a test: gloved hands, the analyser soft in the background. Shallow depth of field, 3:2.",
+    "coachingHero": "Jaka and an athlete at a laptop going through a plan and training zones, both in training kit. Over the shoulder, warm indoor light, 4:5 portrait.",
+    "aboutPortrait": "Jaka, waist up, in a training top on a mountain trail in soft evening light, looking at the camera. 4:5 portrait.",
+    "contactLab": "The testing room, tidy and empty: treadmill, bike and analyser, daylight, shot from the door. 4:5 portrait."
+  },
+  "testimonials": {
+    "title": "What athletes say",
+    "sample": "Sample",
+    "sampleName": "Sample athlete",
+    "resultsTitle": "Results",
+    "resultsCta": "More about Jaka"
   }
 }

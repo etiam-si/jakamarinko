@@ -12,6 +12,7 @@ import { SiteJsonLd } from "@/components/site/json-ld";
 import { ProofBand } from "@/components/site/proof-band";
 import { CtaBand, Section } from "@/components/site/section";
 import { Steps } from "@/components/site/steps";
+import { TestimonialsSection } from "@/components/site/testimonials-section";
 import { bookingHref, euros, pageMetadata, photos } from "@/components/site/site";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
@@ -181,6 +182,17 @@ export default function Home({ params }: Props) {
           </article>
         </div>
       </Section>
+
+      <TestimonialsSection
+        action={
+          <Button asChild variant="outline" size="lg" data-cta="secondary">
+            <Link href="/about">
+              {t("proof.cta")}
+              <ArrowRight aria-hidden />
+            </Link>
+          </Button>
+        }
+      />
 
       <CtaBand
         title={t("cta.title")}
