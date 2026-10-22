@@ -141,5 +141,12 @@
     "5": "Petek",
     "6": "Sobota",
     "7": "Nedelja"
+  },
+  "stats": {
+    "bookings": "Rezervacije",
+    "today": "Danes",
+    "flagged": "Zdravstvena opozorila",
+    "cancelled": "Odpovedane",
+    "range": "V prikazanem obdobju"
   }
 }

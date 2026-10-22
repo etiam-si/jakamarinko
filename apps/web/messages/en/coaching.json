@@ -5,42 +5,45 @@
   },
   "hero": {
     "title": "Training built around you.",
-    "subtitle": "Science, experience and consistent tracking of your progress, combined in one system."
+    "subtitle": "A plan built on your numbers, adapted to your training every week.",
+    "primaryCta": "See packages",
+    "secondaryCta": "Start with a lab test"
   },
   "services": {
     "title": "What coaching covers",
     "individual": {
       "title": "Individual coaching",
-      "text": "A plan fitted to your goal, your daily routine and your current fitness."
+      "text": "Fitted to your goal, routine and fitness."
     },
     "online": {
       "title": "Online coaching",
-      "text": "Weekly planning, adjustments along the way and ongoing contact, wherever you live."
+      "text": "Weekly planning and adjustments, wherever you live."
     },
     "racePrep": {
       "title": "Race preparation",
-      "text": "Season periodisation, peaking at the right time and tactics for your key races."
+      "text": "Periodisation, peaking and race tactics."
     },
     "watchData": {
       "title": "Watch data analysis",
-      "text": "Interpreting the training load, heart rate and recovery data from your Garmin or other sports watch."
+      "text": "Load, heart rate and recovery from your watch."
     },
     "progressReview": {
       "title": "Progress review",
-      "text": "A look back at your training and the long-term trends in your progress."
+      "text": "The long-term trends in your training."
     },
     "mental": {
       "title": "Mental preparation",
-      "text": "Working on motivation, focus and handling race pressure."
+      "text": "Motivation, focus and race pressure."
     },
     "biomechanics": {
       "title": "Biomechanics",
-      "text": "Analysis of your technique and movement patterns, for more efficiency and fewer injuries."
+      "text": "Technique for efficiency and fewer injuries."
     },
     "physiology": {
       "title": "Physiology",
-      "text": "Training zones, the aerobic threshold and endurance development on a scientific basis."
-    }
+      "text": "Zones and thresholds on a scientific basis."
+    },
+    "cta": "Compare packages"
   },
   "packages": {
     "title": "Packages",

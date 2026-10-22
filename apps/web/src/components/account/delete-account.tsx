@@ -4,6 +4,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { useState } from "react";
 import { ApiErrorBody } from "@jakamarinko/api";
 import { Button } from "@/components/ui/button";
+import { FieldError } from "@/components/ui/field";
 import { Link } from "@/i18n/navigation";
 import { api } from "@/lib/api";
 
@@ -30,21 +31,17 @@ export function DeleteAccount({ email }: { email: string }) {
 
   if (state === "sent") {
     return (
-      <p role="status" className="rounded-md bg-muted p-3 text-sm">
+      <p role="status" className="rounded-lg bg-muted px-4 py-3 text-sm">
         {t("sent", { email })}
       </p>
     );
   }
   return (
     <div className="flex flex-col items-start gap-3">
-      <Button variant="destructive" onClick={request} disabled={state === "sending"}>
+      <Button variant="destructive-outline" onClick={request} loading={state === "sending"}>
         {state === "sending" ? t("sending") : t("button")}
       </Button>
-      {error && (
-        <p role="alert" className="text-sm text-destructive">
-          {error}
-        </p>
-      )}
+      {error && <FieldError role="alert">{error}</FieldError>}
     </div>
   );
 }
@@ -83,19 +80,15 @@ export function ConfirmDelete({ token }: { token: string }) {
   return (
     <div className="flex flex-col items-start gap-4">
       <p className="max-w-xl text-pretty">{t("body")}</p>
-      <div className="flex flex-wrap gap-2">
-        <Button variant="destructive" onClick={confirm} disabled={state === "deleting"}>
+      <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
+        <Button variant="destructive" onClick={confirm} loading={state === "deleting"}>
           {state === "deleting" ? t("deleting") : t("button")}
         </Button>
         <Button variant="outline" asChild>
           <Link href="/account/privacy">{t("back")}</Link>
         </Button>
       </div>
-      {error && (
-        <p role="alert" className="text-sm text-destructive">
-          {error}
-        </p>
-      )}
+      {error && <FieldError role="alert">{error}</FieldError>}
     </div>
   );
 }

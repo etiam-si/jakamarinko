@@ -6,10 +6,11 @@ import { useState } from "react";
 import type { CoachBooking } from "@jakamarinko/api";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { FieldError } from "@/components/ui/field";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { ApiFailure, useCancel, useOutcome, useReschedule, useRescheduleSlots } from "./data";
-import { useWhen } from "./format";
+import { useCustomerName, useWhen } from "./format";
 import { useNotice } from "./notice";
 import { addDays, localDate, weekStart } from "./time";
 
@@ -45,7 +46,7 @@ export function BookingActions({ booking, now = new Date() }: { booking: CoachBo
     <div className="flex flex-wrap gap-2">
       {started ? (
         <>
-          <Button size="sm" variant="secondary" disabled={outcome.isPending} onClick={() => mark("completed")}>
+          <Button size="sm" disabled={outcome.isPending} onClick={() => mark("completed")}>
             {t("completed")}
           </Button>
           <Button size="sm" variant="outline" disabled={outcome.isPending} onClick={() => mark("no_show")}>
@@ -57,7 +58,7 @@ export function BookingActions({ booking, now = new Date() }: { booking: CoachBo
           {t("move")}
         </Button>
       )}
-      <Button size="sm" variant="ghost" className="text-destructive" onClick={() => setOpen("cancel")}>
+      <Button size="sm" variant="ghost" className="text-destructive hover:bg-destructive/10 hover:text-destructive" onClick={() => setOpen("cancel")}>
         {t("cancel")}
       </Button>
       {open === "cancel" && <CancelDialog booking={booking} onClose={() => setOpen(undefined)} />}
@@ -68,6 +69,7 @@ export function BookingActions({ booking, now = new Date() }: { booking: CoachBo
 
 function CancelDialog({ booking, onClose }: { booking: CoachBooking; onClose: () => void }) {
   const t = useTranslations("coach-booking.cancel");
+  const customerName = useCustomerName();
   const [reason, setReason] = useState("");
   const cancel = useCancel();
   const notice = useNotice();
@@ -79,7 +81,7 @@ function CancelDialog({ booking, onClose }: { booking: CoachBooking; onClose: ()
       { id: booking.id, reason: reason.trim() || undefined },
       {
         onSuccess: () => {
-          notice(t("done", { name: booking.name }));
+          notice(t("done", { name: customerName(booking) }));
           onClose();
         },
       },
@@ -92,23 +94,21 @@ function CancelDialog({ booking, onClose }: { booking: CoachBooking; onClose: ()
         <form onSubmit={submit} className="flex flex-col gap-5">
           <DialogHeader>
             <DialogTitle>{t("title")}</DialogTitle>
-            <DialogDescription>{t("body", { name: booking.name })}</DialogDescription>
+            <DialogDescription>{t("body", { name: customerName(booking) })}</DialogDescription>
           </DialogHeader>
-          <div className="flex flex-col gap-1.5">
+          <div className="flex flex-col gap-2">
             <Label htmlFor="cancel-reason">{t("reason")}</Label>
-            <Textarea id="cancel-reason" value={reason} maxLength={500} onChange={(e) => setReason(e.target.value)} />
-            <p className="text-xs text-muted-foreground">{t("reasonHint")}</p>
-          </div>
-          {cancel.error && (
-            <p role="alert" className="text-sm text-destructive">
-              {errorText(cancel.error)}
+            <Textarea id="cancel-reason" value={reason} maxLength={500} onChange={(e) => setReason(e.target.value)} aria-describedby="cancel-reason-hint" />
+            <p id="cancel-reason-hint" className="text-sm text-muted-foreground">
+              {t("reasonHint")}
             </p>
-          )}
+          </div>
+          {cancel.error && <FieldError role="alert">{errorText(cancel.error)}</FieldError>}
           <DialogFooter>
             <Button type="button" variant="outline" onClick={onClose}>
               {t("back")}
             </Button>
-            <Button type="submit" variant="destructive" disabled={cancel.isPending}>
+            <Button type="submit" variant="destructive" loading={cancel.isPending}>
               {t("confirm")}
             </Button>
           </DialogFooter>
@@ -121,6 +121,7 @@ function CancelDialog({ booking, onClose }: { booking: CoachBooking; onClose: ()
 // One week of free times at a time, starting with the booking's own week (or this week, if that is past).
 function RescheduleDialog({ booking, onClose }: { booking: CoachBooking; onClose: () => void }) {
   const t = useTranslations("coach-booking.reschedule");
+  const customerName = useCustomerName();
   const when = useWhen();
   const thisWeek = weekStart(localDate(new Date()));
   const [week, setWeek] = useState(() => {
@@ -151,7 +152,7 @@ function RescheduleDialog({ booking, onClose }: { booking: CoachBooking; onClose
       { id: booking.id, start: picked },
       {
         onSuccess: () => {
-          notice(t("done", { name: booking.name }));
+          notice(t("done", { name: customerName(booking) }));
           onClose();
         },
         onError: () => {
@@ -167,7 +168,7 @@ function RescheduleDialog({ booking, onClose }: { booking: CoachBooking; onClose
       <DialogContent showCloseButton={false} className="max-h-[90dvh] grid-rows-[auto_auto_minmax(0,1fr)_auto] overflow-hidden">
         <DialogHeader>
           <DialogTitle>{t("title")}</DialogTitle>
-          <DialogDescription>{t("body", { name: booking.name })}</DialogDescription>
+          <DialogDescription>{t("body", { name: customerName(booking) })}</DialogDescription>
         </DialogHeader>
         <div className="flex items-center justify-between gap-2">
           <Button size="icon-sm" variant="outline" aria-label={t("previousWeek")} disabled={week <= thisWeek} onClick={() => move(-1)}>
@@ -188,7 +189,7 @@ function RescheduleDialog({ booking, onClose }: { booking: CoachBooking; onClose
               {[...byDay].map(([day, starts]) => (
                 <fieldset key={day} className="flex flex-col gap-2">
                   <legend className="mb-2 text-sm font-semibold">{when.day(day)}</legend>
-                  <div className="grid grid-cols-4 gap-1.5">
+                  <div className="grid grid-cols-3 gap-2 min-[400px]:grid-cols-4">
                     {starts.map((start) => (
                       <Button
                         key={start}
@@ -208,16 +209,12 @@ function RescheduleDialog({ booking, onClose }: { booking: CoachBooking; onClose
           )}
         </div>
         <div className="flex flex-col gap-3">
-          {reschedule.error && (
-            <p role="alert" className="text-sm text-destructive">
-              {errorText(reschedule.error)}
-            </p>
-          )}
+          {reschedule.error && <FieldError role="alert">{errorText(reschedule.error)}</FieldError>}
           <DialogFooter>
             <Button variant="outline" onClick={onClose}>
               {t("back")}
             </Button>
-            <Button disabled={!picked || reschedule.isPending} onClick={submit}>
+            <Button disabled={!picked} loading={reschedule.isPending} onClick={submit}>
               {picked ? t("confirm", { when: when.when(picked) }) : t("pick")}
             </Button>
           </DialogFooter>

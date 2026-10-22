@@ -28,8 +28,8 @@ export function OverviewBlock({ id, title, state, action, wide, children }: Prop
       data-block={id}
       data-state={state.kind}
       className={cn(
-        "flex flex-col gap-4 rounded-lg border bg-card p-5 text-card-foreground md:p-6",
-        state.kind === "empty" && "border-dashed bg-card/60",
+        "flex flex-col gap-4 rounded-xl border bg-card p-5 text-card-foreground shadow-sm md:p-6",
+        state.kind === "empty" && "border-dashed bg-card/60 shadow-none",
         wide && "md:col-span-2",
       )}
     >

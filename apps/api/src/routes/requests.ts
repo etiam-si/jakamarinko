@@ -8,6 +8,7 @@ import { db } from "@jakamarinko/db";
 import { requests, users } from "@jakamarinko/db/schema";
 import { sendEmail } from "@jakamarinko/email";
 import { bookingConfig } from "../booking/config";
+import { recordConversion, reportRecorded } from "../conversions/record";
 import { requireRole } from "../lib/auth";
 import { ApiError } from "../lib/errors";
 import { validate } from "../lib/validate";
@@ -73,6 +74,7 @@ async function notify(row: typeof requests.$inferSelect) {
       name: row.name,
       email: row.email,
       phone: row.phone ?? undefined,
+      topic: row.topic,
       message: row.message,
       requestUrl: `${siteUrl}/${locale}/coach/requests/${row.id}`,
     };
@@ -96,7 +98,10 @@ export const contactRequests = new Hono()
       .values({ ...input, email: email.toLowerCase(), phone: phone || null, consentedAt: new Date() })
       .returning();
     await notify(row!);
-    return c.json({ ok: true as const });
+    // Meta gets it only with the visitor's marketing consent; eventId lets the pixel's copy be deduplicated.
+    const eventId = await recordConversion(c, "contact_sent", { requestId: row!.id });
+    await reportRecorded(eventId);
+    return c.json({ ok: true as const, eventId });
   })
   .get("/", staff, validate("query", RequestsQuery), async (c) => {
     const { status } = c.req.valid("query");

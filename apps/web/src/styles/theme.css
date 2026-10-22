@@ -8,6 +8,17 @@
   --color-signal: var(--signal);
   --color-signal-foreground: var(--signal-foreground);
   --color-photo-tint: var(--photo-tint);
+  --color-primary-deep: var(--primary-deep);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-info: var(--info);
+
+  /* Soft, low-contrast shadows: cards sit on the page, they don't float above it. */
+  --shadow-xs: 0 1px 2px 0 rgb(18 26 24 / 0.05);
+  --shadow-sm: 0 1px 2px 0 rgb(18 26 24 / 0.06), 0 1px 3px 0 rgb(18 26 24 / 0.04);
+  --shadow-md: 0 4px 6px -1px rgb(18 26 24 / 0.08), 0 2px 4px -2px rgb(18 26 24 / 0.06);
+  --shadow-lg: 0 10px 15px -3px rgb(18 26 24 / 0.08), 0 4px 6px -4px rgb(18 26 24 / 0.06);
+  --shadow-xl: 0 20px 25px -5px rgb(18 26 24 / 0.08), 0 8px 10px -6px rgb(18 26 24 / 0.06);
   --color-zone-1: var(--zone-1);
   --color-zone-2: var(--zone-2);
   --color-zone-3: var(--zone-3);
@@ -21,7 +32,7 @@
 }
 
 :root {
-  --radius: 0.375rem;
+  --radius: 0.75rem;
 
   /* Firn (snow) background, graphite ink, spruce primary, signal orange for the one thing that matters. */
   --background: #f4f6f5;
@@ -32,6 +43,8 @@
   --popover-foreground: #121a18;
   --primary: #15493f;
   --primary-foreground: #f4f6f5;
+  /* The far end of the primary button's gradient. */
+  --primary-deep: #0c3029;
   --secondary: #e3eae7;
   --secondary-foreground: #15493f;
   --muted: #e8edeb;
@@ -41,6 +54,10 @@
   --signal: #e8542a;
   --signal-foreground: #121a18;
   --destructive: #b42318;
+  /* Status text (badges, notices) on its own 10 % tint. */
+  --success: #1c6448;
+  --warning: #8a5300;
+  --info: #1f5c99;
   --border: #d3dcd8;
   --input: #c4cfcb;
   --ring: #15493f;
@@ -84,6 +101,7 @@
   --popover-foreground: #e8eeec;
   --primary: #5cc2a8;
   --primary-foreground: #0d1412;
+  --primary-deep: #3fa78d;
   --secondary: #1e2a27;
   --secondary-foreground: #e8eeec;
   --muted: #1a2421;
@@ -93,6 +111,9 @@
   --signal: #f26a41;
   --signal-foreground: #0d1412;
   --destructive: #f97066;
+  --success: #6fd3a8;
+  --warning: #f2c14e;
+  --info: #8cbcf0;
   --border: #27342f;
   --input: #33433e;
   --ring: #5cc2a8;

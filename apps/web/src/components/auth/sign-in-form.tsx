@@ -1,9 +1,11 @@
 "use client";
 
+import { MailCheck } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { useState } from "react";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
+import { Field, FieldError } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { authClient } from "@/lib/auth-client";
@@ -46,10 +48,15 @@ export function SignInForm({ google, next, error: initialError }: Props) {
 
   if (sentTo) {
     return (
-      <div className="flex flex-col gap-4" role="status">
-        <h2 className="text-xl font-semibold">{t("checkTitle")}</h2>
-        <p className="text-muted-foreground">{t("checkBody", { email: sentTo })}</p>
-        <Button variant="outline" onClick={() => setSentTo(undefined)}>
+      <div className="flex flex-col items-center gap-4 text-center" role="status">
+        <span className="flex size-14 items-center justify-center rounded-full bg-primary/10 text-primary">
+          <MailCheck aria-hidden className="size-6" />
+        </span>
+        <div className="flex flex-col gap-1.5">
+          <h2 className="font-heading text-xl font-bold font-stretch-expanded">{t("checkTitle")}</h2>
+          <p className="text-sm text-pretty text-muted-foreground">{t("checkBody", { email: sentTo })}</p>
+        </div>
+        <Button variant="outline" className="w-full" onClick={() => setSentTo(undefined)}>
           {t("differentEmail")}
         </Button>
       </div>
@@ -57,10 +64,10 @@ export function SignInForm({ google, next, error: initialError }: Props) {
   }
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-5">
       {google && (
         <>
-          <Button variant="outline" size="lg" onClick={withGoogle}>
+          <Button variant="outline" size="lg" className="w-full" onClick={withGoogle}>
             {t("google")}
           </Button>
           <div className="flex items-center gap-3 text-sm text-muted-foreground">
@@ -70,26 +77,27 @@ export function SignInForm({ google, next, error: initialError }: Props) {
           </div>
         </>
       )}
-      <form className="flex flex-col gap-3" onSubmit={sendLink} noValidate>
-        <Label htmlFor="email">{t("email")}</Label>
-        <Input
-          id="email"
-          type="email"
-          autoComplete="email"
-          placeholder={t("emailPlaceholder")}
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          aria-invalid={!!error}
-        />
-        <Button type="submit" size="lg" disabled={pending}>
+      <form className="flex flex-col gap-5" onSubmit={sendLink} noValidate>
+        <Field>
+          <Label htmlFor="email">{t("email")}</Label>
+          <Input
+            id="email"
+            type="email"
+            autoComplete="email"
+            placeholder={t("emailPlaceholder")}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            aria-invalid={!!error}
+            aria-describedby={error ? "email-error" : undefined}
+          />
+          <FieldError id="email-error" role="alert">
+            {error}
+          </FieldError>
+        </Field>
+        <Button type="submit" size="lg" className="w-full" loading={pending}>
           {pending ? t("sending") : t("submit")}
         </Button>
       </form>
-      {error && (
-        <p className="text-sm text-destructive" role="alert">
-          {error}
-        </p>
-      )}
     </div>
   );
 }

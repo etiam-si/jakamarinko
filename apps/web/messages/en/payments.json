@@ -1,0 +1,22 @@
+{
+  "review": {
+    "payOnline": "Next you pay by card on Stripe's secure payment page. Your time is held for {minutes} minutes.",
+    "payOnSite": "You pay on site, on the day.",
+    "vatIncluded": "The price includes VAT.",
+    "vatExcluded": "VAT is added to the price.",
+    "pay": "Continue to payment",
+    "paying": "Opening payment…"
+  },
+  "pending": {
+    "text": "This booking isn't paid yet. Your time is held for {minutes} minutes after booking; after that it's released.",
+    "pay": "Pay now",
+    "opening": "Opening payment…",
+    "expired": "The time held for payment is over. Please book again.",
+    "failed": "Payment can't be opened right now. Please try again in a moment.",
+    "confirming": "Thank you, your payment is being confirmed. This page updates by itself.",
+    "slow": "Confirming takes longer than usual. You'll get an email as soon as it's done; you can close this page."
+  },
+  "paid": {
+    "text": "Paid online. Cancel 24 hours or more before the start and the full amount goes back to your card."
+  }
+}

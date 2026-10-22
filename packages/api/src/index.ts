@@ -7,3 +7,6 @@ export * from "./events";
 export * from "./booking";
 export * from "./requests";
 export * from "./account";
+export * from "./payments";
+export * from "./calendar";
+export * from "./conversions";

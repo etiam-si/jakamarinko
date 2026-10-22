@@ -7,7 +7,7 @@ const isMarketing = (url: string) => /connect\.facebook\.net|googletagmanager\.c
 
 // Pretends the server has all ids set and answers every tag script with an empty one, recording what was asked for.
 async function withTags(context: BrowserContext) {
-  const config: TagsConfig = { umami: { src: umamiSrc, websiteId: "w1" }, metaPixelId: "123", googleTagId: "G-TEST" };
+  const config: TagsConfig = { umami: { src: umamiSrc, websiteId: "w1" }, metaPixelId: "123", googleTagId: "G-TEST", googleAds: null };
   await context.route("**/api/events/config", (route) => route.fulfill({ json: config }));
   const requested: string[] = [];
   await context.route(/umami\.test|connect\.facebook\.net|googletagmanager\.com/, (route) => {

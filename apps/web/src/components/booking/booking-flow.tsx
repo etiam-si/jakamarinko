@@ -13,6 +13,7 @@ import { track } from "@/lib/track";
 import { getAttribution } from "@/lib/utm";
 import { DetailsStep, type Details } from "./details-step";
 import { healthAnswers } from "./health";
+import { checkoutUrl } from "./payment/payment";
 import { ReviewStep } from "./review-step";
 import { ServiceStep } from "./service-step";
 import { slotsKey, TimeStep, type Picked } from "./time-step";
@@ -108,9 +109,16 @@ export function BookingFlow({ services, prefill }: { services: Service[]; prefil
       }
       if (status !== 201) throw new Error(`booking failed: ${status}`);
       const { booking, manageUrl } = await res.json();
-      // T13 moves this to after the payment.
-      track("booking_paid", { service: service.id, value: service.priceCents / 100, currency: "EUR" });
       const token = new URL(manageUrl).searchParams.get("token") ?? "";
+      // Paid online: on to Stripe. The api counts booking_paid when the payment arrives; if Stripe can't be
+      // opened, the booking page offers it again.
+      if (booking.status === "pending_payment") {
+        const url = await checkoutUrl(booking.id, token);
+        if (url && url !== "expired") return window.location.assign(url);
+        return router.replace({ pathname: `/booking/${booking.id}`, query: { token } });
+      }
+      // The event id is the one the api reports to Meta, so the two copies count once.
+      track("booking_paid", { service: service.id, value: service.priceCents / 100, currency: "EUR" }, `booking_paid-${booking.id}`);
       router.replace({ pathname: `/booking/${booking.id}`, query: { token, confirmed: "1" } });
     } catch {
       setNotice("unavailable");
@@ -127,25 +135,31 @@ export function BookingFlow({ services, prefill }: { services: Service[]; prefil
           <li
             key={s}
             aria-current={s === step ? "step" : undefined}
-            className={cn(
-              "flex flex-col gap-1.5 border-t-4 pt-2",
-              i <= index ? "border-primary" : "border-border text-muted-foreground",
-              s === step && "font-semibold",
-            )}
+            className={cn("flex flex-col gap-2", i > index && "text-muted-foreground", s === step && "font-semibold")}
           >
-            <span className="font-mono">{i + 1}</span>
-            <span>{t(`steps.${s}`)}</span>
+            <span aria-hidden className={cn("h-1.5 rounded-full", i <= index ? "bg-primary" : "bg-border")} />
+            <span className="flex items-center gap-1.5">
+              <span
+                className={cn(
+                  "flex size-5 shrink-0 items-center justify-center rounded-full font-mono text-[0.65rem] tabular-nums",
+                  i < index ? "bg-primary/15 text-primary" : i === index ? "bg-primary text-primary-foreground" : "bg-muted",
+                )}
+              >
+                {i + 1}
+              </span>
+              <span className="leading-tight">{t(`steps.${s}`)}</span>
+            </span>
           </li>
         ))}
       </ol>
 
       <section aria-labelledby="booking-step" className="flex flex-col gap-6">
-        <h2 id="booking-step" ref={heading} tabIndex={-1} className="font-heading text-2xl font-bold tracking-tight outline-none">
+        <h2 id="booking-step" ref={heading} tabIndex={-1} className="font-heading text-xl font-bold tracking-tight font-stretch-expanded outline-none md:text-2xl">
           {t(`${step}.heading`)}
         </h2>
 
         {notice === "slotTaken" && step === "time" && (
-          <p role="alert" className="rounded-md border border-amber-500/50 bg-amber-500/10 p-4">
+          <p role="alert" className="rounded-lg border border-warning/30 bg-warning/10 p-4 text-sm">
             {t("time.slotTaken")}
           </p>
         )}

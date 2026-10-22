@@ -169,6 +169,9 @@ describe("public", () => {
 
   test("with payments on, a paid service waits for payment and sends no email yet", async () => {
     vi.stubEnv("PAYMENTS_ENABLED", "true");
+    // Payments are on only with both Stripe keys (T13).
+    vi.stubEnv("STRIPE_SECRET_KEY", "sk_test_x");
+    vi.stubEnv("STRIPE_WEBHOOK_SECRET", "whsec_x");
     const { booking } = await book();
     vi.unstubAllEnvs();
     expect(booking).toMatchObject({ status: "pending_payment", paidVia: "none" });
@@ -359,6 +362,19 @@ describe("coach", () => {
     const free = Slot.array().parse(await (await send("GET", path)).json());
     expect(free[0]).toEqual({ start: monday16, end: "2026-11-02T15:45:00.000Z", coachId: ids.jakaCoachId, locationId: ids.labId });
     expect((await send("GET", `/coach/bookings/${booking.id}/slots?from=2026-11-02&to=2027-02-02`)).status).toBe(400);
+  });
+
+  test("coaches for the switcher: coach ids (not user ids), own first; a coach sees only their own", async () => {
+    expect((await send("GET", "/coach/coaches")).status).toBe(401);
+    as(people.ana);
+    expect((await send("GET", "/coach/coaches")).status).toBe(403);
+    as(people.jaka);
+    expect(await (await send("GET", "/coach/coaches")).json()).toEqual([
+      { id: ids.jakaCoachId, name: "jaka", own: true },
+      { id: ids.majaCoachId, name: "maja", own: false },
+    ]);
+    as(people.maja);
+    expect(await (await send("GET", "/coach/coaches")).json()).toEqual([{ id: ids.majaCoachId, name: "maja", own: true }]);
   });
 
   test("locations are listed for staff, the default first", async () => {

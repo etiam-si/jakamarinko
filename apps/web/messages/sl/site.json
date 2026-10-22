@@ -26,5 +26,8 @@
       "caption": "Evropsko prvenstvo U20, gorski tek",
       "alt": "Jaka Marinko v dresu slovenske reprezentance na čelu skupine na tekmi v gorskem teku"
     }
+  },
+  "sticky": {
+    "from": "Meritve od {price} €"
   }
 }

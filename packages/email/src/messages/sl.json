@@ -71,6 +71,12 @@
     "name": "Ime",
     "email": "E-pošta",
     "phone": "Telefon",
+    "topic": "Tema",
+    "topics": {
+      "coaching": "Trenerstvo",
+      "lab_test": "Laboratorijska meritev",
+      "other": "Kaj drugega"
+    },
     "message": "Sporočilo",
     "open": "Odpri med zahtevki"
   },

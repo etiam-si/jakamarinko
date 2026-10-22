@@ -32,6 +32,7 @@ pnpm db:generate         # after schema changes (see migration rule in docs/plan
 - Health data (heart rate, lab results, how someone feels) is GDPR special-category data: never log it, never send it anywhere without the consent the plan describes.
 - Tests: Vitest for logic and API routes, Playwright for user flows. A bug fix comes with a test that failed before.
 - Match the surrounding code: its comment density, naming and idioms. Small files, no speculative abstractions.
+- UI follows [docs/design.md](docs/design.md): its buttons, forms, cards, badges, empty states and page layouts. One primary action per screen; public pages lead with a call to action, not paragraphs.
 
 ## Never
 - Mention AI, artificial intelligence, models or similar in anything a customer can see: site, app, emails, ads, package names, SEO, error messages. Say "your plan", "your analysis". The only exception is the privacy policy (T17). Never claim the opposite either ("handwritten", "no software"), and never promise personal work from Jaka that the package doesn't include.

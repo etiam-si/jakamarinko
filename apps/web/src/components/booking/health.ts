@@ -25,3 +25,10 @@ export function healthAnswers(h: HealthForm): Record<string, boolean | string> {
   if (other) answers.other = other.slice(0, 500);
   return answers;
 }
+
+// Where a stored answer's label is under booking.health in the message files, for screens that show the answers
+// (the coach's booking details). Undefined for a key this form never asks.
+export function healthLabelKey(key: string) {
+  if (key === "other") return "other";
+  return (healthQuestions as readonly string[]).includes(key) ? `questions.${key}` : undefined;
+}

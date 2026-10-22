@@ -6,6 +6,7 @@ import { useRef, useState } from "react";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Field, FieldError, FieldHint, FormActions } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -63,11 +64,7 @@ export function DetailsStep({
   // aria-invalid and the message's id for a field that failed.
   const described = (f: Field) => (invalid(f) ? { "aria-invalid": true, "aria-describedby": `${f}-error` } : {});
   const error = (f: Field) =>
-    invalid(f) && (
-      <p id={`${f}-error`} className="text-sm text-destructive">
-        {t(`details.errors.${f}`)}
-      </p>
-    );
+    invalid(f) && <FieldError id={`${f}-error`}>{t(`details.errors.${f}`)}</FieldError>;
 
   return (
     <form
@@ -82,17 +79,18 @@ export function DetailsStep({
         requestAnimationFrame(() => form.current?.querySelector<HTMLElement>("[aria-invalid=true]")?.focus());
       }}
     >
-      <div className="flex flex-col gap-2">
+      <Field>
         <Label htmlFor="name">{t("details.name")}</Label>
         <Input id="name" autoComplete="name" value={d.name} onChange={(e) => set({ name: e.target.value })} {...described("name")} />
         {error("name")}
-      </div>
-      <div className="flex flex-col gap-2">
-        <Label htmlFor="email">{t("details.email")}</Label>
-        <Input id="email" type="email" autoComplete="email" value={d.email} onChange={(e) => set({ email: e.target.value })} {...described("email")} />
-        {error("email")}
-      </div>
-      <div className="flex flex-col gap-2">
+      </Field>
+      <div className="grid gap-5 sm:grid-cols-2">
+        <Field>
+          <Label htmlFor="email">{t("details.email")}</Label>
+          <Input id="email" type="email" autoComplete="email" value={d.email} onChange={(e) => set({ email: e.target.value })} {...described("email")} />
+          {error("email")}
+        </Field>
+        <Field>
         <Label htmlFor="phone">{t("details.phone")}</Label>
         <Input
           id="phone"
@@ -103,16 +101,15 @@ export function DetailsStep({
           aria-invalid={invalid("phone") || undefined}
           aria-describedby={invalid("phone") ? "phone-hint phone-error" : "phone-hint"}
         />
-        <p id="phone-hint" className="text-sm text-muted-foreground">
-          {t("details.phoneHint")}
-        </p>
+        <FieldHint id="phone-hint">{t("details.phoneHint")}</FieldHint>
         {error("phone")}
+        </Field>
       </div>
 
       {labTest && <HealthQuestions value={d.health} onChange={(health) => set({ health })} invalid={invalid("health")} />}
       {error("health")}
 
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-3">
         {labTest && (
           <div className="flex flex-col gap-2">
             <div className="flex items-start gap-3">
@@ -120,7 +117,7 @@ export function DetailsStep({
                 id="healthConsent"
                 checked={d.healthConsent}
                 onCheckedChange={(c) => set({ healthConsent: c === true })}
-                className="mt-1"
+                className="mt-0.5"
                 {...described("healthConsent")}
               />
               <Label htmlFor="healthConsent" className="leading-snug font-normal">
@@ -132,7 +129,7 @@ export function DetailsStep({
         )}
         <div className="flex flex-col gap-2">
           <div className="flex items-start gap-3">
-            <Checkbox id="terms" checked={d.terms} onCheckedChange={(c) => set({ terms: c === true })} className="mt-1" {...described("terms")} />
+            <Checkbox id="terms" checked={d.terms} onCheckedChange={(c) => set({ terms: c === true })} className="mt-0.5" {...described("terms")} />
             <Label htmlFor="terms" className="leading-snug font-normal">
               <span>{t.rich("details.terms", { terms: link("/legal/terms") })}</span>
             </Label>
@@ -141,14 +138,14 @@ export function DetailsStep({
         </div>
       </div>
 
-      <div className="flex flex-wrap gap-3">
+      <FormActions>
         <Button type="button" variant="outline" size="lg" onClick={onBack}>
           {t("back")}
         </Button>
         <Button type="submit" size="lg">
           {t("continue")}
         </Button>
-      </div>
+      </FormActions>
     </form>
   );
 }
@@ -156,15 +153,18 @@ export function DetailsStep({
 function HealthQuestions({ value, onChange, invalid }: { value: HealthForm; onChange: (h: HealthForm) => void; invalid: boolean }) {
   const t = useTranslations("booking.health");
   return (
-    <fieldset className="flex flex-col gap-4 rounded-lg border border-border p-4" aria-describedby={invalid ? "health-error" : undefined}>
-      <legend className="px-1 text-lg font-semibold">{t("heading")}</legend>
+    <fieldset className="flex flex-col gap-4 rounded-xl border bg-card p-4 shadow-sm sm:p-5" aria-describedby={invalid ? "health-error" : undefined}>
+      <legend className="px-1 font-heading text-lg font-bold font-stretch-expanded">{t("heading")}</legend>
       <p className="text-sm text-muted-foreground">{t("intro")}</p>
       {healthQuestions.map((q) => (
         <fieldset key={q} className="flex flex-col gap-2 border-t border-border pt-4">
           <legend className="float-left mb-2">{t(`questions.${q}`)}</legend>
-          <div className="clear-both flex gap-6">
+          <div className="clear-both grid w-full max-w-60 grid-cols-2 gap-2">
             {(["yes", "no"] as const).map((a) => (
-              <label key={a} className="flex items-center gap-2">
+              <label
+                key={a}
+                className="flex min-h-11 cursor-pointer items-center gap-2 rounded-lg border border-input px-3 has-checked:border-primary has-checked:bg-primary/10 has-[:focus-visible]:ring-[3px] has-[:focus-visible]:ring-ring/20"
+              >
                 <input
                   type="radio"
                   name={q}
@@ -181,14 +181,14 @@ function HealthQuestions({ value, onChange, invalid }: { value: HealthForm; onCh
         </fieldset>
       ))}
       {anyYes(value) && (
-        <p role="status" className="rounded-md border border-amber-500/50 bg-amber-500/10 p-4">
+        <p role="status" className="rounded-lg border border-warning/30 bg-warning/10 p-4 text-sm">
           {t("doctorNote")}
         </p>
       )}
-      <div className="flex flex-col gap-2 border-t border-border pt-4">
+      <Field className="border-t border-border pt-4">
         <Label htmlFor="health-other">{t("other")}</Label>
         <Textarea id="health-other" maxLength={500} value={value.other ?? ""} onChange={(e) => onChange({ ...value, other: e.target.value })} />
-      </div>
+      </Field>
     </fieldset>
   );
 }

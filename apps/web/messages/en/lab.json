@@ -4,27 +4,40 @@
     "description": "VO₂max, lactate profile, fat and carbohydrate use, running economy and anthropometry. What each test measures, how to prepare and what it costs."
   },
   "hero": {
-    "title": "Lab testing",
-    "subtitle": "Know your numbers. A lab test shows where you really are and gives you training zones based on your own body, not on formulas."
+    "title": "Lab tests: know your numbers",
+    "subtitle": "Training zones from your own body, not from formulas.",
+    "primaryCta": "Book a test",
+    "secondaryCta": "Which test is right for me?"
   },
   "what": {
-    "title": "What is a lab test?",
-    "text": "You run or ride at increasing intensity while your body's response is measured: heart rate, the oxygen you use and, from a drop of blood, your lactate. The result is a precise picture of your endurance: your thresholds, your VO₂max and the zones you should train in."
+    "title": "What happens in a test",
+    "s1": "You run or ride, a little harder every step.",
+    "s2": "Heart rate, oxygen use and, from a drop of blood, lactate are measured.",
+    "s3": "You get your thresholds, VO₂max and training zones."
   },
   "why": {
     "title": "Why test?",
-    "zones": "Train at the right intensity, with zones from your own thresholds instead of age formulas.",
-    "progress": "See real progress: a retest shows exactly what has changed.",
-    "race": "Race smarter, knowing the pace or power you can hold."
+    "zones": {
+      "title": "Train at the right intensity",
+      "text": "Zones from your own thresholds, not age formulas."
+    },
+    "progress": {
+      "title": "See real progress",
+      "text": "A retest shows exactly what changed."
+    },
+    "race": {
+      "title": "Race smarter",
+      "text": "Know the pace or power you can hold."
+    }
   },
   "choose": {
     "title": "Which test is right for me?",
-    "lactate": "Your first test, and you want training zones: lactate profile.",
-    "vo2max": "You want to know your aerobic ceiling: VO₂max test.",
-    "combined": "You want the most accurate zones: VO₂max + lactate.",
-    "fatCarb": "You train for long races: fat and carbohydrate use.",
-    "economy": "You're a runner looking for efficiency: running economy.",
-    "performance": "You want everything in one visit: Performance package."
+    "lactate": "First test, and you want training zones",
+    "vo2max": "You want to know your aerobic ceiling",
+    "combined": "You want the most accurate zones",
+    "fatCarb": "You train for long races",
+    "economy": "You're a runner looking for efficiency",
+    "performance": "You want everything in one visit"
   },
   "tests": {
     "title": "Tests and prices",
@@ -36,7 +49,7 @@
   },
   "prepare": {
     "title": "How to prepare",
-    "text": "Your booking confirmation includes the preparation for your test. In short: come rested, with no hard training in the 24 hours before, and fasted for the fat and carbohydrate test and the Performance package."
+    "text": "Come rested, with no hard training in the 24 hours before. Fasted for the fat and carbohydrate test and the Performance package. Full instructions come with your booking."
   },
   "location": {
     "title": "Where",

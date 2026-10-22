@@ -4,6 +4,7 @@ import { runMigrations } from "@jakamarinko/db";
 import { app } from "./app";
 import { seedBooking } from "./booking/seed";
 import { env } from "./env";
+import { logPaymentsStatus } from "./payments/config";
 
 // Apply new migrations before taking traffic.
 await runMigrations(env.MIGRATIONS_DIR);
@@ -11,6 +12,8 @@ await runMigrations(env.MIGRATIONS_DIR);
 await seed();
 // Service types from the catalog, and the sample availability (apps/api/src/booking/seed.ts).
 await seedBooking();
+// Online payment needs PAYMENTS_ENABLED and both Stripe keys; the log says which one is missing.
+logPaymentsStatus();
 
 // No hostname: Node listens on :: (IPv4 and IPv6), or 0.0.0.0 where IPv6 is off.
 serve({ fetch: app.fetch, port: env.PORT }, (info) => {

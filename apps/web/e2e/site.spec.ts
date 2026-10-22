@@ -58,6 +58,8 @@ for (const locale of ["en", "sl"] as const) {
       }
     });
 
+    // "Book a test" (header, hero, the phone bar) opens the booking at its first step; every other Book button
+    // names one service and opens the booking with it.
     test("every Book button goes to /booking with the right service", async ({ page }) => {
       const prefix = common[locale].actions.bookItem.replace("{name}", "");
       let checked = 0;
@@ -65,6 +67,10 @@ for (const locale of ["en", "sl"] as const) {
         await page.goto(`/${locale}${path}`);
         const links = page.locator('a[href*="/booking"]');
         for (const link of await links.all()) {
+          if ((await link.textContent())!.trim() === common[locale].actions.bookTest) {
+            await expect(link).toHaveAttribute("href", `/${locale}/booking`);
+            continue;
+          }
           const name = (await link.textContent())!.replace(prefix, "");
           const service = bookable.find((s) => s.name[locale] === name);
           expect(service, name).toBeDefined();

@@ -4,9 +4,11 @@ import type { Service } from "@jakamarinko/api";
 import type { Locale } from "@jakamarinko/types";
 import { useFormatter, useLocale, useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
+import { FormActions } from "@/components/ui/field";
 import { eurFormat, euros } from "@/components/site/site";
 import type { Details } from "./details-step";
 import { anyYes } from "./health";
+import { PaymentNote, usePayLabel } from "./payment/payment-note";
 import { formatWhen } from "./time";
 import type { Picked } from "./time-step";
 
@@ -37,12 +39,13 @@ export function ReviewStep({
     ["email", details.email.trim(), "details"],
     ["phone", details.phone.trim(), "details"],
   ] as const;
+  const payLabel = usePayLabel(service, submitting);
 
   return (
     <div className="flex flex-col gap-6">
-      <dl className="flex flex-col divide-y divide-border border-y border-border">
+      <dl className="flex flex-col divide-y divide-border overflow-hidden rounded-xl border bg-card shadow-sm">
         {rows.map(([key, value, edit]) => (
-          <div key={key} className="grid grid-cols-[5.5rem_1fr] items-baseline gap-3 py-3">
+          <div key={key} className="grid grid-cols-[5.5rem_1fr] items-baseline gap-3 px-4 py-3 sm:grid-cols-[7rem_1fr]">
             <dt className="text-sm text-muted-foreground">{t(`review.${key}`)}</dt>
             <dd className="flex items-baseline justify-between gap-3">
               <span className="font-medium break-words" data-testid={`review-${key}`}>
@@ -59,17 +62,17 @@ export function ReviewStep({
         ))}
       </dl>
       {service.kind === "lab_test" && anyYes(details.health) && (
-        <p className="rounded-md border border-amber-500/50 bg-amber-500/10 p-4">{t("health.doctorNote")}</p>
+        <p className="rounded-lg border border-warning/30 bg-warning/10 p-4 text-sm">{t("health.doctorNote")}</p>
       )}
-      <p>{t("review.payOnSite")}</p>
-      <div className="flex flex-wrap gap-3">
+      <PaymentNote service={service} />
+      <FormActions>
         <Button type="button" variant="outline" size="lg" onClick={() => onEdit("details")}>
           {t("back")}
         </Button>
-        <Button type="button" size="lg" disabled={submitting} onClick={onConfirm}>
-          {submitting ? t("review.confirming") : t("review.confirm")}
+        <Button type="button" size="lg" loading={submitting} onClick={onConfirm}>
+          {payLabel ?? (submitting ? t("review.confirming") : t("review.confirm"))}
         </Button>
-      </div>
+      </FormActions>
     </div>
   );
 }

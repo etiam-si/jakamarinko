@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
-import { useTranslations } from "next-intl";
+import { useFormatter, useTranslations } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import { use } from "react";
+import { labTests } from "@jakamarinko/types";
 import { Footer } from "@/components/site/footer";
 import { Header } from "@/components/site/header";
-import { siteUrl } from "@/components/site/site";
+import { StickyBook } from "@/components/site/sticky-book";
+import { eurFormat, euros, siteUrl } from "@/components/site/site";
 
 export const metadata: Metadata = { metadataBase: new URL(siteUrl) };
 
@@ -12,6 +14,8 @@ export const metadata: Metadata = { metadataBase: new URL(siteUrl) };
 export default function SiteLayout({ children, params }: { children: React.ReactNode; params: Promise<{ locale: string }> }) {
   setRequestLocale(use(params).locale);
   const t = useTranslations("site");
+  const format = useFormatter();
+  const cheapest = format.number(euros(Math.min(...labTests.map((l) => l.priceCents))), eurFormat);
   return (
     <>
       <a
@@ -25,6 +29,7 @@ export default function SiteLayout({ children, params }: { children: React.React
         {children}
       </div>
       <Footer />
+      <StickyBook from={t("sticky.from", { price: cheapest })} />
     </>
   );
 }

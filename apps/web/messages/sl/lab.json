@@ -4,27 +4,40 @@
     "description": "VO₂max, laktatni profil, poraba maščob in ogljikovih hidratov, ekonomičnost teka in antropometrija. Kaj posamezna meritev meri, kako se pripraviti in koliko stane."
   },
   "hero": {
-    "title": "Laboratorijske meritve",
-    "subtitle": "Spoznaj svoje številke. Meritev pokaže, kje zares si, in ti da trening cone, določene na podlagi tvojega telesa, ne formul."
+    "title": "Laboratorijske meritve: spoznaj svoje številke",
+    "subtitle": "Trening cone iz tvojega telesa, ne iz formul.",
+    "primaryCta": "Rezerviraj meritev",
+    "secondaryCta": "Katera meritev je prava zame?"
   },
   "what": {
-    "title": "Kaj je laboratorijska meritev?",
-    "text": "Tečeš ali kolesariš z naraščajočo intenzivnostjo, medtem ko se meri odziv tvojega telesa: srčni utrip, poraba kisika in iz kapljice krvi laktat. Rezultat je natančna slika tvoje vzdržljivosti: pragova, VO₂max in cone, v katerih bi moral trenirati."
+    "title": "Kako poteka meritev",
+    "s1": "Tečeš ali kolesariš, vsako stopnjo malo hitreje.",
+    "s2": "Meri se srčni utrip, poraba kisika in iz kapljice krvi laktat.",
+    "s3": "Dobiš svoja pragova, VO₂max in trening cone."
   },
   "why": {
     "title": "Zakaj meritev?",
-    "zones": "Treniraš s pravo intenzivnostjo, s conami iz lastnih pragov namesto formul glede na starost.",
-    "progress": "Vidiš resničen napredek: ponovna meritev natančno pokaže, kaj se je spremenilo.",
-    "race": "Tekmuješ pametneje, ker poznaš tempo ali moč, ki jo zdržiš."
+    "zones": {
+      "title": "Prava intenzivnost",
+      "text": "Cone iz tvojih pragov, ne iz formul glede na starost."
+    },
+    "progress": {
+      "title": "Resničen napredek",
+      "text": "Ponovna meritev natančno pokaže, kaj se je spremenilo."
+    },
+    "race": {
+      "title": "Pametnejše tekme",
+      "text": "Poznaš tempo ali moč, ki jo zdržiš."
+    }
   },
   "choose": {
     "title": "Katera meritev je prava zame?",
-    "lactate": "Tvoja prva meritev in želiš trening cone: laktatni profil.",
-    "vo2max": "Zanima te zgornja meja tvojega aerobnega motorja: meritev VO₂max.",
-    "combined": "Želiš najnatančnejše cone: VO₂max + laktat.",
-    "fatCarb": "Treniraš za dolge tekme: analiza porabe maščob in OH.",
-    "economy": "Si tekač in iščeš učinkovitost: ekonomičnost teka.",
-    "performance": "Želiš vse v enem obisku: Performance paket."
+    "lactate": "Prva meritev in želiš trening cone",
+    "vo2max": "Zanima te zgornja meja aerobnega motorja",
+    "combined": "Želiš najnatančnejše cone",
+    "fatCarb": "Treniraš za dolge tekme",
+    "economy": "Si tekač in iščeš učinkovitost",
+    "performance": "Želiš vse v enem obisku"
   },
   "tests": {
     "title": "Meritve in cene",
@@ -36,7 +49,7 @@
   },
   "prepare": {
     "title": "Kako se pripraviti",
-    "text": "V potrditvi rezervacije dobiš navodila za pripravo na svojo meritev. Na kratko: pridi spočit, 24 ur prej brez napornega treninga, za analizo porabe maščob in OH ter Performance paket pa na tešče."
+    "text": "Pridi spočit, 24 ur prej brez napornega treninga. Za analizo porabe maščob in OH ter Performance paket pridi na tešče. Vsa navodila dobiš ob rezervaciji."
   },
   "location": {
     "title": "Kje",

@@ -7,12 +7,13 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { usePathname, useRouter } from "@/i18n/navigation";
 import type { Coach } from "./coaches";
 
-// Whose calendar the coach pages show: ?coach=<id>, the signed-in coach when missing.
-export function CoachSwitcher({ coaches, self }: { coaches: Coach[]; self: string }) {
+// Whose calendar the coach pages show: ?coach=<coach id>, the signed-in coach's own when missing.
+export function CoachSwitcher({ coaches }: { coaches: Coach[] }) {
   const t = useTranslations("app.coachSwitcher");
   const router = useRouter();
   const pathname = usePathname();
-  const current = useSearchParams().get("coach") ?? self;
+  const self = coaches.find((c) => c.own)?.id;
+  const current = useSearchParams().get("coach") ?? self ?? "";
 
   function pick(id: string) {
     router.replace({ pathname, query: id === self ? {} : { coach: id } });
@@ -30,7 +31,7 @@ export function CoachSwitcher({ coaches, self }: { coaches: Coach[]; self: strin
         <SelectContent>
           {coaches.map((c) => (
             <SelectItem key={c.id} value={c.id}>
-              {c.id === self ? t("you", { name: c.name }) : c.name}
+              {c.own ? t("you", { name: c.name }) : c.name}
             </SelectItem>
           ))}
         </SelectContent>

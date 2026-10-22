@@ -6,13 +6,8 @@
   "title": "About me",
   "intro": "Endurance athlete, Faculty of Sport student and personal trainer.",
   "bio": {
-    "p1": "I'm Jaka Marinko, an endurance athlete, a student at the Faculty of Sport and a personal trainer who specialises in preparing athletes for endurance sports.",
-    "p2": "Sport has been part of my everyday life since I was a child. Years of racing at the top junior level gave me experience that I now combine with current sports science, to help others improve faster and more safely.",
-    "p3": "As a multiple junior national champion in ski mountaineering, cross-country skiing, roller skiing and mountain running, I've learned what it takes to reach top results.",
-    "p4": "My measured VO₂max is 80 ml/kg/min.",
-    "p5": "I'm especially proud of 5th place at Red Bull 400 Planica, where I set the fastest time among the juniors.",
-    "p6": "Today I build on that practical experience with my studies at the Faculty of Sport, going deeper into physiology, biomechanics, training methodology and sport psychology.",
-    "p7": "I believe the best results don't happen by chance. They come from careful planning, consistency and an individual approach."
+    "p1": "Sport has been part of my life since childhood. Years of racing at the top junior level gave me experience I now combine with sports science.",
+    "p2": "At the Faculty of Sport I study physiology, biomechanics, training methodology and sport psychology. Results come from planning, consistency and an individual approach."
   },
   "qualifications": {
     "title": "Qualifications",
@@ -51,5 +46,8 @@
       "18": "12:38",
       "19": "12:33"
     }
+  },
+  "hero": {
+    "secondaryCta": "Train with me"
   }
 }

@@ -1,12 +1,17 @@
-import { type Me, roleAllows } from "@jakamarinko/api";
+import { headers } from "next/headers";
+import { CoachSummary, roleAllows } from "@jakamarinko/api";
 import type { Role } from "@jakamarinko/types";
+import { api } from "@/lib/api";
 
-export type Coach = { id: string; name: string };
+export type Coach = CoachSummary;
 
-// Active coaches, for the head coach's calendar switcher. Stub: no api lists the `coaches` table yet (T10 PR,
-// "Blocked / needs"), and today Jaka is the only coach, so it's just the signed-in user.
-export async function getCoaches(session: Me): Promise<Coach[]> {
-  return [{ id: session.user.id, name: session.user.name || session.user.email }];
+// The calendars the signed-in coach may open, own first. Ids are coach ids (coaches.id), what ?coach= and the api's
+// coachId mean, not user ids.
+export async function getCoaches(): Promise<Coach[]> {
+  const cookie = (await headers()).get("cookie") ?? "";
+  const res = await api.booking.coach.coaches.$get(undefined, { headers: { cookie } });
+  if (!res.ok) throw new Error(`GET /api/booking/coach/coaches failed: ${res.status}`);
+  return CoachSummary.array().parse(await res.json());
 }
 
 // Head coach and owner pick whose calendar they see, once there is more than one coach to pick from.
