@@ -11,6 +11,7 @@ export function consoleTransport(dir = path.resolve(process.env.EMAIL_OUTBOX_DIR
       const id = `${new Date().toISOString().replace(/[:.]/g, "-")}-${Math.random().toString(36).slice(2, 8)}`;
       const file = path.join(dir, `${id}.html`);
       await writeFile(file, email.html);
+      for (const a of email.attachments ?? []) await writeFile(path.join(dir, `${id}-${a.filename}`), a.content);
       console.log(`email [${email.locale}] to ${email.to}: ${email.subject}\n  ${file}`);
       return { ok: true, id };
     } catch (err) {

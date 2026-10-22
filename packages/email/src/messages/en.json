@@ -1,0 +1,76 @@
+{
+  "layout": {
+    "tagline": "Endurance Performance",
+    "contact": "Questions? Write to {email} or call {phone}.",
+    "unsubscribe": "Unsubscribe"
+  },
+  "common": {
+    "greeting": "Hi {name},",
+    "greetingNoName": "Hi,",
+    "service": "Service",
+    "when": "When",
+    "where": "Where",
+    "map": "Open in maps",
+    "signoff": "See you soon,",
+    "signature": "Jaka"
+  },
+  "magicLink": {
+    "subject": "Your sign-in link",
+    "preview": "Sign in to your Jaka Marinko account",
+    "intro": "Use the button below to sign in. The link works once and expires in {minutes} minutes.",
+    "button": "Sign in",
+    "ignore": "If you didn't ask for this, you can ignore this email."
+  },
+  "bookingConfirmation": {
+    "subject": "Booking confirmed: {service}, {date}",
+    "preview": "Your booking is confirmed",
+    "intro": "Your booking is confirmed. The calendar invite is attached.",
+    "payOnSite": "You pay on site, by card or cash.",
+    "paid": "Your payment has been received.",
+    "manage": "Manage your booking",
+    "prepNote": "We'll send you a short email on how to prepare."
+  },
+  "bookingPreparation": {
+    "subject": "How to prepare for your {service}",
+    "preview": "A few things to do before your test",
+    "intro": "Your {service} is on {date}. To get accurate results:",
+    "noHardTraining": "No hard training in the 24 hours before the test. Easy movement is fine.",
+    "fasted": "Come fasted: nothing to eat for 10 hours before the test. Water is fine.",
+    "meal": "Eat a light meal 2 to 3 hours before the test and drink normally.",
+    "sleep": "Sleep well the night before and skip coffee on the day of the test.",
+    "bringTitle": "What to bring",
+    "bring": "Sports clothes and the shoes you train in, a towel and a water bottle.",
+    "questions": "If you're ill or injured, let us know and we'll move the test."
+  },
+  "bookingReminder": {
+    "subject": "Tomorrow: {service} at {time}",
+    "preview": "A reminder for your booking tomorrow",
+    "intro": "A reminder that your booking is tomorrow.",
+    "reschedule": "Can't make it? Change or cancel your booking"
+  },
+  "bookingCancelled": {
+    "subject": "Booking cancelled: {service}, {date}",
+    "preview": "Your booking has been cancelled",
+    "intro": "Your booking has been cancelled.",
+    "reason": "Reason: {reason}",
+    "refund": "If you paid online, the full amount will be refunded to your card within 5 to 10 days.",
+    "rebook": "Book a new time"
+  },
+  "contactReceived": {
+    "subject": "New message from {name}",
+    "preview": "New message from the contact form",
+    "intro": "Someone sent a message through the contact form.",
+    "name": "Name",
+    "email": "Email",
+    "phone": "Phone",
+    "message": "Message",
+    "open": "Open in requests"
+  },
+  "contactAutoReply": {
+    "subject": "We got your message",
+    "preview": "Thanks for getting in touch",
+    "intro": "Thanks for your message. We'll reply within two working days.",
+    "meanwhile": "In the meantime, you can look at the lab tests and coaching packages on the website.",
+    "button": "Visit the website"
+  }
+}
