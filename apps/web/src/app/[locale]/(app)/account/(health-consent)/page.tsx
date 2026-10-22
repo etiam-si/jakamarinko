@@ -41,6 +41,7 @@ export default async function AccountPage({ params }: Props) {
             <Block entry={entry} />
           </Suspense>
         ))}
+        {/* The referral card (US-012, components/offers) takes a slot here, after the blocks. */}
       </div>
     </>
   );

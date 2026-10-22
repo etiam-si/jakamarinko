@@ -55,7 +55,7 @@ export function ReviewStep({
                 {value}
               </span>
               {edit && (
-                <Button type="button" variant="link" className="-my-3 -mr-2 h-11 shrink-0 px-2 has-[>svg]:px-2" onClick={() => onEdit(edit)}>
+                <Button type="button" variant="link" className="-my-3 -mr-2 h-11 min-w-11 shrink-0 px-2 has-[>svg]:px-2" onClick={() => onEdit(edit)}>
                   {t("review.edit")}
                   <span className="sr-only">{t(`review.${key}`)}</span>
                 </Button>
@@ -68,6 +68,7 @@ export function ReviewStep({
         <p className="rounded-lg border border-warning/30 bg-warning/10 p-4 text-sm">{t("health.doctorNote")}</p>
       )}
       <PaymentNote service={service} />
+      {/* The offer code field (US-012, components/offers) goes here, right under the price. */}
       <p className="flex items-center gap-2 text-sm font-medium text-success">
         <ShieldCheck aria-hidden className="size-4 shrink-0" />
         {t("time.cancellation")}
