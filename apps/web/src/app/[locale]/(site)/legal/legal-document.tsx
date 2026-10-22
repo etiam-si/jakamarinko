@@ -32,17 +32,17 @@ export async function LegalDocument({ doc }: { doc: Doc }) {
     });
 
   return (
-    <main className="mx-auto flex max-w-3xl flex-col gap-8 px-6 py-10">
-      <header className="flex flex-col gap-2">
-        <h1 className="text-3xl font-semibold tracking-tight">{t(`${doc}.title`)}</h1>
-        <p className="text-muted-foreground text-sm">{t(`${doc}.updated`)}</p>
+    <main className="mx-auto flex w-full max-w-3xl flex-col gap-10 px-4 pt-10 pb-20 sm:px-6 md:pt-14">
+      <header className="flex flex-col gap-3">
+        <h1 className="font-heading text-[2.25rem] leading-[1.04] font-extrabold tracking-tight font-stretch-expanded sm:text-5xl">{t(`${doc}.title`)}</h1>
+        <p className="font-mono text-xs tracking-wider text-muted-foreground uppercase">{t(`${doc}.updated`)}</p>
       </header>
       {Object.entries(sections).map(([id, section]) => (
-        <section key={id} id={id} className="flex flex-col gap-3">
-          <h2 className="text-xl font-semibold">{section.title}</h2>
+        <section key={id} id={id} className="flex scroll-mt-24 flex-col gap-3 leading-relaxed text-pretty">
+          <h2 className="font-heading text-xl font-bold font-stretch-expanded md:text-2xl">{section.title}</h2>
           {section.body.map((block, i) =>
             Array.isArray(block) ? (
-              <ul key={i} className="flex list-disc flex-col gap-2 pl-6">
+              <ul key={i} className="flex list-disc flex-col gap-2 pl-6 marker:text-primary">
                 {block.map((_, j) => (
                   <li key={j}>{rich(`${id}.body.${i}.${j}`)}</li>
                 ))}

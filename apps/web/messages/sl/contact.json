@@ -3,8 +3,8 @@
     "title": "Kontakt: Jaka Marinko",
     "description": "Trening, meritve ali sodelovanje: telefon, e-pošta in Instagram."
   },
-  "title": "Pogovoriva se o tvojem cilju",
-  "text": "Pokliči, piši ali pošlji sporočilo spodaj. Odgovoril ti bom v najkrajšem času.",
+  "title": "Napiši mi svoj cilj. Predlagal ti bom, kje začeti.",
+  "text": "Meritve, trenerstvo ali priprava na tekmo: odgovorim v dveh delovnih dneh.",
   "phone": {
     "label": "Telefon",
     "value": "+386 64 146 508",
@@ -27,6 +27,9 @@
   },
   "book": {
     "title": "Že veš, katero meritev želiš?",
-    "text": "Rezerviraj jo na spletu. Sporočilo ni potrebno."
-  }
+    "text": "Rezerviraj jo na spletu. Sporočilo ni potrebno.",
+    "cta": "Rezerviraj na spletu"
+  },
+  "proof": "VO₂max 80 · reprezentant U20 · študent Fakultete za šport",
+  "direct": "Ali pokliči ali piši"
 }

@@ -57,3 +57,121 @@
     @apply font-sans;
     }
 }
+@layer base {
+  /* Chromium's hinted advances open odd gaps around t and f in Archivo ("t hresholds"); unhinted geometry keeps
+     the spacing the font was drawn with. */
+  body {
+    text-rendering: geometricPrecision;
+    -webkit-font-smoothing: antialiased;
+  }
+  /* Headlines break into even lines; paragraphs avoid a lone last word. */
+  h1, h2, h3 {
+    text-wrap: balance;
+  }
+  p, li, figcaption {
+    text-wrap: pretty;
+  }
+  /* One focus style for everything that isn't a styled control (links, summaries, cards that are links). */
+  :where(a, summary, [tabindex]):focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 3px;
+    border-radius: 0.25rem;
+  }
+}
+
+/* Scroll reveal (components/ui/reveal.tsx). Everything is visible by default: the script marks only what is below the
+   fold as "pending", then "in" as it scrolls into view, so no-JS, crawlers and reduced motion see the page as is.
+   Children with data-reveal-item follow their section in a short stagger (--i = their index). */
+[data-reveal="pending"] {
+  opacity: 0;
+  transform: translateY(24px);
+}
+[data-reveal="pending"] [data-reveal-item] {
+  opacity: 0;
+  transform: translateY(16px);
+}
+[data-reveal="in"] {
+  transition:
+    opacity 500ms var(--ease-out-quart),
+    transform 700ms var(--ease-out-expo);
+}
+[data-reveal="in"] [data-reveal-item] {
+  transition:
+    opacity 450ms var(--ease-out-quart),
+    transform 650ms var(--ease-out-expo);
+  transition-delay: calc(120ms + min(var(--i, 0), 8) * 70ms);
+}
+
+/* Chart lines (lactate curve, Šmarna gora) draw themselves in on load, or when their section is revealed. */
+.draw-path {
+  animation: var(--animate-draw);
+  animation-delay: 200ms;
+}
+[data-reveal="pending"] .draw-path {
+  animation: none;
+  stroke-dashoffset: 1;
+}
+
+/* FAQ answers slide open where the browser can animate to auto height (Chrome 131+); elsewhere they just open. */
+@supports (interpolate-size: allow-keywords) {
+  .faq {
+    interpolate-size: allow-keywords;
+  }
+  .faq details::details-content {
+    block-size: 0;
+    overflow: clip;
+    transition:
+      block-size var(--duration-slow) var(--ease-out-expo),
+      content-visibility var(--duration-slow) allow-discrete;
+  }
+  .faq details[open]::details-content {
+    block-size: auto;
+  }
+}
+
+/* Cards that lift: a 2 px rise and a deeper shadow on hover (mouse only), a slight press on touch. */
+@utility lift {
+  transition-property: transform, box-shadow, border-color;
+  transition-duration: var(--duration-base);
+  transition-timing-function: var(--ease-out-quart);
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-lg);
+    }
+  }
+  &:active {
+    transform: translateY(0) scale(0.99);
+    transition-duration: 100ms;
+  }
+}
+
+/* The zone colours as one strip, cool to hot: the brand's data motif under photos, bands and the footer. */
+@utility zone-strip {
+  background-image: linear-gradient(
+    to right,
+    var(--zone-1) 0 20%,
+    var(--zone-2) 20% 40%,
+    var(--zone-3) 40% 60%,
+    var(--zone-4) 60% 80%,
+    var(--zone-5) 80% 100%
+  );
+}
+
+/* Reduced motion: no movement anywhere. Animations jump to their end state; transitions are instant. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+  }
+  [data-reveal],
+  [data-reveal] [data-reveal-item] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
