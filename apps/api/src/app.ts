@@ -3,6 +3,7 @@ import { notFound, onError } from "./lib/errors";
 import { account } from "./routes/account";
 import { auth } from "./routes/auth";
 import { booking } from "./routes/booking";
+import { calendar } from "./calendar/routes";
 import { events } from "./routes/events";
 import { health } from "./routes/health";
 import { contactRequests } from "./routes/requests";
@@ -17,6 +18,7 @@ export const app = new Hono()
   .route("/booking", booking)
   .route("/requests", contactRequests)
   .route("/account", account)
+  .route("/calendar", calendar)
   .route("/health", health);
 
 app.onError(onError);

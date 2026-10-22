@@ -4,6 +4,7 @@ import type { Booking, CoachBooking, CreateBookingInput, ServiceId } from "@jaka
 import type { SessionUser } from "@jakamarinko/auth";
 import { db } from "@jakamarinko/db";
 import { bookings, locations, serviceTypes } from "@jakamarinko/db/schema";
+import { syncSoon } from "../calendar/push";
 import { ApiError } from "../lib/errors";
 import { coachSlots, lockCoach } from "./calendar";
 import type { BookingConfig } from "./config";
@@ -124,6 +125,7 @@ export async function createBooking(input: CreateBookingInput, user: SessionUser
       .returning({ id: bookings.id });
     return row!.id;
   }).catch(scrub);
+  syncSoon(id);
   return findBooking(id);
 }
 
@@ -151,6 +153,7 @@ export async function rescheduleBooking(row: BookingRow, start: Date, now: Date,
       .set({ startAt: slot.start, endAt: slot.end, locationId: slot.locationId, reminderSentAt: null })
       .where(eq(bookings.id, b.id));
   });
+  syncSoon(b.id);
   return findBooking(b.id);
 }
 
@@ -159,5 +162,6 @@ export async function cancelBooking(row: BookingRow, now: Date, reason?: string)
     .update(bookings)
     .set({ status: "cancelled", cancelledAt: now, cancelReason: reason || null })
     .where(eq(bookings.id, row.booking.id));
+  syncSoon(row.booking.id);
   return findBooking(row.booking.id);
 }

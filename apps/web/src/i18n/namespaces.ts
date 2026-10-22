@@ -18,6 +18,7 @@ export const namespaces = [
   "coach-booking",
   "booking",
   "account",
+  "calendar",
 ] as const;
 
 export type Namespace = (typeof namespaces)[number];
