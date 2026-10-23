@@ -508,6 +508,37 @@ test.describe("sign-in", () => {
   });
 });
 
+test.describe("layout shift", () => {
+  // N11: nothing in the header or the text moves once the web font and the session check arrive. Summed from the
+  // layout-shift entries until a second after load, with and without a cookie choice (the banner is in the HTML).
+  for (const width of [390, 768, 1440]) {
+    test(`layout shift: CLS at most 0.02 at ${width} px on the legal pages, home and lab`, async ({ browser, baseURL }) => {
+      test.setTimeout(120_000);
+      for (const consent of [true, false]) {
+        const context = await browser.newContext({ baseURL, viewport: { width, height: 1024 } });
+        if (consent) await context.addCookies([consentCookie(baseURL!)]);
+        const page = await context.newPage();
+        await page.addInitScript(() => {
+          const w = window as unknown as { __cls: number };
+          w.__cls = 0;
+          new PerformanceObserver((list) => {
+            for (const entry of list.getEntries() as (PerformanceEntry & { value: number; hadRecentInput: boolean })[]) {
+              if (!entry.hadRecentInput) w.__cls += entry.value;
+            }
+          }).observe({ type: "layout-shift", buffered: true });
+        });
+        for (const path of ["/en/legal/privacy", "/en/legal/terms", "/en/legal/cookies", "/sl/legal/terms", "/en", "/en/lab"]) {
+          await page.goto(path, { waitUntil: "load" });
+          await page.waitForTimeout(1000);
+          const cls = await page.evaluate(() => (window as unknown as { __cls: number }).__cls);
+          expect(cls, `${path} at ${width} px, ${consent ? "consent chosen" : "banner open"}`).toBeLessThanOrEqual(0.02);
+        }
+        await context.close();
+      }
+    });
+  }
+});
+
 test.describe("cookie sheet", () => {
   test("cookie sheet: compact on a phone, clear of the hero headline and its Book button, above the home bar", async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });

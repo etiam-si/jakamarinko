@@ -15,7 +15,11 @@ const archivo = localFont({
   display: "swap",
   // No preload: it held back the first paint on mobile (Lighthouse, T08); the metric-matched fallback keeps CLS at 0.
   preload: false,
-  adjustFontFallback: "Arial",
+  // next/font's own Arial match uses one size for every weight and comes out 3–6 % wider than Archivo in real text,
+  // and there's none for systems without Arial (Linux, where the shift measured 0.05 on the legal pages at 768 px).
+  // The fallbacks in globals.css are measured per weight instead.
+  adjustFontFallback: false,
+  fallback: ["Archivo Fallback", "Archivo Fallback Linux", "sans-serif"],
 });
 
 const martian = localFont({
