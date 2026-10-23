@@ -1,3 +1,4 @@
+import { offerRules } from "@jakamarinko/api";
 import { ArrowRight, Check, Gauge, MessageSquareText, Waves } from "lucide-react";
 import type { Metadata } from "next";
 import { useFormatter, useTranslations } from "next-intl";
@@ -106,7 +107,7 @@ export default function Home({ params }: Props) {
             <Check aria-hidden className="mt-0.5 size-4 shrink-0 text-primary" />
             {t("hero.note", { price: price(lactate.priceCents) })}
           </p>
-          <FoundingCounter />
+          <FoundingCounter percent={offerRules.foundingPercent} />
         </div>
         <PhotoFrame
           src={photos.redBull}

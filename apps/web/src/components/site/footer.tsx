@@ -1,6 +1,6 @@
 import { ArrowRight, ExternalLink } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { BRAND_LINE, Logo } from "@/components/brand/logo";
+import { BRAND_LINE, BRAND_NAME } from "@/components/brand/logo";
 import { ConsentSettingsLink } from "@/components/consent/consent-settings-link";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
@@ -37,7 +37,9 @@ export function Footer() {
       <div aria-hidden className="zone-strip h-1" />
       <div className="mx-auto grid max-w-6xl gap-x-6 gap-y-10 px-4 pt-14 pb-10 sm:px-6 md:px-8 md:pt-20 lg:grid-cols-[1.2fr_repeat(4,1fr)] lg:gap-x-10">
         <div className="flex flex-col items-start gap-5 lg:pr-6">
-          <Logo className="h-11" />
+          {/* The light logo file, not the inline Logo: 13 kB less in every page and its payload, and cached. */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/brand/logo-dark.svg" alt={`${BRAND_NAME} — ${BRAND_LINE}`} width={140} height={44} loading="lazy" className="h-11 w-auto" />
           <p className="max-w-xs text-pretty text-muted-foreground">{t("tagline")}</p>
           <Button asChild variant="outline" className="mt-1">
             <Link href="/booking">

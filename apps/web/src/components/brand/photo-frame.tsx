@@ -59,7 +59,7 @@ export function PhotoFrame({
             alt={alt}
             fill
             sizes={sizes}
-            loading={hero ? "eager" : undefined}
+            preload={hero}
             fetchPriority={hero ? "high" : undefined}
             className={cn(
               "object-cover",
