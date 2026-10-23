@@ -40,7 +40,8 @@ export function StickyBook({
   useEffect(() => {
     if (hidden) return;
     setOptedOut(!!document.querySelector("[data-no-sticky]"));
-    const footer = document.querySelector("footer");
+    // The page footer, not a <footer> inside an article (a quote card).
+    const footer = document.querySelector("footer:not(main footer)");
     if (!footer) return;
     const observer = new IntersectionObserver(([entry]) => setAtFooter(!!entry?.isIntersecting));
     observer.observe(footer);

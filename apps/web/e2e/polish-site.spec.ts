@@ -544,7 +544,7 @@ test.describe("US-010 conversion", () => {
     const bar = page.locator("[data-sticky-cta]");
     await page.locator("[data-proof]").first().scrollIntoViewIfNeeded();
     await expect(bar).toHaveAttribute("data-shown", "true");
-    await page.locator("footer").scrollIntoViewIfNeeded();
+    await page.getByRole("contentinfo").scrollIntoViewIfNeeded();
     await expect(bar).toHaveAttribute("data-shown", "false");
     // A referral or gift link would lose its code through the plain booking link; the 404 has its own actions.
     for (const p of ["/r/ABCDEFGH", "/gift/NOPE1234", "/does-not-exist"]) {
