@@ -3,7 +3,7 @@ import { getFormatter, getTranslations, setRequestLocale } from "next-intl/serve
 import { offerRules } from "@jakamarinko/api";
 import { SectionHeading } from "@/components/brand/section-heading";
 import { Section } from "@/components/site/section";
-import { eurFormat, euros } from "@/components/site/site";
+import { euro } from "@/components/site/site";
 import { buttonVariants } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
 
@@ -22,7 +22,7 @@ export default async function InvitePage({ params }: Props) {
   setRequestLocale(locale);
   const t = await getTranslations("offers.invite");
   const format = await getFormatter();
-  const amount = format.number(euros(offerRules.referralCents), eurFormat);
+  const amount = euro(format, offerRules.referralCents);
   const clean = decodeURIComponent(code).trim().toUpperCase();
 
   return (

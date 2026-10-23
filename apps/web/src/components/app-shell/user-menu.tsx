@@ -2,7 +2,7 @@
 
 import { ArrowLeftRight, Check, LogOut } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
-import { BibAvatar } from "@/components/brand/bib-avatar";
+import { AccountAvatar } from "@/components/brand/account-avatar";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -41,7 +41,7 @@ export function UserMenu({ name, email, switchTo, compact }: Props) {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" aria-label={t("label")} className={compact ? "size-11 p-0" : "h-14 w-full justify-start gap-3 px-2"}>
-          <BibAvatar initials={initials(name, email)} />
+          <AccountAvatar initials={initials(name, email)} />
           {!compact && (
             <span className="flex min-w-0 flex-col items-start text-left">
               <span className="w-full truncate text-sm font-medium">{name || email}</span>

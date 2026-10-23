@@ -57,7 +57,7 @@ export default async function MyBookingsPage({ params }: Props) {
       <>
         <PageHeader title={t("title")} lead={t("lead")} />
         <EmptyState icon={CalendarDays} title={t("emptyTitle")} body={t("emptyBody")}>
-          <Button asChild className="max-md:h-11">
+          <Button asChild className="h-11">
             <Link href="/booking">{tb("book")}</Link>
           </Button>
         </EmptyState>
@@ -71,7 +71,7 @@ export default async function MyBookingsPage({ params }: Props) {
         title={t("title")}
         lead={t("lead")}
         action={
-          <Button asChild className="max-md:h-11">
+          <Button asChild className="h-11">
             <Link href="/booking">{tb("book")}</Link>
           </Button>
         }

@@ -179,7 +179,7 @@ describe("codes", () => {
     expect(booking).toMatchObject({ status: "confirmed", priceCents: 7200 });
     expect(await redemptionOf(booking.id)).toMatchObject({ listCents: 9000, savedCents: 1800, paidCents: 7200 });
     // The confirmation says what to pay on site.
-    expect(outbox[0]!.text).toContain("You pay €72 on site");
+    expect(outbox[0]!.text).toContain("You pay 72\u00a0€ on site");
   });
 
   test("a free code: confirmed at 0 € with nothing to pay, even with online payment on", async () => {
@@ -312,7 +312,7 @@ describe("referrals", () => {
     const credits = await database.select().from(offerCodes).where(eq(offerCodes.kind, "credit"));
     expect(credits).toHaveLength(1);
     expect(credits[0]).toMatchObject({ discountType: "fixed", value: 1000, email: "ana@example.com", ownerUserId: "ana", maxUses: 1 });
-    expect(outbox.map((e) => [e.to, e.subject])).toEqual([["ana@example.com", "€10 credit for your next test"]]);
+    expect(outbox.map((e) => [e.to, e.subject])).toEqual([["ana@example.com", "10\u00a0€ credit for your next test"]]);
     expect(outbox[0]!.text).toContain(credits[0]!.code);
 
     // Completed again (the route says no; the hook itself makes nothing new either).
@@ -493,7 +493,7 @@ describe("gift vouchers", () => {
     const paid = { id: row!.stripeCheckoutSessionId, payment_status: "paid", customer_email: "buyer@example.com", metadata: { gift_code_id: row!.id, locale: "en" } } as unknown as Stripe.Checkout.Session;
     expect(await activateGift(paid, bookingConfig())).toBe(true);
     await activateGift(paid, bookingConfig());
-    expect(outbox.map((e) => e.subject)).toEqual(["Your gift voucher: €90"]);
+    expect(outbox.map((e) => e.subject)).toEqual(["Your gift voucher: 90\u00a0€"]);
     expect((await call("GET", `/offers/gift/${row!.code}`)).status).toBe(200);
   });
 });

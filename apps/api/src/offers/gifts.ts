@@ -98,8 +98,8 @@ export async function giftCheckout(input: GiftCheckoutInput, now: Date, payments
   return session.url!;
 }
 
-const formatEur = (cents: number, locale: Locale) =>
-  new Intl.NumberFormat(intl[locale], { style: "currency", currency: "EUR", maximumFractionDigits: cents % 100 ? 2 : 0 }).format(cents / 100);
+// "90 €", as the site writes prices.
+const formatEur = (cents: number, locale: Locale) => `${new Intl.NumberFormat(intl[locale], { maximumFractionDigits: 2 }).format(cents / 100)}\u00a0€`;
 
 // A paid voucher session switches its code on and emails the buyer the voucher, once.
 export async function activateGift(session: Stripe.Checkout.Session, config: BookingConfig) {

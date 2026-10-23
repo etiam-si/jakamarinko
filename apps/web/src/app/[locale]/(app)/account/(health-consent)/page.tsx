@@ -25,7 +25,7 @@ export default async function AccountPage({ params }: Props) {
         title={t("app.pages.overview.title")}
         lead={t("auth.account.signedInAs", { email: session?.user.email ?? "" })}
         action={
-          <Button asChild className="max-md:h-11">
+          <Button asChild className="h-11">
             <Link href="/booking">{t("common.actions.bookTest")}</Link>
           </Button>
         }

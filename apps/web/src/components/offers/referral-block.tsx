@@ -2,7 +2,7 @@ import { headers } from "next/headers";
 import { getFormatter, getLocale, getTranslations } from "next-intl/server";
 import { offerRules, Referral } from "@jakamarinko/api";
 import { OverviewBlock } from "@/components/account/overview-block";
-import { eurFormat, euros } from "@/components/site/site";
+import { euro } from "@/components/site/site";
 import { redirect } from "@/i18n/navigation";
 import { api } from "@/lib/api";
 import { CopyShare } from "./copy-share";
@@ -17,13 +17,13 @@ export default async function ReferralBlock() {
   if (res.status === 401) redirect({ href: { pathname: "/sign-in", query: { next: "/account" } }, locale: await getLocale() });
   if (!res.ok) throw new Error(`GET /api/offers/referral failed: ${res.status}`);
   const referral = Referral.parse(await res.json());
-  const eur = (cents: number) => format.number(euros(cents), eurFormat);
+  const eur = (cents: number) => euro(format, cents);
   const amount = eur(offerRules.referralCents);
 
   return (
     <OverviewBlock id="referral" title={t("title")} state={{ kind: "ready" }}>
       <p className="text-sm text-pretty">{t("text", { amount })}</p>
-      <CopyShare url={referral.url} shareText={t("shareText", { amount })} />
+      <CopyShare url={referral.url} code={referral.code} shareText={t("shareText", { amount })} />
       <div className="flex flex-col gap-2">
         <h3 className="text-sm font-semibold">{t("credits")}</h3>
         {referral.credits.length === 0 ? (

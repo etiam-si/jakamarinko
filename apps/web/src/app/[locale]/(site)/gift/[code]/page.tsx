@@ -7,7 +7,7 @@ import { SectionHeading } from "@/components/brand/section-heading";
 import { Unavailable } from "@/components/booking/unavailable";
 import { PrintButton } from "@/components/offers/print-button";
 import { Section } from "@/components/site/section";
-import { eurFormat, euros } from "@/components/site/site";
+import { euro } from "@/components/site/site";
 import { buttonVariants } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
 import { api } from "@/lib/api";
@@ -54,7 +54,7 @@ export default async function GiftPage({ params, searchParams }: Props) {
     );
   }
 
-  const worth = t("worth", { amount: format.number(euros(voucher.valueCents), eurFormat) });
+  const worth = t("worth", { amount: euro(format, voucher.valueCents) });
   const book = { pathname: "/booking", query: { ...(voucher.service && { service: voucher.service }), code: voucher.code } };
   return (
     <main>
