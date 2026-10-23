@@ -39,7 +39,7 @@ export const landingPages: LandingPage[] = [
   {
     slug: "performance",
     offer: { kind: "test", id: "performance" },
-    photo: "redBull",
+    photo: "europeans",
     blocks: ["hero", "price", "points", "proof", "faq", "cta"],
     faq: [
       "landing.faq.fit",

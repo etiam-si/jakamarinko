@@ -20,7 +20,13 @@ type Props = { page: LandingPage; locale: Locale };
 function Action({ page, locale, variant = "default", primary = false }: Props & { variant?: "default" | "outline" | "secondary"; primary?: boolean }) {
   const t = useTranslations(`landing.pages.${page.slug}`);
   return (
-    <Button asChild size="lg" variant={variant} className="w-full sm:w-auto sm:self-start" data-cta={primary ? "primary" : "secondary"}>
+    <Button
+      asChild
+      size="lg"
+      variant={variant}
+      className="h-auto min-h-12 w-full py-2.5 text-center text-balance whitespace-normal sm:w-auto sm:self-start"
+      data-cta={primary ? "primary" : "secondary"}
+    >
       <Link href={offerItem(page.offer, locale).href}>
         {t("cta")}
         <ArrowRight aria-hidden />
@@ -41,6 +47,9 @@ function usePrices(page: LandingPage, locale: Locale) {
   };
 }
 
+// Where the subject of each photo sits, so a portrait crop keeps Jaka in it.
+const positions: Partial<Record<keyof typeof photos, string>> = { europeans: "12% 50%", redBull: "55% 30%", trail: "62% 75%", xcSki: "35% 35%" };
+
 function Hero({ page, locale }: Props) {
   const t = useTranslations(`landing.pages.${page.slug}`);
   const site = useTranslations("site");
@@ -56,7 +65,7 @@ function Hero({ page, locale }: Props) {
         <div className="flex flex-col gap-4">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-5">
             <Action page={page} locale={locale} primary />
-            <p className="flex items-baseline gap-1.5 font-heading text-2xl font-extrabold tabular-nums font-stretch-expanded max-sm:justify-center">
+            <p className="flex items-baseline gap-1.5 font-heading text-2xl font-extrabold tabular-nums font-stretch-expanded">
               {price}
               {item.monthly && <span className="font-sans text-sm font-normal text-muted-foreground">{site("perMonth")}</span>}
             </p>
@@ -73,11 +82,12 @@ function Hero({ page, locale }: Props) {
         src={photos[page.photo]}
         alt={site(`photos.${page.photo}.alt`)}
         caption={site(`photos.${page.photo}.caption`)}
+        position={positions[page.photo]}
         hero
         depth
         strip
         sizes="(min-width: 1024px) 24rem, (min-width: 640px) 24rem, calc(100vw - 2.625rem)"
-        className="mx-auto max-w-sm lg:max-w-none"
+        className="mx-auto max-w-[22.5rem] lg:max-w-none"
       />
     </Section>
   );
@@ -107,7 +117,7 @@ function Points({ page, locale }: Props) {
 
 // Jaka's own results on the graphite band, the same numbers as on the home page.
 function Proof({ page, locale }: Props) {
-  return <ProofBand action={<Action page={page} locale={locale} variant="outline" />} />;
+  return <ProofBand compact action={<Action page={page} locale={locale} variant="outline" />} />;
 }
 
 function Price({ page, locale }: Props) {

@@ -92,7 +92,7 @@
 }
 [data-reveal="in"] {
   transition:
-    opacity var(--duration-slow) var(--ease-out-quart),
+    opacity 300ms var(--ease-out-quart),
     transform var(--duration-slow) var(--ease-out-expo);
 }
 [data-reveal="in"] [data-reveal-item] {

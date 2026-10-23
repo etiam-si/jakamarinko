@@ -11,7 +11,7 @@ export function LandingHeader() {
   return (
     <header className="border-b border-border">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4 md:px-8">
-        <Link href="/" aria-label={t("home")} className="shrink-0 rounded-sm">
+        <Link href="/" aria-label={t("home")} className="inline-flex min-h-11 shrink-0 items-center rounded-sm">
           <Logo className="h-9" />
         </Link>
         <LocaleSwitcher />

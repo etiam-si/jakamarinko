@@ -62,7 +62,7 @@ export function ClimbChart({ climbs, goal, ageLabel, className }: { climbs: Clim
         })}
         <div className="absolute -translate-x-1/2 -translate-y-1/2" style={{ left: `${x(goal.age)}%`, top: `${y(goal.seconds)}%` }}>
           <span className="block size-4 rounded-full border-2 border-card bg-signal shadow-sm" />
-          <span className="absolute right-0 bottom-full mb-1.5 font-mono text-xs font-medium whitespace-nowrap tabular-nums">{toTime(goal.seconds)}</span>
+          <span className="absolute top-full right-0 mt-1.5 font-mono text-xs font-medium whitespace-nowrap text-signal tabular-nums">{toTime(goal.seconds)}</span>
         </div>
       </div>
       <div className="relative mx-4 h-5 md:mx-6">

@@ -47,6 +47,7 @@ export default function Home({ params }: Props) {
   const contact = useTranslations("contact");
   const landing = useTranslations("landing.faq");
   const curve = useTranslations("lab.curve");
+  const lab = useTranslations("lab");
   const site = useTranslations("site");
   const format = useFormatter();
   const price = (cents: number) => format.number(euros(cents), { maximumFractionDigits: 2 });
@@ -55,7 +56,17 @@ export default function Home({ params }: Props) {
   const performance = labTests.find((l) => l.id === "performance")!;
   const performanceSeparate = separatePrice(performance)!.separateCents;
 
-  // The page's one action, repeated at the end of every section: the lactate profile, the entry test.
+  // A section's closing action that isn't the entry test (outline, with an arrow).
+  const sectionAction = (href: React.ComponentProps<typeof Link>["href"], label: string) => (
+    <Button asChild size="lg" variant="outline" data-cta="secondary">
+      <Link href={href}>
+        {label}
+        <ArrowRight aria-hidden />
+      </Link>
+    </Button>
+  );
+
+  // The entry test, the page's main action: in the hero, after "what you get", in "where to start" and the close.
   const bookLactate = (variant: "default" | "outline" = "outline") => (
     <Button asChild size="lg" variant={variant} data-cta="secondary">
       <Link href={bookingHref("lactate-profile")}>
@@ -130,7 +141,7 @@ export default function Home({ params }: Props) {
         />
       </Section>
 
-      <ProofBand action={bookLactate()}>
+      <ProofBand action={sectionAction("/about", t("proof.cta"))}>
         <ul aria-label={t("sports.title")} className="flex flex-wrap gap-1.5">
           {sports.map((sport) => (
             <li key={sport} className="rounded-full border px-3 py-1 text-xs text-muted-foreground">
@@ -171,12 +182,7 @@ export default function Home({ params }: Props) {
         <SectionHeading title={t("howItWorks.title")} />
         <Steps items={steps.map((step) => ({ title: t(`howItWorks.${step}.title`), text: t(`howItWorks.${step}.text`) }))} />
         <div className="flex">
-          <Button asChild size="lg" variant="outline" data-cta="secondary">
-            <Link href={bookingHref("lactate-profile")}>
-              {t("howItWorks.cta")}
-              <ArrowRight aria-hidden />
-            </Link>
-          </Button>
+          {sectionAction({ pathname: "/lab", hash: "choose" }, lab("hero.secondaryCta"))}
         </div>
       </Section>
 
@@ -184,15 +190,7 @@ export default function Home({ params }: Props) {
         <SectionHeading title={t("offers.title")} />
         <div className="grid gap-6 md:grid-cols-2">
           <article data-reveal-item className="lift flex flex-col overflow-hidden rounded-2xl border bg-card shadow-sm">
-            <PhotoFrame
-              src={photos.finish}
-              alt={site("photos.finish.alt")}
-              aspect="wide"
-              treatment="tinted"
-              position="70% 35%"
-              sizes="(min-width: 768px) 34rem, calc(100vw - 2rem)"
-              flush
-            />
+            <div aria-hidden className="zone-strip h-1.5" />
             <div className="flex flex-1 flex-col gap-4 p-6 md:p-8">
               <h3 className="font-heading text-2xl font-bold font-stretch-expanded md:text-3xl">{t("offers.lab.title")}</h3>
               <ul className="flex flex-col gap-3">
@@ -203,23 +201,22 @@ export default function Home({ params }: Props) {
                   {t("offers.lab.performance", { price: price(performance.priceCents), separate: price(performanceSeparate) })}
                 </li>
               </ul>
-              <div className="mt-auto flex flex-col gap-3 pt-4 sm:flex-row">
-                <Button asChild data-cta="secondary">
-                  <Link href={bookingHref("lactate-profile")}>{t("hero.primaryCta")}</Link>
-                </Button>
-                <Button asChild variant="outline">
-                  <Link href="/lab">{t("offers.lab.cta")}</Link>
+              <div className="mt-auto pt-4">
+                <Button asChild variant="outline" className="w-full sm:w-auto" data-cta="secondary">
+                  <Link href="/lab">
+                    {t("offers.lab.cta")}
+                    <ArrowRight aria-hidden />
+                  </Link>
                 </Button>
               </div>
             </div>
           </article>
           <article data-reveal-item style={{ "--i": 1 } as React.CSSProperties} className="lift flex flex-col overflow-hidden rounded-2xl border bg-card shadow-sm">
             <PhotoFrame
-              src={photos.xcSki}
-              alt={site("photos.xcSki.alt")}
+              src={photos.trail}
+              alt={site("photos.trail.alt")}
               aspect="wide"
-              treatment="tinted"
-              position="35% 30%"
+              position="60% 72%"
               sizes="(min-width: 768px) 34rem, calc(100vw - 2rem)"
               flush
             />
@@ -240,13 +237,13 @@ export default function Home({ params }: Props) {
         </div>
       </Section>
 
-      <TestimonialsSection action={bookLactate()} />
+      <TestimonialsSection action={sectionAction("/about", t("proof.cta"))} realOnly />
 
       <Section className="grid gap-10 pt-0 md:pt-0 lg:grid-cols-[minmax(0,1fr)_minmax(0,22rem)] lg:gap-16">
         <div className="flex flex-col gap-10">
           <SectionHeading title={t("faq.title")} />
           <Faq items={faq.map((key) => ({ question: landing(`${key}.question`), answer: landing(`${key}.answer`) }))} />
-          <div className="flex">{bookLactate()}</div>
+          <div className="flex">{sectionAction("/contact", t("cta.secondary"))}</div>
         </div>
         <Location className="self-start lg:mt-20" />
       </Section>
