@@ -16,7 +16,7 @@ import { FoundingCounter } from "@/components/offers/founding-counter";
 import { CtaBand, Section } from "@/components/site/section";
 import { bookingHref, euros, pageMetadata } from "@/components/site/site";
 import { Steps } from "@/components/site/steps";
-import { List, TestCard } from "@/components/site/test-card";
+import { List, TestCard, TestList } from "@/components/site/test-card";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
 
@@ -41,15 +41,13 @@ const choose: [key: string, test: LabTestId][] = [
 // The price list in the order of the conversion playbook (§5.1): the hero bundle first as the anchor, the two
 // named bundles, the middle option, the entry test, then the singles. Retest offers come last, for returning athletes.
 const order: { id: LabTestId; badge?: "forLongRaces" | "forRunners" | "bestFirst" }[] = [
+  { id: "lactate-profile", badge: "bestFirst" },
   { id: "long-distance", badge: "forLongRaces" },
   { id: "runner", badge: "forRunners" },
   { id: "vo2max-lactate" },
-  { id: "lactate-profile", badge: "bestFirst" },
-  { id: "vo2max" },
-  { id: "fat-carb" },
-  { id: "running-economy" },
-  { id: "anthropometry" },
 ];
+// The single tests as a compact list under the cards, and the offers for athletes who come back.
+const singles: LabTestId[] = ["vo2max", "fat-carb", "running-economy", "anthropometry"];
 const comeBack: LabTestId[] = ["season", "lactate-retest"];
 const practical = [
   { key: "prepare", icon: ClipboardList },
@@ -63,12 +61,13 @@ export default function Lab({ params }: Props) {
   const t = useTranslations("lab");
   const common = useTranslations("common");
   const landing = useTranslations("landing.faq");
+  const home = useTranslations("home");
   const site = useTranslations("site");
   const format = useFormatter();
   const test = (id: LabTestId) => labTests.find((item) => item.id === id)!;
   const lactatePrice = format.number(euros(test("lactate-profile").priceCents), { maximumFractionDigits: 2 });
 
-  // The page's action at the end of every section: the entry test.
+  // The entry test, as the page's main action: in the hero, after "what happens" and in the close (three, not seven).
   const bookLactate = (variant: "default" | "outline" = "outline") => (
     <Button asChild size="lg" variant={variant} data-cta="secondary">
       <Link href={bookingHref("lactate-profile")}>
@@ -126,7 +125,17 @@ export default function Lab({ params }: Props) {
         />
       </Section>
 
-      <ProofBand action={bookLactate()}>
+      <ProofBand
+        compact
+        action={
+          <Button asChild variant="outline" size="lg" data-cta="secondary">
+            <a href="#tests">
+              {t("tests.title")}
+              <ArrowRight aria-hidden />
+            </a>
+          </Button>
+        }
+      >
         <p className="flex items-center gap-2 font-mono text-xs tracking-wider text-muted-foreground uppercase">
           <span aria-hidden className="size-1.5 rounded-full bg-signal" />
           {t("proof.by")}
@@ -138,7 +147,11 @@ export default function Lab({ params }: Props) {
         <ul className="grid gap-3 md:grid-cols-2">
           {choose.map(([key, id], i) => (
             <li key={key} data-reveal-item style={{ "--i": i } as React.CSSProperties}>
-              <a href={`#${id}`} className="group lift flex min-h-18 items-center gap-4 rounded-2xl border bg-card px-5 py-4 shadow-sm hover:border-primary/40">
+              <a
+                href={`#${id}`}
+                data-cta="secondary"
+                className="group lift flex min-h-16 items-center gap-4 rounded-2xl border bg-card px-4 py-3 shadow-sm hover:border-primary/40 md:px-5"
+              >
                 <span className="flex min-w-0 flex-1 flex-col gap-0.5">
                   <span className="text-sm text-muted-foreground">{t(`choose.${key}`)}</span>
                   <span className="font-semibold">{test(id).name[locale]}</span>
@@ -150,7 +163,6 @@ export default function Lab({ params }: Props) {
             </li>
           ))}
         </ul>
-        <div className="flex">{bookLactate()}</div>
       </Section>
 
       <Section id="tests" tone="tinted" className="flex scroll-mt-20 flex-col gap-10">
@@ -161,27 +173,22 @@ export default function Lab({ params }: Props) {
             <TestCard key={id} test={test(id)} locale={locale} badge={badge && t(`tests.${badge}`)} />
           ))}
         </div>
-        <div className="flex flex-col gap-6 pt-6">
+        <TestList tests={singles.map(test)} locale={locale} />
+        <div className="flex flex-col gap-6 pt-4">
           <SectionHeading as="h3" title={t("tests.comeBack.title")} lead={t("tests.comeBack.lead")} />
-          <div className="grid gap-6 lg:grid-cols-2">
-            {comeBack.map((id) => (
-              <TestCard key={id} test={test(id)} locale={locale} />
-            ))}
+          <TestList tests={comeBack.map(test)} locale={locale} />
+        </div>
+      </Section>
+
+      <Section className="flex flex-col gap-10">
+        <div className="grid gap-12 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+          <div className="flex flex-col gap-8">
+            <SectionHeading title={t("what.title")} />
+            <Steps vertical items={what.map((key) => ({ text: t(`what.${key}`) }))} />
+            <p className="border-l-2 border-signal pl-4 font-medium">{t("what.hard")}</p>
           </div>
+          <PhotoSlot slot="labSample" className="self-start" />
         </div>
-      </Section>
-
-      <Section className="grid gap-14 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] md:gap-12">
-        <div className="flex flex-col gap-10">
-          <SectionHeading title={t("what.title")} />
-          <Steps vertical items={what.map((key) => ({ text: t(`what.${key}`) }))} />
-          <p className="border-l-2 border-signal pl-4 font-medium">{t("what.hard")}</p>
-          <div className="flex">{bookLactate("default")}</div>
-        </div>
-        <PhotoSlot slot="labSample" className="self-start" />
-      </Section>
-
-      <Section className="flex flex-col gap-10 pt-0 md:pt-0">
         <div className="grid gap-4 md:grid-cols-3">
           {practical.map(({ key, icon: Icon }, i) => (
             <div key={key} data-reveal-item style={{ "--i": i } as React.CSSProperties} className="flex flex-col gap-4 rounded-2xl border bg-card p-6 shadow-sm">
@@ -206,13 +213,20 @@ export default function Lab({ params }: Props) {
           ))}
           <Location data-reveal-item />
         </div>
-        <div className="flex">{bookLactate()}</div>
+        <div className="flex">{bookLactate("default")}</div>
       </Section>
 
       <Section className="flex flex-col gap-10 pt-0 md:pt-0">
         <SectionHeading title={t("faq.title")} />
         <Faq items={faq.map((key) => ({ question: landing(`${key}.question`), answer: landing(`${key}.answer`) }))} />
-        <div className="flex">{bookLactate()}</div>
+        <div className="flex">
+          <Button asChild variant="outline" size="lg" data-cta="secondary">
+            <Link href="/contact">
+              {home("cta.secondary")}
+              <ArrowRight aria-hidden />
+            </Link>
+          </Button>
+        </div>
       </Section>
 
       <CtaBand

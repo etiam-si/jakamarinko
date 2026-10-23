@@ -19,7 +19,7 @@ export function Section({
   const section = (
     <section
       data-reveal={reveal ? "" : undefined}
-      className={cn("mx-auto w-full max-w-6xl px-4 py-16 sm:px-6 md:px-8 md:py-24", className)}
+      className={cn("mx-auto w-full max-w-6xl px-4 py-12 sm:px-6 sm:py-16 md:px-8 md:py-24", className)}
       {...props}
     >
       {children}

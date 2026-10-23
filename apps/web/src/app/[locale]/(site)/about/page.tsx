@@ -27,7 +27,7 @@ const bio = ["p1", "p2"] as const;
 const achievements = ["champion", "nationalTeam", "worldXc", "europeanMountain", "worldMountain", "worldSkimo", "vo2max", "redBull"] as const;
 // The photos are small: on phones the finish fills the width (720 px source), skimo and skating share a row.
 const gallery = [
-  { key: "finish", position: "75% 35%", className: "col-span-2 sm:col-span-1", aspect: "aspect-[3/2] sm:aspect-[4/5]" },
+  { key: "finish", position: "75% 35%", className: "col-span-2 max-w-[22.5rem] sm:col-span-1 sm:max-w-none", aspect: "aspect-[3/2] sm:aspect-[4/5]" },
   { key: "skimo", position: "50% 30%", className: "", aspect: "portrait" },
   { key: "xcSki", position: "30% 30%", className: "", aspect: "portrait" },
 ] as const;

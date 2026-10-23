@@ -7,15 +7,16 @@ import { type ComponentProps, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Link, usePathname } from "@/i18n/navigation";
 
-// Pages where the bar would be in the way: the booking flow itself, the contact form, legal texts, and the ad landing
-// pages (they have their own layout).
-const hiddenOn = ["/booking", "/contact", "/legal", "/lp", "/styleguide"];
+// Pages where the bar would be in the way: the booking flow itself, the contact form, legal texts, a gift voucher or a
+// referral link (the bar's plain booking link would drop the code), and the ad landing pages (they have their own).
+// A page can also opt out with [data-no-sticky] anywhere in it (the 404).
+const hiddenOn = ["/booking", "/contact", "/legal", "/lp", "/gift", "/r", "/styleguide"];
 const typing = "input, textarea, select, [contenteditable]";
 
 // Phones only: the page's action pinned to the bottom, where the thumb is. It slides in once the hero's primary
-// call to action ([data-cta="primary"]) has scrolled away, so the two never show at once, and steps aside while
-// someone types in a form. The spacer keeps the footer from ending up under it. `from` is the price line, formatted by
-// the server; `href` and `label` default to "Book a test" → /booking.
+// call to action ([data-cta="primary"]) has scrolled away, so the two never show at once, steps aside while someone
+// types in a form, and slides away again when the footer comes into view, so it never sits over it. `from` is the
+// price line, formatted by the server; `href` and `label` default to "Book a test" → /booking.
 export function StickyBook({
   from,
   href,
@@ -32,7 +33,19 @@ export function StickyBook({
   const pathname = usePathname();
   const [pastHero, setPastHero] = useState(false);
   const [typingNow, setTypingNow] = useState(false);
+  const [atFooter, setAtFooter] = useState(false);
+  const [optedOut, setOptedOut] = useState(false);
   const hidden = !always && hiddenOn.some((p) => pathname === p || pathname.startsWith(`${p}/`));
+
+  useEffect(() => {
+    if (hidden) return;
+    setOptedOut(!!document.querySelector("[data-no-sticky]"));
+    const footer = document.querySelector("footer");
+    if (!footer) return;
+    const observer = new IntersectionObserver(([entry]) => setAtFooter(!!entry?.isIntersecting));
+    observer.observe(footer);
+    return () => observer.disconnect();
+  }, [hidden, pathname]);
 
   useEffect(() => {
     if (hidden) return;
@@ -61,12 +74,10 @@ export function StickyBook({
     };
   }, []);
 
-  if (hidden) return null;
-  const shown = pastHero && !typingNow;
+  if (hidden || optedOut) return null;
+  const shown = pastHero && !typingNow && !atFooter;
   return (
     <>
-      {/* Same graphite as the footer above it, so the page simply ends lower. */}
-      <div aria-hidden className="dark h-[calc(5.5rem+env(safe-area-inset-bottom))] bg-background md:hidden" />
       <div
         data-sticky-cta
         data-shown={shown}

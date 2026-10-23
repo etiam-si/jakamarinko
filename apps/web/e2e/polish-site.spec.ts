@@ -226,7 +226,7 @@ test.describe("US-007 motion", () => {
         const section = below.nth(i);
         if (!(await section.getAttribute("data-reveal"))) continue;
         await section.scrollIntoViewIfNeeded();
-        await expect.poll(() => section.evaluate((s) => getComputedStyle(s).opacity), { timeout: 1000 }).toBe("1");
+        await expect.poll(() => section.evaluate((s) => getComputedStyle(s).opacity), { timeout: 1000, intervals: [50] }).toBe("1");
       }
       await context.close();
     });
@@ -485,12 +485,12 @@ test.describe("US-010 conversion", () => {
         const order = await page.evaluate(() => {
           const all = [...document.querySelectorAll("main *")];
           const price = all.findIndex((el) => el.children.length === 0 && /\d\s?€/.test(el.textContent ?? ""));
-          const faq = all.findIndex((el) => el.tagName === "DETAILS");
+          const faq = all.findIndex((el) => el.tagName === "DETAILS" && !!el.closest(".faq"));
           return { price, faq };
         });
         expect(order.price, `${locale}${p}`).toBeGreaterThanOrEqual(0);
         expect(order.price).toBeLessThan(order.faq);
-        const questions = await page.locator("main details summary").allTextContents();
+        const questions = await page.locator("main .faq details summary").allTextContents();
         expect(questions.length, `${locale}${p}`).toBeGreaterThanOrEqual(5);
         const isTest = p === "/lab" || landingPages.find((l) => `/lp/${l.slug}` === p)?.offer.kind === "test";
         if (isTest) {
@@ -530,11 +530,29 @@ test.describe("US-010 conversion", () => {
       const input = document.createElement("input");
       input.id = "probe";
       document.querySelector("main")!.append(input);
-      input.focus();
+      input.focus({ preventScroll: true });
     });
     await expect(page.locator("[data-sticky-cta]")).toHaveAttribute("data-shown", "false");
     await page.locator("#probe").blur();
     await expect(page.locator("[data-sticky-cta]")).toHaveAttribute("data-shown", "true");
+    await context.close();
+  });
+
+  test("conversion: the phone bar keeps off the footer, codes and the 404", async ({ browser, baseURL }) => {
+    const { context, page } = await open(browser, baseURL!, { width: 390 });
+    await page.goto("/en");
+    const bar = page.locator("[data-sticky-cta]");
+    await page.locator("[data-proof]").first().scrollIntoViewIfNeeded();
+    await expect(bar).toHaveAttribute("data-shown", "true");
+    await page.locator("footer").scrollIntoViewIfNeeded();
+    await expect(bar).toHaveAttribute("data-shown", "false");
+    // A referral or gift link would lose its code through the plain booking link; the 404 has its own actions.
+    for (const p of ["/r/ABCDEFGH", "/gift/NOPE1234", "/does-not-exist"]) {
+      await page.goto(`/en${p}`);
+      await page.mouse.wheel(0, 2000);
+      await page.waitForTimeout(300);
+      await expect(page.locator("[data-sticky-cta]"), p).toHaveCount(0);
+    }
     await context.close();
   });
 

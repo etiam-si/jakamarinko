@@ -52,6 +52,7 @@ export default function Coaching({ params }: Props) {
   const proof = useTranslations("home.proof");
   const common = useTranslations("common");
   const site = useTranslations("site");
+  const home = useTranslations("home");
   const format = useFormatter();
   const plain = (cents: number) => format.number(euros(cents), { maximumFractionDigits: 2 });
   const session = sessions[0]!;
@@ -97,7 +98,7 @@ export default function Coaching({ params }: Props) {
               depth
               strip
               sizes="(min-width: 1024px) 24rem, (min-width: 640px) 24rem, calc(100vw - 2.625rem)"
-              className="mx-auto max-w-sm lg:max-w-none"
+              className="mx-auto max-w-[22.5rem] lg:max-w-none"
             />
           }
         />
@@ -111,7 +112,14 @@ export default function Coaching({ params }: Props) {
               <StatBlock key={key} data-reveal-item style={{ "--i": i } as React.CSSProperties} value={proof(`${key}.value`)} label={proof(`${key}.label`)} />
             ))}
           </div>
-          <div className="flex">{tellGoal()}</div>
+          <div className="flex">
+            <Button asChild size="lg" variant="outline" data-cta="secondary">
+              <a href="#packages">
+                {common("actions.seePackages")}
+                <ArrowRight aria-hidden />
+              </a>
+            </Button>
+          </div>
         </div>
         <figure className="flex flex-col gap-2 rounded-2xl border bg-card p-4 shadow-lg md:p-6">
           <figcaption className="font-mono text-xs tracking-wider text-muted-foreground uppercase">{about("timeAxis")}</figcaption>
@@ -173,6 +181,19 @@ export default function Coaching({ params }: Props) {
       <Section tone="tinted" className="flex flex-col gap-12">
         <SectionHeading title={t("howItWorks.title")} />
         <Steps items={steps.map((step) => ({ title: t(`howItWorks.${step}.title`), text: t(`howItWorks.${step}.text`) }))} />
+        <div className="flex flex-col gap-4">
+          <h3 className="font-mono text-xs tracking-wider text-muted-foreground uppercase">{t("whoDoesWhat.title")}</h3>
+          <ul className="grid gap-3 md:grid-cols-3">
+            {roles.map((key, i) => (
+              <li key={key} data-reveal-item style={{ "--i": i } as React.CSSProperties} className="flex items-start gap-3 rounded-2xl border bg-card p-4 shadow-xs">
+                <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
+                  {key === "messages" ? <MessageCircle aria-hidden className="size-4" /> : key === "coach" ? <UserRound aria-hidden className="size-4" /> : <CalendarSync aria-hidden className="size-4" />}
+                </span>
+                <p className="pt-1.5 text-sm">{t(`whoDoesWhat.${key}`)}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
         <div className="flex">
           <Button asChild size="lg" variant="outline" data-cta="secondary">
             <Link href={bookingHref("lactate-profile")}>
@@ -184,53 +205,49 @@ export default function Coaching({ params }: Props) {
       </Section>
 
       <Section className="flex flex-col gap-10">
-        <SectionHeading title={t("whoDoesWhat.title")} />
-        <ul className="grid gap-4 md:grid-cols-3">
-          {roles.map((key, i) => (
-            <li key={key} data-reveal-item style={{ "--i": i } as React.CSSProperties} className="flex flex-col gap-4 rounded-2xl border bg-card p-6 shadow-sm">
-              <span className="flex size-10 items-center justify-center rounded-full bg-primary/10 text-primary">
-                {key === "messages" ? <MessageCircle aria-hidden className="size-5" /> : key === "coach" ? <UserRound aria-hidden className="size-5" /> : <CalendarSync aria-hidden className="size-5" />}
-              </span>
-              <p className="text-lg leading-snug">{t(`whoDoesWhat.${key}`)}</p>
+        <SectionHeading title={p("oneOff.title")} lead={p("oneOff.subtitle")} />
+        {/* One list, not three big cards: these are the side offers next to the packages. */}
+        <ul className="flex flex-col divide-y divide-border overflow-hidden rounded-2xl border bg-card shadow-sm">
+          {[
+            { id: session.id, name: session.name[locale], priceCents: session.priceCents, description: session.description[locale], book: true },
+            ...oneOffs.map((item) => ({ id: item.id, name: item.name[locale], priceCents: item.priceCents, description: item.description[locale], book: false })),
+          ].map((item) => (
+            <li key={item.id} className="flex flex-col gap-3 p-4 md:flex-row md:items-center md:gap-6 md:p-5">
+              <div className="flex min-w-0 flex-1 flex-col gap-1">
+                <div className="flex items-baseline justify-between gap-4">
+                  <h3 className="font-heading text-base font-bold font-stretch-expanded md:text-lg">{item.name}</h3>
+                  <p className="shrink-0 font-heading text-2xl leading-none font-extrabold tracking-tight tabular-nums font-stretch-expanded md:hidden">
+                    {euro(format, item.priceCents)}
+                  </p>
+                </div>
+                <p className="text-sm text-pretty text-muted-foreground">{item.description}</p>
+              </div>
+              <p className="hidden shrink-0 font-heading text-2xl leading-none font-extrabold tracking-tight tabular-nums font-stretch-expanded md:block">
+                {euro(format, item.priceCents)}
+              </p>
+              <Button asChild variant="outline" className="h-auto min-h-11 w-full shrink-0 py-2 whitespace-normal md:w-48" data-cta="secondary">
+                {item.book ? (
+                  <Link href={bookingHref(session.id)}>{common("actions.bookItem", { name: item.name })}</Link>
+                ) : (
+                  <Link href={{ pathname: "/contact", query: { package: item.id } }}>{p("oneOff.cta")}</Link>
+                )}
+              </Button>
             </li>
           ))}
         </ul>
-        <div className="flex">{tellGoal()}</div>
-      </Section>
-
-      <Section className="flex flex-col gap-10">
-        <SectionHeading title={p("oneOff.title")} lead={p("oneOff.subtitle")} />
-        <div className="grid gap-6 md:grid-cols-3">
-          <PriceCard
-            name={session.name[locale]}
-            price={euro(format, session.priceCents)}
-            description={session.description[locale]}
-            action={
-              <Button asChild size="lg" variant="outline" className="h-auto min-h-12 w-full py-2.5 text-center text-balance whitespace-normal" data-cta="secondary">
-                <Link href={bookingHref(session.id)}>{common("actions.bookItem", { name: session.name[locale] })}</Link>
-              </Button>
-            }
-          />
-          {oneOffs.map((item) => (
-            <PriceCard
-              key={item.id}
-              name={item.name[locale]}
-              price={euro(format, item.priceCents)}
-              description={item.description[locale]}
-              action={
-                <Button asChild size="lg" variant="outline" className="w-full">
-                  <Link href={{ pathname: "/contact", query: { package: item.id } }}>{p("oneOff.cta")}</Link>
-                </Button>
-              }
-            />
-          ))}
-        </div>
       </Section>
 
       <Section className="flex flex-col gap-10 pt-0 md:pt-0">
         <SectionHeading title={t("faq.title")} />
         <Faq items={faq.map((key) => ({ question: t(`faq.${key}.question`), answer: t(`faq.${key}.answer`) }))} />
-        <div className="flex">{tellGoal()}</div>
+        <div className="flex">
+          <Button asChild size="lg" variant="outline" data-cta="secondary">
+            <Link href={{ pathname: "/contact", query: { package: "coaching" } }}>
+              {home("cta.secondary")}
+              <ArrowRight aria-hidden />
+            </Link>
+          </Button>
+        </div>
       </Section>
 
       <CtaBand
