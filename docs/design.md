@@ -180,8 +180,8 @@ Motion explains where something came from or that it responded. Never bouncy, ne
 | `.draw-path` | 1.6 s | chart lines (lactate curve, Šmarna gora) draw themselves in |
 
 - **Scroll reveal:** `Section` carries `data-reveal`; `components/ui/reveal.tsx` (one small IntersectionObserver per
-  layout) marks only what is below the fold as pending and reveals it when it comes into view (fade + 24 px). Children
-  with `data-reveal-item` and `style={{ "--i": n }}` follow in a 70 ms stagger. What is on screen at load is never
+  layout) marks only what is below the fold as pending and reveals it when it comes into view (fade + 24 px, 400 ms). Children
+  with `data-reveal-item` and `style={{ "--i": n }}` follow in a 60 ms stagger. What is on screen at load is never
   hidden, and without JavaScript everything is simply there.
 - **Count-ups:** `StatBlock` values that are plain integers count up once, over 1.1 s (`components/ui/count-up.tsx`).
   The server renders the final number; "5th" or "U20" stay as they are.

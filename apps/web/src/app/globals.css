@@ -92,14 +92,14 @@
 }
 [data-reveal="in"] {
   transition:
-    opacity 500ms var(--ease-out-quart),
-    transform 700ms var(--ease-out-expo);
+    opacity var(--duration-slow) var(--ease-out-quart),
+    transform var(--duration-slow) var(--ease-out-expo);
 }
 [data-reveal="in"] [data-reveal-item] {
   transition:
-    opacity 450ms var(--ease-out-quart),
-    transform 650ms var(--ease-out-expo);
-  transition-delay: calc(120ms + min(var(--i, 0), 8) * 70ms);
+    opacity var(--duration-slow) var(--ease-out-quart),
+    transform var(--duration-slow) var(--ease-out-expo);
+  transition-delay: calc(80ms + min(var(--i, 0), 8) * 60ms);
 }
 
 /* Chart lines (lactate curve, Šmarna gora) draw themselves in on load, or when their section is revealed. */
