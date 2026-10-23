@@ -6,7 +6,7 @@ import { ClientMessages } from "@/i18n/client-messages";
 // and email for when booking is down), and the query cache they load slots and payments with.
 export default function BookingLayout({ children, params }: { children: React.ReactNode; params: Promise<{ locale: string }> }) {
   return (
-    <ClientMessages locale={use(params).locale} messages={["booking", "payments", "auth", "contact.phone", "contact.email"]}>
+    <ClientMessages locale={use(params).locale} messages={["booking", "payments", "auth", "offers", "contact.phone", "contact.email"]}>
       <Providers>{children}</Providers>
     </ClientMessages>
   );
