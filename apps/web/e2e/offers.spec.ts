@@ -71,7 +71,7 @@ async function emailWith(needle: string) {
       const files = (await readdir(outbox).catch(() => [])).filter((f) => f.endsWith(".html")).sort().reverse();
       for (const file of files) {
         const html = await readFile(path.join(outbox, file), "utf8");
-        if (html.includes(needle)) return (found = { html, link: /href="([^"]+)"/.exec(html)![1]!.replaceAll("&amp;", "&") });
+        if (html.includes(needle)) return (found = { html, link: /<a [^>]*href="([^"]+)"/.exec(html)![1]!.replaceAll("&amp;", "&") });
       }
     })
     .toBeTruthy();
@@ -202,7 +202,7 @@ test("SPRING20 at the review shows the old price struck through and the new one;
   await expect(page.getByTestId("offer-price").locator("s")).toHaveText("Was €90");
   await expect(page.getByTestId("offer-new-price")).toHaveText("€72");
   const { violations } = await new AxeBuilder({ page }).include("[data-testid=offer]").analyze();
-  expect(violations.map((v) => v.id)).toEqual([]);
+  expect(violations.map((v) => `${v.id}: ${v.nodes.map((n) => n.target).join(", ")}`)).toEqual([]);
 
   await page.getByRole("button", { name: "Confirm booking" }).click();
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("You're booked");
@@ -297,7 +297,7 @@ test("a gift voucher page shows the value and the service, books with the code f
   expect(new URL((await book.getAttribute("href"))!, "http://x").searchParams.get("code")).toBe(code);
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", "noindex, nofollow");
   const { violations } = await new AxeBuilder({ page }).analyze();
-  expect(violations.map((v) => v.id)).toEqual([]);
+  expect(violations.map((v) => `${v.id}: ${v.nodes.map((n) => n.target).join(", ")}`)).toEqual([]);
 
   await book.click();
   await pickTime(page);
