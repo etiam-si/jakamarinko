@@ -75,7 +75,7 @@ export default function Coaching({ params }: Props) {
         reveal={false}
         className="grid items-center gap-12 pt-8 pb-16 md:pt-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,24rem)] lg:gap-16 lg:pt-20 lg:pb-24"
       >
-        <div className="flex flex-col gap-8">
+        <div className="hero-screen flex flex-col gap-8">
           <SectionHeading as="h1" eyebrow={common("nav.coaching")} title={t("hero.title")} lead={t("hero.subtitle")} />
           <div className="flex flex-col gap-3 sm:flex-row">
             {tellGoal("default", true)}

@@ -83,7 +83,7 @@ export default function Home({ params }: Props) {
         reveal={false}
         className="grid items-center gap-12 pt-8 pb-16 md:pt-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,28rem)] lg:gap-16 lg:pt-20 lg:pb-24"
       >
-        <div className="flex flex-col gap-6 md:gap-7">
+        <div className="hero-screen flex flex-col gap-6 md:gap-7">
           <p className="flex items-center gap-2 font-mono text-xs tracking-wider text-muted-foreground uppercase motion-safe:animate-rise">
             <span aria-hidden className="size-1.5 rounded-full bg-signal" />
             {t("offers.lab.title")} · {t("offers.coaching.title")}

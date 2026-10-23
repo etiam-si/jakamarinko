@@ -205,3 +205,13 @@
     @apply h-auto px-0 font-medium text-primary underline-offset-4 hover:underline;
   }
 }
+
+/* Below lg, a hero with a photo gives the first screen to the words and the action, and the photo follows right under
+   it. The photo then never competes with the headline as the largest paint, so the first screen is ready as soon as
+   the text is, however long the page's scripts take (US-009). From lg up they sit side by side. */
+@utility hero-screen {
+  @media (width < 64rem) {
+    min-height: calc(100svh - 6rem);
+    justify-content: center;
+  }
+}
