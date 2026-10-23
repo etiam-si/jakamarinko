@@ -30,7 +30,8 @@ export function LanguageMenu({ full = false, className }: { full?: boolean; clas
       <DropdownMenuTrigger asChild>
         <Button
           variant="ghost"
-          aria-label={label}
+          // The name contains what the button shows (WCAG 2.5.3, label in name).
+          aria-label={`${label}: ${full ? t(current) : current.toUpperCase()}`}
           data-locale-switch
           className={cn("group h-11 gap-1.5 px-2.5 has-[>svg]:px-2.5", full && "h-11 w-full justify-between gap-2 px-3 has-[>svg]:px-3", className)}
         >

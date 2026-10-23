@@ -34,11 +34,15 @@ import { codeView, insertCode, newCode, normalizeCode, usesOf } from "./codes";
 import { foundingStatus, setFoundingEnabled } from "./founding";
 import { confirmGift, giftCheckout, voucherView, yearLater } from "./gifts";
 import { quote } from "./pricing";
+import { rateLimit } from "./rate-limit";
 
 const managers = requireRole("head_coach");
 const IdParam = z.object({ id: z.uuid() });
 const CodeParam = z.object({ code: z.string().max(40) });
 const LocaleQuery = z.object({ locale: z.enum(locales).default("en") });
+// Per IP, 10 minutes: a review step asks a few times, a voucher page once; guessing codes needs thousands.
+const quoteLimit = rateLimit(60, 10 * 60_000);
+const giftLimit = rateLimit(30, 10 * 60_000);
 
 async function listPrice(catalogId: string) {
   const [service] = await db()
@@ -98,7 +102,7 @@ export const offers = new Hono()
     return c.json<Founding>(await foundingStatus());
   })
   // Public: the price at the review step. A bad code isn't an error here; the answer says why.
-  .post("/quote", validate("json", QuoteInput), async (c) => {
+  .post("/quote", quoteLimit, validate("json", QuoteInput), async (c) => {
     const input = c.req.valid("json");
     const listCents = await listPrice(input.service);
     return c.json<Quote>(await quote(db(), { ...input, listCents, now: new Date() }));
@@ -176,7 +180,7 @@ export const offers = new Hono()
     if (!payments.enabled) throw new ApiError(503, "payments_off", "Online payment is not available");
     return c.json<GiftCheckout>({ url: await giftCheckout(c.req.valid("json"), new Date(), payments, bookingConfig()) });
   })
-  .get("/gift/:code", validate("param", CodeParam), validate("query", LocaleQuery), async (c) => {
+  .get("/gift/:code", giftLimit, validate("param", CodeParam), validate("query", LocaleQuery), async (c) => {
     const [found] = await db()
       .select()
       .from(offerCodes)
