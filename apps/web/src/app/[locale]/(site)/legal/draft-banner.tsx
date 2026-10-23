@@ -11,7 +11,9 @@ export async function DraftBanner() {
   return (
     <div role="status" className="border-y border-amber-300 bg-amber-50 px-6 py-3 text-amber-950">
       <p className="mx-auto max-w-3xl">
-        <strong>{t("title")}</strong> {t("body")}
+        {/* The title on a line of its own: the banner then keeps its height whichever font is in, so the page
+            below it does not move when the web font arrives. */}
+        <strong className="block">{t("title")}</strong> {t("body")}
       </p>
     </div>
   );
