@@ -29,9 +29,8 @@ export function Layout({ locale, preview, children, unsubscribeUrl }: Props) {
       <Body style={{ backgroundColor: theme.background, fontFamily: theme.font, margin: 0, padding: "24px 12px" }}>
         <Container style={{ maxWidth: 560, width: "100%" }}>
           <Section data-skip-in-text style={{ backgroundColor: theme.accent, borderRadius: "12px 12px 0 0", padding: "28px 32px" }}>
-            <Link href={site.url}>
-              <Img src={site.logo.src} width={site.logo.width} height={site.logo.height} alt={`${site.name} — ${site.tagline}`} />
-            </Link>
+            {/* Not a link, so the email's own button is its first link: what a reader taps first, and what tests read. */}
+            <Img src={site.logo.src} width={site.logo.width} height={site.logo.height} alt={`${site.name} — ${site.tagline}`} />
           </Section>
           <Section data-skip-in-text>
             <Row>
