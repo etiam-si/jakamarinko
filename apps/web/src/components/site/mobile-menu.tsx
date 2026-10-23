@@ -10,7 +10,7 @@ import { Logo } from "@/components/brand/logo";
 import { LanguageMenu } from "@/components/i18n/language-menu";
 import { Button } from "@/components/ui/button";
 import { Link, usePathname } from "@/i18n/navigation";
-import type { HeaderAccount } from "./account";
+import { useHeaderAccount } from "./account";
 import { accountLinks, useSignOut } from "./account-menu";
 import styles from "./mobile-menu.module.css";
 import { navItems } from "./nav-items";
@@ -19,7 +19,8 @@ import { isCurrent } from "./nav-links";
 // Below lg: the whole menu on one deep spruce screen. The pages in large type, then the account, the language and,
 // pinned to the bottom where the thumb is, "Book a test". A modal dialog: focus stays inside, the page behind
 // doesn't scroll, Escape closes it and focus goes back to the menu button.
-export function MobileMenu({ account }: { account: HeaderAccount | null }) {
+export function MobileMenu() {
+  const account = useHeaderAccount();
   const t = useTranslations("common");
   const tHeader = useTranslations("header");
   const pathname = usePathname();

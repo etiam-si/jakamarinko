@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Link, usePathname, useRouter } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
+import { forgetHeaderAccount } from "@/components/site/account";
 import { authClient } from "@/lib/auth-client";
 import { initials } from "@/lib/initials";
 import { type Area, areaHome } from "@/lib/nav";
@@ -31,6 +32,7 @@ export function UserMenu({ name, email, switchTo, compact }: Props) {
 
   async function signOut() {
     await authClient.signOut();
+    forgetHeaderAccount();
     router.replace("/sign-in");
     router.refresh();
   }
