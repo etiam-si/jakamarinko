@@ -1,3 +1,4 @@
+import { offerRules } from "@jakamarinko/api";
 import type { LabTestId, Locale } from "@jakamarinko/types";
 import { afterTestOffer, labTests, restedAndFed } from "@jakamarinko/types";
 import { ArrowRight, ClipboardList, ShieldCheck, Sparkles } from "lucide-react";
@@ -101,7 +102,7 @@ export default function Lab({ params }: Props) {
               <ShieldCheck aria-hidden className="mt-0.5 size-4 shrink-0 text-primary" />
               {t("hero.trust")} · {site("location.trust")}
             </p>
-            <FoundingCounter />
+            <FoundingCounter percent={offerRules.foundingPercent} />
           </div>
         </div>
         <PhotoSlot
