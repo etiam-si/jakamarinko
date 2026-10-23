@@ -70,7 +70,7 @@ Fonts: Archivo (headings use `font-heading font-stretch-expanded`), Martian Mono
 | `xs` | 32 px | Dense tables only |
 | `icon`, `icon-sm` | 40 / 36 px (44 below `md`) | Icon-only, always with `aria-label` |
 
-Every button presses to 98 % on `:active`; an `ArrowRight` inside nudges 2 px on hover. Focus is a 2 px `ring` outline 2 px off the button, never only a colour change.
+The base and variant styles are the `.btn` classes in `globals.css` (short class names keep every page's HTML small). Every button presses to 98 % on `:active`; an `ArrowRight` inside nudges 2 px on hover. Focus is a 2 px `ring` outline 2 px off the button, never only a colour change.
 
 - Labels are verbs that say what happens: "Book a test", "Send message", "Save changes". Never "Submit" / "Pošlji".
 - Arrow icon (`ArrowRight`) only on the primary CTA that leaves the page.
@@ -148,7 +148,9 @@ Every button presses to 98 % on `:active`; an `ArrowRight` inside nudges 2 px on
 ## Public page layout
 
 - **Hook first** (`docs/content/conversion-playbook.md`): `h1` ≤ 10 words, subline ≤ 20 words, then **one** primary CTA with `data-cta="primary"` (the entry test: "Book a lactate test" → `/booking?service=lactate-profile`; on coaching the lead "Tell me your goal" → `/contact?package=coaching`), a secondary `outline` CTA, and one line of reassurance (price, VAT, free cancellation, where). All of it inside the first screen at 390 × 844.
-- **Proof right after the hero** (`ProofBand`, `data-proof`): Jaka's numbers on the graphite band, counting up.
+- **Proof right after the hero** (`ProofBand`, `data-proof`): Jaka's numbers on the graphite band, counting up. In full (with the race photo, from lg up) on home only; `compact` on lab and the landing pages.
+- **Phones:** a hero with a photo gives the first screen to the words and the action (`hero-screen`), the photo follows. The headline is then the largest paint, however long the scripts take.
+- **Short pages:** the entry test ("Book a lactate test") at most three times per page; other sections end in a different action (outline). Long lists are compact: single tests and come-back offers in `TestList`, one-offs as rows, what a test includes behind a "What you get" disclosure.
 - **Every section ends in an action** with `data-cta="secondary"`. The page ends in a `CtaBand`.
 - **Price before the FAQ**, and on lab and test landing pages an objection FAQ (fit, preparation, duration, what you get, cancellation; answers in `landing.faq`).
 - **Scannable, not paragraphs:** bullets, numbers (`StatBlock`), cards. A card's text is one or two short sentences; anything longer goes in a list. No walls of text, no em dashes in body copy.
