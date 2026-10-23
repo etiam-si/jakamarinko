@@ -5,7 +5,7 @@ import type { Service } from "@jakamarinko/api";
 import type { Locale } from "@jakamarinko/types";
 import { ArrowRight, CalendarX2, Phone, ShieldCheck, Zap } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { FieldError, FormActions } from "@/components/ui/field";
 import { Link } from "@/i18n/navigation";
@@ -50,7 +50,7 @@ export function TimeStep({
   const [allDays, setAllDays] = useState(false);
   const [error, setError] = useState(false);
 
-  const byDay = slotsByDay(slots.data ?? []);
+  const byDay = useMemo(() => slotsByDay(slots.data ?? []), [slots.data]);
   const days = [...byDay.keys()];
   const shownDay = day && byDay.has(day) ? day : days[0];
   const times = shownDay ? byDay.get(shownDay)! : [];

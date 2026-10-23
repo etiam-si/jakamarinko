@@ -14,7 +14,10 @@ export const formatTime = (iso: string, locale: Locale) =>
 export const formatWhen = (iso: string, locale: Locale) => `${formatDate(iso, locale)}, ${formatTime(iso, locale)}`;
 
 // The Ljubljana calendar date of an instant, YYYY-MM-DD.
-export const localDay = (date: Date) => new Intl.DateTimeFormat("en-CA", { timeZone }).format(date);
+// One formatter for all calls: building an Intl.DateTimeFormat is far slower than using one, and a calendar with
+// several coaches has thousands of slots.
+const dayFormat = new Intl.DateTimeFormat("en-CA", { timeZone });
+export const localDay = (date: Date) => dayFormat.format(date);
 
 export function addDays(day: string, days: number) {
   const d = new Date(`${day}T12:00:00Z`);
@@ -25,10 +28,13 @@ export function addDays(day: string, days: number) {
 // Slots grouped by their Ljubljana date, in order. One entry per start time (the first coach free then).
 export function slotsByDay<S extends { start: string }>(slots: S[]) {
   const days = new Map<string, S[]>();
+  const seen = new Set<string>();
   for (const slot of [...slots].sort((a, b) => a.start.localeCompare(b.start))) {
+    if (seen.has(slot.start)) continue;
+    seen.add(slot.start);
     const day = localDay(new Date(slot.start));
     const list = days.get(day) ?? [];
-    if (!list.some((s) => s.start === slot.start)) list.push(slot);
+    list.push(slot);
     days.set(day, list);
   }
   return days;

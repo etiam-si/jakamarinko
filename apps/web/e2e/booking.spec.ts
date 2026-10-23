@@ -61,7 +61,7 @@ async function noAxeViolations(page: Page) {
   // After a client-side step change Next sets the title a moment later.
   await expect(page).toHaveTitle(/\S/);
   // Judged at rest: a step that is still fading in has its text at part opacity.
-  await page.evaluate(() => Promise.allSettled(document.getAnimations().map((a) => a.finished)));
+  await page.evaluate(() => Promise.allSettled(document.getAnimations().filter((a) => a.effect?.getTiming().iterations !== Infinity).map((a) => a.finished)));
   const { violations } = await new AxeBuilder({ page }).analyze();
   expect(violations.map((v) => `${v.id}: ${v.nodes.map((n) => n.target).join(", ")}`)).toEqual([]);
 }

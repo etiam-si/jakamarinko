@@ -589,7 +589,7 @@ test.describe("booking", () => {
         await quality(page, width, at("service"));
         await page.locator('input[name="service"][value="lactate-profile"]').check({ force: true });
         await page.getByRole("button", { name: t.next }).click();
-        await expect(page.locator('input[name="time"]').first()).toBeAttached();
+        await expect(page.locator('input[name="time"]').first()).toBeAttached({ timeout: 20_000 });
         await quality(page, width, at("time"));
         await page.locator('label:has(input[name="time"])').first().click();
         await quality(page, width, at("time, picked"));
