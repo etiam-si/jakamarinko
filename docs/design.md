@@ -229,12 +229,12 @@ the section shows Jaka's own results. Invented quotes presented as real customer
 | Current page | `aria-current="page"` on the nav link: a 2 px signal line under it. Hover draws a quiet graphite line from the left |
 | Phone menu | Below lg: a full-screen deep spruce dialog (`dark` tokens inside), opening as a circle out of the menu button, its rows rising in 35 ms apart. Pages in large expanded type with an arrow (the current one has the signal dot), then the account, the language and, pinned to the bottom, "Book a test". Modal: focus trap, page scroll locked, Escape returns to the button |
 | Language | `LanguageMenu`: one button named "Language"/"Jezik" (globe, `EN`, chevron) with a menu of the languages; keeps the path, query and hash. `LocaleSwitcher` is the compact `EN | SL` pill for ad landing pages |
-| Account entry | Signed out: "Sign in" (icon only on phones). Signed in: the person's initials on a `BibAvatar` (a mini race bib with four pin holes) opening My account, My bookings, Coach area (staff), Sign out. Read on the server; the api is only asked when a session cookie exists |
+| Account entry | Signed out: "Sign in" (icon only on phones). Signed in: the person's initials in a round spruce `AccountAvatar` (round, so it never reads as the logo's bib) opening My account, My bookings, Coach area (staff), Sign out. The page ships "Sign in" (static); the browser asks for the session and swaps in the avatar, in a box of the same width |
 | Date tile | `DateTile` (account): a booking's day printed like a race number, month / day / weekday; muted for bookings that are over |
 
 ## Sign-in
 
-Split screen from lg: the form on the right (max-w-sm, vertically centred, language top right), the brand panel on the left: deep spruce, Jaka's finish photo pinned on like a bib (tilted 2°, four pin holes), and three things an account gives you. On phones the form comes first and the panel follows without the photo. The sent state replaces the form: the heading becomes "Check your inbox", the address is shown, "Open Gmail/Outlook" when the domain is theirs, and "Send the link again" waits 30 s (`resendCooldown`) with a live countdown. Google, when configured, is the first button, with its own G.
+Split screen from md: the form on the right ("← Back to the site" and the language above it) (max-w-sm, vertically centred), the brand panel on the left: deep spruce, Jaka's finish photo pinned on like a bib (tilted 2°, four pin holes), and three things an account gives you. On phones the form comes first and the panel follows without the photo. The sent state replaces the form: the heading becomes "Check your inbox", the address is shown, "Open Gmail/Outlook" when the domain is theirs, and "Send the link again" waits 30 s (`resendCooldown`) with a live countdown. Google, when configured, is the first button, with its own G.
 
 ## Booking flow
 

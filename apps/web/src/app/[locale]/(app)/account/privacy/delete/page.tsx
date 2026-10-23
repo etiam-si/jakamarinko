@@ -18,7 +18,7 @@ export default async function ConfirmDeletePage({ searchParams }: Props) {
       ) : (
         <div className="flex flex-col items-start gap-3">
           <p className="text-muted-foreground">{t("missing")}</p>
-          <Button variant="outline" asChild className="max-md:h-11">
+          <Button variant="outline" asChild className="h-11">
             <Link href="/account/privacy">{t("back")}</Link>
           </Button>
         </div>

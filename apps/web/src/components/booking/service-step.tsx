@@ -41,8 +41,8 @@ export function ServiceStep({ services, initial, onContinue }: { services: Servi
             <Choice key={s.id} name="service" value={s.id} checked={picked === s.id} onChange={setPicked} variant="card" className="items-start">
               <span className="flex min-w-0 flex-1 flex-col gap-1">
                 {badge && (
-                  <span className="flex items-center gap-1.5 font-mono text-xs tracking-wider text-primary uppercase">
-                    <span aria-hidden className="size-1.5 rounded-full bg-signal" />
+                  <span className="flex items-start gap-1.5 font-mono text-xs tracking-wider text-primary uppercase">
+                    <span aria-hidden className="mt-[5px] size-1.5 shrink-0 rounded-full bg-signal" />
                     {badge}
                   </span>
                 )}

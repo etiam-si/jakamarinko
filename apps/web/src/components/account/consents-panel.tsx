@@ -64,14 +64,14 @@ export function ConsentsPanel({ history }: { history: ConsentRecord[] }) {
                 <Button
                   variant="outline"
                   size="sm"
-                  className="max-md:h-11"
+                  className="h-11"
                   loading={pending === kind}
                   onClick={() => (kind === "health_data" ? setConfirmHealth(true) : change(kind, false))}
                 >
                   {t("withdraw")}
                 </Button>
               ) : (
-                <Button size="sm" className="max-md:h-11" loading={pending === kind} onClick={() => change(kind, true)}>
+                <Button variant="outline" size="sm" className="h-11" loading={pending === kind} onClick={() => change(kind, true)}>
                   {t("grant")}
                 </Button>
               )}
@@ -113,9 +113,9 @@ export function ConsentsPanel({ history }: { history: ConsentRecord[] }) {
           <p className="text-sm text-muted-foreground">{t("healthKeeps")}</p>
           <DialogFooter>
             <DialogClose asChild>
-              <Button variant="outline" className="max-md:h-11">{t("healthCancel")}</Button>
+              <Button variant="outline" className="h-11">{t("healthCancel")}</Button>
             </DialogClose>
-            <Button variant="destructive" className="max-md:h-11" loading={pending === "health_data"} onClick={() => change("health_data", false)}>
+            <Button variant="destructive" className="h-11" loading={pending === "health_data"} onClick={() => change("health_data", false)}>
               {t("healthConfirm")}
             </Button>
           </DialogFooter>
