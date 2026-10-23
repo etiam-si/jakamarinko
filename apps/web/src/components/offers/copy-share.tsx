@@ -2,28 +2,19 @@
 
 import { Check, Copy, Share2 } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useEffect, useId, useRef, useState } from "react";
+import { useEffect, useId, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 
 // The referral link, read-only, with a copy button and (where the phone offers it) the share sheet. The code also
-// stands on its own line, and the field shows the end of the link, so a narrow phone never cuts the code off.
+// stands on its own line, and the link wraps inside its field (no scrolling), so a narrow phone never hides the code.
 export function CopyShare({ url, code, shareText }: { url: string; code: string; shareText: string }) {
   const t = useTranslations("offers.referral");
   const id = useId();
   const [copied, setCopied] = useState(false);
   const [canShare, setCanShare] = useState(false);
-  const field = useRef<HTMLInputElement>(null);
-  useEffect(() => {
-    setCanShare(typeof navigator.share === "function");
-    // Whenever the field gets its width (it can stream in hidden), show the end of the link.
-    const el = field.current;
-    if (!el) return;
-    const toEnd = new ResizeObserver(() => (el.scrollLeft = el.scrollWidth));
-    toEnd.observe(el);
-    return () => toEnd.disconnect();
-  }, []);
+  useEffect(() => setCanShare(typeof navigator.share === "function"), []);
 
   async function copy() {
     try {
@@ -31,7 +22,7 @@ export function CopyShare({ url, code, shareText }: { url: string; code: string;
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
-      (document.getElementById(id) as HTMLInputElement | null)?.select();
+      (document.getElementById(id) as HTMLTextAreaElement | null)?.select();
     }
   }
 
@@ -45,7 +36,15 @@ export function CopyShare({ url, code, shareText }: { url: string; code: string;
       </p>
       <Label htmlFor={id}>{t("link")}</Label>
       <div className="flex flex-col gap-2 sm:flex-row">
-        <Input ref={field} id={id} value={url} readOnly onFocus={(e) => e.currentTarget.select()} className="min-w-0 flex-1 font-mono" />
+        <Textarea
+          id={id}
+          value={url}
+          readOnly
+          rows={2}
+          spellCheck={false}
+          onFocus={(e) => e.currentTarget.select()}
+          className="min-h-11 min-w-0 flex-1 resize-none py-2.5 font-mono break-all"
+        />
         <div className="flex gap-2">
           <Button type="button" size="lg" variant="outline" onClick={copy} className="flex-1">
             {copied ? <Check aria-hidden /> : <Copy aria-hidden />}
