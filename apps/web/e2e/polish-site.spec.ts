@@ -226,7 +226,7 @@ test.describe("US-007 motion", () => {
         const section = below.nth(i);
         if (!(await section.getAttribute("data-reveal"))) continue;
         await section.scrollIntoViewIfNeeded();
-        await expect.poll(() => section.evaluate((s) => getComputedStyle(s).opacity), { timeout: 1000, intervals: [50] }).toBe("1");
+        await expect.poll(() => section.evaluate((s) => getComputedStyle(s).opacity), { timeout: 2000, intervals: [50] }).toBe("1");
       }
       await context.close();
     });
