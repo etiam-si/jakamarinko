@@ -4,7 +4,7 @@ import { GiftCheckout, type Service } from "@jakamarinko/api";
 import type { Locale } from "@jakamarinko/types";
 import { useFormatter, useLocale, useTranslations } from "next-intl";
 import { useState } from "react";
-import { eurFormat, euros } from "@/components/site/site";
+import { euro } from "@/components/site/site";
 import { Button } from "@/components/ui/button";
 import { Field, FieldError, FieldHint } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
@@ -41,7 +41,7 @@ export function BuyGift({ services }: { services: Service[] }) {
         <NativeSelect id="gift-service" value={service} onChange={(e) => setService(e.target.value as Service["id"])}>
           {services.map((s) => (
             <option key={s.id} value={s.id}>
-              {s.name} · {format.number(euros(s.priceCents), eurFormat)}
+              {s.name} · {euro(format, s.priceCents)}
             </option>
           ))}
         </NativeSelect>

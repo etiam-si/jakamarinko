@@ -164,8 +164,8 @@ test("the owner gives Ana a free test: email with the code, pre-filled at review
   await pickTime(page);
   await fillDetails(page, email);
   await expect(page.getByLabel("Offer or voucher code")).toHaveValue(code!.code);
-  await expect(page.getByTestId("offer-new-price")).toHaveText("€0");
-  await expect(page.getByTestId("offer-price").locator("s")).toContainText("€90");
+  await expect(page.getByTestId("offer-new-price")).toHaveText("0\u00a0€");
+  await expect(page.getByTestId("offer-price").locator("s")).toContainText("90\u00a0€");
   await expect(page.getByText("Nothing to pay.")).toBeVisible();
   await page.getByRole("button", { name: "Confirm booking" }).click();
 
@@ -199,14 +199,14 @@ test("SPRING20 at the review shows the old price struck through and the new one;
   await field.fill("spring20");
   await page.getByRole("button", { name: "Apply" }).click();
   await expect(page.getByText("Code SPRING20 applied.")).toBeVisible();
-  await expect(page.getByTestId("offer-price").locator("s")).toHaveText("Was €90");
-  await expect(page.getByTestId("offer-new-price")).toHaveText("€72");
+  await expect(page.getByTestId("offer-price").locator("s")).toHaveText("Was 90\u00a0€");
+  await expect(page.getByTestId("offer-new-price")).toHaveText("72\u00a0€");
   const { violations } = await new AxeBuilder({ page }).include("[data-testid=offer]").analyze();
   expect(violations.map((v) => `${v.id}: ${v.nodes.map((n) => n.target).join(", ")}`)).toEqual([]);
 
   await page.getByRole("button", { name: "Confirm booking" }).click();
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("You're booked");
-  await expect(page.getByTestId("pay-on-site")).toHaveText("You pay €72 on site, on the day.");
+  await expect(page.getByTestId("pay-on-site")).toHaveText("You pay 72\u00a0€ on site, on the day.");
 });
 
 test("a signed-in customer copies their referral link; once a friend's booking is completed, the 10 € credit is listed", async ({
@@ -219,11 +219,16 @@ test("a signed-in customer copies their referral link; once a friend's booking i
   await context.grantPermissions(["clipboard-read", "clipboard-write"]);
   const email = unique("referrer");
   await signIn(page, email);
+  await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/en/account");
   const block = page.locator('[data-block="referral"]:visible');
   await expect(block.getByRole("heading", { name: "Invite a friend" })).toBeVisible();
   const link = await block.getByLabel("Your personal link").inputValue();
   expect(link).toMatch(/\/en\/r\/[A-Z0-9]{8}$/);
+  // The code stands on its own line, and the field is scrolled to the end of the link, where the code is.
+  await expect(block.getByTestId("referral-code")).toHaveText(link.split("/r/")[1]!);
+  const field = block.getByLabel("Your personal link");
+  expect(await field.evaluate((el) => el.scrollLeft + el.clientWidth >= el.scrollWidth - 1)).toBe(true);
   await block.getByRole("button", { name: "Copy link" }).click();
   await expect(block.getByRole("button", { name: "Copied" })).toBeVisible();
   const copied = await page.evaluate(() => navigator.clipboard.readText());
@@ -247,7 +252,7 @@ test("a signed-in customer copies their referral link; once a friend's booking i
 
   await page.reload();
   const credits = page.locator('[data-block="referral"]:visible').getByTestId("referral-credits");
-  await expect(credits).toContainText("€10 credit");
+  await expect(credits).toContainText("10\u00a0€ credit");
   await expect(credits).toContainText(/CR-[A-Z0-9]{4}-[A-Z0-9]{4}/);
   const creditCode = /CR-[A-Z0-9]{4}-[A-Z0-9]{4}/.exec((await credits.textContent())!)![0];
   expect((await emailWith(creditCode)).link).toContain(`code=${creditCode}`);
@@ -290,7 +295,7 @@ test("a gift voucher page shows the value and the service, books with the code f
   );
   await page.goto(`/en/gift/${code}`);
   await expect(page.getByTestId("gift-value")).toHaveText("For one Lactate profile");
-  await expect(page.getByText("Worth €90")).toBeVisible();
+  await expect(page.getByText("Worth 90\u00a0€")).toBeVisible();
   await expect(page.getByText("For Maja")).toBeVisible();
   await expect(page.getByTestId("gift-code")).toHaveText(code);
   const book = page.getByRole("link", { name: "Book with this voucher" });
@@ -303,7 +308,7 @@ test("a gift voucher page shows the value and the service, books with the code f
   await pickTime(page);
   await fillDetails(page, unique("gift"));
   await expect(page.getByLabel("Offer or voucher code")).toHaveValue(code);
-  await expect(page.getByTestId("offer-new-price")).toHaveText("€0");
+  await expect(page.getByTestId("offer-new-price")).toHaveText("0\u00a0€");
 
   await page.goto(`/sl/gift/${code}`);
   await expect(page.getByRole("link", { name: "Rezerviraj s tem bonom" })).toBeVisible();

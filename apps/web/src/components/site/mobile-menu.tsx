@@ -5,7 +5,7 @@ import { ArrowRight, LogOut, UserRound, X } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Dialog } from "radix-ui";
 import { useEffect, useState } from "react";
-import { BibAvatar } from "@/components/brand/bib-avatar";
+import { AccountAvatar } from "@/components/brand/account-avatar";
 import { Logo } from "@/components/brand/logo";
 import { LanguageMenu } from "@/components/i18n/language-menu";
 import { Button } from "@/components/ui/button";
@@ -113,7 +113,7 @@ export function MobileMenu() {
                   {account ? (
                     <div className="flex flex-col overflow-hidden rounded-xl bg-white/[0.06] ring-1 ring-white/10">
                       <div className="flex items-center gap-3 px-4 py-3.5">
-                        <BibAvatar initials={account.initials} />
+                        <AccountAvatar initials={account.initials} />
                         <span className="flex min-w-0 flex-col">
                           {account.name && <span className="truncate font-semibold">{account.name}</span>}
                           <span className="truncate text-sm text-muted-foreground">{account.email}</span>

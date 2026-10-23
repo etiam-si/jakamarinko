@@ -16,17 +16,17 @@ export function BrandPanel() {
   const nav = useTranslations("common.nav");
   const photo = useTranslations("site.photos.finish");
   return (
-    <aside className="relative isolate overflow-hidden rounded-3xl bg-primary-deep lg:sticky lg:top-3 lg:h-[calc(100dvh-1.5rem)] lg:min-h-[40rem]">
-      <div className="dark flex h-full flex-col gap-10 bg-[radial-gradient(70%_50%_at_100%_0%,color-mix(in_oklab,var(--primary)_20%,transparent),transparent_70%),radial-gradient(60%_40%_at_0%_100%,color-mix(in_oklab,var(--primary)_10%,transparent),transparent_70%)] p-6 text-foreground sm:p-10 xl:p-14">
+    <aside className="relative isolate overflow-hidden rounded-3xl bg-primary-deep md:sticky md:top-3 md:h-[calc(100dvh-1.5rem)] md:min-h-[40rem]">
+      <div className="dark flex h-full flex-col gap-10 bg-[radial-gradient(70%_50%_at_100%_0%,color-mix(in_oklab,var(--primary)_20%,transparent),transparent_70%),radial-gradient(60%_40%_at_0%_100%,color-mix(in_oklab,var(--primary)_10%,transparent),transparent_70%)] p-6 text-foreground sm:p-10 md:p-8 lg:p-10 xl:p-14">
         <Link
           href="/"
           aria-label={nav("home")}
-          className="hidden self-start rounded-md outline-none focus-visible:ring-[3px] focus-visible:ring-ring/40 lg:block"
+          className="flex h-11 items-center self-start rounded-md outline-none focus-visible:ring-[3px] focus-visible:ring-ring/40"
         >
-          <Logo className="h-10" />
+          <Logo className="h-9 md:h-10" />
         </Link>
 
-        <figure className="hidden flex-1 flex-col items-center justify-center gap-4 lg:flex">
+        <figure className="hidden flex-1 flex-col items-center justify-center gap-4 md:flex">
           <div className="relative w-full max-w-[17rem] -rotate-2 rounded-xl bg-foreground p-2.5 shadow-[0_30px_60px_-20px_rgb(0_0_0/0.55)] xl:max-w-[19rem]">
             {pins.map((p) => (
               <span key={p} aria-hidden className={`absolute z-10 size-2 rounded-full bg-background shadow-[inset_0_1px_1px_rgb(0_0_0/0.5)] ${p}`} />

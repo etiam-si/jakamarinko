@@ -42,7 +42,8 @@ export default function ConsentSettings({ initial, onClose }: { initial: Consent
             </Category>
           ))}
         </div>
-        <DialogFooter>
+        {/* The choice stays in reach while the text scrolls on a small phone. */}
+        <DialogFooter className="sticky -bottom-6 -mx-6 -mb-6 border-t bg-popover px-6 pt-3 pb-6">
           <Button variant="outline" className="max-sm:h-11" onClick={() => save(none)}>
             {t("rejectAll")}
           </Button>

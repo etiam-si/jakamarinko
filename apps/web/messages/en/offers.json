@@ -34,6 +34,7 @@
   "referral": {
     "title": "Invite a friend",
     "text": "Your friend gets {amount} off their first test. Once they've done it, you get a {amount} credit for your next booking.",
+    "codeLabel": "Your code",
     "link": "Your personal link",
     "copy": "Copy link",
     "copied": "Copied",

@@ -2,7 +2,7 @@
 
 import { CalendarDays, LayoutDashboard, LogOut, UserRound, Whistle } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { BibAvatar } from "@/components/brand/bib-avatar";
+import { AccountAvatar } from "@/components/brand/account-avatar";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -60,13 +60,13 @@ function SignedIn({ account }: { account: HeaderAccount }) {
   return (
     <DropdownMenu modal={false}>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" aria-label={t("menu")} data-account-trigger className="size-11 p-0">
-          <BibAvatar initials={account.initials} />
+        <Button variant="ghost" aria-label={t("menu")} data-account-trigger className="size-11 rounded-full p-0">
+          <AccountAvatar initials={account.initials} />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" sideOffset={6} className="w-64">
         <DropdownMenuLabel className="flex items-center gap-3 px-3 py-2.5 font-normal">
-          <BibAvatar initials={account.initials} />
+          <AccountAvatar initials={account.initials} />
           <span className="flex min-w-0 flex-col">
             {account.name && <span className="truncate text-sm font-semibold text-foreground">{account.name}</span>}
             <span className="truncate text-xs text-muted-foreground">{account.email}</span>
