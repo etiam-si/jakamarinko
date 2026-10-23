@@ -13,7 +13,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Link, useRouter } from "@/i18n/navigation";
-import type { HeaderAccount } from "./account";
+import { forgetHeaderAccount, type HeaderAccount, useHeaderAccount } from "./account";
 
 // The account's pages, in menu order. Staff also get the coach area.
 export const accountLinks = (account: HeaderAccount) =>
@@ -29,27 +29,34 @@ export function useSignOut() {
   return async () => {
     const { authClient } = await import("@/lib/auth-client");
     await authClient.signOut();
+    forgetHeaderAccount();
     router.refresh();
   };
 }
 
 // The header's account entry: "Sign in" for visitors (only the icon on phones), the person's bib with a menu once
-// they're signed in.
-export function AccountMenu({ account }: { account: HeaderAccount | null }) {
+// they're signed in. The page arrives with "Sign in" (it is static); the bib replaces it once the browser knows.
+// Both sit in a box of one width, so the swap moves nothing around them.
+export function AccountMenu() {
+  const account = useHeaderAccount();
+  return <div className="flex w-11 shrink-0 justify-end md:w-28">{account ? <SignedIn account={account} /> : <SignIn />}</div>;
+}
+
+function SignIn() {
+  const t = useTranslations("header.account");
+  return (
+    <Button asChild variant="ghost" className="size-11 p-0 md:h-10 md:w-auto md:px-3 md:has-[>svg]:px-3">
+      <Link href="/sign-in">
+        <UserRound aria-hidden className="size-5 md:size-4" />
+        <span className="max-md:sr-only">{t("signIn")}</span>
+      </Link>
+    </Button>
+  );
+}
+
+function SignedIn({ account }: { account: HeaderAccount }) {
   const t = useTranslations("header.account");
   const signOut = useSignOut();
-
-  if (!account) {
-    return (
-      <Button asChild variant="ghost" className="size-11 p-0 md:h-10 md:w-auto md:px-3 md:has-[>svg]:px-3">
-        <Link href="/sign-in">
-          <UserRound aria-hidden className="size-5 md:size-4" />
-          <span className="max-md:sr-only">{t("signIn")}</span>
-        </Link>
-      </Button>
-    );
-  }
-
   return (
     <DropdownMenu modal={false}>
       <DropdownMenuTrigger asChild>
