@@ -15,4 +15,5 @@ export const overviewBlocks: OverviewBlockEntry[] = [
   { id: "next-booking", title: "account.overview.nextBooking.title", load: () => import("@/components/account/next-booking-block"), wide: true },
   { id: "past-bookings", title: "account.overview.pastBookings.title", load: () => import("@/components/account/past-bookings-block") },
   { id: "profile", title: "account.overview.profile.title", load: () => import("@/components/account/profile-block") },
+  { id: "referral", title: "offers.referral.title", load: () => import("@/components/offers/referral-block") },
 ];

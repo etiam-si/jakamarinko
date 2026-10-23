@@ -11,6 +11,7 @@ import { Faq } from "@/components/site/faq";
 import { Location } from "@/components/site/location";
 import { PhotoSlot } from "@/components/site/photo-slot";
 import { ProofBand } from "@/components/site/proof-band";
+import { FoundingCounter } from "@/components/offers/founding-counter";
 import { CtaBand, Section } from "@/components/site/section";
 import { bookingHref, euros, pageMetadata } from "@/components/site/site";
 import { Steps } from "@/components/site/steps";
@@ -100,6 +101,7 @@ export default function Lab({ params }: Props) {
               <ShieldCheck aria-hidden className="mt-0.5 size-4 shrink-0 text-primary" />
               {t("hero.trust")} · {site("location.trust")}
             </p>
+            <FoundingCounter />
           </div>
         </div>
         <PhotoSlot

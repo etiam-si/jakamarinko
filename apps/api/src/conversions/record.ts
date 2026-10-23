@@ -4,7 +4,7 @@ import { getCookie } from "hono/cookie";
 import { z } from "zod";
 import type { TrackEvent } from "@jakamarinko/api";
 import { db } from "@jakamarinko/db";
-import { bookings, type ConversionClient, conversions, requests, serviceTypes } from "@jakamarinko/db/schema";
+import { bookings, type ConversionClient, conversions, offerRedemptions, requests, serviceTypes } from "@jakamarinko/db/schema";
 import { reportConversion } from "./meta";
 
 // The cookie banner's choice (apps/web/src/lib/consent.ts). If web bumps its version and this doesn't follow,
@@ -52,15 +52,23 @@ export async function recordConversion(c: Context, name: TrackEvent, subject: Su
 async function details(row: typeof conversions.$inferSelect) {
   if (row.bookingId) {
     const [b] = await db()
-      .select({ email: bookings.customerEmail, utm: bookings.utm, createdAt: bookings.createdAt, priceCents: serviceTypes.priceCents })
+      .select({
+        email: bookings.customerEmail,
+        utm: bookings.utm,
+        createdAt: bookings.createdAt,
+        priceCents: serviceTypes.priceCents,
+        paidCents: offerRedemptions.paidCents,
+      })
       .from(bookings)
       .innerJoin(serviceTypes, eq(serviceTypes.id, bookings.serviceTypeId))
+      .leftJoin(offerRedemptions, eq(offerRedemptions.bookingId, bookings.id))
       .where(eq(bookings.id, row.bookingId));
     if (!b) return null;
     // Meta's click id from the ad link, when the pixel hadn't stored it as _fbc yet.
     const fbclid = b.utm?.fbclid;
     const fbc = row.client?.fbc ?? (fbclid ? `fb.1.${b.createdAt.getTime()}.${fbclid}` : undefined);
-    return { email: b.email, value: b.priceCents / 100, currency: "EUR", client: row.client && { ...row.client, fbc } };
+    return { email: b.email, // The price actually paid, after an offer code or discount.
+      value: (b.paidCents ?? b.priceCents) / 100, currency: "EUR", client: row.client && { ...row.client, fbc } };
   }
   if (row.requestId) {
     const [r] = await db().select({ email: requests.email }).from(requests).where(eq(requests.id, row.requestId));

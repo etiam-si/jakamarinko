@@ -1,6 +1,6 @@
 import { type Locale, labTests, packages } from "@jakamarinko/types";
 import { BRAND_NAME } from "@/components/brand/logo";
-import { euros, siteUrl, url } from "./site";
+import { euros, labMapsUrl, siteUrl, url } from "./site";
 
 type Contact = { phone: string; email: string; instagram: string; strava: string };
 
@@ -13,7 +13,7 @@ function JsonLd({ data }: { data: object }) {
 }
 
 // Structured data for search engines: Jaka as a Person and the lab and coaching as a SportsActivityLocation.
-// No address until the user gives one (docs/plan/tasks/T08-public-site.md).
+// The address is the lab's (labAddress in site.ts).
 export function SiteJsonLd({ locale, description, jobTitle, contact }: { locale: string; description: string; jobTitle: string; contact: Contact }) {
   return (
     <JsonLd
@@ -39,6 +39,8 @@ export function SiteJsonLd({ locale, description, jobTitle, contact }: { locale:
             telephone: contact.phone,
             email: contact.email,
             founder: { "@id": person },
+            address: { "@type": "PostalAddress", streetAddress: "Spodnje Pirnice 19N", postalCode: "1215", addressLocality: "Medvode", addressCountry: "SI" },
+            hasMap: labMapsUrl,
             sameAs: [contact.instagram],
           },
           { "@type": "WebSite", "@id": `${siteUrl}/#website`, name: BRAND_NAME, url: siteUrl, inLanguage: locale, publisher: { "@id": business } },

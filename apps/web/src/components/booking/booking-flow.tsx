@@ -57,6 +57,8 @@ export function BookingFlow({
   const [detailsDone, setDetailsDone] = useState(false);
   const [notice, setNotice] = useState<"slotTaken" | "unavailable" | null>(null);
   const [submitting, setSubmitting] = useState(false);
+  // An offer code (offers), from ?code= or entered at the review.
+  const [code, setCode] = useState(params.get("code") ?? "");
 
   // A step opens only when what it needs is there; a reload or an old link falls back to the first one missing.
   const requested = params.get("step");
@@ -113,6 +115,7 @@ export function BookingFlow({
           locale,
           ...(service.kind === "lab_test" && { healthAnswers: healthAnswers(details.health), healthConsent: true }),
           utm: getAttribution() ?? undefined,
+          ...(code && { code }),
         },
       });
       const status: number = res.status;
@@ -136,7 +139,7 @@ export function BookingFlow({
         return router.replace({ pathname: `/booking/${booking.id}`, query: { token } });
       }
       // The event id is the one the api reports to Meta, so the two copies count once.
-      track("booking_paid", { service: service.id, value: service.priceCents / 100, currency: "EUR" }, `booking_paid-${booking.id}`);
+      track("booking_paid", { service: service.id, value: booking.priceCents / 100, currency: "EUR" }, `booking_paid-${booking.id}`);
       router.replace({ pathname: `/booking/${booking.id}`, query: { token, confirmed: "1" } });
     } catch {
       setNotice("unavailable");
@@ -247,6 +250,8 @@ export function BookingFlow({
             details={details}
             preparation={preparation[service.id] ?? []}
             submitting={submitting}
+            code={code}
+            onCode={setCode}
             onEdit={(target) => go(target)}
             onConfirm={confirm}
           />

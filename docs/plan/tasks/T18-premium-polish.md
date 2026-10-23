@@ -175,6 +175,105 @@ The two new spec files are:
   - The PR shows the table.
 - [e2e] No new JS dependency over 15 kB gzipped is added to the public pages' client bundle (state the sizes of any added library in the PR).
 
+### US-010: Built for conversion: hooks, one clear action, objections answered (premium-site; booking friction: customer-login)
+**Description:** As the owner, I want every public page built to turn a visitor into a booking, so that ad money and organic visits pay back. The strategy, hooks and exact EN/SL copy are in `docs/content/conversion-playbook.md` (CRO research). Pages implement its top-pick hook and section order.
+
+**Acceptance criteria:**
+- [e2e] On every page in **P** except legal and sign-in, at 390×844 and 1440×900, the first viewport (with the cookie banner dismissed) contains:
+  - the `h1`;
+  - exactly one primary CTA (a link or button with `data-cta="primary"`) that is fully visible;
+  - its `href` goes to `/{locale}/booking` (with `?service=` where the page is about one service) or, on `coaching`, to the playbook's coaching CTA target.
+- [e2e] Each page's `h1` text equals the playbook's top-pick hook for that page and locale (the test reads the expected strings from the message files that the playbook copy was pasted into; it asserts they are not empty and differ between EN and SL).
+- [e2e] Hero `h1` ≤ 10 words. The subline under it is one sentence of ≤ 20 words.
+- [e2e] No paragraph (`main p`) on public pages exceeds 45 words, so there are no walls of text.
+- [e2e] Every `section` in `main` on home, lab, coaching and each `/lp/` page contains or is immediately followed by a CTA link (`data-cta`), so every section ends in an action.
+- [e2e] `lab` and every `/lp/` page show:
+  - the price, as text matching `€`, before the first FAQ;
+  - a FAQ with ≥ 5 questions (`details`/`summary` or an accordion with `aria-expanded`) that includes the playbook's objection questions (preparation, "am I fit enough", how long, what I get, cancellation).
+- [e2e] Proof (achievements or results from `docs/content/`) appears within the first two sections after the hero on home and lab.
+- [e2e] At ≤ 430 px, the sticky mobile CTA bar is visible after scrolling past the hero, links to booking, and never covers the focused input on forms (it hides while an input has focus).
+- [e2e] No customer-visible text on any page in **P** matches `/\bAI\b|artificial intelligence|umetn[a-z]* inteligenc/i` (honesty rule).
+- [e2e] Urgency is honest: no countdown timers and no "only N left" text unless N comes from the slots API.
+
+**Verification:**
+- **Tests:** `polish-site.spec.ts` "conversion".
+- **Regression risk:** `site.spec.ts` (heading and CTA assertions), `landing.spec.ts`, `smoke.spec.ts`.
+
+### US-011: Speed, finishing touches, SEO (finishing-touches)
+**Description:** As the owner, I want the site to load fast on phones, look finished everywhere a customer can land (errors, emails, link previews, search results), and be understood by Google, so that paid and organic traffic converts.
+
+**Acceptance criteria:**
+- [e2e] **Per-page messages:** on `/en` and `/en/lab`, the server-rendered HTML contains no message keys from namespaces the page doesn't use. For example, `/en` contains none of the coach-only, account-only or legal-only strings: assert 3 specific strings from `coach-booking.json`, `account.json` and `legal.json` are absent from the HTML.
+- [measured] **Lighthouse 12, mobile preset, 5 runs, medians:** `/en` and `/en/lab` Performance ≥ 90, LCP ≤ 2.5 s, CLS ≤ 0.05, TBT ≤ 200 ms. If 90 isn't reached, the PR shows the remaining breakdown and what blocks it.
+- [e2e] **404 page:** `/en/does-not-exist` returns 404 and shows a designed page with an `h1`, a primary CTA to `/en/booking` and links to home, lab and contact; the same in SL. A thrown server error renders the designed error page with a retry button (verify via a test-only route or `error.tsx` unit test).
+- [vitest] **Branded emails:** the email templates (`packages/email`) for magic link, booking confirmation, reminder, rescheduled and cancelled render with the brand header, the primary button and the footer. Text stays EN/SL. A snapshot of the rendered HTML includes the logo `img` with `alt`, and a button `a` with inline `background-color` (email-client-safe). The plain-text part is still present.
+- [e2e] **Link previews:** every page in **P** has `og:title`, `og:description`, `og:image` (absolute URL, responds 200, `image/png` or `image/jpeg`, 1200×630) and `twitter:card=summary_large_image`. Titles are unique per page and locale.
+- [e2e] **Structured data:** `/en` has JSON-LD that parses as JSON and includes `@type` `Person` (Jaka) and `LocalBusiness` or `SportsActivityLocation`. `/en/lab` has `Service` or `Offer` entries with `price` and `priceCurrency` `EUR` matching the catalog. Pages with a FAQ have `FAQPage` whose questions equal the visible FAQ questions.
+- [e2e] **Icons:** `/favicon.ico`, `/apple-touch-icon.png` (180×180) and the web manifest respond 200. `<meta name="theme-color">` is present; the manifest has `name`, `short_name` and icons 192 and 512.
+
+**Verification:**
+- **Tests:** `apps/web/e2e/polish-finish.spec.ts` and Vitest in `packages/email`.
+- **Regression risk:** i18n loading on every page; all e2e specs that read text.
+
+### US-012: Offers: free tests, discount codes, referrals, founding athletes, retests, gift vouchers (offers)
+**Description:** As the owner, I want to give anyone a free or discounted test, reward customers who bring friends, and run the playbook's offers, so that word of mouth and promotions turn into bookings without manual bookkeeping. The owner confirmed the bundle prices and asked for these offers (2026-10-22).
+
+**Rules (decided):**
+- **Codes:** created by owner or head_coach in the coach area. Each code has:
+  - a type: free (100 %), percent off, or a fixed € off;
+  - which services it applies to (all, or a list);
+  - optional max uses, an optional expiry, and an optional "only for this email";
+  - an internal note.
+
+  A code is entered at the booking review step. The discounted price is what the customer sees, what Stripe charges (when payments are on) and what the confirmation email says ("You pay X on site" when payments are off). A free code confirms the booking with nothing to pay.
+- **Give a free test:** in the coach area, the owner enters a name, an email and a service. The system creates a single-use free code for that email and emails it (EN/SL by chosen language) with a book link that has the code pre-filled.
+- **Referrals:**
+  - Every signed-in customer has a personal referral link (`/{locale}/r/<code>`) on `/account`, with a copy and share button.
+  - A friend who books their first test through it gets 10 € off.
+  - When that booking is completed (marked completed by the coach), the referrer gets a 10 € credit code, emailed and shown on `/account`.
+  - Self-referral (same email) and a second "first" booking don't count.
+- **Founding athletes:**
+  - The first 20 distinct customers with a completed booking get the founding status: 30 % off every future booking, automatically, for life.
+  - Public pages show "N of 20 founding places left", computed from the database. The counter disappears at 0.
+  - The owner can switch the founding offer off.
+- **Lactate retest (70 €):** bookable only if the same email has a completed booking that included a lactate test in the last 120 days. Otherwise the booking step explains why and offers the full lactate profile.
+- **Season pack (350 €):** the confirmation email contains two single-use codes for the `lactate-retest` service, valid for 6 months and tied to the buyer's email.
+- **Gift vouchers:**
+  - The owner can create a gift voucher (value in € or a specific service), which is a code with a printable/forwardable voucher page (`/{locale}/gift/<code>`).
+  - Buying a voucher online is built behind `PAYMENTS_ENABLED` (Stripe Checkout). When payments are off, the voucher page says to contact Jaka.
+- **Stacking:** at most one code per booking. Founding status and a code don't stack; the larger saving wins. Prices never go below 0.
+- **Records:** every redemption is recorded (code, booking, amount saved). A `/coach/offers` page shows codes, uses, revenue and discount totals for a date range.
+
+**Acceptance criteria:**
+- [api] POST to create a code as owner → 201. As customer → 403; as guest → 401. A code string is unique; a duplicate gives 409.
+- [api] Booking `lactate-profile` (90 €):
+  - with a 20 % code, the booking price is 72 € and a redemption row records 18 €;
+  - with a free code, it's confirmed at 0 € with no payment;
+  - with an expired, used-up, wrong-service or wrong-email code → 422 with error codes `code_expired`, `code_used_up`, `code_not_for_service`, `code_not_for_you`, and the booking is not created.
+- [api] Concurrency: a single-use code used by 5 parallel bookings for different slots gives exactly 1 success. The redemption is claimed in the booking transaction.
+- [api] Payments on (fake Stripe): a Checkout session for a booking with a 20 % code has `unit_amount` 7200 (cents). A refund refunds what was paid, not the list price.
+- [api] Referral:
+  - booking through `/r/<code>` as a new email gets 10 € off;
+  - after the coach marks it completed, exactly one 10 € credit code exists for the referrer and one email is sent;
+  - marking it completed again creates nothing new;
+  - the referrer using their own link gets no discount.
+- [api] Founding: with 19 founding customers, completing a booking for a 20th makes them founding and the counter shows 0. The 21st gets nothing. A founding customer's next booking of 90 € costs 63 €. A 20 % code on a founding customer's booking still costs 63 € (the larger saving wins).
+- [api] Retest: `lactate-retest` for an email without a completed lactate booking in 120 days → 422 `retest_not_eligible`. With one (completed 30 days ago) → created at 70 €.
+- [api] Season pack: the confirmation email contains 2 distinct codes valid for `lactate-retest` only, for 6 months, tied to the buyer's email.
+- [e2e] Owner gives a free test:
+  - in `/en/coach/offers` the owner fills name `Ana`, email `ana-<rand>@example.com`, service `lactate-profile` and submits → toast, and the outbox has an email to Ana with a link containing `code=`;
+  - opening that link pre-fills the code at review;
+  - the review shows `0 €`, and confirming leads to the booked page with nothing to pay.
+- [e2e] Code at checkout: at `/en/booking` review, entering `SPRING20` (seeded 20 %) shows the old price struck through and the new price, and an invalid code shows an inline error. At 390 px the field and button meet the US-005 sizes.
+- [e2e] Signed-in customer: `/en/account` shows their referral link and a working copy button (clipboard contains a URL with `/r/`). After a referred friend's booking is completed, `/en/account` lists the 10 € credit.
+- [e2e] Public: `/en` and `/en/lab` show "N of 20 founding places left" with N equal to `20 − founding count` from the database. With the founding offer switched off, the text is absent.
+- [e2e] Gift voucher page `/en/gift/<code>` shows the value and the service, and a "Book with this voucher" link with the code pre-filled. It's `noindex`.
+- [e2e] Every new string is in EN and SL. The founding counter always equals the database (no fake urgency).
+
+**Verification:**
+- **Tests:** `apps/api/src/offers/*.test.ts`, `apps/web/e2e/offers.spec.ts`.
+- **Regression risk:** booking creation, payments (amounts, refunds), conversions (`booking_paid` value is the paid price), the owner report.
+
 ## 4. Functional requirements
 
 - **FR-1:** The header shows one language control (US-001) that keeps the path and query.
@@ -185,6 +284,7 @@ The two new spec files are:
 - **FR-6:** Public pages get premium visuals and scroll-reveal motion, built from shared components in `components/ui/` and documented in `docs/design.md` (US-007).
 - **FR-7:** All motion is disabled under `prefers-reduced-motion: reduce`.
 - **FR-8:** The booking flow has a step progress indicator and animated step changes (US-008).
+- **FR-10:** Public pages follow `docs/content/conversion-playbook.md`: the top-pick hook, one primary CTA above the fold, short copy, objections answered, honest proof and urgency (US-010).
 - **FR-9:** No page overflows horizontally, and tap targets, inputs and text meet the US-005 minimums at every width in W.
 
 ## 5. Non-goals
@@ -255,6 +355,14 @@ The two new spec files are:
 - [ ] axe zero at 390/1440 × EN/SL, banner open and dismissed
 - [ ] No console errors, no text < 12 px, no blurry images
 - [ ] Cookie sheet ≤ 40% of the viewport and clear of the hero `h1` and CTA
+
+**Conversion (US-010)**
+- [ ] One primary CTA in the first viewport at 390 and 1440 px on every non-legal page
+- [ ] Playbook hooks in the `h1` (EN and SL), ≤ 10 words; the subline ≤ 20 words
+- [ ] No paragraph > 45 words; every section ends in a CTA
+- [ ] Price before the FAQ; ≥ 5 objection FAQs on lab and `/lp/`
+- [ ] Proof within the first two sections; sticky CTA behaves on forms
+- [ ] No AI wording; no fake urgency
 
 **Motion (US-007, US-008)**
 - [ ] `data-reveal` sections animate in; nothing animated under reduced motion
