@@ -34,6 +34,7 @@
   "referral": {
     "title": "Povabi prijatelja",
     "text": "Tvoj prijatelj dobi {amount} popusta na prvo meritev. Ko jo opravi, dobiš ti {amount} dobroimetja za naslednjo rezervacijo.",
+    "codeLabel": "Tvoja koda",
     "link": "Tvoja osebna povezava",
     "copy": "Kopiraj povezavo",
     "copied": "Kopirano",

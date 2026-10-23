@@ -7,15 +7,9 @@ import type { Template } from "../types";
 
 const intlLocale: Record<Locale, string> = { en: "en-GB", sl: "sl-SI" };
 
-// "72 €" for whole euros, "72,50 €" otherwise.
+// The site's way to write a price (components/site/site.ts euro()): "90 €", "72,50 €", with a no-break space.
 export function formatEuro(cents: number, locale: Locale) {
-  const whole = cents % 100 === 0;
-  return new Intl.NumberFormat(intlLocale[locale], {
-    style: "currency",
-    currency: "EUR",
-    minimumFractionDigits: whole ? 0 : 2,
-    maximumFractionDigits: 2,
-  }).format(cents / 100);
+  return `${new Intl.NumberFormat(intlLocale[locale], { maximumFractionDigits: 2 }).format(cents / 100)}\u00a0€`;
 }
 
 export type OfferFreeTestProps = { name: string; code: string; serviceName: string; bookUrl: string; expiresAt?: Date | null };
