@@ -225,10 +225,10 @@ test("a signed-in customer copies their referral link; once a friend's booking i
   await expect(block.getByRole("heading", { name: "Invite a friend" })).toBeVisible();
   const link = await block.getByLabel("Your personal link").inputValue();
   expect(link).toMatch(/\/en\/r\/[A-Z0-9]{8}$/);
-  // The code stands on its own line, and the field is scrolled to the end of the link, where the code is.
+  // The code stands on its own line, and the whole link is visible in its field: it wraps, nothing scrolls.
   await expect(block.getByTestId("referral-code")).toHaveText(link.split("/r/")[1]!);
   const field = block.getByLabel("Your personal link");
-  expect(await field.evaluate((el) => el.scrollLeft + el.clientWidth >= el.scrollWidth - 1)).toBe(true);
+  expect(await field.evaluate((el) => el.scrollWidth <= el.clientWidth && el.scrollHeight <= el.clientHeight + 1)).toBe(true);
   await block.getByRole("button", { name: "Copy link" }).click();
   await expect(block.getByRole("button", { name: "Copied" })).toBeVisible();
   const copied = await page.evaluate(() => navigator.clipboard.readText());
