@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { headers } from "next/headers";
 import { getFormatter, getTranslations, setRequestLocale } from "next-intl/server";
 import { GiftVoucher } from "@jakamarinko/api";
 import { locales } from "@jakamarinko/types";
@@ -22,7 +23,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 async function load(code: string, locale: (typeof locales)[number]) {
   try {
-    const res = await api.offers.gift[":code"].$get({ param: { code }, query: { locale } });
+    // The api limits lookups per visitor, so it gets the visitor's address, not this server's.
+    const ip = (await headers()).get("cf-connecting-ip");
+    const res = await api.offers.gift[":code"].$get({ param: { code }, query: { locale } }, { headers: ip ? { "cf-connecting-ip": ip } : {} });
     if (res.ok) return GiftVoucher.parse(await res.json());
     return res.status === 404 ? "notFound" : "unavailable";
   } catch {

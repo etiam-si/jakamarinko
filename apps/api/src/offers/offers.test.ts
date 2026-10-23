@@ -22,6 +22,7 @@ import { conversionReport } from "../conversions/report";
 import { fakeStripe, type FakeStripe } from "../payments/fake-stripe";
 import { setStripe } from "../payments/stripe";
 import { newCode } from "./codes";
+import { resetOfferRateLimits } from "./rate-limit";
 import { activateGift } from "./gifts";
 import { bookingCompleted } from "./rewards";
 
@@ -74,6 +75,7 @@ beforeEach(async () => {
   holder.user = null;
   outbox.length = 0;
   meta.sent.length = 0;
+  resetOfferRateLimits();
   for (const table of [offerRedemptions, offerCodes, foundingAthletes, offerSettings, conversions, refunds, stripeEvents, bookings]) {
     await database.delete(table);
   }
@@ -536,5 +538,24 @@ describe("the offers report", () => {
     expect(empty.totals).toEqual({ redemptions: 0, revenueCents: 0, discountCents: 0 });
     as(people.maja);
     expect((await call("GET", "/offers/report?from=2026-11-01&to=2026-11-01")).status).toBe(403);
+  });
+});
+
+describe("rate limits", () => {
+  test("per IP: the 61st quote and the 31st voucher lookup in 10 minutes get 429; another IP still gets through", async () => {
+    const ip = (n: string) => ({ "cf-connecting-ip": n });
+    const quote = (n: string) => call("POST", "/offers/quote", { service: "lactate-profile", code: "GUESS123" }, ip(n));
+    for (let i = 0; i < 60; i++) expect((await quote("203.0.113.1")).status).toBe(200);
+    const limited = await quote("203.0.113.1");
+    expect(limited.status).toBe(429);
+    expect(await errorCode(limited)).toBe("too_many_requests");
+    expect((await quote("203.0.113.2")).status).toBe(200);
+
+    const gift = (n: string) => call("GET", "/offers/gift/GUESS123", undefined, ip(n));
+    for (let i = 0; i < 30; i++) expect((await gift("203.0.113.1")).status).toBe(404);
+    expect((await gift("203.0.113.1")).status).toBe(429);
+    // Ten minutes later it is open again.
+    vi.setSystemTime(new Date(now.getTime() + 10 * 60_000 + 1));
+    expect((await gift("203.0.113.1")).status).toBe(404);
   });
 });
