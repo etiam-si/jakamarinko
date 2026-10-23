@@ -2,8 +2,19 @@ import { expect, type Page, test } from "@playwright/test";
 import { labTests, sessions } from "@jakamarinko/types";
 import enCommon from "../messages/en/common.json";
 import slCommon from "../messages/sl/common.json";
+import enCoaching from "../messages/en/coaching.json";
+import enLab from "../messages/en/lab.json";
+import slCoaching from "../messages/sl/coaching.json";
+import slLab from "../messages/sl/lab.json";
+import enSite from "../messages/en/site.json";
+import slSite from "../messages/sl/site.json";
 
 const common = { en: enCommon, sl: slCommon } as const;
+// The entry offer (conversion playbook): these buttons all open the booking with the lactate profile.
+const lactateCtas = {
+  en: [enLab.hero.primaryCta, enLab.close.button, enCoaching.hero.secondaryCta, enSite.sticky.button],
+  sl: [slLab.hero.primaryCta, slLab.close.button, slCoaching.hero.secondaryCta, slSite.sticky.button],
+} as const;
 const pages = [
   { path: "/about", key: "about" },
   { path: "/coaching", key: "coaching" },
@@ -54,12 +65,14 @@ for (const locale of ["en", "sl"] as const) {
         for (const lang of ["en", "sl"]) {
           await expect(page.locator(`link[rel="alternate"][hreflang="${lang}"]`)).toHaveAttribute("href", `https://jakamarinko.com/${lang}${path}`);
         }
-        await expect(page.locator('meta[property="og:image"]')).toHaveAttribute("content", /opengraph-image/);
+        // The page's own preview image (app/og, US-011).
+        const og = `https://jakamarinko.com/og/${locale}/${path.slice(1) || "home"}.png`;
+        await expect(page.locator('meta[property="og:image"]')).toHaveAttribute("content", og);
       }
     });
 
-    // "Book a test" (header, hero, the phone bar) opens the booking at its first step; every other Book button
-    // names one service and opens the booking with it.
+    // "Book a test" (header, footer) opens the booking at its first step; the entry-offer buttons ("Book a lactate
+    // test") open it with the lactate profile; every other Book button names one service and opens the booking with it.
     test("every Book button goes to /booking with the right service", async ({ page }) => {
       const prefix = common[locale].actions.bookItem.replace("{name}", "");
       let checked = 0;
@@ -67,8 +80,13 @@ for (const locale of ["en", "sl"] as const) {
         await page.goto(`/${locale}${path}`);
         const links = page.locator('a[href*="/booking"]');
         for (const link of await links.all()) {
-          if ((await link.textContent())!.trim() === common[locale].actions.bookTest) {
+          const text = (await link.textContent())!.trim();
+          if (text === common[locale].actions.bookTest) {
             await expect(link).toHaveAttribute("href", `/${locale}/booking`);
+            continue;
+          }
+          if ((lactateCtas[locale] as readonly string[]).includes(text)) {
+            await expect(link).toHaveAttribute("href", `/${locale}/booking?service=lactate-profile`);
             continue;
           }
           const name = (await link.textContent())!.replace(prefix, "");
@@ -87,10 +105,12 @@ for (const locale of ["en", "sl"] as const) {
 test("the language switch keeps the page", async ({ page }) => {
   for (const { path } of pages) {
     await page.goto(`/en${path}`);
-    await page.getByRole("link", { name: "Slovenščina" }).click();
+    await page.getByRole("button", { name: "Language" }).click();
+    await page.getByRole("menuitem", { name: "Slovenščina" }).click();
     await expect(page).toHaveURL(`/sl${path}`);
     await expect(page.locator("html")).toHaveAttribute("lang", "sl");
-    await page.getByRole("link", { name: "English" }).click();
+    await page.getByRole("button", { name: "Jezik" }).click();
+    await page.getByRole("menuitem", { name: "English" }).click();
     await expect(page).toHaveURL(`/en${path}`);
   }
 });

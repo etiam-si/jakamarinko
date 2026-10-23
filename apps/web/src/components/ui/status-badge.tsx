@@ -29,11 +29,11 @@ export function StatusBadge({
   loading = false,
   className,
   children,
-}: {
+  ...props
+}: Omit<React.ComponentProps<"span">, "children"> & {
   tone: StatusTone
   dot?: boolean
   loading?: boolean
-  className?: string
   children: React.ReactNode
 }) {
   return (
@@ -44,6 +44,7 @@ export function StatusBadge({
         tones[tone],
         className
       )}
+      {...props}
     >
       {loading ? (
         <Loader2 aria-hidden className="size-3 animate-spin" />

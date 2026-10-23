@@ -4,6 +4,7 @@ import { expect, type Page, test } from "@playwright/test";
 import { Client } from "pg";
 import { landingPages } from "../src/components/landing/pages";
 import { serializeConsent } from "../src/lib/consent";
+import slLanding from "../messages/sl/landing.json";
 
 test.beforeEach(async ({ context, baseURL }) => {
   const value = encodeURIComponent(serializeConsent({ analytics: false, marketing: false }));
@@ -21,10 +22,12 @@ for (const locale of ["en", "sl"] as const) {
       const header = page.locator("header").first();
       await expect(header.getByRole("link")).toHaveCount(3);
       await expect(header.getByRole("navigation")).toHaveCount(1);
-      // Every call to action goes to the same place.
+      // Every call to action goes to the same place; the only other link is the lab's address in maps.
       const hrefs = await page.locator("main a").evaluateAll((links) => [...new Set(links.map((a) => a.getAttribute("href")))]);
-      expect(hrefs).toHaveLength(1);
-      expect(hrefs[0]).toMatch(new RegExp(`^/${locale}/(booking\\?service=|contact\\?package=)`));
+      const internal = hrefs.filter((href) => href?.startsWith("/"));
+      expect(hrefs.filter((href) => !href?.startsWith("/"))).toEqual([expect.stringMatching(/^https:\/\/www\.google\.com\/maps\/search\//)]);
+      expect(internal).toHaveLength(1);
+      expect(internal[0]).toMatch(new RegExp(`^/${locale}/(booking\\?service=|contact\\?package=)`));
     });
   }
 }
@@ -38,7 +41,7 @@ test("the language switch keeps the landing page", async ({ page }) => {
   await page.goto("/en/lp/lactate-test");
   await page.locator("header").getByRole("link", { name: "Slovenščina" }).click();
   await expect(page).toHaveURL(/\/sl\/lp\/lactate-test$/);
-  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Treniraj v svojih conah, ne v conah formule.");
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText(slLanding.pages["lactate-test"].hero.title);
 });
 
 const outbox = path.join(__dirname, "../../api/.emails");

@@ -100,7 +100,8 @@ test("the ad source is remembered across pages once marketing consent is given",
   await expect.poll(() => attribution(context)).toEqual({ utm_source: "instagram", utm_campaign: "x" });
 
   await visit(page, "/sl");
-  await page.getByRole("link", { name: "English" }).click();
+  await page.getByRole("button", { name: "Jezik" }).click();
+  await page.getByRole("menuitem", { name: "English" }).click();
   await expect(page).toHaveURL(/\/en$/);
   await visit(page, "/sl");
   expect(await attribution(context)).toEqual({ utm_source: "instagram", utm_campaign: "x" });

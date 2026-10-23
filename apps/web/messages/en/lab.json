@@ -4,16 +4,18 @@
     "description": "VO₂max, lactate profile, fat and carbohydrate use, running economy and anthropometry. What each test measures, how to prepare and what it costs."
   },
   "hero": {
-    "title": "Lab tests: know your numbers",
-    "subtitle": "Training zones from your own body, not from formulas.",
-    "primaryCta": "Book a test",
-    "secondaryCta": "Which test is right for me?"
+    "title": "Your watch estimates. The lab measures.",
+    "subtitle": "Your thresholds, VO₂max and training zones, measured and explained, with the lactate profile at {price} €.",
+    "primaryCta": "Book a lactate test",
+    "secondaryCta": "Which test is right for me?",
+    "trust": "VAT included · Free cancellation up to 24 h · Book online in a minute"
   },
   "what": {
     "title": "What happens in a test",
     "s1": "You run or ride, a little harder every step.",
     "s2": "Heart rate, oxygen use and, from a drop of blood, lactate are measured.",
-    "s3": "You get your thresholds, VO₂max and training zones."
+    "s3": "You get your thresholds, VO₂max and training zones.",
+    "hard": "Hard for the last few minutes, and you can stop at any time."
   },
   "why": {
     "title": "Why test?",
@@ -45,7 +47,24 @@
     "preparation": "How to prepare",
     "included": "What you get",
     "duration": "Duration",
-    "contains": "Includes"
+    "contains": "Includes",
+    "prep": {
+      "fed": "Come rested",
+      "fasted": "Come rested and fasted",
+      "none": "No preparation needed",
+      "title": "How to prepare",
+      "fastedNote": "Fat and carbohydrate test and Performance: come fasted, nothing to eat for 8 hours before, water only."
+    },
+    "separately": "{price} € separately · save {saving} €",
+    "bestFirst": "Best first test",
+    "bestValue": "Best value",
+    "forRunners": "For runners",
+    "forLongRaces": "For long races",
+    "comeBack": {
+      "title": "Come back and see what changed",
+      "lead": "Retest and season offers for athletes who have tested with us."
+    },
+    "separatelyOnly": "{price} € if booked separately"
   },
   "prepare": {
     "title": "How to prepare",
@@ -58,6 +77,21 @@
   "after": {
     "title": "After the test",
     "text": "You get your results explained and, from the lactate and VO₂max tests, your personal training zones.",
-    "offer": "Every test ends with an offer: {days} days of Plan for free, or your first month of Coaching at −{percent} %."
+    "offer": "Every test ends with an offer: {days} days of Plan for free, or your first month of Coaching at −{percent} %."
+  },
+  "curve": {
+    "x": "Speed or power",
+    "y": "Lactate"
+  },
+  "faq": {
+    "title": "Questions before your test"
+  },
+  "proof": {
+    "by": "Tests run by Jaka Marinko"
+  },
+  "close": {
+    "title": "Your zones are one test away.",
+    "text": "Pick a time online in a minute.",
+    "button": "Book a lactate test"
   }
 }

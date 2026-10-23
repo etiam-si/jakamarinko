@@ -4,11 +4,12 @@
     "description": "Lab tests (VO₂max, lactate profile) and coaching for runners, cyclists and skiers. Train on data, not guesswork."
   },
   "hero": {
-    "title": "Train on data, not guesswork.",
-    "subtitle": "Lab tests and coaching for runners, cyclists and skiers.",
-    "primaryCta": "Book a test",
-    "secondaryCta": "See coaching",
-    "note": "Lab tests from {price} €, VAT included."
+    "title": "Stop guessing. Train in your own zones.",
+    "subtitle": "Lab tests and coaching for runners, cyclists and skiers, starting with a {price} € lactate profile.",
+    "primaryCta": "Book a lactate test",
+    "secondaryCta": "See all tests",
+    "note": "Lactate profile {price} €, VAT included. Free cancellation up to 24 hours before.",
+    "bib": "VO₂max"
   },
   "proof": {
     "title": "Proven at the top junior level",
@@ -57,22 +58,43 @@
       "title": "Lab tests",
       "text": "VO₂max, lactate profile, fat and carbohydrate use and more.",
       "cta": "Compare tests",
-      "price": "from {price} €"
+      "price": "from {price} €",
+      "featured": "Best first test: lactate profile, {price} €",
+      "performance": "Performance package {price} € ({separate} € if booked separately)"
     },
     "coaching": {
       "title": "Coaching",
       "text": "A plan built on my method and analysis of every workout. Personal coaching from me in Coaching and Elite.",
       "cta": "See packages",
-      "price": "from {price} € / month"
+      "price": "from {price} € / month"
     }
   },
   "sports": {
     "title": "Sports I coach"
   },
   "cta": {
-    "title": "Ready to know your numbers?",
-    "text": "Pick a test and a time online. Questions first? Write to me.",
-    "button": "Book a test",
+    "title": "Know your zones before your next block.",
+    "text": "Pick a time online in a minute. Free cancellation up to 24 hours before.",
+    "button": "Book a lactate test",
     "secondary": "Write to me"
+  },
+  "whatYouGet": {
+    "title": "What you get from one test",
+    "caption": "An example lactate profile: two thresholds, five zones.",
+    "thresholds": {
+      "title": "Two thresholds",
+      "text": "LT1 and LT2, with heart rate and pace or power."
+    },
+    "zones": {
+      "title": "Your zones",
+      "text": "Training zones from your own blood lactate."
+    },
+    "explained": {
+      "title": "Explained",
+      "text": "What your numbers mean for your training."
+    }
+  },
+  "faq": {
+    "title": "Before you book"
   }
 }

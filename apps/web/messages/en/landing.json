@@ -19,11 +19,64 @@
     },
     "where": {
       "question": "Where is the test?",
-      "answer": "In Slovenia. The address comes with your booking confirmation."
+      "answer": "At the lab in Spodnje Pirnice 19N, Medvode, north-west of Ljubljana. The address is also in your booking confirmation."
     },
     "raceWhen": {
       "question": "When should I start?",
       "answer": "12 to 16 weeks before your race. Closer than that? Write anyway and we'll see what fits."
+    },
+    "fit": {
+      "question": "Am I fit enough for a test?",
+      "answer": "Yes. The test starts easy and gets a little harder every few minutes, and you can stop at any time. It shows where you are today, at any level. Zones help newer athletes too: they show how easy your easy days should be."
+    },
+    "blood": {
+      "question": "Does the blood sample hurt?",
+      "answer": "Hardly. A small prick in your fingertip or earlobe, and a drop of blood after each step. Only the lactate tests need it."
+    },
+    "duration": {
+      "question": "How long does it take?",
+      "answer": "The lactate profile takes about an hour, the Performance package about two. Each test's time is shown with its price."
+    },
+    "whatYouGet": {
+      "question": "What do I get?",
+      "answer": "Your results explained and, from the lactate and VO₂max tests, your personal training zones with heart rate and pace or power for each."
+    },
+    "whatYouGetLactate": {
+      "question": "What do I get?",
+      "answer": "Your aerobic (LT1) and anaerobic (LT2) thresholds with heart rate and pace or power at each, your personal training zones, and your results explained."
+    },
+    "whatYouGetPerformance": {
+      "question": "What do I get?",
+      "answer": "VO₂max, lactate profile, fat and carbohydrate use and body composition, a personal explanation of your results and your training zones."
+    },
+    "cancel": {
+      "question": "Can I cancel or move my test?",
+      "answer": "Yes, free up to 24 hours before, with the link in your confirmation email. If you paid by card, you get the full amount back. To move it, cancel and book a new time."
+    },
+    "retest": {
+      "question": "How often should I retest?",
+      "answer": "Every 2–3 months while you train, or before a new season, so your zones keep up with your fitness. Coaching includes a lactate test every 3 months."
+    },
+    "noCoach": {
+      "question": "Can I use the results without a coach?",
+      "answer": "Yes. You get your zones and what they mean for your training, ready to use with any plan or watch."
+    },
+    "raceWhatYouGet": {
+      "question": "What's included?",
+      "answer": "A 12–16-week training block for one race, with a lab test at the start to set your zones and one at the end to measure your progress. Paid once."
+    },
+    "raceFit": {
+      "question": "Is it only for fast runners?",
+      "answer": "No. The block starts from your own test results, so it fits your level and your goal for that race."
+    },
+    "raceStart": {
+      "question": "How do I start?",
+      "answer": "Send your race date and goal. We reply within two working days and book your first test."
+    },
+    "payment": {
+      "question": "How do I pay?",
+      "answerOnline": "By card when you book, on Stripe's secure payment page. The price includes VAT.",
+      "answerOnSite": "On site, on the day. The price includes VAT."
     }
   },
   "pages": {
@@ -34,18 +87,27 @@
       },
       "hero": {
         "eyebrow": "Lactate profile",
-        "title": "Train in your zones, not a formula's.",
-        "lead": "One test gives you both thresholds and the heart rate for every zone."
+        "title": "Your training zones from a drop of blood.",
+        "lead": "Both thresholds, the heart rate for every zone and your results explained, for {price} €."
       },
       "points": {
-        "one": { "title": "Two thresholds", "text": "LT1 and LT2, with heart rate and pace or power at each." },
-        "two": { "title": "Your zones", "text": "Training zones from your own blood lactate." },
-        "three": { "title": "Explained", "text": "Your results in plain words, so you know what to do next." }
+        "one": {
+          "title": "Two thresholds",
+          "text": "LT1 and LT2, with heart rate and pace or power at each."
+        },
+        "two": {
+          "title": "Your zones",
+          "text": "Training zones from your own blood lactate."
+        },
+        "three": {
+          "title": "Explained",
+          "text": "Your results in plain words, so you know what to do next."
+        }
       },
       "cta": "Book a lactate test",
       "close": {
         "title": "Know your thresholds before your next block.",
-        "text": "Pick a time online in a minute."
+        "text": "Pick a time online in a minute. Free cancellation up to 24 hours before."
       }
     },
     "performance": {
@@ -55,18 +117,27 @@
       },
       "hero": {
         "eyebrow": "Performance package",
-        "title": "Your whole endurance profile in one visit.",
-        "lead": "VO₂max, lactate thresholds, fuel use and body composition, with your zones."
+        "title": "Four tests, one visit. {price} € instead of {separate} €.",
+        "lead": "VO₂max, lactate profile, fuel use and body composition with your zones, {separate} € if booked separately."
       },
       "points": {
-        "one": { "title": "Your engine", "text": "VO₂max and maximum heart rate." },
-        "two": { "title": "Your thresholds", "text": "LT1, LT2 and your personal training zones." },
-        "three": { "title": "Your fuel", "text": "Fat and carbohydrate use at every intensity." }
+        "one": {
+          "title": "Your engine",
+          "text": "VO₂max and maximum heart rate."
+        },
+        "two": {
+          "title": "Your thresholds",
+          "text": "LT1, LT2 and your personal training zones."
+        },
+        "three": {
+          "title": "Your fuel",
+          "text": "Fat and carbohydrate use at every intensity."
+        }
       },
       "cta": "Book the Performance package",
       "close": {
         "title": "The full picture in one visit.",
-        "text": "Book online and get the preparation by email."
+        "text": "Book online and get the preparation by email. Free cancellation up to 24 hours before."
       }
     },
     "coaching": {
@@ -76,18 +147,27 @@
       },
       "hero": {
         "eyebrow": "Coaching",
-        "title": "A plan built on your numbers.",
-        "lead": "Adapted every week, with Jaka's comments and a lactate test every 3 months."
+        "title": "Coaching with Jaka, retested every 3 months.",
+        "lead": "A plan that adapts every week, Jaka's comments on your weeks and a monthly call, for {price} € a month."
       },
       "points": {
-        "one": { "title": "A plan that adapts", "text": "Built on Jaka's method, adjusted to your training every week." },
-        "two": { "title": "Jaka's comments", "text": "Personal comments on your training weeks." },
-        "three": { "title": "Tested every 3 months", "text": "A lactate test is included, so your zones stay current." }
+        "one": {
+          "title": "A plan that adapts",
+          "text": "Built on Jaka's method, adjusted to your training every week."
+        },
+        "two": {
+          "title": "Jaka's comments",
+          "text": "Personal comments on your training weeks."
+        },
+        "three": {
+          "title": "Tested every 3 months",
+          "text": "A lactate test is included, so your zones stay current."
+        }
       },
-      "cta": "Choose Coaching",
+      "cta": "Tell me your goal",
       "close": {
         "title": "Start with your goal.",
-        "text": "Tell us what you're training for and we'll get back to you."
+        "text": "Tell us what you're training for. We reply within two working days."
       }
     },
     "race-preparation": {
@@ -97,18 +177,27 @@
       },
       "hero": {
         "eyebrow": "Race preparation",
-        "title": "12–16 weeks to your race, measured.",
-        "lead": "A training block for one race, tested at the start and at the end."
+        "title": "Pick your race. We plan back from race day.",
+        "lead": "A 12–16-week block for one race with a lab test at the start and end, {price} € paid once."
       },
       "points": {
-        "one": { "title": "One goal", "text": "A block built around a single race." },
-        "two": { "title": "Tested twice", "text": "The first test sets your zones, the second shows your progress." },
-        "three": { "title": "Paid once", "text": "No subscription." }
+        "one": {
+          "title": "One goal",
+          "text": "A block built around a single race."
+        },
+        "two": {
+          "title": "Tested twice",
+          "text": "The first test sets your zones, the second shows your progress."
+        },
+        "three": {
+          "title": "Paid once",
+          "text": "No subscription."
+        }
       },
-      "cta": "Ask about race preparation",
+      "cta": "Send your race date",
       "close": {
         "title": "Which race is next?",
-        "text": "Send us the date and we'll plan back from it."
+        "text": "Send the date. We reply within two working days and plan back from it."
       }
     }
   },

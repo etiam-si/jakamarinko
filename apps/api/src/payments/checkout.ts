@@ -1,7 +1,7 @@
 import { eq } from "drizzle-orm";
 import type Stripe from "stripe";
 import { db } from "@jakamarinko/db";
-import { bookings, serviceTypes } from "@jakamarinko/db/schema";
+import { bookings } from "@jakamarinko/db/schema";
 import { manageUrl, type BookingRow } from "../booking/bookings";
 import type { BookingConfig } from "../booking/config";
 import { serviceName } from "../booking/catalog";
@@ -46,7 +46,6 @@ export async function checkoutUrl(row: BookingRow, now: Date, config: PaymentsCo
     if (open.status === "open" && open.url) return open.url;
   }
 
-  const [service] = await db().select({ priceCents: serviceTypes.priceCents }).from(serviceTypes).where(eq(serviceTypes.id, b.serviceTypeId));
   const back = manageUrl(b, bookingCfg);
   const session = await stripe().checkout.sessions.create(
     {
@@ -61,7 +60,8 @@ export async function checkoutUrl(row: BookingRow, now: Date, config: PaymentsCo
           quantity: 1,
           price_data: {
             currency: "eur",
-            unit_amount: service!.priceCents,
+            // What this booking costs after an offer code or discount.
+            unit_amount: row.paidCents ?? row.listCents,
             tax_behavior: config.pricesIncludeVat ? "inclusive" : "exclusive",
             product_data: { name: serviceName(row.service, b.locale), description: `${when(b)}, ${row.location.name}` },
           },

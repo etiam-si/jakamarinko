@@ -5,6 +5,7 @@ import { use } from "react";
 import { type Locale, locales } from "@jakamarinko/types";
 import { LandingBlocks } from "@/components/landing/blocks";
 import { landingPage, landingPages } from "@/components/landing/pages";
+import { socialMetadata } from "@/components/site/site";
 
 type Props = { params: Promise<{ locale: string; slug: string }> };
 
@@ -19,11 +20,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale, slug } = await params;
   const t = await getTranslations({ locale, namespace: "landing.pages" });
   if (!landingPage(slug)) return {};
-  return {
-    title: t(`${slug}.meta.title`),
-    description: t(`${slug}.meta.description`),
-    robots: { index: false, follow: false },
-  };
+  const meta = { title: t(`${slug}.meta.title`), description: t(`${slug}.meta.description`) };
+  return { ...meta, ...socialMetadata(locale, `/lp/${slug}`, meta), robots: { index: false, follow: false } };
 }
 
 export default function LandingPage({ params }: Props) {

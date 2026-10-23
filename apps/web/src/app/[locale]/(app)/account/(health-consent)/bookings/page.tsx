@@ -1,3 +1,4 @@
+import { cn } from "cn";
 import { CalendarDays } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import type { AccountBooking } from "@jakamarinko/api";
@@ -5,6 +6,7 @@ import type { Locale } from "@jakamarinko/types";
 import { AddToCalendar, BookingWhenWhere, Preparation, StatusBadge } from "@/components/account/booking-details";
 import { CancelBooking } from "@/components/account/cancel-booking";
 import { getMyBookings } from "@/components/account/data";
+import { DateTile } from "@/components/account/date-tile";
 import { splitBookings } from "@/components/account/format";
 import { EmptyState } from "@/components/app-shell/empty-state";
 import { PageHeader } from "@/components/app-shell/page-header";
@@ -15,20 +17,28 @@ type Props = { params: Promise<{ locale: string }> };
 
 function BookingItem({ booking, upcoming }: { booking: AccountBooking; upcoming: boolean }) {
   return (
-    <li className="flex flex-col gap-4 rounded-xl border bg-card p-5 shadow-sm" data-booking={booking.id}>
-      <div className="flex flex-wrap items-center gap-2">
-        <h3 className="text-lg font-semibold">{booking.serviceName}</h3>
-        <StatusBadge status={booking.status} />
+    <li
+      className={cn("flex flex-col gap-4 rounded-xl border bg-card p-4 shadow-sm sm:p-5", !upcoming && "bg-card/60 shadow-none")}
+      data-booking={booking.id}
+    >
+      <div className="flex items-start gap-4">
+        <DateTile iso={booking.start} muted={!upcoming} />
+        <div className="flex min-w-0 flex-1 flex-col gap-3">
+          <div className="flex flex-wrap items-center gap-2">
+            <h3 className="text-lg font-semibold text-balance">{booking.serviceName}</h3>
+            <StatusBadge status={booking.status} />
+          </div>
+          <BookingWhenWhere booking={booking} />
+        </div>
       </div>
-      <BookingWhenWhere booking={booking} />
       {upcoming && (
-        <>
+        <div className="flex flex-col gap-4 border-t pt-4">
           <Preparation steps={booking.preparation} />
           <div className="flex flex-wrap items-center gap-2">
             <AddToCalendar id={booking.id} />
             <CancelBooking booking={booking} />
           </div>
-        </>
+        </div>
       )}
     </li>
   );
@@ -47,7 +57,7 @@ export default async function MyBookingsPage({ params }: Props) {
       <>
         <PageHeader title={t("title")} lead={t("lead")} />
         <EmptyState icon={CalendarDays} title={t("emptyTitle")} body={t("emptyBody")}>
-          <Button asChild>
+          <Button asChild className="h-11">
             <Link href="/booking">{tb("book")}</Link>
           </Button>
         </EmptyState>
@@ -61,7 +71,7 @@ export default async function MyBookingsPage({ params }: Props) {
         title={t("title")}
         lead={t("lead")}
         action={
-          <Button asChild>
+          <Button asChild className="h-11">
             <Link href="/booking">{tb("book")}</Link>
           </Button>
         }

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import type { useFormatter } from "next-intl";
 import type { Locale, ServiceId } from "@jakamarinko/types";
 import { locales } from "@jakamarinko/types";
 import { z } from "zod";
@@ -31,6 +32,17 @@ export function pageMetadata(locale: string, path: string, meta: { title: string
     title: meta.title,
     description: meta.description,
     alternates: { canonical: url(locale, path), languages: languages(path) },
+    ...socialMetadata(locale, path, meta),
+  };
+}
+
+// The page's preview image (app/og): "" is home, /legal/privacy is privacy, /lp/coaching is lp-coaching.
+export const ogKey = (path: string) => path.replace(/^\/(legal\/)?/, "").replaceAll("/", "-") || "home";
+
+// Link previews (Open Graph and X) for one page in one language, with its own 1200×630 image.
+export function socialMetadata(locale: string, path: string, meta: { title: string; description: string }): Metadata {
+  const image = { url: `${siteUrl}/og/${locale}/${ogKey(path)}.png`, width: 1200, height: 630, alt: meta.title };
+  return {
     openGraph: {
       type: "website",
       siteName: BRAND_NAME,
@@ -38,7 +50,10 @@ export function pageMetadata(locale: string, path: string, meta: { title: string
       description: meta.description,
       url: url(locale, path),
       locale: locale === "sl" ? "sl_SI" : "en_GB",
+      alternateLocale: locale === "sl" ? "en_GB" : "sl_SI",
+      images: [image],
     },
+    twitter: { card: "summary_large_image", title: meta.title, description: meta.description, images: [image] },
   };
 }
 
@@ -47,7 +62,20 @@ export const bookingHref = (service: ServiceId) => ({ pathname: "/booking", quer
 
 // Prices are whole euros; cents only appear if a price ever has them.
 export const euros = (cents: number) => cents / 100;
+// One way to write a price on every page and in both languages: "90 €", "2,290 €" / "2.290 €", with a no-break
+// space so the sign never wraps alone. Messages that put the € themselves ("{price} €") get euros() plain.
+export const euro = (format: ReturnType<typeof useFormatter>, cents: number) =>
+  `${format.number(euros(cents), { maximumFractionDigits: 2 })}\u00a0€`;
 export const eurFormat = { style: "currency", currency: "EUR", maximumFractionDigits: 2, minimumFractionDigits: 0 } as const;
+
+// The lab. The same string goes into the structured data (JSON-LD); the maps link is a plain search URL (no embedded
+// map: faster, and nothing loads from Google until someone taps it).
+export const labAddress = "Spodnje Pirnice 19N, 1215 Medvode";
+export const labMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${labAddress}, Slovenia`)}`;
+
+// Dev, e2e and screenshot builds: show the designed placeholders for photos we still need (PhotoSlot) and the sample
+// testimonials. Off in production, where every slot falls back to a real photo or the section adapts.
+export const showPlaceholders = process.env.NEXT_PUBLIC_SHOW_PLACEHOLDERS === "true";
 
 export const photos = {
   redBull: "/brand/photos/jaka-redbull-400.png",

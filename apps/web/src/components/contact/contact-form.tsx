@@ -97,7 +97,8 @@ export function ContactForm() {
 
   return (
     <form
-      className="flex flex-col gap-5 rounded-xl border bg-card p-5 shadow-sm sm:p-8"
+      id="message"
+      className="flex scroll-mt-24 flex-col gap-5 rounded-2xl border bg-card p-5 shadow-md sm:p-8"
       onSubmit={submit}
       noValidate
       aria-labelledby="contact-form-title"
@@ -142,7 +143,7 @@ export function ContactForm() {
       </div>
       <Field>
         <Label htmlFor="contact-message">{t("message")}</Label>
-        <Textarea id="contact-message" rows={6} className="min-h-36" value={values.message} onChange={set("message")} {...invalid("message")} />
+        <Textarea id="contact-message" rows={6} className="min-h-36" placeholder={t("messagePlaceholder")} value={values.message} onChange={set("message")} {...invalid("message")} />
         {error("message")}
       </Field>
       {/* Honeypot: hidden from people and screen readers, bots fill it in. */}
@@ -157,9 +158,11 @@ export function ContactForm() {
             <Label htmlFor="contact-consent" className="font-normal">
               {t("consent")}
             </Label>
-            <Link href="/legal/privacy" className="text-sm text-muted-foreground underline underline-offset-4">
-              {t("privacy")}
-            </Link>
+            <p className="text-sm">
+              <Link href="/legal/privacy" className="text-muted-foreground underline underline-offset-4">
+                {t("privacy")}
+              </Link>
+            </p>
           </div>
         </div>
         {error("consent")}

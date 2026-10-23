@@ -14,7 +14,9 @@
     "settings": "Settings",
     "myBookings": "My bookings",
     "profile": "Profile",
-    "privacy": "Privacy"
+    "privacy": "Privacy",
+    "overview": "Overview",
+    "website": "Back to the website"
   },
   "userMenu": {
     "label": "Account menu",

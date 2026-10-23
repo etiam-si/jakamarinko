@@ -4,11 +4,12 @@
     "description": "Laboratorijske meritve (VO₂max, laktatni profil) in trenerstvo za tekače, kolesarje in smučarje. Treniraj na podlagi podatkov, ne ugibanja."
   },
   "hero": {
-    "title": "Treniraj na podlagi podatkov, ne ugibanja.",
-    "subtitle": "Laboratorijske meritve in trenerstvo za tekače, kolesarje in smučarje.",
-    "primaryCta": "Rezerviraj meritev",
-    "secondaryCta": "Poglej trenerstvo",
-    "note": "Meritve od {price} €, z DDV."
+    "title": "Dovolj ugibanja. Treniraj v svojih conah.",
+    "subtitle": "Meritve in trenerstvo za tekače, kolesarje in smučarje, za začetek laktatni profil za {price} €.",
+    "primaryCta": "Rezerviraj laktatni test",
+    "secondaryCta": "Vse meritve",
+    "note": "Laktatni profil {price} €, z DDV. Brezplačna odpoved do 24 ur prej.",
+    "bib": "VO₂max"
   },
   "proof": {
     "title": "Preverjeno na najvišji mladinski ravni",
@@ -57,22 +58,43 @@
       "title": "Laboratorijske meritve",
       "text": "VO₂max, laktatni profil, poraba maščob in ogljikovih hidratov in več.",
       "cta": "Primerjaj meritve",
-      "price": "od {price} €"
+      "price": "od {price} €",
+      "featured": "Najboljša prva meritev: laktatni profil, {price} €",
+      "performance": "Performance paket {price} € (posamično {separate} €)"
     },
     "coaching": {
       "title": "Trenerstvo",
       "text": "Načrt po moji metodi in analiza vsakega treninga. Osebno trenerstvo v paketih Coaching in Elite.",
       "cta": "Poglej pakete",
-      "price": "od {price} € / mesec"
+      "price": "od {price} € / mesec"
     }
   },
   "sports": {
     "title": "Discipline, v katerih pripravljam športnike"
   },
   "cta": {
-    "title": "Želiš spoznati svoje številke?",
-    "text": "Izberi meritev in termin na spletu. Imaš vprašanje? Piši mi.",
-    "button": "Rezerviraj meritev",
+    "title": "Spoznaj svoje cone pred naslednjim blokom.",
+    "text": "Termin izbereš na spletu v minuti. Brezplačna odpoved do 24 ur prej.",
+    "button": "Rezerviraj laktatni test",
     "secondary": "Piši mi"
+  },
+  "whatYouGet": {
+    "title": "Kaj dobiš z eno meritvijo",
+    "caption": "Primer laktatnega profila: dva pragova, pet con.",
+    "thresholds": {
+      "title": "Dva pragova",
+      "text": "LT1 in LT2, s srčnim utripom in tempom ali močjo."
+    },
+    "zones": {
+      "title": "Tvoje cone",
+      "text": "Trening cone iz tvojega laktata v krvi."
+    },
+    "explained": {
+      "title": "Z razlago",
+      "text": "Kaj tvoje številke pomenijo za trening."
+    }
+  },
+  "faq": {
+    "title": "Pred rezervacijo"
   }
 }

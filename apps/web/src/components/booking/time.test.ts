@@ -1,5 +1,5 @@
 import { expect, test } from "vitest";
-import { addDays, formatDate, formatTime, formatWhen, localDay, slotsByDay } from "./time";
+import { addDays, dayParts, formatDate, formatTime, formatWhen, localDay, slotsByDay } from "./time";
 
 // 2026-10-25 03:00 CEST becomes 02:00 CET: the same wall time is a different UTC hour on each side.
 test("16:00 in Ljubljana stays 16:00 across the October DST change", () => {
@@ -36,4 +36,9 @@ test("slots grouped by day, sorted, one per start time", () => {
     { start: "2026-10-26T15:00:00Z", coachId: "a" },
     { start: "2026-10-26T16:00:00Z", coachId: "a" },
   ]);
+});
+
+test("a day tile's two lines", () => {
+  expect(dayParts("2026-10-26", "en")).toEqual({ weekday: "Mon", date: "26 Oct" });
+  expect(dayParts("2026-10-26", "sl")).toEqual({ weekday: "pon.", date: "26. okt." });
 });

@@ -27,4 +27,13 @@ export const samples: { [N in TemplateName]: TemplateProps<N> } = {
   },
   contactAutoReply: { name: "Ana" },
   accountDelete: { url: "https://jakamarinko.com/en/account/privacy/delete?token=sample", expiresInMinutes: 60 },
+  offerFreeTest: {
+    name: "Ana",
+    code: "JM-7KQ4-XPT9",
+    serviceName: "Lactate profile",
+    bookUrl: "https://jakamarinko.com/en/booking?service=lactate-profile&code=JM-7KQ4-XPT9",
+    expiresAt: new Date("2027-04-30T22:00:00Z"),
+  },
+  referralCredit: { name: "Bor", code: "CR-7KQ4-XPT9", amountCents: 1000, bookUrl: "https://jakamarinko.com/en/booking" },
+  giftVoucher: { code: "GIFT-7KQ4-XPT9", value: "90 €", voucherUrl: "https://jakamarinko.com/en/gift/GIFT-7KQ4-XPT9" },
 };

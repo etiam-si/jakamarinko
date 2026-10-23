@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Suspense } from "react";
 import { Service } from "@jakamarinko/api";
-import { locales, type Locale } from "@jakamarinko/types";
+import { labTests, locales, type Locale } from "@jakamarinko/types";
 import { SectionHeading } from "@/components/brand/section-heading";
 import { BookingFlow } from "@/components/booking/booking-flow";
 import { Unavailable } from "@/components/booking/unavailable";
@@ -36,15 +36,17 @@ export default async function BookingPage({ params }: Props) {
   const t = await getTranslations("booking");
   const [list, session] = await Promise.all([services(locale), getSession().catch(() => null)]);
   const prefill = session && { name: session.user.name, email: session.user.email };
+  const preparation = Object.fromEntries(labTests.map((l) => [l.id, l.preparation[locale]]));
 
   return (
-    <main>
-      <Section className="flex max-w-3xl flex-col gap-6 pt-8 md:gap-8 md:pt-14">
-        <SectionHeading as="h1" title={t("title")} />
+    <main className="overflow-x-clip">
+      <Section className="flex max-w-3xl flex-col gap-8 pt-6 pb-12 md:gap-10 md:pt-12 md:pb-20">
+        <SectionHeading as="h1" title={t("heading")} lead={t("lead")} />
         {list?.length ? (
-          <div className="rounded-2xl border bg-card p-4 shadow-sm sm:p-8">
-            <Suspense>
-              <BookingFlow services={list} prefill={prefill} />
+          // A card from sm up; on phones the steps sit straight on the page, on its gutters.
+          <div className="sm:rounded-2xl sm:border sm:bg-card sm:p-8 sm:shadow-sm">
+            <Suspense fallback={<div className="min-h-[34rem]" />}>
+              <BookingFlow services={list} prefill={prefill} preparation={preparation} />
             </Suspense>
           </div>
         ) : (

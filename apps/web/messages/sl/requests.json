@@ -33,7 +33,8 @@
       "title": "Hvala, sporočilo je poslano",
       "body": "Po e-pošti dobiš potrditev, odgovor pa v dveh delovnih dneh.",
       "again": "Pošlji novo sporočilo"
-    }
+    },
+    "messagePlaceholder": "Tvoj cilj, datum tekme in koliko ur na teden lahko treniraš."
   },
   "inbox": {
     "title": "Povpraševanja",

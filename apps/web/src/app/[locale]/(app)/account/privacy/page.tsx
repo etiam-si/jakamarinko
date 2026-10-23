@@ -34,7 +34,7 @@ export default async function PrivacyPage() {
       </Part>
       <Part id="export" title={tp("export.title")} lead={tp("export.body")}>
         <div>
-          <Button variant="outline" asChild>
+          <Button variant="outline" asChild className="h-11">
             <a href="/api/account/export" download>
               <Download aria-hidden />
               {tp("export.button")}
