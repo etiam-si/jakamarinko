@@ -51,7 +51,7 @@ function Hero({ page, locale }: Props) {
       reveal={false}
       className="grid items-center gap-12 pt-8 pb-16 md:pt-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,24rem)] lg:gap-16 lg:pt-16"
     >
-      <div className="flex flex-col gap-8">
+      <div className="hero-screen flex flex-col gap-8">
         <SectionHeading as="h1" eyebrow={t("hero.eyebrow")} title={t("hero.title", values)} lead={t("hero.lead", values)} />
         <div className="flex flex-col gap-4">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-5">

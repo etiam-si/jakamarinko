@@ -60,7 +60,7 @@ export default function About({ params }: Props) {
         reveal={false}
         className="grid items-center gap-12 pt-8 pb-16 md:pt-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,26rem)] lg:gap-16 lg:pt-20 lg:pb-24"
       >
-        <div className="flex flex-col gap-8">
+        <div className="hero-screen flex flex-col gap-8">
           <SectionHeading as="h1" eyebrow={common("brand.name")} title={t("title")} lead={t("intro")} />
           <div className="flex flex-col gap-3 sm:flex-row">
             {bookLactate("default", true)}
