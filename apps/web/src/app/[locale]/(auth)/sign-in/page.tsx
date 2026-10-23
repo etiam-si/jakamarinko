@@ -1,4 +1,4 @@
-import { getTranslations, setRequestLocale } from "next-intl/server";
+import { setRequestLocale } from "next-intl/server";
 import { AuthProviders } from "@jakamarinko/api";
 import type { Locale } from "@jakamarinko/types";
 import { SignInForm } from "@/components/auth/sign-in-form";
@@ -21,19 +21,12 @@ export default async function SignInPage({ params, searchParams }: Props) {
   if (await getSession()) redirect({ href: { pathname: "/sign-in/continue", query: next ? { next } : {} }, locale });
 
   const providers = AuthProviders.parse(await (await api.auth.providers.$get()).json());
-  const t = await getTranslations("auth.signIn");
 
   return (
-    <>
-      <div className="flex flex-col gap-1.5">
-        <h1 className="font-heading text-2xl font-bold tracking-tight font-stretch-expanded">{t("title")}</h1>
-        <p className="text-sm text-muted-foreground">{t("intro")}</p>
-      </div>
-      <SignInForm
-        google={providers.google}
-        next={safeNext(next)}
-        error={error ? (linkErrors.has(error) ? "linkExpired" : "generic") : undefined}
-      />
-    </>
+    <SignInForm
+      google={providers.google}
+      next={safeNext(next)}
+      error={error ? (linkErrors.has(error) ? "linkExpired" : "generic") : undefined}
+    />
   );
 }

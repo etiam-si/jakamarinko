@@ -1,27 +1,97 @@
 "use client";
 
+import { cn } from "cn";
 import { ArrowRight } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { type ComponentProps, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Link, usePathname } from "@/i18n/navigation";
 
-// Pages where a "Book a test" bar would be in the way: the booking flow itself, legal texts, ad landing pages.
-const hiddenOn = ["/booking", "/legal", "/lp", "/styleguide"];
+// Pages where the bar would be in the way: the booking flow itself, the contact form, legal texts, a gift voucher or a
+// referral link (the bar's plain booking link would drop the code), and the ad landing pages (they have their own).
+// A page can also opt out with [data-no-sticky] anywhere in it (the 404).
+const hiddenOn = ["/booking", "/contact", "/legal", "/lp", "/gift", "/r", "/styleguide"];
+const typing = "input, textarea, select, [contenteditable]";
 
-// Phones only: "Book a test" pinned to the bottom of the public pages, where the thumb is. The spacer keeps the
-// footer from ending up under it. `from` is the cheapest test, formatted by the server.
-export function StickyBook({ from }: { from: string }) {
+// Phones only: the page's action pinned to the bottom, where the thumb is. It slides in once the hero's primary
+// call to action ([data-cta="primary"]) has scrolled away, so the two never show at once, steps aside while someone
+// types in a form, and slides away again when the footer comes into view, so it never sits over it. `from` is the
+// price line, formatted by the server; `href` and `label` default to "Book a test" → /booking.
+export function StickyBook({
+  from,
+  href,
+  label,
+  always = false,
+}: {
+  from: string;
+  href?: ComponentProps<typeof Link>["href"];
+  label?: string;
+  // On every page, including the ones in hiddenOn (the ad landing pages render their own).
+  always?: boolean;
+}) {
   const t = useTranslations("common.actions");
   const pathname = usePathname();
-  if (hiddenOn.some((p) => pathname === p || pathname.startsWith(`${p}/`))) return null;
+  const [pastHero, setPastHero] = useState(false);
+  const [typingNow, setTypingNow] = useState(false);
+  const [atFooter, setAtFooter] = useState(false);
+  const [optedOut, setOptedOut] = useState(false);
+  const hidden = !always && hiddenOn.some((p) => pathname === p || pathname.startsWith(`${p}/`));
+
+  useEffect(() => {
+    if (hidden) return;
+    setOptedOut(!!document.querySelector("[data-no-sticky]"));
+    // The page footer, not a <footer> inside an article (a quote card).
+    const footer = document.querySelector("footer:not(main footer)");
+    if (!footer) return;
+    const observer = new IntersectionObserver(([entry]) => setAtFooter(!!entry?.isIntersecting));
+    observer.observe(footer);
+    return () => observer.disconnect();
+  }, [hidden, pathname]);
+
+  useEffect(() => {
+    if (hidden) return;
+    const hero = document.querySelector('main [data-cta="primary"]');
+    if (!hero) {
+      setPastHero(true);
+      return;
+    }
+    setPastHero(false);
+    // Shown once the hero's button is out of view above (not while it's still below, on a short screen).
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry) setPastHero(!entry.isIntersecting && entry.boundingClientRect.top < 0);
+    });
+    observer.observe(hero);
+    return () => observer.disconnect();
+  }, [hidden, pathname]);
+
+  useEffect(() => {
+    const onFocus = (event: FocusEvent) => setTypingNow(event.target instanceof Element && event.target.matches(typing));
+    const onBlur = () => setTypingNow(false);
+    document.addEventListener("focusin", onFocus);
+    document.addEventListener("focusout", onBlur);
+    return () => {
+      document.removeEventListener("focusin", onFocus);
+      document.removeEventListener("focusout", onBlur);
+    };
+  }, []);
+
+  if (hidden || optedOut) return null;
+  const shown = pastHero && !typingNow && !atFooter;
   return (
     <>
-      <div aria-hidden className="h-20 md:hidden" />
-      <div className="fixed inset-x-0 bottom-0 z-30 flex items-center gap-3 border-t bg-background/95 px-4 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] shadow-[0_-4px_12px_-4px_rgb(18_26_24/0.08)] backdrop-blur md:hidden">
-        <p className="min-w-0 flex-1 text-sm leading-tight text-muted-foreground">{from}</p>
-        <Button asChild size="lg" className="px-5">
-          <Link href="/booking">
-            {t("bookTest")}
+      <div
+        data-sticky-cta
+        data-shown={shown}
+        inert={!shown}
+        className={cn(
+          "fixed inset-x-0 bottom-0 z-30 flex items-center gap-3 border-t border-border/80 bg-background/85 px-4 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] shadow-[0_-8px_24px_-12px_rgb(18_26_24/0.18)] backdrop-blur-lg backdrop-saturate-150 transition-[translate,opacity] duration-(--duration-slow) ease-(--ease-out-expo) md:hidden",
+          !shown && "pointer-events-none translate-y-full opacity-0",
+        )}
+      >
+        <p className="min-w-0 flex-1 text-sm leading-tight font-medium text-pretty text-muted-foreground">{from}</p>
+        <Button asChild size="lg" className="px-5" data-cta="sticky">
+          <Link href={href ?? "/booking"}>
+            {label ?? t("bookTest")}
             <ArrowRight aria-hidden />
           </Link>
         </Button>

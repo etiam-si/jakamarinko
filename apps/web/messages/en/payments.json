@@ -4,7 +4,7 @@
     "payOnSite": "You pay on site, on the day.",
     "vatIncluded": "The price includes VAT.",
     "vatExcluded": "VAT is added to the price.",
-    "pay": "Continue to payment",
+    "pay": "Pay {price} and confirm",
     "paying": "Opening payment…"
   },
   "pending": {

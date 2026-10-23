@@ -18,7 +18,7 @@ export default async function ProfileBlock() {
       title={t("title")}
       state={{ kind: "ready" }}
       action={
-        <Link href="/account/profile" className="text-sm underline underline-offset-4">
+        <Link href="/account/profile" className="-my-3 inline-flex min-h-11 items-center text-sm font-medium text-primary underline-offset-4 hover:underline">
           {t("edit")}
         </Link>
       }

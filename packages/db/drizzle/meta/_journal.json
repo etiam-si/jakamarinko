@@ -36,6 +36,13 @@
       "when": 1792684020836,
       "tag": "0004_yellow_ezekiel",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1792705259700,
+      "tag": "0005_fantastic_omega_sentinel",
+      "breakpoints": true
     }
   ]
 }

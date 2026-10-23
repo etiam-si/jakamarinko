@@ -4,10 +4,10 @@
     "description": "Individual and online coaching for running, cycling, cross-country skiing and ski mountaineering, built on your lab results and training data."
   },
   "hero": {
-    "title": "Training built around you.",
-    "subtitle": "A plan built on your numbers, adapted to your training every week.",
-    "primaryCta": "See packages",
-    "secondaryCta": "Start with a lab test"
+    "title": "Your plan, built on your numbers, adjusted every week.",
+    "subtitle": "Three packages from 25 € a month, and Coaching adds Jaka's comments and a lab test every 3 months.",
+    "primaryCta": "Tell me your goal",
+    "secondaryCta": "Start with a lactate test"
   },
   "services": {
     "title": "What coaching covers",
@@ -47,7 +47,8 @@
   },
   "packages": {
     "title": "Packages",
-    "subtitle": "Three levels of support. Pick the one that fits your goal."
+    "subtitle": "Three levels of support. Pick the one that fits your goal.",
+    "includedTest": "Includes a lactate test every 3 months ({price} € each)"
   },
   "faq": {
     "title": "Questions",
@@ -70,11 +71,52 @@
     "messages": {
       "question": "Who answers my messages?",
       "answer": "Your coach. Messages are always answered by a person: within 72 hours on Plan, 48 hours on Coaching and 24 hours on Elite."
+    },
+    "whoWrites": {
+      "question": "Is my plan written by Jaka?",
+      "answer": "Your plan is built on Jaka's method and adjusts to your training every week. On Coaching, Jaka also comments on your weeks and you talk every month; on Elite, every two weeks, with sessions in person. Messages are always answered by a person."
+    },
+    "coachingFit": {
+      "question": "Is coaching only for competitors?",
+      "answer": "No. Plan and Coaching are for anyone with a goal, from a first half marathon to a season of races. Elite is for competitors."
+    },
+    "coachingTime": {
+      "question": "How many hours a week do I need?",
+      "answer": "As many as you have. Your plan is built on the days and hours you can train, and adapts when a week changes."
+    },
+    "coachingStart": {
+      "question": "How do I start?",
+      "answer": "Send your goal and race date. We reply within two working days with the package that fits and, if you haven't been tested yet, a lactate test to set your zones."
     }
   },
   "cta": {
     "title": "Not sure which package fits?",
     "text": "Write to me with your goal and I'll suggest where to start.",
-    "button": "Get in touch"
+    "button": "Tell me your goal"
+  },
+  "whoDoesWhat": {
+    "title": "Who does what",
+    "plan": "Your plan is built on Jaka's method and adapts to your training every week.",
+    "coach": "On Coaching and Elite, Jaka comments on your weeks and you talk regularly.",
+    "messages": "Messages are always answered by a person."
+  },
+  "howItWorks": {
+    "title": "How coaching works",
+    "test": {
+      "title": "Test",
+      "text": "A lactate test sets your zones."
+    },
+    "plan": {
+      "title": "Plan",
+      "text": "Your plan is built on your zones, goal and time."
+    },
+    "analysis": {
+      "title": "Every workout",
+      "text": "Each workout you upload is analysed against the plan."
+    },
+    "retest": {
+      "title": "Retest",
+      "text": "A retest shows what changed, and the zones move with you."
+    }
   }
 }

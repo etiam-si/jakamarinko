@@ -1,0 +1,16 @@
+{
+  "notFound": {
+    "meta": "Page not found",
+    "number": "404",
+    "title": "This page took a wrong turn",
+    "text": "The link may be old, or the page has moved. The race is still on: pick up from one of these.",
+    "linksLabel": "Popular pages"
+  },
+  "error": {
+    "number": "DNF",
+    "title": "Something went wrong on our side",
+    "text": "Give it another go in a moment. If it keeps happening, get in touch and we'll sort it out.",
+    "retry": "Try again",
+    "home": "Back to home"
+  }
+}

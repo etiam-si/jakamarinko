@@ -18,7 +18,7 @@ export function NavList({ area, role, onNavigate }: { area: Area; role: Role; on
     <nav aria-label={t("app.nav.label")}>
       <ul className="flex flex-col gap-0.5">
         {entries.map(({ href, label, icon: Icon, soon }) => {
-          const item = "flex h-10 items-center gap-3 rounded-lg px-3 text-sm";
+          const item = "flex h-11 items-center gap-3 rounded-lg px-3 text-sm";
           return (
             <li key={href}>
               {soon ? (
@@ -36,7 +36,7 @@ export function NavList({ area, role, onNavigate }: { area: Area; role: Role; on
                   aria-current={active?.href === href ? "page" : undefined}
                   className={cn(
                     item,
-                    "font-medium text-foreground/80 transition-colors hover:bg-sidebar-accent hover:text-foreground",
+                    "font-medium text-foreground/80 transition-colors outline-none hover:bg-sidebar-accent hover:text-foreground focus-visible:ring-[3px] focus-visible:ring-ring/30",
                     "aria-[current=page]:bg-sidebar-primary aria-[current=page]:text-sidebar-primary-foreground",
                   )}
                 >

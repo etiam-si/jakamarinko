@@ -12,3 +12,6 @@ next-env.d.ts
 .emails/
 test-results/
 playwright-report/
+
+# Chrome profiles that Lighthouse creates in the working directory on this machine
+/C:*

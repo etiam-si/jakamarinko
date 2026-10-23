@@ -1,0 +1,17 @@
+{
+  "language": {
+    "label": "Jezik"
+  },
+  "account": {
+    "menu": "Meni računa",
+    "signIn": "Prijava",
+    "myAccount": "Moj račun",
+    "myBookings": "Moje rezervacije",
+    "coachArea": "Trenerski del",
+    "signOut": "Odjava"
+  },
+  "menu": {
+    "account": "Tvoj račun",
+    "signInHint": "Preglej in urejaj svoje rezervacije."
+  }
+}

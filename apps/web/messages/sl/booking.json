@@ -9,7 +9,9 @@
     "service": "Storitev",
     "time": "Datum in ura",
     "details": "Tvoji podatki",
-    "review": "Pregled"
+    "review": "Pregled",
+    "progress": "Korak {current} od {total}",
+    "progressNamed": "Korak {current} od {total}: {name}"
   },
   "back": "Nazaj",
   "continue": "Naprej",
@@ -17,7 +19,22 @@
     "heading": "Kaj želiš rezervirati?",
     "minutes": "{count} min",
     "change": "Spremeni",
-    "required": "Izberi, kaj želiš rezervirati."
+    "required": "Izberi, kaj želiš rezervirati.",
+    "about": "približno {count} min",
+    "badges": {
+      "lactate-profile": "Najboljša prva meritev",
+      "performance": "Največ za tvoj denar"
+    },
+    "lines": {
+      "vo2max": "Tvoj VO₂max in maksimalni srčni utrip.",
+      "lactate-profile": "Tvoja pragova in osebne trening cone.",
+      "vo2max-lactate": "Pragova, cone in VO₂max v enem obisku.",
+      "fat-carb": "Koliko maščob in ogljikovih hidratov porabiš pri vsaki intenzivnosti.",
+      "running-economy": "Koliko kisika potrebuješ pri vsaki hitrosti teka.",
+      "anthropometry": "Višina, telesna masa in sestava telesa.",
+      "performance": "VO₂max, laktat, poraba maščob in sestava telesa, z razlago.",
+      "personal-training": "Trening ena na ena z Jako, na tem, kar želiš izboljšati."
+    }
   },
   "time": {
     "heading": "Izberi datum in uro",
@@ -28,7 +45,12 @@
     "empty": "V naslednjih dveh mesecih ni prostih terminov. Pokliči ali piši, pa ga najdemo.",
     "moreDays": "Pokaži več datumov",
     "required": "Izberi uro.",
-    "slotTaken": "Ta termin je ravnokar rezerviral nekdo drug. Izberi drugega; tvoji podatki ostanejo shranjeni."
+    "slotTaken": "Ta termin je ravnokar rezerviral nekdo drug. Izberi drugega; tvoji podatki ostanejo shranjeni.",
+    "nextFree": "Prvi prosti termin: <b>{when}</b>",
+    "cancellation": "Brezplačna odpoved do 24 ur prej.",
+    "emptyTitle": "Trenutno ni prostih terminov na spletu",
+    "call": "Pokliči {phone}",
+    "write": "Pošlji sporočilo"
   },
   "details": {
     "heading": "Tvoji podatki",
@@ -76,7 +98,8 @@
     "edit": "Uredi",
     "payOnSite": "Plačaš na kraju samem, na dan termina.",
     "confirm": "Potrdi rezervacijo",
-    "confirming": "Rezerviram …"
+    "confirming": "Rezerviram …",
+    "bring": "Kaj prinesti in kako se pripraviti"
   },
   "unavailable": {
     "title": "Rezervacija trenutno ne deluje",
@@ -94,7 +117,7 @@
     "preparation": "Kako se pripraviti",
     "account": {
       "title": "Vse rezervacije na enem mestu",
-      "text": "Z računom vidiš svoje rezervacije in po meritvi tudi rezultate. Prijaviš se s tem e-poštnim naslovom, brez gesla.",
+      "text": "Z računom vidiš svoje rezervacije in po meritvi tudi rezultate. Povezavo za prijavo pošljemo na {email}, brez gesla.",
       "action": "Ustvari račun"
     }
   },
@@ -120,5 +143,7 @@
     "tooLate": "Brezplačna odpoved je možna do 24 ur pred začetkom, zato je tukaj ni več mogoče odpovedati. Pokliči ali piši.",
     "notFound": "Te rezervacije ne najdemo. Preveri, ali si odprl celotno povezavo iz e-pošte.",
     "bookAgain": "Rezerviraj drug termin"
-  }
+  },
+  "heading": "Rezerviraj meritev",
+  "lead": "Izberi termin. Brezplačna odpoved do 24 ur prej."
 }

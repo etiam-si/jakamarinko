@@ -3,9 +3,10 @@ import { and, asc, eq, type SQL } from "drizzle-orm";
 import type { Booking, CoachBooking, CreateBookingInput, ServiceId } from "@jakamarinko/api";
 import type { SessionUser } from "@jakamarinko/auth";
 import { db } from "@jakamarinko/db";
-import { bookings, locations, serviceTypes } from "@jakamarinko/db/schema";
+import { bookings, locations, offerRedemptions, serviceTypes } from "@jakamarinko/db/schema";
 import { syncSoon } from "../calendar/push";
 import { ApiError } from "../lib/errors";
+import { claimSaving, priceBooking } from "../offers/pricing";
 import { coachSlots, lockCoach } from "./calendar";
 import type { BookingConfig } from "./config";
 import { serviceName } from "./catalog";
@@ -15,6 +16,9 @@ const columns = {
   booking: bookings,
   service: serviceTypes.catalogId,
   location: { id: locations.id, name: locations.name, address: locations.address },
+  // The price without and with a code or discount (offers); paidCents is null when nothing was taken off.
+  listCents: serviceTypes.priceCents,
+  paidCents: offerRedemptions.paidCents,
 };
 
 // Bookings with their service and location, oldest first.
@@ -24,6 +28,7 @@ export async function findBookings(where: SQL | undefined) {
     .from(bookings)
     .innerJoin(serviceTypes, eq(serviceTypes.id, bookings.serviceTypeId))
     .innerJoin(locations, eq(locations.id, bookings.locationId))
+    .leftJoin(offerRedemptions, eq(offerRedemptions.bookingId, bookings.id))
     .where(where)
     .orderBy(asc(bookings.startAt));
 }
@@ -57,6 +62,7 @@ export function customerView(row: BookingRow, now: Date, config: BookingConfig):
     phone: b.customerPhone,
     locale: b.locale,
     cancellable: cancellable(row, now, config),
+    priceCents: row.paidCents ?? row.listCents,
   };
 }
 
@@ -100,8 +106,9 @@ export async function createBooking(input: CreateBookingInput, user: SessionUser
     const slots = await coachSlots(tx, coach.id, day, day, { now, config, durationMin: service.durationMin });
     const slot = slots.find((s) => s.start.getTime() === start.getTime());
     if (!slot) throw new ApiError(409, "slot_taken", "This time is no longer free");
+    const price = await priceBooking(tx, { service: input.service, listCents: service.priceCents, email: input.email, code: input.code, now });
 
-    const confirmed = service.priceCents === 0 || !config.paymentsEnabled;
+    const confirmed = price.paidCents === 0 || !config.paymentsEnabled;
     const [row] = await tx
       .insert(bookings)
       .values({
@@ -123,6 +130,7 @@ export async function createBooking(input: CreateBookingInput, user: SessionUser
         manageToken: randomBytes(24).toString("base64url"),
       })
       .returning({ id: bookings.id });
+    await claimSaving(tx, row!.id, price);
     return row!.id;
   }).catch(scrub);
   syncSoon(id);

@@ -1,0 +1,185 @@
+{
+  "nav": "Ponudbe",
+  "code": {
+    "label": "Koda za popust ali bon",
+    "hint": "Imaš kodo? Vpiši jo tukaj.",
+    "apply": "Uporabi",
+    "applying": "Preverjam …",
+    "remove": "Odstrani",
+    "applied": "Koda {code} je upoštevana.",
+    "yourPrice": "Tvoja cena",
+    "was": "Prej",
+    "nothingToPay": "Ničesar ti ni treba plačati.",
+    "founding": "Ustanovni športnik: {percent} % popusta, za vedno.",
+    "foundingWins": "Tvoj ustanovni popust prihrani več kot ta koda, zato ostane.",
+    "errors": {
+      "code_unknown": "Te kode ne poznamo. Preveri jo in poskusi znova.",
+      "code_expired": "Ta koda je potekla.",
+      "code_used_up": "Ta koda je že porabljena.",
+      "code_not_for_service": "Ta koda ne velja za to meritev.",
+      "code_not_for_you": "Ta koda ne velja za ta e-poštni naslov.",
+      "retest_not_eligible": "Te kode tukaj ni mogoče uporabiti.",
+      "failed": "Kode trenutno ne moremo preveriti. Poskusi znova."
+    },
+    "retest": {
+      "title": "Ponovni test je za tiste, ki se vračajo",
+      "text": "Ponovni laktatni test je za športnike, ki so v zadnjih 4 mesecih (120 dneh) pri nas opravili meritev z laktatnim profilom. Za {email} je ne najdemo. Rezerviraj celoten laktatni profil; naslednji ponovni test boš nato imel po nižji ceni.",
+      "action": "Rezerviraj laktatni profil"
+    }
+  },
+  "paid": {
+    "nothingToPay": "Ničesar ti ni treba plačati.",
+    "payOnSite": "Na dan meritve plačaš {price} na kraju samem."
+  },
+  "referral": {
+    "title": "Povabi prijatelja",
+    "text": "Tvoj prijatelj dobi {amount} popusta na prvo meritev. Ko jo opravi, dobiš ti {amount} dobroimetja za naslednjo rezervacijo.",
+    "codeLabel": "Tvoja koda",
+    "link": "Tvoja osebna povezava",
+    "copy": "Kopiraj povezavo",
+    "copied": "Kopirano",
+    "share": "Deli",
+    "shareText": "Rezerviraj svojo prvo meritev v laboratoriju Jake Marinka z {amount} popusta:",
+    "credits": "Tvoje dobroimetje",
+    "credit": "{amount} dobroimetja",
+    "used": "Porabljeno",
+    "validUntil": "Velja do {date}",
+    "noCredits": "Dobroimetja še nimaš."
+  },
+  "founding": {
+    "left": "Prostih je še {left} od {places} ustanovnih mest",
+    "offer": "Ustanovni športniki imajo {percent} % popusta na vsako rezervacijo, za vedno."
+  },
+  "invite": {
+    "meta": "Povabilo",
+    "title": "Prijatelj te je povabil",
+    "text": "Rezerviraj svojo prvo meritev prek te povezave in dobi {amount} popusta. Koda je že vpisana.",
+    "book": "Rezerviraj laktatni profil",
+    "other": "Izberi drugo meritev"
+  },
+  "gift": {
+    "meta": "Darilni bon",
+    "title": "Darilni bon",
+    "for": "Za: {name}",
+    "worth": "V vrednosti {amount}",
+    "service": "Za eno meritev: {service}",
+    "codeLabel": "Koda bona",
+    "validUntil": "Velja do {date}",
+    "book": "Rezerviraj s tem bonom",
+    "print": "Natisni",
+    "used": "Ta bon je že porabljen.",
+    "howTo": "Termin izberi na spletu; koda bona se vpiše v zadnjem koraku. Velja za vse meritve in treninge v laboratoriju.",
+    "notFound": "Tega bona ne najdemo. Preveri povezavo ali nam piši.",
+    "paid": "Hvala! Bon je na poti tudi v tvoj e-poštni predal."
+  },
+  "buyGift": {
+    "meta": "Podari meritev",
+    "title": "Podari meritev",
+    "lead": "Vzdržljivostnim športnikom je težko najti darilo. Meritev v laboratoriju je darilo, ki ga bodo res uporabili: velja 12 mesecev, za katero koli meritev.",
+    "contact": "Za nakup darilnega bona piši ali pokliči Jaka, ki ti ga pripravi.",
+    "contactAction": "Stopi v stik",
+    "service": "Meritev",
+    "buyerEmail": "Tvoj e-poštni naslov",
+    "buyerHint": "Bon pošljemo sem, pripravljen za tisk ali posredovanje.",
+    "recipient": "Za koga (neobvezno)",
+    "pay": "Na plačilo",
+    "paying": "Odpiram plačilo …",
+    "failed": "Plačila trenutno ni mogoče odpreti. Poskusi znova čez trenutek."
+  },
+  "coach": {
+    "title": "Ponudbe",
+    "lead": "Brezplačne meritve, kode za popust, darilni boni in ustanovna ponudba, s tem, kako se uporabljajo.",
+    "freeTest": {
+      "title": "Podari brezplačno meritev",
+      "lead": "Po e-pošti dobi enkratno kodo za to meritev, s povezavo, ki jo vpiše.",
+      "name": "Ime",
+      "email": "E-pošta",
+      "service": "Meritev",
+      "language": "Jezik e-pošte",
+      "submit": "Pošlji brezplačno meritev",
+      "sent": "Brezplačna meritev je poslana na {email}.",
+      "failed": "Brezplačne meritve ni bilo mogoče poslati. Poskusi znova."
+    },
+    "newCode": {
+      "title": "Nova koda za popust",
+      "code": "Koda",
+      "codeHint": "Črke, številke in pomišljaji. Pusti prazno, da jo ustvarimo.",
+      "type": "Popust",
+      "types": {
+        "free": "Brezplačno (100 %)",
+        "percent": "Odstotek popusta",
+        "fixed": "Evri popusta"
+      },
+      "percent": "Odstotek popusta",
+      "euros": "Evri popusta",
+      "services": "Velja za",
+      "allServices": "Vse meritve in treninge",
+      "maxUses": "Največ uporab",
+      "maxUsesHint": "Prazno pomeni brez omejitve.",
+      "expires": "Velja do",
+      "email": "Samo za ta e-poštni naslov",
+      "note": "Interna opomba",
+      "submit": "Ustvari kodo",
+      "created": "Koda {code} je ustvarjena.",
+      "taken": "Ta koda že obstaja. Izberi drugo.",
+      "invalid": "Preveri polja: {fields}.",
+      "failed": "Kode ni bilo mogoče ustvariti. Poskusi znova."
+    },
+    "gift": {
+      "title": "Darilni bon",
+      "lead": "Bon z lastno stranjo za tisk ali posredovanje.",
+      "kind": "Vrednost",
+      "amount": "Znesek v evrih",
+      "byService": "Ena meritev",
+      "byAmount": "Znesek",
+      "recipient": "Za koga (neobvezno)",
+      "submit": "Ustvari bon",
+      "created": "Bon {code} je ustvarjen.",
+      "open": "Odpri stran bona",
+      "failed": "Bona ni bilo mogoče ustvariti. Poskusi znova."
+    },
+    "founding": {
+      "title": "Ustanovni športniki",
+      "status": "Zasedenih {taken} od {places} mest",
+      "on": "Ponudba je vklopljena: naslednje stranke z opravljeno meritvijo dobijo {percent} % popusta za vedno, stran pa kaže prosta mesta.",
+      "off": "Ponudba je izklopljena: ni novih ustanovnih športnikov in stran ne kaže števca. Tisti, ki ga imajo, ga obdržijo.",
+      "switchOff": "Izklopi ponudbo",
+      "switchOn": "Vklopi ponudbo",
+      "failed": "Ni uspelo. Poskusi znova."
+    },
+    "report": {
+      "title": "Uporaba",
+      "from": "Od",
+      "to": "Do",
+      "show": "Prikaži",
+      "uses": "Uporabe",
+      "revenue": "Plačano",
+      "discount": "Popusti",
+      "foundingRow": "Ustanovni popust",
+      "code": "Koda",
+      "kind": "Vrsta",
+      "value": "Popust",
+      "limits": "Omejitve",
+      "allUses": "{uses} od {max}",
+      "unlimited": "{uses} uporab",
+      "until": "do {date}",
+      "onlyFor": "samo {email}",
+      "inactive": "Izklopljena",
+      "switchOff": "Izklopi",
+      "switchOn": "Vklopi",
+      "empty": "Kod še ni.",
+      "note": "Uporabe, plačano in popusti štejejo rezervacije v tem obdobju, ki niso odpovedane.",
+      "kinds": {
+        "promo": "Koda",
+        "free_test": "Brezplačna meritev",
+        "referral": "Priporočilo",
+        "credit": "Dobroimetje za priporočilo",
+        "season_retest": "Sezonski ponovni test",
+        "gift": "Darilni bon"
+      },
+      "free": "Brezplačno",
+      "percentOff": "{value} % popusta",
+      "eurosOff": "{amount} popusta"
+    }
+  }
+}

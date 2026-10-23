@@ -25,7 +25,16 @@ type Query = { service?: string; start?: string; coach?: string; step?: Step };
 
 // One page, one step at a time. The step, service and slot live in the URL, so the back button walks the steps;
 // the details stay in memory only (health answers never go into a URL or the browser's storage).
-export function BookingFlow({ services, prefill }: { services: Service[]; prefill: { name: string; email: string } | null }) {
+export function BookingFlow({
+  services,
+  prefill,
+  preparation,
+}: {
+  services: Service[];
+  prefill: { name: string; email: string } | null;
+  // How to prepare, per service id. From the catalog on the server, so the page does not ship the catalog.
+  preparation: Record<string, string[]>;
+}) {
   const t = useTranslations("booking");
   const locale = useLocale() as Locale;
   const params = useSearchParams();
@@ -48,6 +57,8 @@ export function BookingFlow({ services, prefill }: { services: Service[]; prefil
   const [detailsDone, setDetailsDone] = useState(false);
   const [notice, setNotice] = useState<"slotTaken" | "unavailable" | null>(null);
   const [submitting, setSubmitting] = useState(false);
+  // An offer code (offers), from ?code= or entered at the review.
+  const [code, setCode] = useState(params.get("code") ?? "");
 
   // A step opens only when what it needs is there; a reload or an old link falls back to the first one missing.
   const requested = params.get("step");
@@ -71,6 +82,12 @@ export function BookingFlow({ services, prefill }: { services: Service[]; prefil
       startedFor.current = service.id;
       track("booking_started", { service: service.id });
     }
+  }, [step, service]);
+
+  // Where the flow loses people: each step reached goes to the anonymous visit statistics only (never to the ad
+  // tags, never anything from the form).
+  useEffect(() => {
+    if (step !== "service" && service) window.umami?.track("booking_step", { step, service: service.id });
   }, [step, service]);
 
   // Screen readers and keyboards land on the new step's heading (not on the first render: the page has its own).
@@ -98,6 +115,7 @@ export function BookingFlow({ services, prefill }: { services: Service[]; prefil
           locale,
           ...(service.kind === "lab_test" && { healthAnswers: healthAnswers(details.health), healthConsent: true }),
           utm: getAttribution() ?? undefined,
+          ...(code && { code }),
         },
       });
       const status: number = res.status;
@@ -114,11 +132,14 @@ export function BookingFlow({ services, prefill }: { services: Service[]; prefil
       // opened, the booking page offers it again.
       if (booking.status === "pending_payment") {
         const url = await checkoutUrl(booking.id, token);
-        if (url && url !== "expired") return window.location.assign(url);
+        if (url && url !== "expired") {
+          window.umami?.track("booking_step", { step: "checkout", service: service.id });
+          return window.location.assign(url);
+        }
         return router.replace({ pathname: `/booking/${booking.id}`, query: { token } });
       }
       // The event id is the one the api reports to Meta, so the two copies count once.
-      track("booking_paid", { service: service.id, value: service.priceCents / 100, currency: "EUR" }, `booking_paid-${booking.id}`);
+      track("booking_paid", { service: service.id, value: booking.priceCents / 100, currency: "EUR" }, `booking_paid-${booking.id}`);
       router.replace({ pathname: `/booking/${booking.id}`, query: { token, confirmed: "1" } });
     } catch {
       setNotice("unavailable");
@@ -128,32 +149,64 @@ export function BookingFlow({ services, prefill }: { services: Service[]; prefil
   }
 
   const index = steps.indexOf(step);
+  // Which way the step last changed, so the new one slides in from the side it comes from. Nothing moves on the
+  // first render: the page arrives still.
+  const lastIndex = useRef(index);
+  const entrance = useRef<"none" | "forward" | "back">("none");
+  if (index !== lastIndex.current) {
+    entrance.current = index > lastIndex.current ? "forward" : "back";
+    lastIndex.current = index;
+  }
+
   return (
     <div className="flex flex-col gap-8">
-      <ol aria-label={t("steps.label")} className="grid grid-cols-4 gap-2 text-xs sm:text-sm">
-        {steps.map((s, i) => (
-          <li
-            key={s}
-            aria-current={s === step ? "step" : undefined}
-            className={cn("flex flex-col gap-2", i > index && "text-muted-foreground", s === step && "font-semibold")}
-          >
-            <span aria-hidden className={cn("h-1.5 rounded-full", i <= index ? "bg-primary" : "bg-border")} />
-            <span className="flex items-center gap-1.5">
-              <span
-                className={cn(
-                  "flex size-5 shrink-0 items-center justify-center rounded-full font-mono text-[0.65rem] tabular-nums",
-                  i < index ? "bg-primary/15 text-primary" : i === index ? "bg-primary text-primary-foreground" : "bg-muted",
-                )}
-              >
-                {i + 1}
+      <div className="flex flex-col gap-3">
+        <p aria-hidden className="flex items-center justify-between gap-3 font-mono text-xs tracking-wider text-muted-foreground uppercase sm:hidden">
+          <span>{t("steps.progress", { current: index + 1, total: steps.length })}</span>
+          <span className="truncate text-foreground">{t(`steps.${step}`)}</span>
+        </p>
+        <ol aria-label={t("steps.label")} className="grid grid-cols-4 gap-1.5 sm:gap-3">
+          {steps.map((s, i) => (
+            <li
+              key={s}
+              aria-current={s === step ? "step" : undefined}
+              aria-label={s === step ? t("steps.progressNamed", { current: i + 1, total: steps.length, name: t(`steps.${s}`) }) : undefined}
+              className={cn("flex flex-col gap-2.5 text-sm", i > index && "text-muted-foreground")}
+            >
+              <span aria-hidden className="relative h-1 overflow-hidden rounded-full bg-border">
+                <span
+                  className={cn(
+                    "absolute inset-0 origin-left rounded-full bg-primary transition-transform duration-500 ease-out motion-reduce:transition-none",
+                    i <= index ? "scale-x-100" : "scale-x-0",
+                  )}
+                />
               </span>
-              <span className="leading-tight">{t(`steps.${s}`)}</span>
-            </span>
-          </li>
-        ))}
-      </ol>
+              <span className="max-sm:sr-only flex items-center gap-2">
+                <span
+                  className={cn(
+                    "flex size-6 shrink-0 items-center justify-center rounded-full font-mono text-xs tabular-nums transition-colors duration-300 motion-reduce:transition-none",
+                    i < index ? "bg-primary/15 text-primary" : i === index ? "bg-primary text-primary-foreground" : "bg-muted",
+                  )}
+                >
+                  {i + 1}
+                </span>
+                <span className={cn("leading-tight", s === step && "font-semibold")}>{t(`steps.${s}`)}</span>
+              </span>
+            </li>
+          ))}
+        </ol>
+      </div>
 
-      <section aria-labelledby="booking-step" className="flex flex-col gap-6">
+      <section
+        key={step}
+        aria-labelledby="booking-step"
+        className={cn(
+          "flex flex-col gap-6",
+          entrance.current !== "none" && "duration-300 ease-out animate-in fade-in-0 motion-reduce:animate-none",
+          entrance.current === "forward" && "slide-in-from-right-3",
+          entrance.current === "back" && "slide-in-from-left-3",
+        )}
+      >
         <h2 id="booking-step" ref={heading} tabIndex={-1} className="font-heading text-xl font-bold tracking-tight font-stretch-expanded outline-none md:text-2xl">
           {t(`${step}.heading`)}
         </h2>
@@ -195,7 +248,10 @@ export function BookingFlow({ services, prefill }: { services: Service[]; prefil
             service={service}
             slot={slot}
             details={details}
+            preparation={preparation[service.id] ?? []}
             submitting={submitting}
+            code={code}
+            onCode={setCode}
             onEdit={(target) => go(target)}
             onConfirm={confirm}
           />

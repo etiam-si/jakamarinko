@@ -43,6 +43,7 @@ Size: S ≈ hours, M ≈ a day, L ≈ several days for one agent.
 | [T13](tasks/T13-payments.md) | Stripe payments for bookings | 4 | T11 | M |
 | [T14](tasks/T14-landing-ads.md) | Ad landing pages + conversion events (Meta CAPI) | 4 | T05, T08, T13 | M |
 | [T16](tasks/T16-calendar-sync.md) | Google Calendar sync for coaches | 4 | T12 | S |
+| [T18](tasks/T18-premium-polish.md) | Premium polish: motion, mobile quality, language switch, customer sign-in (PRD with assertable criteria) | 5 | T01, T03, T08, T10, T11, T14, T15 | L |
 
 ### Waves (how many agents can run at once)
 | Wave | Tasks | Parallel agents |

@@ -1,4 +1,4 @@
-import { type LabTestId, labTests, type Locale, type OneOff, oneOffs, type PackageId, packages } from "@jakamarinko/types";
+import { type LabTestId, labTests, type Locale, type OneOff, oneOffs, type PackageId, packages, separatePrice } from "@jakamarinko/types";
 import { bookingHref, type photos } from "@/components/site/site";
 
 // What a landing page sells: one item of the catalog (packages/types), with its price and features from there.
@@ -25,29 +25,44 @@ export const landingPages: LandingPage[] = [
     slug: "lactate-test",
     offer: { kind: "test", id: "lactate-profile" },
     photo: "trail",
-    blocks: ["hero", "points", "proof", "price", "faq", "cta"],
-    faq: ["landing.faq.preparation", "landing.faq.afterwards", "coaching.faq.labTestFirst"],
+    blocks: ["hero", "proof", "points", "price", "faq", "cta"],
+    faq: [
+      "landing.faq.fit",
+      "landing.faq.whatYouGetLactate",
+      "landing.faq.duration",
+      "landing.faq.preparation",
+      "landing.faq.cancel",
+      "landing.faq.blood",
+      "landing.faq.noCoach",
+    ],
   },
   {
     slug: "performance",
     offer: { kind: "test", id: "performance" },
-    photo: "redBull",
-    blocks: ["hero", "points", "price", "proof", "faq", "cta"],
-    faq: ["landing.faq.fasted", "landing.faq.afterwards", "landing.faq.where"],
+    photo: "europeans",
+    blocks: ["hero", "price", "points", "proof", "faq", "cta"],
+    faq: [
+      "landing.faq.fit",
+      "landing.faq.whatYouGetPerformance",
+      "landing.faq.duration",
+      "landing.faq.fasted",
+      "landing.faq.cancel",
+      "landing.faq.where",
+    ],
   },
   {
     slug: "coaching",
     offer: { kind: "package", id: "coaching" },
-    photo: "skimo",
+    photo: "xcSki",
     blocks: ["hero", "points", "proof", "price", "faq", "cta"],
-    faq: ["coaching.faq.labTestFirst", "coaching.faq.devices", "coaching.faq.minimumTerm", "coaching.faq.messages"],
+    faq: ["coaching.faq.coachingFit", "coaching.faq.whoWrites", "coaching.faq.coachingTime", "coaching.faq.coachingStart", "coaching.faq.labTestFirst"],
   },
   {
     slug: "race-preparation",
     offer: { kind: "oneOff", id: "race-preparation" },
     photo: "finish",
     blocks: ["hero", "points", "price", "proof", "faq", "cta"],
-    faq: ["landing.faq.raceWhen", "coaching.faq.devices", "coaching.faq.messages"],
+    faq: ["landing.faq.raceWhen", "landing.faq.raceWhatYouGet", "landing.faq.raceFit", "landing.faq.raceStart", "coaching.faq.devices"],
   },
 ];
 
@@ -57,7 +72,14 @@ export const landingPage = (slug: string) => landingPages.find((p) => p.slug ===
 export function offerItem(offer: Offer, locale: Locale) {
   if (offer.kind === "test") {
     const test = labTests.find((t) => t.id === offer.id)!;
-    return { name: test.name[locale], priceCents: test.priceCents, features: test.included[locale], monthly: false, href: bookingHref(test.id) };
+    return {
+      name: test.name[locale],
+      priceCents: test.priceCents,
+      separateCents: separatePrice(test)?.separateCents,
+      features: test.included[locale],
+      monthly: false,
+      href: bookingHref(test.id),
+    };
   }
   const contact = { pathname: "/contact", query: { package: offer.id } } as const;
   if (offer.kind === "package") {

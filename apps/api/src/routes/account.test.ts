@@ -227,7 +227,9 @@ describe("delete", () => {
   // The token from the newest confirmation email.
   const tokenFromEmail = () => {
     const email = outbox.at(-1)!;
-    return new URL(/href="([^"]+)"/.exec(email.html)![1]!.replaceAll("&amp;", "&")).searchParams.get("token")!;
+    // The link with the token: the branded email links its logo first.
+    const href = [...email.html.matchAll(/href="([^"]+)"/g)].map((m) => m[1]!.replaceAll("&amp;", "&")).find((h) => h.includes("token="))!;
+    return new URL(href).searchParams.get("token")!;
   };
 
   async function pastBooking() {

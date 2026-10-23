@@ -74,7 +74,7 @@ test("a customer gets their account and a 404 in the coach area", async ({ page 
   await expect(heading(page)).toHaveText("My account");
   await expect(page.getByText(`Signed in as ${email}`)).toBeVisible();
   const menu = page.getByRole("navigation", { name: "Menu" });
-  await expect(menu.getByRole("link")).toHaveText(["My bookings", "Profile", "Privacy"]);
+  await expect(menu.getByRole("link")).toHaveText(["Overview", "My bookings", "Profile", "Privacy"]);
 
   await menu.getByRole("link", { name: "Privacy" }).click();
   await expect(heading(page)).toHaveText("Privacy");
