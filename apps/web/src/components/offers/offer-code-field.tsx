@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { offerRules, Quote, type Service } from "@jakamarinko/api";
 import { useFormatter, useTranslations } from "next-intl";
 import { useEffect, useId, useState } from "react";
-import { eurFormat, euros } from "@/components/site/site";
+import { euro } from "@/components/site/site";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Field, FieldError, FieldHint } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
@@ -36,7 +36,7 @@ export function OfferCodeField({
   const id = useId();
   const [draft, setDraft] = useState(code);
   const [asked, setAsked] = useState(code);
-  const eur = (cents: number) => format.number(euros(cents), eurFormat);
+  const eur = (cents: number) => euro(format, cents);
 
   const quote = useQuery({
     queryKey: ["offer-quote", service.id, email.trim().toLowerCase(), asked],

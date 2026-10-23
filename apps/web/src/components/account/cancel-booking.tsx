@@ -60,9 +60,9 @@ export function CancelBooking({ booking }: { booking: AccountBooking }) {
         {error && <FieldError role="alert">{error}</FieldError>}
         <DialogFooter>
           <DialogClose asChild>
-            <Button variant="outline" className="max-sm:h-11">{t("keep")}</Button>
+            <Button variant="outline" className="h-11">{t("keep")}</Button>
           </DialogClose>
-          <Button variant="destructive" className="max-sm:h-11" onClick={cancel} loading={pending}>
+          <Button variant="destructive" className="h-11" onClick={cancel} loading={pending}>
             {t("cancelConfirm")}
           </Button>
         </DialogFooter>

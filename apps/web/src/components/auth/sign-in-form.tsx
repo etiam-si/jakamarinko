@@ -161,9 +161,10 @@ function Sent({ email, resend, onDifferentEmail }: { email: string; resend: () =
           <h1 ref={heading} tabIndex={-1} className={cn(title, "outline-none")}>
             {t("checkTitle")}
           </h1>
-          <p className="text-pretty text-muted-foreground">
-            {t.rich("checkBody", { email, b: (chunks) => <strong className="font-semibold text-foreground wrap-anywhere">{chunks}</strong> })}
-          </p>
+          {/* The address on a line of its own, so a long one never breaks mid-sentence. */}
+          <p className="text-pretty text-muted-foreground">{t("checkTo")}</p>
+          <p className="rounded-lg border bg-card px-3 py-2 font-semibold text-foreground wrap-anywhere">{email}</p>
+          <p className="text-pretty text-muted-foreground">{t("checkHow")}</p>
         </div>
       </div>
       <p

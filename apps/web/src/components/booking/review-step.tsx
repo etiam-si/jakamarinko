@@ -1,6 +1,7 @@
 "use client";
 
 import type { Service } from "@jakamarinko/api";
+import { cn } from "cn";
 import type { Locale } from "@jakamarinko/types";
 import { Check, ShieldCheck } from "lucide-react";
 import { useFormatter, useLocale, useTranslations } from "next-intl";
@@ -53,10 +54,11 @@ export function ReviewStep({
     <div className="flex flex-col gap-6">
       <dl className="flex flex-col divide-y divide-border overflow-hidden rounded-xl border bg-card shadow-sm">
         {rows.map(([key, value, edit]) => (
-          <div key={key} className="grid grid-cols-[5.5rem_minmax(0,1fr)] items-baseline gap-3 px-4 py-3 sm:grid-cols-[7rem_minmax(0,1fr)]">
+          // Phones: the label above its value, so the value gets the whole width. From sm: side by side.
+          <div key={key} className="flex flex-col gap-0.5 px-4 py-3 sm:grid sm:grid-cols-[7rem_minmax(0,1fr)] sm:items-baseline sm:gap-3">
             <dt className="text-sm text-muted-foreground">{t(`review.${key}`)}</dt>
             <dd className="flex items-baseline justify-between gap-3">
-              <span className="min-w-0 font-medium wrap-anywhere" data-testid={`review-${key}`}>
+              <span className={cn("min-w-0 font-medium", key === "email" ? "wrap-anywhere" : "break-words")} data-testid={`review-${key}`}>
                 {value}
               </span>
               {edit && (

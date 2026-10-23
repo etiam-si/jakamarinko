@@ -2,7 +2,7 @@ import { headers } from "next/headers";
 import { getFormatter, getLocale, getTranslations } from "next-intl/server";
 import { offerRules, Referral } from "@jakamarinko/api";
 import { OverviewBlock } from "@/components/account/overview-block";
-import { eurFormat, euros } from "@/components/site/site";
+import { euro } from "@/components/site/site";
 import { redirect } from "@/i18n/navigation";
 import { api } from "@/lib/api";
 import { CopyShare } from "./copy-share";
@@ -17,7 +17,7 @@ export default async function ReferralBlock() {
   if (res.status === 401) redirect({ href: { pathname: "/sign-in", query: { next: "/account" } }, locale: await getLocale() });
   if (!res.ok) throw new Error(`GET /api/offers/referral failed: ${res.status}`);
   const referral = Referral.parse(await res.json());
-  const eur = (cents: number) => format.number(euros(cents), eurFormat);
+  const eur = (cents: number) => euro(format, cents);
   const amount = eur(offerRules.referralCents);
 
   return (
