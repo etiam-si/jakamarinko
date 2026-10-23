@@ -225,7 +225,7 @@ export default function Coaching({ params }: Props) {
               <p className="hidden shrink-0 font-heading text-2xl leading-none font-extrabold tracking-tight tabular-nums font-stretch-expanded md:block">
                 {euro(format, item.priceCents)}
               </p>
-              <Button asChild variant="outline" className="h-auto min-h-11 w-full shrink-0 py-2 whitespace-normal md:w-48" data-cta="secondary">
+              <Button asChild variant="outline" className="h-auto min-h-11 w-full shrink-0 py-2 text-center text-balance whitespace-normal md:w-52" data-cta="secondary">
                 {item.book ? (
                   <Link href={bookingHref(session.id)}>{common("actions.bookItem", { name: item.name })}</Link>
                 ) : (
