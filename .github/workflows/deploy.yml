@@ -1,7 +1,6 @@
-# check (typecheck, test, build, e2e) -> images (web, api, worker) -> deploy to t4a, see infra/README.md.
-# Pull requests into development and main run check only; pushes to main deploy.
-# Rollback: run by hand with `tag` = an older sha; that skips check and images.
-name: deploy
+# check (typecheck, test, build, e2e) -> images (web, api, worker). Nothing deploys from here: the t4a server no longer hosts this app.
+# Pull requests into development and main run check only; pushes to main also build the images.
+name: ci
 
 on:
   push:
@@ -9,10 +8,6 @@ on:
   pull_request:
     branches: [development, main]
   workflow_dispatch:
-    inputs:
-      tag:
-        description: "Deploy this existing image tag (git sha) instead of building"
-        required: false
 
 env:
   IMAGE_PREFIX: ghcr.io/etiam-si/jakamarinko
@@ -20,7 +15,6 @@ env:
 
 jobs:
   check:
-    if: ${{ !inputs.tag }}
     runs-on: ubuntu-latest
     # e2e starts the api, and /api/health needs a database.
     services:
@@ -60,7 +54,7 @@ jobs:
           retention-days: 7
 
   images:
-    if: ${{ github.event_name != 'pull_request' && !inputs.tag }}
+    if: ${{ github.event_name != 'pull_request' }}
     needs: check
     runs-on: ubuntu-latest
     strategy:
@@ -87,54 +81,3 @@ jobs:
             ${{ env.IMAGE_PREFIX }}-${{ matrix.target }}:latest
           cache-from: type=gha,scope=${{ matrix.target }}
           cache-to: type=gha,scope=${{ matrix.target }},mode=max
-
-  deploy:
-    if: ${{ github.event_name != 'pull_request' && !cancelled() && !failure() }}
-    needs: images
-    runs-on: ubuntu-latest
-    concurrency: deploy
-    permissions:
-      contents: read
-      packages: read
-    env:
-      TAG: ${{ inputs.tag || github.sha }}
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      # Two merges close together: the older run can get the deploy slot last and roll main back.
-      # So a push deploys only if it is still the newest main (a manual `tag` rollback always deploys).
-      - name: Still the newest main?
-        id: newest
-        if: ${{ !inputs.tag }}
-        run: |
-          head=$(git ls-remote origin refs/heads/main | cut -f1)
-          if [ "$head" != "$GITHUB_SHA" ]; then
-            echo "::notice::main is at $head now, skipping the deploy of $GITHUB_SHA"
-            echo "stale=true" >> "$GITHUB_OUTPUT"
-          fi
-      - name: SSH key
-        if: steps.newest.outputs.stale != 'true'
-        run: |
-          install -m 700 -d ~/.ssh
-          echo "${{ secrets.DEPLOY_SSH_KEY }}" > ~/.ssh/id_ed25519
-          echo "${{ secrets.DEPLOY_KNOWN_HOSTS }}" > ~/.ssh/known_hosts
-          chmod 600 ~/.ssh/id_ed25519
-      - name: Copy compose.yml
-        if: steps.newest.outputs.stale != 'true'
-        run: scp infra/compose.yml deploy@${{ secrets.DEPLOY_HOST }}:/srv/jakamarinko/
-      # The job's own token logs in for the pull (works while the GHCR packages are private), in a
-      # docker config of its own so the expired token never breaks other apps' pulls on the server.
-      - name: Pull and restart
-        if: steps.newest.outputs.stale != 'true'
-        run: |
-          ssh deploy@${{ secrets.DEPLOY_HOST }} "cd /srv/jakamarinko && export IMAGE_TAG=$TAG DOCKER_CONFIG=/srv/jakamarinko/.docker \
-            && echo '${{ secrets.GITHUB_TOKEN }}' | docker login ghcr.io -u '${{ github.actor }}' --password-stdin \
-            && docker compose pull && docker compose up -d --remove-orphans; rc=\$?; docker logout ghcr.io; docker image prune -af; exit \$rc"
-      - name: Wait for the site and /api/health
-        if: steps.newest.outputs.stale != 'true'
-        run: |
-          for i in $(seq 1 30); do
-            if curl -fsS --max-time 5 "$SITE_URL/api/health" && curl -fsS --max-time 5 -o /dev/null "$SITE_URL/"; then exit 0; fi
-            sleep 2
-          done
-          echo "$SITE_URL did not come up within 60 s"
-          exit 1
